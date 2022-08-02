@@ -1,6 +1,8 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;350;400;450;500;550;600;650;700;800&display=swap");
 @import "/styles/HamburgerNav.scss";
+@import "~slick-carousel/slick/slick.css";            
+@import "~slick-carousel/slick/slick-theme.css";
 html,
 body {
   padding: 0;
