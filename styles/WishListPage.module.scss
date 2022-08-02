@@ -1,0 +1,17 @@
+.container {
+    padding: 4rem 0;
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    p {
+        margin-bottom: 4rem;
+        text-align: center;
+        width: min(800px, 95%);
+        margin-inline: auto;
+    }
+}
+.productsContainer {
+    --bs-gutter-x: 2rem;
+    --bs-gutter-y: 2rem;
+}

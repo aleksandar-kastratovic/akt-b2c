@@ -1,82 +1,202 @@
 .headerTop {
-    background-color: var(--primary-black);
-    padding: 0.25rem 0;
-    &>div {
-        display:flex;
-        justify-content: space-between;
-        span, a {
-            color: var(--white);
-        }
-        a {
-            &::hover {
-                text-decoration: underline;
-            }
-        }
+  background-color: var(--primary-black);
+  padding: 0.25rem 0;
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    span,
+    a {
+      color: var(--white);
     }
+    a {
+      &::hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 .headerBottomContainer {
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    height:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 .headerBottom {
-    height:90px;
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .burgerLogoContainer {
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    width:min(330px, 100%);
-    padding: 1rem 0;
-    height:100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(330px, 100%);
+  padding: 1rem 0;
+  height: 100%;
 }
 .logoContainer {
-    display:block;
-    height:100%;
-    img {
-        height:100%;
-    }
+  display: block;
+  height: 100%;
+  img {
+    height: 100%;
+  }
 }
 .headerRight {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .headerButtonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 4rem;
+}
+.headerButton {
+  margin-inline-start: 2rem;
+  border: none;
+  background-color: transparent;
+  height: 40px;
+  padding: 0;
+  position: relative;
+  img {
+    height: 100%;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-inline-start: 4rem;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: 300;
+    height: 20px;
+    width: 20px;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    border: 2px solid var(--white);
+    background-color: var(--sec4);
+  }
 }
-.headerButton {
-    margin-inline-start: 2rem;
-    border: none;
-    background-color: transparent;
-    height: 40px;
-    padding: 0;
-    position: relative;
-    img {
-        height: 100%;
+
+.burgerDiv {
+  position: fixed;
+  overflow-y: auto;
+  width: 100%;
+  height: calc(100vh - 110px);
+  top: 110px;
+  left: 0;
+  z-index: 2;
+  background-color: var(--primary-white);
+  transition: all 0.5s ease-in-out;
+  padding: 3rem 0;
+  &>div {
+    display:flex;
+  }
+}
+.burgerDivInactive {
+  transform: translateX(-100%);
+}
+.burgerDivActive {
+  transform: translateX(0);
+}
+.burgerLeft {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  width: 20%;
+  font-weight: 500;
+  a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--primary-black);
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        color: var(--primary-white);
+        background-color: var(--primary-black);
+        transition: all 0.2s ease-in-out;
     }
-    span {
-        position: absolute;
-        top: 0;
-        right:0;
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        border-radius: 50%;
+  }
+  ul {
+    margin: 3rem 0;
+    .burgerCatActive {
+        background-color: var(--primary-black);
+        color: var(--white);
+    }
+  }
+  li {
+    padding: 0.5rem 1rem;
+    color: var(--primary-black);
+    cursor:pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        color: var(--primary-white);
+        background-color: var(--primary-black);
+        transition: all 0.2s ease-in-out;
+    }
+  }
+}
+.burgerRight {
+    padding: 0.5rem 0;
+    padding-left: 15rem;
+    width: 80%;
+}
+.categoryColumn {
+    padding: 0 0rem;
+    h6 {
+        font-size: 1.25rem;
+        font-weight: 400;
+    }
+    ul {
+        margin: 1.5rem 0;
+        width: fit-content;
+    }
+    li {
+        a {
+            color: var(--primary-black);
+        }
+        font-size: 1.125rem;
+        padding: 0.25rem 0.5rem;
         font-weight: 300;
-        height: 20px;
-        width:20px;
-        font-size: 0.75rem;
-        line-height: 0.75rem;
-        border: 2px solid var(--white);
-        background-color: var(--sec4);
+        transition: all 0.3s ease-in-out;
+        &:hover {
+        background-color: var(--sec1);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        }
     }
 }
+
+.breadcrumbs {
+    background-color: var(--lightGray);
+    ul {
+      display: flex;
+      a {
+        color: var(--primary-black);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      li {
+        font-size: 0.875rem;
+        font-weight: 300;
+        padding: 0.25rem 1.5rem;
+        &:first-child {
+          padding-left: 0;
+        }
+        position: relative;
+        &:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          top: 30%;
+          height:40%;
+          right: 0;
+          width: 1px;
+          background-color: var(--primary-black);
+          transform: rotate(30deg);
+        }
+      }
+    }
+} 

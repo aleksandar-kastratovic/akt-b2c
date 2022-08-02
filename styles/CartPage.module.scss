@@ -1,0 +1,143 @@
+.heading-container {
+  text-align: center;
+  width: min(850px, 100%);
+  margin: 3rem auto;
+}
+.left-side-form {
+  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid black;
+}
+.left-side,
+.right-side {
+  padding: 0 1.5rem;
+}
+.input-container {
+  padding: 0.25rem 0.5rem;
+  input {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid var(--lightMedGray);
+    &:focus {
+      outline: none;
+      border: 1px solid var(--lightMedGray);
+      border-bottom: 2px solid var(--mediumGray);
+      box-shadow: none;
+    }
+  }
+  label {
+    padding: 1.25rem 1.75rem;
+    color: var(--mediumGray);
+    text-transform: uppercase;
+  }
+}
+.coupon-input {
+  padding: 0.25rem 1rem;
+  input {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: 0;
+    border: 1px solid var(--darkGray);
+    &:focus {
+      outline: none;
+      border: 1px solid var(--darkGray);
+      box-shadow: none;
+    }
+  }
+  width: 70%;
+  margin-bottom: 0 !important;
+  label {
+    padding: 1.375rem 1.75rem;
+    color: var(--darkGray);
+    text-transform: uppercase;
+  }
+}
+.read-manual {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  color: var(--mediumGray);
+}
+.product-box {
+  padding: 2rem 0.5rem;
+}
+.text-area-container {
+  padding: 0.25rem 0.5rem;
+  textarea {
+    border-color: var(--lightMedGray);
+    resize: none;
+    width: 100%;
+    padding: 1rem 1rem;
+    &:focus {
+      outline: none;
+      border: 1px solid var(--lightMedGray);
+      border-bottom: 2px solid var(--mediumGray);
+      box-shadow: none;
+    }
+  }
+}
+.right-side-item-container {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  background-color: var(--lightGray);
+  padding: 1rem 1rem 2rem 1rem;
+}
+.underlined {
+  text-transform: uppercase;
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.radio-container {
+  padding-left: 1rem;
+  label {
+    padding-left: 1rem;
+  }
+}
+.coupon-button {
+  text-transform: uppercase;
+  margin-left: 1rem;
+  max-width: 400px;
+  padding: 0.5rem 2rem;
+}
+
+.value-label {
+  display: flex;
+  padding: 0.5rem 1rem;
+  max-width: 450px;
+  border-bottom: 1px solid var(--primary-white);
+  span {
+    margin-left: auto;
+  }
+  &:last-child {
+    border-bottom: unset;
+    text-transform: uppercase;
+  }
+}
+.end-button {
+  width: 100%;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 575.98px) {
+  .input-container {
+    label {
+      font-size: 0.875rem !important;
+      padding: 1.375rem 1rem;
+    }
+  }
+  .coupon-input {
+    width: 100%;
+  }
+  .coupon-button {
+    margin: unset;
+  }
+  .left-side,
+  .right-side {
+    padding: 0;
+  }
+}

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import ProductSlider from '../components/layout/ProductSlider'
+import SliderBanners from '../components/layout/SliderBanners'
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
@@ -33,6 +34,8 @@ export default function Home() {
           </button>
         </div>
       </div>
+        <ProductSlider/>
+        <SliderBanners/>
         <ProductSlider/>
     </div>
   )

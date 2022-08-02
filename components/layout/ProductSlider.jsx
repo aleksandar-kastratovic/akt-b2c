@@ -2,10 +2,10 @@ import Slider from "react-slick";
 import styles from "../../styles/ProductSlider.module.scss";
 import ProductBox from "./ProductBox";
 
-const ProductSlider = () => {
+const ProductSlider = ({title}) => {
   return (
     <div className={styles.container}>
-      <h5 className={styles.subheading}>Lorem ipsum</h5>
+      <h5 className={styles.subheading}>{title || "Lorem ipsum"}</h5>
       <Slider
         dots={false}
         arrows={true}
