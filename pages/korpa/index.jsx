@@ -1,5 +1,5 @@
 import classes from "../../styles/CartPage.module.scss";
-import ProductBox from "../../components/layout/ProductBox";
+import CartProduct from "../../components/layout/CartProduct";
 
 const CartPage = () => {
   return (
@@ -7,85 +7,14 @@ const CartPage = () => {
       <div className={classes["heading-container"] + " pad-container-1600"}>
         <h3 className={"sub-heading"}>Checkout</h3>
         <p className={"regular-text"}>
-          Discover this season`&apos;`s new dresses, tops, knits, denim and tailoring -
+          Discover this season's new dresses, tops, knits, denim and tailoring -
           all in signature Reiss style, adapted for the moment.
         </p>
       </div>
       <div className={classes["form-container"] + " row pad-container-1600"}>
         <div className={classes["left-side"] + " col-lg-6"}>
-          <div className={classes["left-side-form"]}>
-            <div className={classes["2-inputs"] + " row"}>
-              <div
-                className={
-                  classes["input-container"] + " col-6 form-floating mb-3"
-                }
-              >
-                <input
-                  type="email"
-                  className="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label htmlFor="floatingInput">Ime</label>
-              </div>
-              <div
-                className={
-                  classes["input-container"] + " col-6 form-floating mb-3"
-                }
-              >
-                <input
-                  type="email"
-                  className="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label htmlFor="floatingInput">Prezime</label>
-              </div>
-            </div>
-
-            <div className={classes["2-inputs"] + " row"}>
-              <div
-                className={
-                  classes["input-container"] + " col-6 form-floating mb-3"
-                }
-              >
-                <input
-                  type="email"
-                  className="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label htmlFor="floatingInput">Telefon</label>
-              </div>
-              <div
-                className={
-                  classes["input-container"] + " col-6 form-floating mb-3"
-                }
-              >
-                <input
-                  type="email"
-                  className="form-control"
-                  id="floatingInput"
-                  placeholder="name@example.com"
-                />
-                <label htmlFor="floatingInput">Email</label>
-              </div>
-            </div>
+            <div className={`${classes['input-row']} row`}>
             <div
-              className={
-                classes["input-container"] + " col-12 form-floating mb-3"
-              }
-            >
-              <input
-                type="email"
-                className="form-control"
-                id="floatingInput"
-                placeholder="name@example.com"
-              />
-              <label htmlFor="floatingInput">Adresa dostave</label>
-            </div>
-            <div className={classes["2-inputs"] + " row"}>
-              <div
                 className={
                   classes["input-container"] + " col-6 form-floating mb-3"
                 }
@@ -96,9 +25,9 @@ const CartPage = () => {
                   id="floatingInput"
                   placeholder="name@example.com"
                 />
-                <label htmlFor="floatingInput">Postanski broj</label>
+                <label htmlFor="floatingInput">Ime*</label>
               </div>
-              <div
+            <div
                 className={
                   classes["input-container"] + " col-6 form-floating mb-3"
                 }
@@ -109,9 +38,101 @@ const CartPage = () => {
                   id="floatingInput"
                   placeholder="name@example.com"
                 />
-                <label htmlFor="floatingInput">Grad</label>
+                <label htmlFor="floatingInput">Prezime*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-3 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Pozivni broj*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-3 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Telefon*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-6 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Email*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-6 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Adresa za dostavu*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-6 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Država*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-6 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Poštanski broj*</label>
+              </div>
+            <div
+                className={
+                  classes["input-container"] + " col-6 form-floating mb-3"
+                }
+              >
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                />
+                <label htmlFor="floatingInput">Grad*</label>
               </div>
             </div>
+        
             <div className={classes["text-area-container"]}>
               <textarea
                 className={classes["textarea"]}
@@ -119,42 +140,7 @@ const CartPage = () => {
                 placeholder="NAPOMENA"
               />
             </div>
-          </div>
-          <div className={classes["products"] + " row"}>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-            <div className={classes["product-box"] + "  col-xl-4 col-lg-6 col-md-3 col-sm-4 col-6"}>
-              <ProductBox cart={true} remove={true}/>
-            </div>
-          </div>
-        </div>
-        <div className={classes["right-side"] + " col-lg-6"}>
-          <div className={classes["right-side-item-container"]}>
+            <div className={classes["right-side-item-container"]}>
             <span className={classes["underlined"]}>
               Odaberite nacin dostave
             </span>
@@ -188,6 +174,41 @@ const CartPage = () => {
               <label htmlFor="ips">IPS skeniraj (instant plaćanje)</label>
             </div>
           </div>
+        </div>
+        <div className={classes["right-side"] + " col-lg-6"}>
+        <div className={classes["products"] + " row"}>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct/>
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct />
+            </div>
+            <div className={classes["product-box"] + "  col-12"}>
+              <CartProduct />
+            </div>
+          </div>
+          
           <div className={classes["right-side-item-container"]}>
             <span className={classes["underlined"]}>Kupon</span>
             <div className={classes["coupon-container"]}>
@@ -232,7 +253,10 @@ const CartPage = () => {
               </span>
             </div>
           </div>
-
+          <div className={classes['agree']}>
+                <input type='checkbox' id='agreement'/>
+                <label htmlFor='agreement'>Saglasan sam sa opštim uslovima korišćenja AKT shop-a</label>
+          </div>
           <button
               type="button"
               className={classes["end-button"] + " basic-button-black"}

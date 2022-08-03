@@ -8,12 +8,16 @@
   margin-bottom: 1rem;
   border-bottom: 1px solid black;
 }
+
 .left-side,
 .right-side {
   padding: 0 1.5rem;
 }
+
+.input-row {
+  --bs-gutter-x: 1rem;
+}
 .input-container {
-  padding: 0.25rem 0.5rem;
   input {
     padding: 0.5rem 1rem;
     width: 100%;
@@ -33,6 +37,7 @@
   }
 }
 .coupon-input {
+  
   padding: 0.25rem 1rem;
   input {
     padding: 0.5rem 1rem;
@@ -58,11 +63,8 @@
   font-size: 0.875rem;
   color: var(--mediumGray);
 }
-.product-box {
-  padding: 2rem 0.5rem;
-}
 .text-area-container {
-  padding: 0.25rem 0.5rem;
+  margin-bottom: 2rem;
   textarea {
     border-color: var(--lightMedGray);
     resize: none;
@@ -75,6 +77,12 @@
       box-shadow: none;
     }
   }
+}
+.products {
+  max-height: 450px;
+  overflow: auto;
+  margin-bottom: 3rem;
+  --bs-gutter-x: 1rem;
 }
 .right-side-item-container {
   min-height: 100px;
@@ -98,9 +106,12 @@
 }
 .coupon-button {
   text-transform: uppercase;
-  margin-left: 1rem;
+  margin-left:auto;
   max-width: 400px;
   padding: 0.5rem 2rem;
+  color: var(--primary-white);
+  border: none;
+  background-color: var(--primary-black);
 }
 
 .value-label {
@@ -118,11 +129,24 @@
 }
 .end-button {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0rem;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
+  color: var(--primary-white);
+  border: none;
+  background-color: var(--primary-black);
+  margin-bottom: 4rem;
 }
 
+.agree {
+  input[type=checkbox] {
+    accent-color: var(--primary-black);
+  }
+  label {
+    padding-left: 1rem;
+  }
+  margin-bottom: 1rem;
+}
 @media (max-width: 575.98px) {
   .input-container {
     label {
