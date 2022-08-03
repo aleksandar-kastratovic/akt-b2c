@@ -7,7 +7,7 @@ const CartPage = () => {
       <div className={classes["heading-container"] + " pad-container-1600"}>
         <h3 className={"sub-heading"}>Checkout</h3>
         <p className={"regular-text"}>
-          Discover this season's new dresses, tops, knits, denim and tailoring -
+          Discover this season`&apos;`s new dresses, tops, knits, denim and tailoring -
           all in signature Reiss style, adapted for the moment.
         </p>
       </div>

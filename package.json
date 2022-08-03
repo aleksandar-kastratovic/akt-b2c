@@ -1,12 +1,14 @@
 {
-  "name": "my-app",
+  "name": "akt",
+  "homepage": "https://b2c.akt.croonus.com/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "resolutions": {
     "styled-components": "^5"
@@ -20,7 +22,8 @@
     "react-slick": "^0.29.0",
     "sass": "^1.54.0",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.0.7",

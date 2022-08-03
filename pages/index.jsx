@@ -24,7 +24,7 @@ export default function Home() {
         </div>
         <div className={styles.bannerButtons}>
           <button type='button'>
-            Summer '22
+            Summer `&apos;`22
           </button>
           <button type='button'>
             New collection
