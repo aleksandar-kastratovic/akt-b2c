@@ -7,6 +7,7 @@
 .login-section {
   width: 50%;
   padding: 10%;
+  color: var(--primary-black);
 }
 
 .vertical-line {
@@ -14,4 +15,28 @@
   width: 0px;
   height: 200px;
   align-self: center;
+}
+
+.login-section-right {
+  padding-right: 5%;
+}
+
+.signup-description {
+  font-size: 0.95rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .page {
+    flex-direction: column;
+    align-items: center;
+  }
+  .login-section {
+    width: 100%;
+  }
+  .vertical-line {
+    border: 1px solid lightgray;
+    width: 60%;
+    height: 0pc;
+    align-self: center;
+  }
 }

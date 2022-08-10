@@ -7,13 +7,15 @@ const InputField = ({
   data = "",
   width = "100%",
   onPassValue = () => {},
+  className,
 }) => {
   const [value, setValue] = useState(data);
 
   return (
     <input
+      className={className}
       type={type}
-      placeholder={required ? `${placeholder}*` : placeholder}
+      placeholder={required ? `${placeholder}*:` : `${placeholder}:`}
       value={value}
       onChange={(e) => {
         setValue(e.target.value);

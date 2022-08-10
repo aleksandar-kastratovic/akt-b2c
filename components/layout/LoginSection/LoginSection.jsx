@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./LoginSection.module.scss";
 
 const LoginSection = ({
@@ -5,6 +6,7 @@ const LoginSection = ({
   subtitle = "",
   button = "",
   link = "",
+  url = "#",
   children,
   classes = "",
 }) => {
@@ -12,13 +14,21 @@ const LoginSection = ({
     <div className={classes}>
       <h2 className={styles["section-title"]}>{title}</h2>
       <p className={styles["section-subtitle"]}>{subtitle}</p>
-      <div>{children}</div>
-      {link !== "" ? <a>{link}</a> : ""}
-      {button !== "" ? (
-        <button className={styles["section-button"]}>{button}</button>
-      ) : (
-        ""
-      )}
+      <div className={styles["section-children"]}>{children}</div>
+      <div className={styles["section-bottom"]}>
+        {link !== "" ? (
+          <Link href={url}>
+            <a className={styles["section-link"]}>{link}</a>
+          </Link>
+        ) : (
+          ""
+        )}
+        {button !== "" ? (
+          <button className={styles["section-button"]}>{button}</button>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };

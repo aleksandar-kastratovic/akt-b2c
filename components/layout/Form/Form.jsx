@@ -18,6 +18,7 @@ const Form = ({ data = [] }) => {
             data={field.value}
             onPassValue={logValue}
             width={field.width}
+            className={styles["form-input"]}
           />
         );
       })}

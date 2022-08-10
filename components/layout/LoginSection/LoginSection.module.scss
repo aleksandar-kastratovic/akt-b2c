@@ -1,11 +1,14 @@
 .section-title {
   color: var(--primary-black);
   text-decoration: underline;
-  font-size: 1.5em;
+  text-decoration-color: var(--mediumGray);
+  font-size: 1.4em;
 }
 
 .section-subtitle {
   color: var(--primary-black);
+  font-size: 0.9rem;
+  font-weight: light;
 }
 
 .section-button {
@@ -13,4 +16,24 @@
   border: none;
   color: white;
   padding: 10px;
+  min-width: 150px;
+}
+
+.section-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.section-link {
+  text-decoration: underline;
+  color: var(--primary-gray);
+}
+
+.section-link:hover {
+  color: var(--primary-black) !important;
+}
+
+.section-children {
+  min-height: 120px;
 }
