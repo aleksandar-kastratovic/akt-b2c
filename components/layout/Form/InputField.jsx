@@ -1,4 +1,5 @@
 import { useState } from "react";
+import classes from "./InputFiled.module.scss";
 
 const InputField = ({
   type = "text",
@@ -13,7 +14,7 @@ const InputField = ({
 
   return (
     <input
-      className={className}
+      className={`${className} ${classes[`width-${width}`]}`}
       type={type}
       placeholder={required ? `${placeholder}*:` : `${placeholder}:`}
       value={value}
@@ -26,7 +27,6 @@ const InputField = ({
       onKeyDown={(e) => {
         if (e.key === "Enter") e.target.blur();
       }}
-      style={{ width: width }}
     ></input>
   );
 };

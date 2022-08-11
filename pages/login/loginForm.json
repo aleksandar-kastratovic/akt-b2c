@@ -12,7 +12,7 @@
       "required": true,
       "value": "",
       "name": "email",
-      "width": "100%"
+      "width": "100"
     },
     {
       "type": "password",
@@ -20,7 +20,7 @@
       "required": true,
       "value": "",
       "name": "password",
-      "width": "100%"
+      "width": "100"
     }
   ]
 }

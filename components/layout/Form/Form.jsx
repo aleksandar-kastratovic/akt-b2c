@@ -22,7 +22,6 @@ const Form = ({ data = [] }) => {
           />
         );
       })}
-      <div></div>
     </form>
   );
 };

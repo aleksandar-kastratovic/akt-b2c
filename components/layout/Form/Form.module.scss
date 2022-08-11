@@ -1,3 +1,9 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .form-link {
   color: var(--primary-black);
   text-decoration: underline;
@@ -9,5 +15,5 @@
   background-color: var(--lightGray);
   border: none;
   color: var(--primary-black);
-  margin: 5px 0px;
+  margin: 5px opx;
 }

@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 //forms
 import loginForm from "./loginForm.json";
+import forgotPasswordForm from "./forgotPasswordForm.json";
+import registerForm from "./registerForm.json";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -25,7 +27,37 @@ const LoginPage = () => {
 
   switch (page) {
     case "forgot-password":
-      modalContent = <div>Forgot</div>;
+      modalContent = (
+        <LoginSection
+          classes={{
+            section: styles["forgot-password-section"],
+            "section-bottom": styles["forgot-password-section-bottom"],
+            "section-children": styles["forgot-password-section-children"],
+          }}
+          title={forgotPasswordForm.title}
+          subtitle={forgotPasswordForm.subtitle}
+          button={forgotPasswordForm.submitButton}
+        >
+          <Form data={forgotPasswordForm.fields}></Form>
+        </LoginSection>
+      );
+      break;
+    case "register":
+      modalContent = (
+        <LoginSection
+          classes={{
+            section: styles["register-section"],
+            "section-bottom": styles["register-section-bottom"],
+            "section-children": styles["register-section-children"],
+            "section-subtitle": styles["register-section-subtitle"],
+          }}
+          title={registerForm.title}
+          subtitle={registerForm.subtitle}
+          button={registerForm.submitButton}
+        >
+          <Form data={registerForm.fields}></Form>
+        </LoginSection>
+      );
       break;
     default:
       break;
@@ -34,13 +66,12 @@ const LoginPage = () => {
   return (
     <div className={styles["page"]}>
       <LoginSection
-        classes={`${styles["login-section"]}`}
+        classes={{ section: styles["login-section"] }}
         title={loginForm.title}
         subtitle={loginForm.subtitle}
         button={loginForm.submitButton}
         link={loginForm.link}
         url={loginForm.url}
-        linkOnclick={() => {}}
       >
         <Form data={loginForm.fields}></Form>
       </LoginSection>
@@ -50,8 +81,11 @@ const LoginPage = () => {
         subtitle={
           'Klikom na dugme "napravi nalog" ulazite u proces registracije'
         }
-        classes={`${styles["login-section"]} ${styles["login-section-right"]}`}
+        classes={{
+          section: `${styles["login-section"]} ${styles["login-section-right"]}`,
+        }}
         button={"Napravi nalog"}
+        buttonurl={"?page=register"}
       >
         <p className={styles["signup-description"]}>
           Kreiranje naloga omogućava brže zaključivanje narudžbina, kreiranje

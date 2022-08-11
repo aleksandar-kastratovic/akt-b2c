@@ -10,6 +10,36 @@
   color: var(--primary-black);
 }
 
+.forgot-password-section {
+  width: min(100vw, 500px);
+  padding: 150px 15%;
+  color: var(--primary-black);
+  .forgot-password-section-bottom {
+    justify-content: flex-end;
+  }
+  .forgot-password-section-children {
+    height: auto;
+    min-height: auto;
+  }
+}
+
+.register-section {
+  width: min(100vw, 800px);
+  padding: 100px 8%;
+  color: var(--primary-black);
+  .register-section-subtitle {
+    margin-bottom: 40px;
+  }
+  .register-section-bottom {
+    margin-top: 50px;
+    justify-content: center;
+  }
+  .register-section-children {
+    height: auto;
+    min-height: auto;
+  }
+}
+
 .vertical-line {
   border: 1px solid lightgray;
   width: 0px;
