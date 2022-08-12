@@ -5,24 +5,29 @@ import ProductSlider from "../components/layout/ProductSlider";
 import SliderBanners from "../components/layout/SliderBanners";
 import styles from "../styles/Home.module.scss";
 
+//data
+import products from "../data/products.json";
 const banners = [
   {
     subtitle: "We celebrate",
     title: "New in.",
     button: "Explore more.",
-    image: "/images/banners/hp-banner-1.png",
+    image: "/images/banners/hp-banner-2.jpg",
+    subButton: "Summer '22",
   },
   {
     subtitle: "We celebrate2",
     title: "New in.2",
     button: "Explore more2",
-    image: "/images/banners/hp-banner-1.png",
+    image: "/images/banners/hp-banner-2.jpg",
+    subButton: "New collection",
   },
   {
     subtitle: "We celebrate3",
     title: "New in3",
     button: "Explore more3",
-    image: "/images/banners/hp-banner-1.png",
+    image: "/images/banners/hp-banner-2.jpg",
+    subButton: "Bedding",
   },
 ];
 
@@ -56,9 +61,7 @@ export default function Home() {
           <button
             onClick={prevBanner}
             className={`${styles.bannerControl} ${styles.bannerPrevButton}`}
-          >
-            <img src="/images/icons/next.png" />
-          </button>
+          ></button>
           <img src={banners[shownBanner].image} />
           <div className={styles.imgBannerContent}>
             <span className={styles.imgBannerContentTop}>
@@ -74,20 +77,28 @@ export default function Home() {
           <button
             onClick={nextBanner}
             className={`${styles.bannerControl} ${styles.bannerNextButton}`}
-          >
-            <img src="/images/icons/next.png" />
-          </button>
+          ></button>
         </div>
 
         <div className={styles.bannerButtons}>
-          <button type="button">Summer `&apos;`22</button>
-          <button type="button">New collection</button>
-          <button type="button">Bedding</button>
+          {banners.map((banner, index) => {
+            return (
+              <button
+                type="button"
+                key={index}
+                onClick={() => {
+                  setShownBanner(index);
+                }}
+              >
+                {banner.subButton}
+              </button>
+            );
+          })}
         </div>
       </div>
-      <ProductSlider />
+      <ProductSlider products={products} />
       <SliderBanners />
-      <ProductSlider />
+      <ProductSlider products={products} />
     </div>
   );
 }

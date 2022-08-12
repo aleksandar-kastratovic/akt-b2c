@@ -39,11 +39,18 @@ import "slick-carousel/slick/slick-theme.css";
 //   );
 // }
 
-const ProductDetailsSlider = (props) => {
+const ProductDetailsSlider = ({ images = [] }) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [numberOfImages, setNumberOfImages] = useState(5);
   const width = 1920;
+  const slides = images.map((image, index) => {
+    return (
+      <div className="slick-small-img-div" key={index}>
+        <img className="slick-small-img" alt="" src={image} />
+      </div>
+    );
+  });
   return (
     <>
       <div className="container col-12 product-details-slider-container">
@@ -62,45 +69,10 @@ const ProductDetailsSlider = (props) => {
                 arrows={width > 767.98 ? true : false}
                 // nextArrow={<Arrow type="next" />}
                 // prevArrow={<Arrow type="prev" />}
-                slidesToShow={numberOfImages > 4 ? 4 : numberOfImages}
+                slidesToShow={images.legth > 6 ? 6 : images.legth}
                 className={"vertical-slider"}
               >
-                
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={"/images/products/bedTJ.jpg"}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={"/images/products/bedTJ.jpg"}
-                />
-              </div>
+                {slides}
               </Slider>
             </div>
           </div>
@@ -119,41 +91,7 @@ const ProductDetailsSlider = (props) => {
               dots={false}
               className={"big-slick-slider"}
             >
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={'/images/products/bedTJ.jpg'}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={"/images/products/bedTJ.jpg"}
-                />
-              </div>
-              <div className="slick-small-img-div">
-                <img
-                  className="slick-small-img"
-                  alt=""
-                  src={"/images/products/bedTJ.jpg"}
-                />
-              </div>
+              {slides}
             </Slider>
           </div>
         </div>
