@@ -3,18 +3,18 @@
   position: relative;
   &::before {
     position: absolute;
-    content: '';
+    content: "";
     background-color: var(--primary-black);
-    height:1px;
+    height: 1px;
     top: 0;
     width: 300px;
     left: -300px;
   }
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     background-color: var(--primary-black);
-    height:1px;
+    height: 1px;
     bottom: 0;
     width: 300px;
     right: -300px;
@@ -24,12 +24,12 @@
   width: 100%;
   overflow: hidden;
   height: 700px;
-  position:relative;
+  position: relative;
   img {
-    width:100%;
-    transform: scale(1.075) translateY(-110px);
+    width: 100%;
   }
 }
+
 .bannerButtons {
   margin-inline-start: auto;
   width: fit-content;
@@ -39,7 +39,7 @@
     background-color: transparent;
     padding: 1.5rem 0 1rem 2.25rem;
     margin-inline-start: 2rem;
-    position:relative;
+    position: relative;
     font-size: 1.3125rem;
     font-weight: 300;
     &:hover {
@@ -52,15 +52,34 @@
       //   bottom: 0;
       //   background-color: var(--primary-black);
       text-decoration: underline;
-      
     }
   }
 }
+
+.bannerControl {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  img {
+    width: 50px;
+  }
+}
+
+.bannerNextButton {
+  left: 100%;
+  transform: translateX(-100%);
+}
+.bannerPrevButton {
+  transform: rotate(180deg);
+}
+
 .imgBannerContent {
-  position:absolute;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   bottom: 100px;
