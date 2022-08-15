@@ -5,10 +5,9 @@ import PlusMinusInput from "../../components/UI/PlusMinusInput";
 import CustomSelect3 from "../../components/UI/CustomSelect3";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+import { getProductByID } from "../../data/Products/services";
 //data
 import products from "../../data/products.json";
-import { getProductByID } from "./services";
 
 const ProductPage = () => {
   const [amount, setAmount] = useState(1);
