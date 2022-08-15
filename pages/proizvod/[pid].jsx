@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 //data
 import products from "../../data/products.json";
+import { getProductByID } from "./services";
 
 const ProductPage = () => {
   const [amount, setAmount] = useState(1);
@@ -16,11 +17,7 @@ const ProductPage = () => {
   const { pid } = router.query;
 
   useEffect(() => {
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === pid) {
-        setData(products[pid]);
-      }
-    }
+    setData(getProductByID(pid));
   }, [pid]);
 
   return (
@@ -77,7 +74,7 @@ const ProductPage = () => {
         </div>
         <ProductSlider
           title={"Možda će vas zanimati i sledeći proizvodi"}
-          products={[...products]}
+          products={products}
         />
       </>
     )

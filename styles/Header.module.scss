@@ -4,6 +4,7 @@
   & > div {
     display: flex;
     justify-content: space-between;
+
     span,
     a {
       color: var(--white);
@@ -93,8 +94,8 @@
   background-color: var(--primary-white);
   transition: all 0.5s ease-in-out;
   padding: 3rem 0;
-  &>div {
-    display:flex;
+  & > div {
+    display: flex;
   }
 }
 .burgerDivInactive {
@@ -114,89 +115,89 @@
     color: var(--primary-black);
     transition: all 0.3s ease-in-out;
     &:hover {
-        color: var(--primary-white);
-        background-color: var(--primary-black);
-        transition: all 0.2s ease-in-out;
+      color: var(--primary-white);
+      background-color: var(--primary-black);
+      transition: all 0.2s ease-in-out;
     }
   }
   ul {
     margin: 3rem 0;
     .burgerCatActive {
-        background-color: var(--primary-black);
-        color: var(--white);
+      background-color: var(--primary-black);
+      color: var(--white);
     }
   }
   li {
     padding: 0.5rem 1rem;
     color: var(--primary-black);
-    cursor:pointer;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
     &:hover {
-        color: var(--primary-white);
-        background-color: var(--primary-black);
-        transition: all 0.2s ease-in-out;
+      color: var(--primary-white);
+      background-color: var(--primary-black);
+      transition: all 0.2s ease-in-out;
     }
   }
 }
 .burgerRight {
-    padding: 0.5rem 0;
-    padding-left: 15rem;
-    width: 80%;
+  padding: 0.5rem 0;
+  padding-left: 15rem;
+  width: 80%;
 }
 .categoryColumn {
-    padding: 0 0rem;
-    h6 {
-        font-size: 1.25rem;
-        font-weight: 400;
+  padding: 0 0rem;
+  h6 {
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+  ul {
+    margin: 1.5rem 0;
+    width: fit-content;
+  }
+  li {
+    a {
+      color: var(--primary-black);
     }
-    ul {
-        margin: 1.5rem 0;
-        width: fit-content;
+    font-size: 1.125rem;
+    padding: 0.25rem 0.5rem;
+    font-weight: 300;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: var(--sec1);
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
     }
-    li {
-        a {
-            color: var(--primary-black);
-        }
-        font-size: 1.125rem;
-        padding: 0.25rem 0.5rem;
-        font-weight: 300;
-        transition: all 0.3s ease-in-out;
-        &:hover {
-        background-color: var(--sec1);
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
-        }
-    }
+  }
 }
 
 .breadcrumbs {
-    background-color: var(--lightGray);
-    ul {
-      display: flex;
-      a {
-        color: var(--primary-black);
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-      li {
-        font-size: 0.875rem;
-        font-weight: 300;
-        padding: 0.25rem 1.5rem;
-        &:first-child {
-          padding-left: 0;
-        }
-        position: relative;
-        &:not(:last-child)::after {
-          content: '';
-          position: absolute;
-          top: 30%;
-          height:40%;
-          right: 0;
-          width: 1px;
-          background-color: var(--primary-black);
-          transform: rotate(30deg);
-        }
+  background-color: var(--lightGray);
+  ul {
+    display: flex;
+    a {
+      color: var(--primary-black);
+      &:hover {
+        text-decoration: underline;
       }
     }
-} 
+    li {
+      font-size: 0.875rem;
+      font-weight: 300;
+      padding: 0.25rem 1.5rem;
+      &:first-child {
+        padding-left: 0;
+      }
+      position: relative;
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 30%;
+        height: 40%;
+        right: 0;
+        width: 1px;
+        background-color: var(--primary-black);
+        transform: rotate(30deg);
+      }
+    }
+  }
+}

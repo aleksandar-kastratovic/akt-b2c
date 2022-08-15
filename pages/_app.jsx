@@ -4,13 +4,19 @@ import MainContainer from "../components/layout/MainContainer";
 import { useRouter } from "next/router";
 import "../styles/globals.scss";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function MyApp({ Component, pageProps }) {
-  const { pathname } = useRouter();
+  //GET TO HASH ELEMENT
+  const { pathname, hash, key } = useRouter();
 
   useEffect(() => {
+    // if not a hash link, scroll to top
+
     window.scrollTo(0, 0);
-  }, [pathname]);
+
+    // else scroll to id
+  }, [pathname, hash, key]); // do this on route change
 
   return (
     <>

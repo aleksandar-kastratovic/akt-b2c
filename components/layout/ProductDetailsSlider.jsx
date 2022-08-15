@@ -44,6 +44,7 @@ const ProductDetailsSlider = ({ images = [] }) => {
   const [nav2, setNav2] = useState();
   const [numberOfImages, setNumberOfImages] = useState(5);
   const width = 1920;
+
   const slides = images.map((image, index) => {
     return (
       <div className="slick-small-img-div" key={index}>
@@ -69,7 +70,7 @@ const ProductDetailsSlider = ({ images = [] }) => {
                 arrows={width > 767.98 ? true : false}
                 // nextArrow={<Arrow type="next" />}
                 // prevArrow={<Arrow type="prev" />}
-                slidesToShow={images.legth > 6 ? 6 : images.legth}
+                slidesToShow={images.length > 6 ? 6 : images.length}
                 className={"vertical-slider"}
               >
                 {slides}
