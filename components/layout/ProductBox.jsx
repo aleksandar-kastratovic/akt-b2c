@@ -11,11 +11,9 @@ const ProductBox = ({
 }) => {
   return (
     <div className={styles.container}>
-      <Link href={`/proizvod/${id}`} scroll>
-        <a className={styles.imageContainer}>
-          <img src={img} />
-        </a>
-      </Link>
+      <a className={styles.imageContainer} href={`/proizvod/${id}`}>
+        <img src={img} />
+      </a>
       <span className={styles.name}>{title}</span>
       <span className={styles.oldPrice}>{oldPrice}</span>
       <span className={styles.newPrice}>{newPrice}</span>

@@ -12,7 +12,7 @@ const banners = [
     subtitle: "We celebrate",
     title: "New in.",
     button: "Explore more.",
-    image: "/images/banners/hp-banner-2.jpg",
+    image: "/images/banners/hp-banner-1.jpg",
     subButton: "Summer '22",
   },
   {
@@ -23,10 +23,10 @@ const banners = [
     subButton: "New collection",
   },
   {
-    subtitle: "We celebrate3",
-    title: "New in3",
+    subtitle: "",
+    title: "",
     button: "Explore more3",
-    image: "/images/banners/hp-banner-2.jpg",
+    image: "/images/banners/hp-banner-3.jpg",
     subButton: "Bedding",
   },
 ];

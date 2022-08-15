@@ -10,7 +10,7 @@ function SampleNextArrow(props) {
       style={{ display: "block" }}
       onClick={onClick}
     >
-      <img src="/images/icons/next.png" />
+      <img src="/images/icons/next2.png" />
     </div>
   );
 }
@@ -23,7 +23,7 @@ function SamplePrevArrow(props) {
       style={{ display: "block" }}
       onClick={onClick}
     >
-      <img src="/images/icons/prev.png" />
+      <img src="/images/icons/prev2.png" />
     </div>
   );
 }
@@ -41,6 +41,7 @@ const ProductSlider = ({ title = "", products = [] }) => {
         slidesToScroll={1}
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}
+        className={styles.sliderContainer}
       >
         {products.map((product) => {
           return (

@@ -2,13 +2,15 @@
   height: auto;
   top: 40%;
   z-index: 99;
-  background-color: white;
-  width: 50px;
+  background-color: rgba(white, 0.5);
+  padding: 15px 0px;
+  width: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   img {
     width: 100%;
+    height: 30px;
   }
 }
 
@@ -17,11 +19,11 @@
 }
 
 .arrows-prev {
-  left: -1em;
+  transform: translateX(250%);
 }
 
 .arrows-next {
-  right: -1em;
+  transform: translateX(-250%);
 }
 
 .arrows::before {
@@ -35,6 +37,11 @@
 .container {
   color: black;
   margin: 3rem 0;
+}
+
+.sliderContainer {
+  width: calc(100% + 2rem);
+  transform: translateX(-1rem);
 }
 
 .productBoxContainer {

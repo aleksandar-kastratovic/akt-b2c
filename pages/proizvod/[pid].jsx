@@ -19,7 +19,6 @@ const ProductPage = () => {
     for (let i = 0; i < products.length; i++) {
       if (products[i].id === pid) {
         setData(products[pid]);
-        console.log("here");
       }
     }
   }, [pid]);

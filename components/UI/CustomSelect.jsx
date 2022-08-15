@@ -24,13 +24,11 @@ const DropDownHeader = styled("div")`
   background: #ffffff;
 `;
 
-const DropDownListContainer = styled("div")`
-  
-`;
+const DropDownListContainer = styled("div")``;
 
 const DropDownList = styled("ul")`
-max-height: 200px;
-overflow-y: auto;
+  max-height: 200px;
+  overflow-y: auto;
   padding: 0;
   margin: 0;
   border: 1px solid var(--lightMedGray);
@@ -41,7 +39,7 @@ overflow-y: auto;
   background: #ffffff;
   color: var(--primary-black);
   font-weight: 400;
-  left:0;
+  left: 0;
   border: 1px solid var(--lightGray);
 `;
 
@@ -65,17 +63,17 @@ const TextSpan = styled.span`
   text-overflow: ellipsis;
   overflow: hidden;
   padding: 0 0.5rem;
-  display:block;
+  display: block;
   white-space: nowrap;
   img {
-    height:16px;
+    height: 16px;
     position: absolute;
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
     right: 1rem;
   }
-`
-const CustomSelect = ({options, def}) => {
+`;
+const CustomSelect = ({ options, def }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const toggling = () => setIsOpen(!isOpen);
@@ -83,7 +81,6 @@ const CustomSelect = ({options, def}) => {
   const onOptionClicked = (value) => () => {
     setSelectedOption(value);
     setIsOpen(false);
-    console.log(selectedOption);
   };
 
   return (
@@ -91,10 +88,9 @@ const CustomSelect = ({options, def}) => {
       <DropDownContainer>
         <DropDownHeader onClick={toggling}>
           <TextSpan>
-          {selectedOption || <span>{def}</span>}
-          <img alt='chevron-down' src={'/images/icons/chevron-down.png'}/>
+            {selectedOption || <span>{def}</span>}
+            <img alt="chevron-down" src={"/images/icons/chevron-down.png"} />
           </TextSpan>
-          
         </DropDownHeader>
         {isOpen && (
           <DropDownListContainer>
