@@ -54,5 +54,19 @@
     "sizes": ["120X40", "160X80"],
     "contains": "jorgan 80x100cm, jastučić 30x40cm, ogradicu iz tri dela (60x40cm - 2kom i 120x40cm - 1kom.), čaršaf 100x150, dekorativni jastuk 35x35.",
     "composition": "lice 100% pamuk, punilo 100% poliestar. Materijal poseduje Oeko-tex standard kojim se garantuje ekološka ispravost proizvoda."
+  },
+  {
+    "id": "4",
+    "title": "POSTELJINA KREP 1323",
+    "oldPrice": "3250 - 5000 RSD",
+    "newPrice": "3100 - 4500 RSD",
+    "image": "/images/products/pr4_1.jpg",
+    "images": ["/images/products/pr4_1.jpg"],
+    "productCode": "ABC123",
+    "available": false,
+    "colors": ["blue", "red"],
+    "sizes": ["120X40", "160X80"],
+    "contains": "jorgan 80x100cm, jastučić 30x40cm, ogradicu iz tri dela (60x40cm - 2kom i 120x40cm - 1kom.), čaršaf 100x150, dekorativni jastuk 35x35.",
+    "composition": "lice 100% pamuk, punilo 100% poliestar. Materijal poseduje Oeko-tex standard kojim se garantuje ekološka ispravost proizvoda."
   }
 ]

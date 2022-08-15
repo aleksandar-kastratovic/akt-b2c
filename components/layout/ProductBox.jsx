@@ -11,7 +11,7 @@ const ProductBox = ({
 }) => {
   return (
     <div className={styles.container}>
-      <Link href={`/proizvod/${id}`}>
+      <Link href={`/proizvod/${id}`} scroll>
         <a className={styles.imageContainer}>
           <img src={img} />
         </a>

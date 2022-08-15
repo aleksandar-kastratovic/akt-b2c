@@ -13,26 +13,20 @@ const ProductPage = () => {
   const [amount, setAmount] = useState(1);
   const [data, setData] = useState({});
   const router = useRouter();
-  const { id } = router.query;
-
-  const handleGetProduct = (productId) => {
-    for (let i = 0; i < products.length; i++) {
-      if (products[i].id === productId) {
-        setData(products[id]);
-        return;
-      }
-    }
-  };
-  console.log(id);
-  console.log(data);
+  const { pid } = router.query;
 
   useEffect(() => {
-    handleGetProduct(id);
-  }, [id]);
+    for (let i = 0; i < products.length; i++) {
+      if (products[i].id === pid) {
+        setData(products[pid]);
+        console.log("here");
+      }
+    }
+  }, [pid]);
 
   return (
     data !== undefined &&
-    id !== undefined && (
+    pid !== undefined && (
       <>
         <div className={styles.productTop + " row"}>
           <div className={styles.productTopLeft + " col-6"}>
@@ -84,7 +78,7 @@ const ProductPage = () => {
         </div>
         <ProductSlider
           title={"Možda će vas zanimati i sledeći proizvodi"}
-          products={products}
+          products={[...products]}
         />
       </>
     )

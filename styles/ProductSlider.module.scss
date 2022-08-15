@@ -1,14 +1,42 @@
+.arrows {
+  height: auto;
+  top: 40%;
+  z-index: 99;
+  background-color: white;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 100%;
+  }
+}
+
+.arrows:hover {
+  background-color: white;
+}
+
+.arrows-prev {
+  left: -1em;
+}
+
+.arrows-next {
+  right: -1em;
+}
+
+.arrows::before {
+  display: none;
+}
 
 .subheading {
-    font-weight: 400;
-
+  font-weight: 400;
 }
 
 .container {
-    color: black;
-    margin: 3rem 0;
+  color: black;
+  margin: 3rem 0;
 }
 
 .productBoxContainer {
-    padding: 1rem;
+  padding: 1rem;
 }
