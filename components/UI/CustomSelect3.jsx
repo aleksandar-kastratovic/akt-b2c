@@ -64,6 +64,8 @@ const ListItem = styled("li")`
 
 const TextSpan = styled.span`
   text-overflow: ellipsis;
+  text-align: center;
+  width: 100%;
   overflow: hidden;
   padding: 0 0.5rem;
   display: block;
@@ -90,7 +92,10 @@ const CustomSelect2 = ({ options, def }) => {
     <Main>
       <DropDownContainer>
         <DropDownHeader onClick={toggling}>
-          <TextSpan>{selectedOption || <span>{def}</span>}</TextSpan>
+          <TextSpan>
+            {selectedOption || <span>{def}</span>}
+            <img src="/images/icons/arrow-down.png" width="20px" />
+          </TextSpan>
         </DropDownHeader>
         {isOpen && (
           <DropDownListContainer>

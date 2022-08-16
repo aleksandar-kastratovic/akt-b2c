@@ -1,4 +1,3 @@
-import styles from "../../styles/ProductPage.module.scss";
 import ProductSlider from "../../components/layout/ProductSlider";
 import ProductDetailsSlider from "../../components/layout/ProductDetailsSlider";
 import PlusMinusInput from "../../components/UI/PlusMinusInput";
@@ -6,6 +5,8 @@ import CustomSelect3 from "../../components/UI/CustomSelect3";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getProductByID } from "../../data/Products/services";
+//styles
+import styles from "../../styles/ProductPage.module.scss";
 //data
 import products from "../../data/products.json";
 
