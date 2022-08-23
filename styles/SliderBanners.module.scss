@@ -1,31 +1,51 @@
 .container {
-    width: min(1200px, 95%);
-    margin: 6rem auto;
+  width: min(1200px, 95%);
+  margin: 6rem auto;
 }
 .leftSide {
-    display: flex;
-    justify-content: center;
-    background-color: var(--sec2);
-    flex-direction: column;
-    padding: 0rem 2rem 0rem 4rem;
-    h2 {
-        margin-bottom: 2rem;
-    }
-    p {
-        margin-bottom: 2rem;
-    }
-    a {
-        display: block;
-        background-color: var(--primary-black);
-        color: var(--white);
-        width: fit-content;
-        padding: 0.5rem 2rem;
-        font-weight: 500;
-    }
+  display: flex;
+  justify-content: center;
+  background-color: var(--sec2);
+  flex-direction: column;
+  padding: 0rem 2rem 0rem 4rem;
+  h2 {
+    margin-bottom: 2rem;
+  }
+  p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+  a {
+    display: block;
+    background-color: var(--primary-black);
+    color: var(--white);
+    width: fit-content;
+    padding: 0.5rem 2rem;
+    font-weight: 500;
+  }
 }
 
 .rightSide {
-    img {
-        width: 100%;
-    }
+  img {
+    width: 100%;
+  }
+}
+
+.customDots {
+  border-radius: 10px;
+  bottom: -80px;
+  ul {
+    margin: 0px;
+  }
+}
+
+.dot {
+  border: 2px solid var(--primary-black);
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+}
+
+.selectedDot {
+  background-color: var(--primary-black);
 }

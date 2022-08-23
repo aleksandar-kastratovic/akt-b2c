@@ -1,0 +1,18 @@
+.modal-shadow {
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--primary-black);
+  background-color: var(--primary-white);
+  z-index: 1000;
+}

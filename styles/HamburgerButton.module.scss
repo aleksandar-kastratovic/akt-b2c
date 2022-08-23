@@ -1,13 +1,14 @@
 .nav-icon {
-    position: absolute;
-    z-index: 4;
-    span {
-      background-color: var(--black);
-    }
+  position: absolute;
+  z-index: 4;
+  margin-top: 1rem;
+  span {
+    background-color: var(--black);
   }
+}
 
-  .nav-icon-active {
-    span {
-      background-color: var(--black);
-    }
+.nav-icon-active {
+  span {
+    background-color: var(--black);
   }
+}

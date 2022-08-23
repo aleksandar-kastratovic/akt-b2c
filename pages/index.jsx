@@ -1,42 +1,45 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import ProductSlider from '../components/layout/ProductSlider'
-import SliderBanners from '../components/layout/SliderBanners'
-import styles from '../styles/Home.module.scss'
+import Head from "next/head";
+import Image from "next/image";
+import { useState } from "react";
+import ProductSlider from "../components/layout/ProductSlider";
+import SliderBanners from "../components/layout/SliderBanners";
+import styles from "../styles/Home.module.scss";
+
+//data
+import products from "../data/products.json";
+import HomeBanner from "../components/layout/HomeBanner/HomeBanner";
+
+const banners = [
+  {
+    subtitle: "We celebrate",
+    title: "New in.",
+    button: "Explore more.",
+    image: "/images/banners/hp-banner-1.jpg",
+    subButton: "Summer '22",
+  },
+  {
+    subtitle: "We celebrate2",
+    title: "New in.2",
+    button: "Explore more2",
+    image: "/images/banners/hp-banner-2.jpg",
+    subButton: "New collection",
+  },
+  {
+    subtitle: "",
+    title: "",
+    button: "Explore more3",
+    image: "/images/banners/hp-banner-3.jpg",
+    subButton: "Bedding",
+  },
+];
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <div className={styles.bannerContainer}>
-        <div className={styles.bannerImgContainer}>
-          <img src={'/images/banners/hp-banner-1.png'}/>
-          <div className={styles.imgBannerContent}>
-            <span className={styles.imgBannerContentTop}>
-              We celebrate
-            </span>
-            <span className={styles.imgBannerContentMiddle}>
-              New in.
-            </span>
-            <button className={styles.imgBannerContentButton}>
-              Explore more.
-            </button>
-          </div>
-        </div>
-        <div className={styles.bannerButtons}>
-          <button type='button'>
-            Summer `&apos;`22
-          </button>
-          <button type='button'>
-            New collection
-          </button>
-          <button type='button'>
-            Bedding
-          </button>
-        </div>
-      </div>
-        <ProductSlider/>
-        <SliderBanners/>
-        <ProductSlider/>
+      <HomeBanner banners={banners} />
+      <ProductSlider products={products} />
+      <SliderBanners />
+      <ProductSlider products={products} />
     </div>
-  )
+  );
 }

@@ -151,7 +151,7 @@ const Header = () => {
         <div className={styles.headerTop}>
           <MainContainer>
             <span>Call Center: 031 / 3894 222</span>
-            <Link href="/">
+            <Link href="/login">
               <a>Moj profil</a>
             </Link>
           </MainContainer>
@@ -178,11 +178,13 @@ const Header = () => {
                 </button>
                 <Link href='/lista-zelja'>
                   <a className={styles.headerButton} >
+                <Link href="/lista-zelja">
+                  <a className={styles.headerButton}>
                     <img src={"/images/icons/favorite.png"} alt="fav-heart" />
                   </a>
                 </Link>
-                <Link href='/korpa'>
-                  <a className={styles.headerButton} >
+                <Link href="/korpa">
+                  <a className={styles.headerButton}>
                     <img
                       src={"/images/icons/shopping-bag.png"}
                       alt="shopping-bag"
@@ -194,7 +196,8 @@ const Header = () => {
             </div>
           </MainContainer>
         </div>
-        {(router.pathname.startsWith("/kategorije") || router.pathname.startsWith('/proizvod')) && (
+        {(router.pathname.startsWith("/kategorije") ||
+          router.pathname.startsWith("/proizvod")) && (
           <div className={styles.breadcrumbs}>
             <MainContainer>
               <ul>

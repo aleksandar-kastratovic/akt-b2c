@@ -27,10 +27,10 @@ const Footer = () => {
           </div>
           <div className={styles.socials}>
             <a href="https://facebook.com">
-              <img src={"/images/icons/fb.png"} alt="social-facebook" />
+              <img src={"/images/icons/fb2.png"} alt="social-facebook" />
             </a>
             <a href="https://instagram.com">
-              <img src={"/images/icons/ig.png"} alt="social-instagram" />
+              <img src={"/images/icons/ig2.png"} alt="social-instagram" />
             </a>
             <a href="https://twitter.com">
               <img src={"/images/icons/tw.png"} alt="social-twitter" />
@@ -96,8 +96,16 @@ const Footer = () => {
           </li>
         </ul>
       </div>
-      {/* //TODO */}
-      <div className={styles.footerBanks}></div>
+      <div className={styles.footerBanks}>
+        <img src="/images/icons/payment/mastercard-logo.png" />
+        <img src="/images/icons/payment/mastercard-secure.png" />
+        <img src="/images/icons/payment/visa.png" />
+        <img src="/images/icons/payment/visa-secure.png" />
+        <img src="/images/icons/payment/banca-intesa.png" />
+        <img src="/images/icons/payment/maestro.png" />
+        <img src="/images/icons/payment/dina-card.png" />
+        <img src="/images/icons/payment/american-express.png" />
+      </div>
       <div className={styles.footerBottom}>
         <p>
           Cene na sajtu su iskazane u dinarima sa uračunatim porezom, a plaćanje
@@ -111,7 +119,8 @@ const Footer = () => {
       </div>
       <div className={styles.footerCopyright}>
         <p>
-            &copy; 2022 AKT DOO | Sva prava zadržana. Powered by <a href='https://croonus.com'>Croonus Technologies</a>
+          &copy; 2022 AKT DOO | Sva prava zadržana. Powered by{" "}
+          <a href="https://croonus.com">Croonus Technologies</a>
         </p>
       </div>
     </footer>

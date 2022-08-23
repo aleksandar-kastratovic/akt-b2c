@@ -1,4 +1,5 @@
 .footerContainer {
+  margin-top: 150px;
   .footerTop {
     width: min(1150px, 95%);
     margin-inline: auto;
@@ -25,7 +26,6 @@
     display: inline-block;
     padding: 0 1rem;
     position: relative;
-    font-weight: 300;
     &:first-child {
       padding-left: 0;
     }
@@ -98,27 +98,27 @@
   }
 }
 .socials {
-    margin-top: 1.5rem;
-    height:35px;
+  margin-top: 1.5rem;
+  height: 35px;
   img {
-    height:100%;
+    height: 100%;
     margin-inline-end: 3rem;
-    filter: invert(13%) sepia(5%) saturate(2148%) hue-rotate(322deg)
-      brightness(97%) contrast(84%);
+    filter: brightness(0) saturate(100%) invert(16%) sepia(9%) saturate(934%)
+      hue-rotate(322deg) brightness(95%) contrast(91%);
   }
 }
-
 
 .footerMiddle {
   background-color: var(--primary-black);
   color: var(--primary-white);
+  padding: 5px;
   ul {
     display: flex;
     width: fit-content;
     margin-inline: auto;
     li {
       a {
-        display:block;
+        display: block;
         padding: 0.5rem 1rem;
         color: var(--primary-white);
         &:hover {
@@ -128,13 +128,29 @@
     }
   }
 }
+
+.footerBanks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  margin: 40px;
+  gap: 15px;
+  img {
+    height: 100%;
+  }
+}
+
 .footerBottom {
   p {
     text-align: center;
     padding: 0 2rem;
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
     margin: 3rem 0;
     font-weight: 300;
+    padding: 0 7rem;
+    line-height: 2ch;
   }
 }
 

@@ -1,0 +1,64 @@
+{
+  "title": "NAPRAVITE NOVI NALOG?",
+  "subtitle": "Lični podaci",
+  "submitButton": "NAPRAVI NALOG",
+
+  "fields": [
+    {
+      "type": "text",
+      "placeholder": "Ime",
+      "required": true,
+      "value": "",
+      "name": "firstname",
+      "width": "50"
+    },
+    {
+      "type": "text",
+      "placeholder": "Prezime",
+      "required": true,
+      "value": "",
+      "name": "lastname",
+      "width": "50"
+    },
+    {
+      "type": "text",
+      "placeholder": "Adresa",
+      "required": true,
+      "value": "",
+      "name": "address",
+      "width": "50"
+    },
+    {
+      "type": "text",
+      "placeholder": "Grad",
+      "required": true,
+      "value": "",
+      "name": "city",
+      "width": "25"
+    },
+    {
+      "type": "text",
+      "placeholder": "Poštanski broj",
+      "required": true,
+      "value": "",
+      "name": "post",
+      "width": "25"
+    },
+    {
+      "type": "text",
+      "placeholder": "Email",
+      "required": true,
+      "value": "",
+      "name": "email",
+      "width": "50"
+    },
+    {
+      "type": "password",
+      "placeholder": "Lozinka",
+      "required": true,
+      "value": "",
+      "name": "password",
+      "width": "50"
+    }
+  ]
+}

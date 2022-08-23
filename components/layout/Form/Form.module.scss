@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-link {
+  color: var(--primary-black);
+  text-decoration: underline;
+}
+
+.form-input {
+  padding: 10px;
+  font-size: 0.9rem;
+  background-color: var(--lightGray);
+  border: none;
+  color: var(--primary-black);
+  margin: 5px opx;
+}

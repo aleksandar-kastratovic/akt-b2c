@@ -1,99 +1,105 @@
 .container {
-    display:flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .bannerContainer {
+  width: 100%;
+  padding: 1.5rem 3rem;
+  .img {
+    height: 350px;
     width: 100%;
-    padding: 1.5rem 3rem;
-    .img {
-        height: 700px;
-        width: 100%;
-        background-color: var(--lightGray);
+    background-color: var(--lightGray);
+    overflow: hidden;
+    img {
+      min-height: 100%;
+      min-width: 100%;
+      width: 100%;
     }
+  }
 }
 .subheading {
-    text-align: center;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    span {
-        font-size: 1rem;
-        text-transform: lowercase;
-    }
-    margin: 4rem 0 2rem 0;
+  text-align: center;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  span {
+    font-size: 1rem;
+    text-transform: lowercase;
+  }
+  margin: 4rem 0 2rem 0;
 }
 .description {
-    font-weight: 300;
-    text-align: center;
-    font-size: 1.125rem;
+  font-weight: 300;
+  text-align: center;
+  font-size: 1.125rem;
 }
 .filterColumns {
-    border: 1px solid var(--lightGray);
-    padding: 1rem 0.5rem;
-    font-size: 0.875rem;
+  border: 1px solid var(--lightGray);
+  padding: 1rem 0.5rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  position: relative;
+  &:hover {
+    &::before {
+      position: absolute;
+      top: 0;
+      height: 2px;
+      background-color: var(--mediumGray);
+      left: -1px;
+      width: calc(100% + 2px);
+      content: "";
+    }
+  }
+  input[type="checkbox"] {
+    margin-right: 2rem;
+    accent-color: var(--primary-black);
+  }
+  button {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
     text-transform: uppercase;
-    position: relative;
-    &:hover {
-        &::before {
-            position: absolute;
-            top: 0;
-            height: 2px;
-            background-color: var(--mediumGray);
-            left: -1px;
-            width: calc(100% + 2px);
-            content: '';
-        }
-    }
-    input[type=checkbox] {
-        margin-right: 2rem;
-        accent-color: var(--primary-black);
-    }
-    button {
-        border: none;
-        background-color: transparent;
-        width: 100%;
-        height:100%;
-        text-transform: uppercase;
-    }
+  }
 }
 .sortingContainer {
-    display:flex;
-    margin: 2rem 0;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.875rem;
+  display: flex;
+  margin: 2rem 0;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  button {
+    border: 1px solid var(--lightGray);
+    background-color: transparent;
+    padding: 0.5rem 0;
     text-transform: uppercase;
-    button {
-        border: 1px solid var(--lightGray);
-        background-color: transparent;
-        padding: 0.5rem 0;
-        text-transform: uppercase;
-        font-weight: 300;
-        span {
-            padding-left: 1rem;
-        }
+    font-weight: 300;
+    span {
+      padding-left: 1rem;
     }
+  }
 }
 .sortSelect {
-    display: flex;
-    align-items: center;
-    label {
-        padding-right: 2rem;
-    }
+  display: flex;
+  align-items: center;
+  label {
+    padding-right: 2rem;
+  }
 }
 .productsContainer {
-    --bs-gutter-x:2rem;
-    --bs-gutter-y:2rem;
+  --bs-gutter-x: 2rem;
+  --bs-gutter-y: 2rem;
 }
 .productColumn {
 }
 
 .loadMore {
-    border: none;
-    background-color: transparent;
-    margin: 5rem 0;
-    font-size: 1.125rem;
-    width:fit-content;
-    margin-inline: auto;
-    text-transform: uppercase;
-    font-weight: 300;
+  border: none;
+  background-color: transparent;
+  margin: 5rem 0;
+  font-size: 1.125rem;
+  width: fit-content;
+  margin-inline: auto;
+  text-transform: uppercase;
+  font-weight: 300;
 }

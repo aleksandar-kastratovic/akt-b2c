@@ -37,7 +37,6 @@
   }
 }
 .coupon-input {
-  
   padding: 0.25rem 1rem;
   input {
     padding: 0.5rem 1rem;
@@ -106,7 +105,7 @@
 }
 .coupon-button {
   text-transform: uppercase;
-  margin-left:auto;
+  margin-left: auto;
   max-width: 400px;
   padding: 0.5rem 2rem;
   color: var(--primary-white);
@@ -117,7 +116,7 @@
 .value-label {
   display: flex;
   padding: 0.5rem 1rem;
-  max-width: 450px;
+  width: 100%;
   border-bottom: 1px solid var(--primary-white);
   span {
     margin-left: auto;
@@ -139,7 +138,7 @@
 }
 
 .agree {
-  input[type=checkbox] {
+  input[type="checkbox"] {
     accent-color: var(--primary-black);
   }
   label {

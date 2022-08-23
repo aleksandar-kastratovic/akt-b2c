@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;350;400;450;500;550;600;650;700;800&display=swap");
 @import "/styles/HamburgerNav.scss";
-@import "~slick-carousel/slick/slick.css";            
+@import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 @import "./ProductDetailsSlider.scss";
 html,
@@ -15,6 +15,7 @@ body {
   height: 100%;
   width: 100%;
   color: var(--primary-black);
+  scroll-behavior: auto !important;
 }
 html {
   overflow-x: hidden;
@@ -46,7 +47,7 @@ a {
 :root {
   /*     CUSTOMIZE      */
   // primary
-  --primary-white: #FFFFFF;
+  --primary-white: #ffffff;
   --primary-gray: #776e64;
   --primary-black: #382e2c;
   // secondary
