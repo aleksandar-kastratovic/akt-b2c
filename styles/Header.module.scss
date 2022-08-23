@@ -15,6 +15,11 @@
     }
   }
 }
+.mobileSearch {
+  @media(min-width:992px) {
+    display:none;
+  }
+}
 .headerBottomContainer {
   display: flex;
   justify-content: space-between;

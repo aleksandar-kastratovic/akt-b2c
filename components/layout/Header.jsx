@@ -172,6 +172,10 @@ const Header = () => {
             <div className={styles.headerRight}>
               <HeaderInput />
               <div className={styles.headerButtonsContainer}>
+                <button className={styles.headerButton + ' ' + styles.mobileSearch} >
+                  <img src={'/images/icons/search.png'}/>
+
+                </button>
                 <Link href='/lista-zelja'>
                   <a className={styles.headerButton} >
                     <img src={"/images/icons/favorite.png"} alt="fav-heart" />
