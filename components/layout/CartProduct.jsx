@@ -11,6 +11,9 @@ const Container = styled.div`
 `
 const Info = styled.div`
     padding: 0 5rem;
+    @media(max-width:575.98px){
+        padding: 0 1rem;
+    }
 `
 
 const Name = styled.h1`

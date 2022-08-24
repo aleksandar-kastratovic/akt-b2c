@@ -36,7 +36,7 @@ const SliderBanners = () => {
       >
         <div>
           <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-6"}>
+            <div className={styles.leftSide + " col-md-6"}>
               <h2>Kakve su naše posteljine?</h2>
               <p>
                 Širok asortiman tekstilnih materijala je ono što razlikuje naš
@@ -48,7 +48,7 @@ const SliderBanners = () => {
                 <a>Saznajte više</a>
               </Link>
             </div>
-            <div className={styles.rightSide + " col-6"}>
+            <div className={styles.rightSide + " col-md-6"}>
               <img src={"/images/banners/bed1.jpg"} />
             </div>
           </div>
@@ -56,7 +56,7 @@ const SliderBanners = () => {
 
         <div>
           <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-6"}>
+            <div className={styles.leftSide + " col-md-6"}>
               <h2>Kakve su naše posteljine?</h2>
               <p>
                 Širok asortiman tekstilnih materijala je ono što razlikuje naš
@@ -68,14 +68,14 @@ const SliderBanners = () => {
                 <a>Saznajte više</a>
               </Link>
             </div>
-            <div className={styles.rightSide + " col-6"}>
+            <div className={styles.rightSide + " col-md-6"}>
               <img src={"/images/banners/bed1.jpg"} />
             </div>
           </div>
         </div>
         <div>
           <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-6"}>
+            <div className={styles.leftSide + " col-md-6"}>
               <h2>Kakve su naše posteljine?</h2>
               <p>
                 Širok asortiman tekstilnih materijala je ono što razlikuje naš
@@ -87,14 +87,14 @@ const SliderBanners = () => {
                 <a>Saznajte više</a>
               </Link>
             </div>
-            <div className={styles.rightSide + " col-6"}>
+            <div className={styles.rightSide + " col-md-6"}>
               <img src={"/images/banners/bed1.jpg"} />
             </div>
           </div>
         </div>
         <div>
           <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-6"}>
+            <div className={styles.leftSide + " col-md-6"}>
               <h2>Kakve su naše posteljine?</h2>
               <p>
                 Širok asortiman tekstilnih materijala je ono što razlikuje naš
@@ -106,7 +106,7 @@ const SliderBanners = () => {
                 <a>Saznajte više</a>
               </Link>
             </div>
-            <div className={styles.rightSide + " col-6"}>
+            <div className={styles.rightSide + " col-md-6"}>
               <img src={"/images/banners/bed1.jpg"} />
             </div>
           </div>

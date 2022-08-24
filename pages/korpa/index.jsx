@@ -16,7 +16,7 @@ const CartPage = () => {
           <div className={`${classes["input-row"]} row`}>
             <div
               className={
-                classes["input-container"] + " col-6 form-floating mb-3"
+                classes["input-container"] + " col-sm-6 form-floating mb-3"
               }
             >
               <input
@@ -29,7 +29,7 @@ const CartPage = () => {
             </div>
             <div
               className={
-                classes["input-container"] + " col-6 form-floating mb-3"
+                classes["input-container"] + " col-sm-6 form-floating mb-3"
               }
             >
               <input
@@ -42,7 +42,7 @@ const CartPage = () => {
             </div>
             <div
               className={
-                classes["input-container"] + " col-3 form-floating mb-3"
+                classes["input-container"] + " col-6 col-sm-3 form-floating mb-3"
               }
             >
               <input
@@ -55,7 +55,7 @@ const CartPage = () => {
             </div>
             <div
               className={
-                classes["input-container"] + " col-3 form-floating mb-3"
+                classes["input-container"] + " col-6 col-sm-3 form-floating mb-3"
               }
             >
               <input
@@ -68,7 +68,7 @@ const CartPage = () => {
             </div>
             <div
               className={
-                classes["input-container"] + " col-6 form-floating mb-3"
+                classes["input-container"] + " col-sm-6 form-floating mb-3"
               }
             >
               <input

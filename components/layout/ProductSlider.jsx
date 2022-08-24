@@ -1,4 +1,5 @@
 import Slider from "react-slick";
+import { useWindowSize } from "../../helpers/functions";
 import styles from "../../styles/ProductSlider.module.scss";
 import ProductBox from "./ProductBox";
 
@@ -29,6 +30,7 @@ function SamplePrevArrow(props) {
 }
 
 const ProductSlider = ({ title = "", products = [] }) => {
+  const size = useWindowSize();
   return (
     <div className={styles.container}>
       <h5 className={styles.subheading}>{title || "Lorem ipsum"}</h5>
@@ -37,7 +39,7 @@ const ProductSlider = ({ title = "", products = [] }) => {
         arrows
         infinite={true}
         speed={500}
-        slidesToShow={4}
+        slidesToShow={size.width > 1199 ? 4 : size.width > 768 ? 3 : size.width > 576 ? 2: 1}
         slidesToScroll={1}
         nextArrow={<SampleNextArrow />}
         prevArrow={<SamplePrevArrow />}

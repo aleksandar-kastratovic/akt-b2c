@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useWindowSize } from "../../helpers/functions";
 
 /**
  * Slider for product images on Single product page of B2B
@@ -43,7 +44,7 @@ const ProductDetailsSlider = ({ images = [] }) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [numberOfImages, setNumberOfImages] = useState(5);
-  const width = 1920;
+  const size = useWindowSize();
 
   const slides = images.map((image, index) => {
     return (
@@ -63,11 +64,11 @@ const ProductDetailsSlider = ({ images = [] }) => {
                 ref={(slider1) => setNav1(slider1)}
                 focusOnSelect={true}
                 centerPadding="20px"
-                vertical={width > 767.98 ? true : false}
+                vertical={size.width > 767.98 ? true : false}
                 infinite={true}
-                verticalSwiping={width > 767.98 ? true : false}
+                verticalSwiping={size.width > 767.98 ? true : false}
                 dots={false}
-                arrows={width > 767.98 ? true : false}
+                arrows={size.width > 767.98 ? true : false}
                 // nextArrow={<Arrow type="next" />}
                 // prevArrow={<Arrow type="prev" />}
                 slidesToShow={images.length > 6 ? 6 : images.length}
@@ -86,7 +87,7 @@ const ProductDetailsSlider = ({ images = [] }) => {
               infinite={true}
               draggable={true}
               vertical={false}
-              arrows={width > 767.98 ? true : false}
+              arrows={size.width > 767.98 ? true : false}
               // nextArrow={<Arrow2 type="next" />}
               // prevArrow={<Arrow2 type="prev" />}
               dots={false}

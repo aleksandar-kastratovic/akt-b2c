@@ -15,7 +15,7 @@ const WishListPage = () => {
       <div className={styles.productsContainer + " row"}>
         {products.map((product) => {
           return (
-            <div className={styles.productColumn + " col-3"} key={product.id}>
+            <div className={styles.productColumn + " col-xxl-3 col-lg-4 col-sm-6"} key={product.id}>
               <ProductBox
                 title={product.title}
                 oldPrice={product.oldPrice}

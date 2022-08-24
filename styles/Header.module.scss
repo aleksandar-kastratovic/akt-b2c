@@ -58,6 +58,9 @@
   align-items: center;
   justify-content: center;
   margin-inline-start: 4rem;
+  @media(max-width:650px) {
+    display:none;
+  }
 }
 .headerButton {
   margin-inline-start: 2rem;

@@ -2,12 +2,15 @@
   width: min(1200px, 95%);
   margin: 6rem auto;
 }
+.productBoxContainer {
+  
+}
 .leftSide {
   display: flex;
   justify-content: center;
   background-color: var(--sec2);
   flex-direction: column;
-  padding: 0rem 2rem 0rem 4rem;
+  padding: 2rem 2rem 2rem 4rem;
   h2 {
     margin-bottom: 2rem;
   }
@@ -28,7 +31,9 @@
 .rightSide {
   img {
     width: 100%;
+    min-height: 100%;
   }
+
 }
 
 .customDots {

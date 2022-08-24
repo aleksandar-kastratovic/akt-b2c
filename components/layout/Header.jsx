@@ -176,8 +176,6 @@ const Header = () => {
                   <img src={'/images/icons/search.png'}/>
 
                 </button>
-                <Link href='/lista-zelja'>
-                  <a className={styles.headerButton} >
                 <Link href="/lista-zelja">
                   <a className={styles.headerButton}>
                     <img src={"/images/icons/favorite.png"} alt="fav-heart" />

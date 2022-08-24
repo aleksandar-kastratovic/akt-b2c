@@ -4,7 +4,6 @@ import MainContainer from "../components/layout/MainContainer";
 import { useRouter } from "next/router";
 import "../styles/globals.scss";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 function MyApp({ Component, pageProps }) {
   //GET TO HASH ELEMENT

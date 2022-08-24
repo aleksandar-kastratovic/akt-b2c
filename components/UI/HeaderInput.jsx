@@ -20,6 +20,9 @@ const Container = styled.div`
     height: 30px;
     cursor: pointer;
   }
+  @media(max-width:991.98px) {
+      display:none;
+  }
 `;
 
 const HeaderInput = () => {

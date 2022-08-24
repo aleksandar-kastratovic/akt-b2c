@@ -42,6 +42,9 @@
 }
 .footerTopLeft {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &::after {
     content: "";
     position: absolute;
@@ -50,14 +53,23 @@
     height: 100%;
     width: 1px;
     background-color: var(--primary-black);
+    @media (max-width:1199.98px) {
+      display:none;
+    }
   }
 }
 .footerTopRight {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .newsletter {
+  @media(max-width:1199.98px) {
+    margin-top: 2rem;
+  }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
   h2 {
     margin-bottom: 1.5rem;
   }
@@ -69,6 +81,16 @@
 }
 .newsletterInputContainer {
   height: 45px;
+  @media (max-width:1199.98px) {
+    display:flex;
+    input {
+      width: unset !important;
+      flex: 1;
+    }
+    button {
+      font-size: 0.975rem !important;
+    }
+  }
   button {
     background-color: var(--primary-black);
     color: var(--white);
@@ -80,7 +102,7 @@
   }
   border: 1px solid var(--primary-black);
   input {
-    // height: 100%;
+    height: 100%;
     width: 320px;
     padding: 0 1rem;
     border: none;
@@ -116,6 +138,10 @@
     display: flex;
     width: fit-content;
     margin-inline: auto;
+    @media(max-width: 1199.98px) {
+      flex-direction: column;
+      margin: 1rem auto;
+    }
     li {
       a {
         display: block;
@@ -134,11 +160,10 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 30px;
   margin: 40px;
   gap: 15px;
   img {
-    height: 100%;
+    height: 30px;
   }
 }
 
@@ -151,6 +176,10 @@
     font-weight: 300;
     padding: 0 7rem;
     line-height: 2ch;
+    @media (max-width:991.98px) {
+      
+    padding: 0 2rem;
+    }
   }
 }
 

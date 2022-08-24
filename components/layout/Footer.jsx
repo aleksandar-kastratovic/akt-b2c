@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.footerTop + " row"}>
-        <div className={styles.footerTopLeft + " col-6"}>
+        <div className={styles.footerTopLeft + " col-xl-6"}>
           <Link href="/">
             <a className={styles.logoContainer}>
               <img alt="logo" src={"/images/logo/logo.png"} />
@@ -37,7 +37,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className={styles.footerTopRight + " col-6"}>
+        <div className={styles.footerTopRight + " col-xl-6"}>
           <div className={styles.newsletter}>
             <h2>Newsletter:</h2>
             <span>Pratite dešvanja iz našeg svakodnevnog poslovanja.</span>
