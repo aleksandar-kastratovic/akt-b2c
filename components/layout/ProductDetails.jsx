@@ -68,7 +68,7 @@ const ProductDetails = ({ productData, gallery }) => {
         context[5](finish);
       })
       .catch((error) => console.warn(error));
-  }, [productData.id]);
+  }, [productData.id, context]);
 
   return (
     <div className={styles.productTop + ' row'}>
