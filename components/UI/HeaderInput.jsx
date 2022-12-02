@@ -1,4 +1,6 @@
-import styled from "styled-components";
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import { useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -20,16 +22,50 @@ const Container = styled.div`
     height: 30px;
     cursor: pointer;
   }
-  @media(max-width:991.98px) {
-      display:none;
+  @media (max-width: 991.98px) {
+    display: none;
   }
 `;
 
 const HeaderInput = () => {
+  // const [showClearIcon, setShowClearIcon] = useState('none');
+  // const [searchField, setSetSearchField] = useState('');
+
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const { push: navigate } = useRouter()
+
+  // const router = useRouter();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    navigate(`/search?search=${searchTerm}`);
+    setSearchTerm('');
+  };
+
+  const handleClick = () => {
+    setSetSearchField('');
+    setShowClearIcon('none');
+  };
+
   return (
     <Container>
-      <input placeholder="Unesite pojam za pretragu..." />
-      <img src="/images/icons/search.png" alt="search" />
+      <form onSubmit={handleSearch}>
+        <input
+          name="search"
+          placeholder="Unesite pojam za pretragu..."
+          id="search"
+          value={searchTerm}
+          onChange={({ target }) => setSearchTerm(target.value)}
+          // onKeyPress={(e) => {
+          //   if (e.key === 'Enter')
+          //     router.push(
+          //       `/search/${searchField.length !== 0 ? searchField : 'empty'}`
+          //     );
+          // }}
+        />
+        <img src="/images/icons/search.png" alt="search"  onClick={handleSearch}/>
+      </form>
     </Container>
   );
 };

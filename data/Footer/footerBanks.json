@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "src": "/images/icons/payment/mastercard-logo.png",
+    "alt": "Mastercard-logo"
+  },
+  {
+    "id": 2,
+    "src": "/images/icons/payment/mastercard-secure.png",
+    "alt": "Mastercard-secure"
+  },
+  {
+    "id": 3,
+    "src": "/images/icons/payment/visa.png",
+    "alt": "Visa"
+  },
+  {
+    "id": 4,
+    "src": "/images/icons/payment/visa-secure.png",
+    "alt": "Visa-secure"
+  },
+  {
+    "id": 5,
+    "src": "/images/icons/payment/banca-intesa.png",
+    "alt": "Banca-intesa"
+  },
+  {
+    "id": 6,
+    "src": "/images/icons/payment/maestro.png",
+    "alt": "Maestro"
+  },
+  {
+    "id": 7,
+    "src": "/images/icons/payment/dina-card.png",
+    "alt": "Dina-card"
+  },
+  {
+    "id": 8,
+    "src": "/images/icons/payment/american-express.png",
+    "alt": "American-express"
+  }
+]

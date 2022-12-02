@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "path": "https://facebook.com",
+    "src": "/images/icons/fb2.png",
+    "alt": "Facebook"
+  },
+  {
+    "id": 2,
+    "path": "https://instagram.com",
+    "src": "/images/icons/ig2.png",
+    "alt": "Instagram"
+  },
+  {
+    "id": 3,
+    "path": "https://twitter.com",
+    "src": "/images/icons/tw.png",
+    "alt": "Twitter"
+  }
+]

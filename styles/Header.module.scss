@@ -195,17 +195,17 @@
       &:first-child {
         padding-left: 0;
       }
-      position: relative;
-      &:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        top: 30%;
-        height: 40%;
-        right: 0;
-        width: 1px;
-        background-color: var(--primary-black);
-        transform: rotate(30deg);
-      }
+      // position: relative;
+      // &:not(:last-child)::after {
+      //   content: "";
+      //   position: absolute;
+      //   top: 30%;
+      //   height: 40%;
+      //   right: 0;
+      //   width: 1px;
+      //   background-color: var(--primary-black);
+      //   transform: rotate(30deg);
+      // }
     }
   }
 }

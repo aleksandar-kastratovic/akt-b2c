@@ -3,6 +3,7 @@
   width: min(850px, 100%);
   margin: 3rem auto;
 }
+
 .left-side-form {
   padding-bottom: 2rem;
   margin-bottom: 1rem;
@@ -31,11 +32,14 @@
     }
   }
   label {
-    padding: 1.25rem 1.75rem;
+    padding: 1rem 1.75rem;
     color: var(--mediumGray);
     text-transform: uppercase;
+    // display: flex;
+    // align-items: center;
   }
 }
+
 .coupon-input {
   padding: 0.25rem 1rem;
   input {
@@ -102,6 +106,22 @@
   label {
     padding-left: 1rem;
   }
+  input {
+    accent-color: transparent;
+    position: relative;
+
+    &:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 13px;
+        height: 13px;
+        background-color: var(--primary-black);
+        border-radius: 100%;
+    }
+  }
 }
 .coupon-button {
   text-transform: uppercase;
@@ -126,6 +146,7 @@
     text-transform: uppercase;
   }
 }
+
 .end-button {
   width: 100%;
   margin-top: 0rem;
@@ -134,11 +155,11 @@
   color: var(--primary-white);
   border: none;
   background-color: var(--primary-black);
-  margin-bottom: 4rem;
+  margin-bottom: 0.3rem;
 }
 
 .agree {
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     accent-color: var(--primary-black);
   }
   label {
@@ -146,6 +167,32 @@
   }
   margin-bottom: 1rem;
 }
+
+.errorMsg {
+  color: var(--red-color);
+  font-size: 0.8rem;
+}
+
+.delete {
+  margin: 0 0 auto auto;
+  cursor: pointer;
+}
+
+.continueShopping {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  a {
+    text-transform: uppercase;
+    background-color: var(--primary-black);
+    padding: 0.7rem 1.5rem;
+    color: var(--primary-white);
+  }
+  h3 {
+    margin-bottom: 2rem;
+  }
+}
+
 @media (max-width: 575.98px) {
   .input-container {
     label {

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-const Main = styled("div")`
+const Main = styled('div')`
   cursor: pointer;
   height: 100%;
   font-size: 0.875rem;
 `;
 
-const DropDownContainer = styled("div")`
+const DropDownContainer = styled('div')`
   width: 200px;
   padding: 0.5rem 0;
   height: 100%;
@@ -16,7 +16,7 @@ const DropDownContainer = styled("div")`
   border: 1px solid var(--lightGray);
 `;
 
-const DropDownHeader = styled("div")`
+const DropDownHeader = styled('div')`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -27,9 +27,9 @@ const DropDownHeader = styled("div")`
   background: #ffffff;
 `;
 
-const DropDownListContainer = styled("div")``;
+const DropDownListContainer = styled('div')``;
 
-const DropDownList = styled("ul")`
+const DropDownList = styled('ul')`
   max-height: 200px;
   overflow-y: auto;
   padding: 0;
@@ -46,7 +46,7 @@ const DropDownList = styled("ul")`
   border: 1px solid var(--lightGray);
 `;
 
-const ListItem = styled("li")`
+const ListItem = styled('li')`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,11 +100,11 @@ const CustomSelect2 = ({ options, def }) => {
         {isOpen && (
           <DropDownListContainer>
             <DropDownList>
-              {options.map((option) => (
+              {/* {options.map((option) => (
                 <ListItem onClick={onOptionClicked(option)} key={Math.random()}>
                   {option}
                 </ListItem>
-              ))}
+              ))} */}
             </DropDownList>
           </DropDownListContainer>
         )}

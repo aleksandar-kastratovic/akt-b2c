@@ -1,0 +1,73 @@
+.Newsletter_newsletterInputContainer.custom {
+  position: relative;
+}
+
+.Toastify__toast-container {
+  position: absolute !important;
+}
+
+.Toastify__toast-container--top-right {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  top: -70px;
+  padding: 0;
+}
+.newsletter {
+  @media (max-width: 1199.98px) {
+    margin-top: 2rem;
+  }
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+  span {
+    margin-bottom: 1.5rem;
+    display: block;
+    font-size: 0.9375rem;
+  }
+}
+.newsletterInputContainer {
+  height: 45px;
+  display: flex;
+  @media (max-width: 1199.98px) {
+    display: flex;
+    input {
+      width: unset !important;
+      flex: 1;
+    }
+    button {
+      font-size: 0.975rem !important;
+    }
+  }
+  button {
+    background-color: var(--primary-black);
+    color: var(--white);
+    border: none;
+    height: 100%;
+    padding: 0 1rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+  border: 1px solid var(--primary-black);
+  input {
+    height: 100%;
+    width: 320px;
+    padding: 0 1rem;
+    border: none;
+  }
+}
+.newsletterCheckbox {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  label {
+    margin-inline-start: 1.5rem;
+  }
+  input {
+    accent-color: var(--primary-black);
+  }
+}

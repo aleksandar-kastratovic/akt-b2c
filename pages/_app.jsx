@@ -1,29 +1,40 @@
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-import MainContainer from "../components/layout/MainContainer";
-import { useRouter } from "next/router";
-import "../styles/globals.scss";
-import { useEffect } from "react";
+import '../styles/globals.scss';
+import Header from '../components/layout/Header';
+import MainContainer from '../components/layout/MainContainer';
+import Footer from '../components/layout/Footer';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { SSRProvider } from 'react-bootstrap';
+import { CartContextProvider } from './api/cartContext';
+// import { ApiHandler } from './api/api';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// import { ApiHandler } from './api/api';
 
 function MyApp({ Component, pageProps }) {
   //GET TO HASH ELEMENT
-  const { pathname, hash, key } = useRouter();
+  const { pathname, hash, key, asPath } = useRouter();
 
   useEffect(() => {
     // if not a hash link, scroll to top
-
-    window.scrollTo(0, 0);
+    document.body.scrollTo({ top: 0, behavior: 'smooth' });
 
     // else scroll to id
-  }, [pathname, hash, key]); // do this on route change
+  }); // do this on route change
 
   return (
     <>
-      <Header />
-      <MainContainer>
-        <Component {...pageProps} />
-        <Footer />
-      </MainContainer>
+      <CartContextProvider>
+        <SSRProvider>
+          <Header />
+          <ToastContainer className="toastContainer" />
+          <MainContainer>
+            <Component {...pageProps} />
+          </MainContainer>
+          <Footer />
+        </SSRProvider>
+      </CartContextProvider>
     </>
   );
 }

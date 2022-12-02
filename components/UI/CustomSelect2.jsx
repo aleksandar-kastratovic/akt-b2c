@@ -84,7 +84,6 @@ const CustomSelect2 = ({options, def}) => {
   const onOptionClicked = (value) => () => {
     setSelectedOption(value);
     setIsOpen(false);
-    console.log(selectedOption);
   };
 
   return (

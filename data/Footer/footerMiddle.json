@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Pomoć pri kupovini",
+    "path": "/"
+  },
+  {
+    "id": 2,
+    "name": "Uslovi korišćenja",
+    "path": "/"
+  },
+  {
+    "id": 3,
+    "name": "Politika o kolačićima",
+    "path": "/"
+  },
+  {
+    "id": 4,
+    "name": "Podešavanje kolačića",
+    "path": "/"
+  },
+  {
+    "id": 5,
+    "name": "Politika privatnosti",
+    "path": "/"
+  },
+  {
+    "id": 6,
+    "name": "Načini plaćanja",
+    "path": "/"
+  },
+  {
+    "id": 7,
+    "name": "O nama",
+    "path": "/"
+  },
+  {
+    "id": 8,
+    "name": "Kontakt",
+    "path": "/kontakt"
+  }
+]

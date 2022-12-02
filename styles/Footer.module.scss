@@ -7,7 +7,7 @@
     padding: 2rem 1rem;
     &::before {
       width: 100%;
-      content: "";
+      content: '';
       height: 1px;
       position: absolute;
       top: 0;
@@ -30,7 +30,7 @@
       padding-left: 0;
     }
     &:not(:last-child)::after {
-      content: "";
+      content: '';
       position: absolute;
       right: 0;
       top: 20%;
@@ -46,15 +46,15 @@
   flex-direction: column;
   align-items: center;
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
     width: 1px;
     background-color: var(--primary-black);
-    @media (max-width:1199.98px) {
-      display:none;
+    @media (max-width: 1199.98px) {
+      display: none;
     }
   }
 }
@@ -63,62 +63,6 @@
   justify-content: center;
 }
 
-.newsletter {
-  @media(max-width:1199.98px) {
-    margin-top: 2rem;
-  }
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  h2 {
-    margin-bottom: 1.5rem;
-  }
-  span {
-    margin-bottom: 1.5rem;
-    display: block;
-    font-size: 0.9375rem;
-  }
-}
-.newsletterInputContainer {
-  height: 45px;
-  @media (max-width:1199.98px) {
-    display:flex;
-    input {
-      width: unset !important;
-      flex: 1;
-    }
-    button {
-      font-size: 0.975rem !important;
-    }
-  }
-  button {
-    background-color: var(--primary-black);
-    color: var(--white);
-    border: none;
-    height: 100%;
-    padding: 0 1rem;
-    font-size: 1.125rem;
-    font-weight: 500;
-  }
-  border: 1px solid var(--primary-black);
-  input {
-    height: 100%;
-    width: 320px;
-    padding: 0 1rem;
-    border: none;
-  }
-}
-.newsletterCheckbox {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  label {
-    margin-inline-start: 1.5rem;
-  }
-  input {
-    accent-color: var(--primary-black);
-  }
-}
 .socials {
   margin-top: 1.5rem;
   height: 35px;
@@ -138,7 +82,7 @@
     display: flex;
     width: fit-content;
     margin-inline: auto;
-    @media(max-width: 1199.98px) {
+    @media (max-width: 1199.98px) {
       flex-direction: column;
       margin: 1rem auto;
     }
@@ -160,7 +104,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 40px;
+  padding: 40px 0 0 0;
   gap: 15px;
   img {
     height: 30px;
@@ -176,9 +120,8 @@
     font-weight: 300;
     padding: 0 7rem;
     line-height: 2ch;
-    @media (max-width:991.98px) {
-      
-    padding: 0 2rem;
+    @media (max-width: 991.98px) {
+      padding: 0 2rem;
     }
   }
 }

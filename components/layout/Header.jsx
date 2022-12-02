@@ -1,20 +1,72 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import styles from "../../styles/Header.module.scss";
-import HamburgerButton from "../UI/HamburgerButton";
-import HeaderInput from "../UI/HeaderInput";
-import MainContainer from "./MainContainer";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState, useCallback, useEffect } from 'react';
+import styles from '../../styles/Header.module.scss';
+import HamburgerButton from '../UI/HamburgerButton';
+import HeaderInput from '../UI/HeaderInput';
+import MainContainer from './MainContainer';
+import { ApiHandler } from '../../pages/api/api';
+import { useCartContext } from '../../pages/api/cartContext';
+import { Breadcrumb } from 'react-bootstrap';
+import Breadcrumbs from './Breadcrumbs';
 
 const Header = () => {
   const [showBurgerDiv, setShowBurgerDiv] = useState(false);
-  const [burgerCategory, setBurgerCategory] = useState("");
+  const [burgerCategory, setBurgerCategory] = useState('');
+  const [categoryData, setCategoryData] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
   const router = useRouter();
+  const [cart] = useCartContext();
+  const context = useCartContext();
+
   const burgerDivHandler = () => {
-    if (!showBurgerDiv) document.body.style.overflowY = "hidden";
-    else document.body.style.overflowY = "auto";
+    if (!showBurgerDiv) document.body.style.overflowY = 'hidden';
+    else document.body.style.overflowY = 'auto';
     setShowBurgerDiv((prev) => !prev);
   };
+
+  const getMenuCategories = useCallback(() => {
+    const api = ApiHandler();
+    api
+      .get('categories/product/tree')
+      .then((response) => {
+        setCategoryData(response.payload);
+      })
+
+      .catch((error) => console.warn(error));
+  }, []);
+
+  const getCartCount = useCallback(() => {
+    const api = ApiHandler();
+    api
+      .get('/cart/badge-count')
+      .then((response) => {
+        setCartCount(response?.payload?.summary?.items_count ?? 0);
+      })
+      .catch((error) => console.warn(error));
+  }, []);
+
+  useEffect(() => {
+    getMenuCategories();
+  }, [getMenuCategories]);
+
+  useEffect(() => {
+    getCartCount();
+  }, [getCartCount, cart]);
+
+  useEffect(() => {
+    if (categoryData.length > 0) {
+      setSubCategories(categoryData[0].children);
+    }
+  }, [categoryData]);
+
+  useEffect(() => {
+    console.log(categoryData);
+
+    setBurgerCategory(categoryData[0]?.slug);
+  }, [categoryData]);
+
   return (
     <>
       <div
@@ -24,133 +76,72 @@ const Header = () => {
       >
         <MainContainer>
           <div className={styles.burgerLeft}>
-            <Link href="/">
+            <Link href="/novo">
               <a onClick={burgerDivHandler}>Novo</a>
             </Link>
-            <Link href="/">
+            <Link href="/akcija">
               <a onClick={burgerDivHandler}>Akcija</a>
             </Link>
             <ul>
-              <li
-                className={
-                  burgerCategory === "spavaca" ? styles.burgerCatActive : ""
-                }
-                onClick={() => setBurgerCategory("spavaca")}
-              >
-                Spavaća soba
-              </li>
-              <li
-                className={
-                  burgerCategory === "kuhinja" ? styles.burgerCatActive : ""
-                }
-                onClick={() => setBurgerCategory("kuhinja")}
-              >
-                Kuhinja
-              </li>
-              <li
-                className={
-                  burgerCategory === "kupatilo" ? styles.burgerCatActive : ""
-                }
-                onClick={() => setBurgerCategory("kupatilo")}
-              >
-                Kupatilo
-              </li>
-              <li
-                className={
-                  burgerCategory === "licenciran" ? styles.burgerCatActive : ""
-                }
-                onClick={() => setBurgerCategory("licenciran")}
-              >
-                Licencirani program
-              </li>
-              <li
-                className={
-                  burgerCategory === "hotelski" ? styles.burgerCatActive : ""
-                }
-                onClick={() => setBurgerCategory("hotelski")}
-              >
-                Hotelski program
-              </li>
+              {categoryData.length > 0
+                ? categoryData.map((item) => {
+                    return (
+                      <li
+                        key={item.id}
+                        className={
+                          burgerCategory === item.slug
+                            ? styles.burgerCatActive
+                            : ''
+                        }
+                        onClick={() => {
+                          setBurgerCategory(item.slug);
+                          setSubCategories(item.children);
+                        }}
+                      >
+                        {item.name}
+                      </li>
+                    );
+                  })
+                : null}
             </ul>
           </div>
-          <div className={styles.burgerRight + " row"}>
-            <div className={styles.categoryColumn + " col-4"}>
-              <h6>Spavaća soba za odrasle</h6>
-              <ul>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Posteljine</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Pokrivači</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Jorgani</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Jastuci</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Ćebad</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Poseljni delovi</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Prostirke za nameštaj</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Dekorativne jastučnice</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className={styles.categoryColumn + " col-4"}>
-              <h6>Spavaća soba za bebe</h6>
-              <ul>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Posteljine</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Pokrivači</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Ogradice</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/kategorije">
-                    <a onClick={burgerDivHandler}>Ćebad za bebe</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <div className={styles.burgerRight + ' row'}>
+            {subCategories.length > 0
+              ? subCategories.map((subCategory) => {
+                  return (
+                    <div
+                      key={subCategory.id}
+                      className={styles.categoryColumn + ' col-4'}
+                    >
+                      <h6>{subCategory.name}</h6>
+                      <ul>
+                        {subCategory.children && subCategory.children.length > 0
+                          ? subCategory.children.map((item) => {
+                              return (
+                                <li key={item.id}>
+                                  <Link href={`/kategorije/${item.id}`}>
+                                    <a onClick={burgerDivHandler}>
+                                      {item.name}
+                                    </a>
+                                  </Link>
+                                </li>
+                              );
+                            })
+                          : null}
+                      </ul>
+                    </div>
+                  );
+                })
+              : null}
           </div>
         </MainContainer>
       </div>
       <header className={styles.header}>
         <div className={styles.headerTop}>
           <MainContainer>
-            <span>Call Center: 031 / 3894 222</span>
+            <span>
+              Call Center: <a href="tel:0313894222">031 / 3894 222</a>
+            </span>
             <Link href="/login">
               <a>Moj profil</a>
             </Link>
@@ -165,37 +156,38 @@ const Header = () => {
               />
               <Link href="/">
                 <a className={styles.logoContainer}>
-                  <img src={"/images/logo/logo.png"} />
+                  <img src={'/images/logo/logo.png'} />
                 </a>
               </Link>
             </div>
             <div className={styles.headerRight}>
               <HeaderInput />
               <div className={styles.headerButtonsContainer}>
-                <button className={styles.headerButton + ' ' + styles.mobileSearch} >
-                  <img src={'/images/icons/search.png'}/>
-
+                <button
+                  className={styles.headerButton + ' ' + styles.mobileSearch}
+                >
+                  <img src={'/images/icons/search.png'} />
                 </button>
                 <Link href="/lista-zelja">
                   <a className={styles.headerButton}>
-                    <img src={"/images/icons/favorite.png"} alt="fav-heart" />
+                    <img src={'/images/icons/favorite.png'} alt="fav-heart" />
                   </a>
                 </Link>
                 <Link href="/korpa">
                   <a className={styles.headerButton}>
                     <img
-                      src={"/images/icons/shopping-bag.png"}
+                      src={'/images/icons/shopping-bag.png'}
                       alt="shopping-bag"
                     />
-                    <span>0</span>
+                    <span>{cartCount}</span>
                   </a>
                 </Link>
               </div>
             </div>
           </MainContainer>
         </div>
-        {(router.pathname.startsWith("/kategorije") ||
-          router.pathname.startsWith("/proizvod")) && (
+        {(router.pathname.startsWith('/kategorije') ||
+          router.pathname.startsWith('/proizvod')) && (
           <div className={styles.breadcrumbs}>
             <MainContainer>
               <ul>
@@ -204,11 +196,24 @@ const Header = () => {
                     <a>Početna</a>
                   </Link>
                 </li>
+                <span>/</span>
+                {context[4].length > 0
+                  ? context[4].map((link) => {
+                      return (
+                        <Breadcrumbs key={Math.random()}>{link}</Breadcrumbs>
+                      );
+                    })
+                  : null}
+                {/* <li>
+                  <Link href="/">
+                    <a>Početna</a>
+                  </Link>
+                </li>
                 <li>
                   <Link href="/">
                     <a>Bademantil</a>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </MainContainer>
           </div>
@@ -219,3 +224,16 @@ const Header = () => {
 };
 
 export default Header;
+
+export const getServerSideProps = async (context) => {
+  const { path } = context.query;
+  const id = path[path.length - 1];
+  const api = ApiHandler();
+  return {
+    props: {
+      categoryDataBreadcrumbs: await api
+        .get(`/categories/product/single/${id}`)
+        .then((response) => response.payload),
+    },
+  };
+};

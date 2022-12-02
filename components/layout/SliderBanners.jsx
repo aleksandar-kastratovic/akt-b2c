@@ -1,11 +1,13 @@
-import Link from "next/link";
-import { useState } from "react";
-import Slider from "react-slick";
-import styles from "../../styles/SliderBanners.module.scss";
-import ProductBox from "./ProductBox";
+import Link from 'next/link';
+import { useState } from 'react';
+import Slider from 'react-slick';
+import styles from '../../styles/SliderBanners.module.scss';
+import { convertHttpToHttps } from '../../helpers/convertHttpToHttps';
 
-const SliderBanners = () => {
+const SliderBanners = ({ recommendedCategories = [] }) => {
   const [slide, setSlide] = useState(0);
+
+  console.log(recommendedCategories)
 
   return (
     <div className={styles.container}>
@@ -34,83 +36,24 @@ const SliderBanners = () => {
           setSlide(next);
         }}
       >
-        <div>
-          <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-md-6"}>
-              <h2>Kakve su naše posteljine?</h2>
-              <p>
-                Širok asortiman tekstilnih materijala je ono što razlikuje naš
-                brend od ostalih. Pamučni šifon, krep, saten, flanel ili samast,
-                samo su neki od materijala, čija gustina tkanja zapravo
-                odredjuje naš kvalitet i udobnost, po kom smo i prepoznatljivi.
-              </p>
-              <Link href="/">
-                <a>Saznajte više</a>
-              </Link>
-            </div>
-            <div className={styles.rightSide + " col-md-6"}>
-              <img src={"/images/banners/bed1.jpg"} />
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-md-6"}>
-              <h2>Kakve su naše posteljine?</h2>
-              <p>
-                Širok asortiman tekstilnih materijala je ono što razlikuje naš
-                brend od ostalih. Pamučni šifon, krep, saten, flanel ili samast,
-                samo su neki od materijala, čija gustina tkanja zapravo
-                odredjuje naš kvalitet i udobnost, po kom smo i prepoznatljivi.
-              </p>
-              <Link href="/">
-                <a>Saznajte više</a>
-              </Link>
-            </div>
-            <div className={styles.rightSide + " col-md-6"}>
-              <img src={"/images/banners/bed1.jpg"} />
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-md-6"}>
-              <h2>Kakve su naše posteljine?</h2>
-              <p>
-                Širok asortiman tekstilnih materijala je ono što razlikuje naš
-                brend od ostalih. Pamučni šifon, krep, saten, flanel ili samast,
-                samo su neki od materijala, čija gustina tkanja zapravo
-                odredjuje naš kvalitet i udobnost, po kom smo i prepoznatljivi.
-              </p>
-              <Link href="/">
-                <a>Saznajte više</a>
-              </Link>
-            </div>
-            <div className={styles.rightSide + " col-md-6"}>
-              <img src={"/images/banners/bed1.jpg"} />
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className={styles.productBoxContainer + " row"}>
-            <div className={styles.leftSide + " col-md-6"}>
-              <h2>Kakve su naše posteljine?</h2>
-              <p>
-                Širok asortiman tekstilnih materijala je ono što razlikuje naš
-                brend od ostalih. Pamučni šifon, krep, saten, flanel ili samast,
-                samo su neki od materijala, čija gustina tkanja zapravo
-                odredjuje naš kvalitet i udobnost, po kom smo i prepoznatljivi.
-              </p>
-              <Link href="/">
-                <a>Saznajte više</a>
-              </Link>
-            </div>
-            <div className={styles.rightSide + " col-md-6"}>
-              <img src={"/images/banners/bed1.jpg"} />
-            </div>
-          </div>
-        </div>
+        {recommendedCategories.length > 0
+          ? recommendedCategories.map((item) => (
+              <div key={item.id}>
+                <div className={styles.productBoxContainer + ' row'}>
+                  <div className={styles.leftSide + ' col-md-6'}>
+                    <h2>{item.basic_data.name}</h2>
+                    <p>{item.basic_data.description}</p>
+                    <Link href={`kategorije/${item.id}`}>
+                      <a>Saznajte više</a>
+                    </Link>
+                  </div>
+                  <div className={styles.rightSide + ' col-md-6'}>
+                    <img src={convertHttpToHttps(item.images.image)} />
+                  </div>
+                </div>
+              </div>
+            ))
+          : null}
       </Slider>
     </div>
   );

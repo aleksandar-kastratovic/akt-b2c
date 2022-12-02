@@ -1,10 +1,8 @@
 .container {
   width: min(1200px, 95%);
-  margin: 6rem auto;
+  margin: 6rem auto 3rem auto;
 }
-.productBoxContainer {
-  
-}
+
 .leftSide {
   display: flex;
   justify-content: center;
@@ -33,12 +31,13 @@
     width: 100%;
     min-height: 100%;
   }
-
 }
 
 .customDots {
   border-radius: 10px;
-  bottom: -80px;
+  // bottom: -80px;
+  position: static;
+  padding-top: 60px;
   ul {
     margin: 0px;
   }
