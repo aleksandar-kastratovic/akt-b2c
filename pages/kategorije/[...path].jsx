@@ -70,7 +70,7 @@ const CategoriesPage = ({ categoryData }) => {
 
     let finish = breadcrumbsTextDone;
     context[5](finish);
-  }, [categoryData.id]);
+  }, [categoryData.id, categoryData.breadcrumb_text, context]);
 
   // const products = productsData.items;
 
