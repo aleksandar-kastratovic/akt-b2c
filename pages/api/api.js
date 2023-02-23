@@ -107,6 +107,7 @@ export const ApiHandler = () => {
     console.log(process.env.API_URL);
     //throw new Error('process.env.REACT_API_URL is not defined')
   }
+  
 
   const api = new Api(token, process.env.API_URL);
   return api;
