@@ -40,7 +40,7 @@ const Header = () => {
   const getCartCount = useCallback(() => {
     const api = ApiHandler();
     api
-      .get('/cart/badge-count')
+      .get('cart/badge-count')
       .then((response) => {
         setCartCount(response?.payload?.summary?.items_count ?? 0);
       })
