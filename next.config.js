@@ -11,6 +11,7 @@ const nextConfig = {
     PIB: process.env.PIB,
     MB: process.env.MB,
     EMAIL: process.env.EMAIL,
+    CAPTCHAKEY: process.env.CAPTCHAKEY,
   },
   images: {
     domains: ["api.akt.croonus.com"],

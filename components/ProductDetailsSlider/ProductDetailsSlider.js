@@ -178,6 +178,9 @@ const ItemGallery = ({ gallery }) => {
         alt={item?.id}
         onMouseDown={() => setIsGrabbing(true)}
         onMouseUp={() => setIsGrabbing(false)}
+        onClick={() => {
+          instanceRef.current.moveToIdx(index + 1);
+        }}
       />
     </div>
   ));
