@@ -147,7 +147,6 @@ const Footer = () => {
         <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
         <Link href="/uslovi">Uslovi korišćenja</Link>
         <Link href="/kolacici">Politika o kolačićima</Link>
-        <Link href="/podesavanje-kolacica">Podešavanje kolačića</Link>
         <Link href="/politika-privatnosti">Politika privatnosti</Link>
         <Link href="/nacini-placanja">Načini plaćanja</Link>
         <Link href="/o-nama">O nama</Link>
@@ -165,7 +164,6 @@ const Footer = () => {
           <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
           <Link href="/uslovi">Uslovi korišćenja</Link>
           <Link href="/kolacici">Politika o kolačićima</Link>
-          <Link href="/podesavanje-kolacica">Podešavanje kolačića</Link>
           <Link href="/politika-privatnosti">Politika privatnosti</Link>
           <Link href="/nacini-placanja">Načini plaćanja</Link>
           <Link href="/o-nama">O nama</Link>

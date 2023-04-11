@@ -19,7 +19,7 @@ const NavigationDesktop = () => {
   const [wishListCount, setWishListCount] = useState(0);
   const [open, setOpen] = useState(false);
   const [subCategory, setSubcategory] = useState();
-
+  const [loading, setLoading] = useState(false);
   const getCartCount = useCallback(() => {
     get("/cart/badge-count")
       .then((response) => {
@@ -52,6 +52,7 @@ const NavigationDesktop = () => {
     fetchCategories();
   }, []);
   const handleSearch = (event) => {
+    setLoading(true);
     event.preventDefault();
     navigate(`/search?search=${searchTerm}`);
     setSearchTerm("");
@@ -110,7 +111,7 @@ const NavigationDesktop = () => {
                   placeholder="Unesite pojam za pretragu..."
                   value={searchTerm}
                   onChange={({ target }) => setSearchTerm(target.value)}
-                  className="border-t-0 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 "
+                  className="border-t-0 h-6 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 "
                 ></input>
                 <Image
                   src={Search}
@@ -149,7 +150,7 @@ const NavigationDesktop = () => {
         }
       >
         <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
-          <div className="flex flex-col gap-3 max-h-[656px] w-1/5 overflow-y-scroll">
+          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[656px] w-2/5 overflow-y-scroll">
             <div className="flex flex-col mt-10 ">
               {categories.map((item) => {
                 return item?.children ? (
@@ -175,7 +176,7 @@ const NavigationDesktop = () => {
               })}
             </div>
           </div>
-          <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 max-h-[676px] self-start ml-52 overflow-y-scroll">
+          <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[656px] self-start xl:ml-32 3xl:ml-20 overflow-y-scroll">
             {subCategory?.map((item) => (
               <div className="col-span-1 flex flex-col">
                 <Link
@@ -206,6 +207,16 @@ const NavigationDesktop = () => {
           </div>
         </div>
       </div>
+      {loading ? (
+        <div className="fixed top-0 left-0 bg-black bg-opacity-30 z-[2000] w-screen h-screen flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center bg-white rounded-lg p-20">
+            <h1 className="text-black text-xl font-normal mb-5">
+              Pretražujemo...
+            </h1>
+            <i className="fa-solid fa-spinner animate-spin text-4xl text-black"></i>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

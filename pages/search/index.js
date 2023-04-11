@@ -6,6 +6,7 @@ import { queryKeys, sortKeys } from "../../helpers/const";
 import Image from "next/image";
 import Image1 from "../../assets/Icons/no-results.png";
 import Link from "next/link";
+import SearchPagee from "@/components/SearchPage/SearchPage";
 const SearchPage = ({ productItems, categories, filters }) => {
   const router = useRouter();
   const { search } = router.query;
@@ -185,7 +186,7 @@ const SearchPage = ({ productItems, categories, filters }) => {
     <div className="mx-auto 4xl:container">
       {productsData && productsData.items && productsData.items.length > 0 ? (
         <>
-          <CategoriesPageDisplay
+          <SearchPagee
             products={products}
             pagination={pagination}
             page={page}

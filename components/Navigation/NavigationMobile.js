@@ -6,11 +6,14 @@ import Cart from "../../assets/Icons/shopping-bag.png";
 import Logo from "../../assets/logo.png";
 import Wishlist from "../../assets/Icons/favorite.png";
 import Link from "next/link";
-
+import Search from "../../assets/Icons/search.png";
+import { useRouter } from "next/navigation";
 const NavigationMobile = () => {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [subCategory, setSubcategory] = useState({ isOpen: false, data: [] });
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await get("/categories/product/tree").then((response) =>
@@ -19,11 +22,21 @@ const NavigationMobile = () => {
     };
     fetchCategories();
   }, []);
+  const { push: navigate, asPath } = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSearch = (event) => {
+    setLoading(true);
+    event.preventDefault();
+    navigate(`/search?search=${searchTerm}`);
+    setSearchTerm("");
+    setSearchOpen(false);
+    setOpen(false);
+  };
 
   return (
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">
-        <div className="flex w-[95%] py-2.5 mx-auto items-center justify-between">
+        <div className="flex w-[95%] py-2.5 mx-auto items-center justify-between relative">
           <div>
             <i
               className="fa-solid fa-bars text-2xl font-normal"
@@ -31,12 +44,45 @@ const NavigationMobile = () => {
             ></i>
           </div>
           <div className="pl-3">
-            <Image src={Logo} width={150} height={150} />
+            <Link href="/">
+              <Image src={Logo} width={150} height={150} />
+            </Link>
           </div>
-          <div className="flex items-center gap-3">
-            <i className="fa-solid fa-search text-2xl font-normal"></i>
-            <Image src={Cart} width={35} height={35} />
+          <div className="flex items-center gap-5">
+            <Image
+              src={Search}
+              width={25}
+              height={25}
+              onClick={() => setSearchOpen(!searchOpen)}
+            />
+            <Link href="/korpa">
+              <Image src={Cart} width={35} height={35} />
+            </Link>
           </div>
+        </div>
+        <div
+          className={
+            searchOpen
+              ? "absolute w-full flex items-center justify-center py-2 translate-y-0  bg-white shadow duration-500 transition-all"
+              : "absolute w-full flex items-center justify-center py-2 -translate-y-[500%]  bg-white shadow duration-[700ms] transition-all"
+          }
+        >
+          <form className="relative" onSubmit={handleSearch}>
+            <input
+              type="text"
+              className="w-full p-3 border-l-0 border-t-0 border-r-0 border-b border-b-croonus-1 h-3 border-black focus:ring-0 focus:outline-none focus:border-b-croonus-1"
+              placeholder="Pretraga"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            <Image
+              src={Search}
+              width={18}
+              height={18}
+              className="absolute right-0 top-0.5"
+              onClick={handleSearch}
+            />
+          </form>
         </div>
       </div>
       <div
@@ -53,25 +99,29 @@ const NavigationMobile = () => {
               onClick={() => setOpen(false)}
             ></i>
             <div className="flex items-center gap-5 mr-5">
-              <Image src={Wishlist} width={30} height={30} />
+              <Link href="/lista-zelja">
+                {" "}
+                <Image src={Wishlist} width={30} height={30} />
+              </Link>
               <i className="fa-solid fa-user text-2xl"></i>
             </div>
           </div>
-          <div className="bg-croonus-5 flex flex-col gap-5 py-4 pl-3">
-            <Link href="/novo" className="uppercase text-2xl font-medium">
-              Novo
-            </Link>
-            <Link href="/akcije" className="uppercase text-2xl font-medium">
-              Akcija
-            </Link>
-          </div>
-          <form className="w-[90%] mx-auto mt-10 relative">
+
+          <form
+            className="w-[90%] mx-auto mt-10 relative"
+            onSubmit={handleSearch}
+          >
             <input
               type="text"
-              className="w-full p-3 border border-black"
+              className="w-full p-3 border focus:outline-none focus:ring-0 focus:border-black border-black"
               placeholder="Pretraga"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
             />
-            <i className="fa-solid fa-search text-lg absolute right-5 top-3"></i>
+            <i
+              className="fa-solid fa-search text-lg absolute right-5 top-3"
+              onClick={handleSearch}
+            ></i>
           </form>
           <div className="pb-5 w-full flex flex-col gap-3 mx-auto mt-10">
             {categories?.map((category) =>
@@ -147,6 +197,16 @@ const NavigationMobile = () => {
           </div>
         </div>
       </div>
+      {loading ? (
+        <div className="fixed top-0 left-0 bg-black bg-opacity-30 z-[2000] w-screen h-screen flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center bg-white rounded-lg p-10">
+            <h1 className="text-black text-xl font-normal mb-5">
+              Pretražujemo...
+            </h1>
+            <i className="fa-solid fa-spinner animate-spin text-4xl text-black"></i>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

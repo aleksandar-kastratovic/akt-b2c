@@ -51,12 +51,10 @@ const CategoriesPageDisplay = ({
     pagination: {},
   });
 
-  const [limit, setLimit] = useState(
-    query[queryKeys?.limit] != null ? Number(query[queryKeys?.limit]) : 16
-  );
+  const [limit, setLimit] = useState(16);
 
   const newSort = Object?.keys(sortKeys).find(
-    (key) => sortKeys[key].query === query[queryKeys?.sort]
+    (key) => sortKeys[key]?.query === query[queryKeys?.sort]
   );
 
   const [sort, setSort] = useState(

@@ -7,63 +7,62 @@
   body {
     font-family: "Roboto", sans-serif;
   }
-
-  .clamp {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    min-height: 16px;
-  }
-  .slider .rs-slider-bar {
-    background-color: black;
-    border-radius: 3px;
-    cursor: pointer;
-    height: 5px;
-  }
-  .slider .rs-slider-progress-bar {
-    left: 0%;
-    width: 100%;
-    background-color: #030303;
-    border-radius: 3px 0 0 3px;
-    height: 5px;
-    position: absolute;
-  }
-  .rs-slider-handle {
-    left: 0%;
-    outline: none;
-    position: absolute;
-    top: -50%;
-  }
-  .rs-slider-handle:before {
-    background-color: #fff;
-    border: 1px solid #030303;
-    border-radius: 50%;
-    content: "";
-    cursor: pointer;
-    height: 12px;
-    margin-left: -6px;
-    position: absolute;
-    transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out,
-      transform 0.3s ease-in-out;
-    width: 12px;
-  }
-  .rs-slider-progress-bar {
-    background-color: #f8f8f8;
-    border-radius: 3px 0 0 3px;
-    height: 6px;
-    position: absolute;
-  }
-  .rs-tooltip-arrow {
-    display: none;
-  }
-  .hovered {
-    display: none;
-  }
-  .hover:hover > .hovered {
-    display: flex;
-  }
+}
+.clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  min-height: 16px;
+}
+.slider .rs-slider-bar {
+  background-color: black;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 5px;
+}
+.slider .rs-slider-progress-bar {
+  left: 0%;
+  width: 100%;
+  background-color: #030303;
+  border-radius: 3px 0 0 3px;
+  height: 5px;
+  position: absolute;
+}
+.rs-slider-handle {
+  left: 0%;
+  outline: none;
+  position: absolute;
+  top: -50%;
+}
+.rs-slider-handle:before {
+  background-color: #fff;
+  border: 1px solid #030303;
+  border-radius: 50%;
+  content: "";
+  cursor: pointer;
+  height: 12px;
+  margin-left: -6px;
+  position: absolute;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+  width: 12px;
+}
+.rs-slider-progress-bar {
+  background-color: #f8f8f8;
+  border-radius: 3px 0 0 3px;
+  height: 6px;
+  position: absolute;
+}
+.rs-tooltip-arrow {
+  display: none;
+}
+.hovered {
+  display: none;
+}
+.hover:hover > .hovered {
+  display: flex;
 }
 [class^="number-slide"],
 [class*=" number-slide"] {
