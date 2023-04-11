@@ -144,13 +144,7 @@ const ProductInfo = ({ products, description }) => {
           </p>
         </h1>
       </div>
-      <div className="mt-4">
-        <h1 className="font-bold text-base">
-          <p className="text-base font-normal">
-            {products?.data?.item?.basic_data?.short_description}
-          </p>
-        </h1>
-      </div>
+
       {products?.product_type === "single" ? null : (
         <div className="py-10">
           <Variants

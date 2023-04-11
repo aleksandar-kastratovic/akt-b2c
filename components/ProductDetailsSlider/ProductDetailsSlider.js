@@ -190,7 +190,7 @@ const ItemGallery = ({ gallery }) => {
           style={{ width: 150 }}
         >
           {thumbImages}
-          {thumbImages.length > 3 && (
+          {thumbImages?.length > 3 && (
             <i
               className="absolute max-lg:hidden bottom-0 left-[40%] px-2 py-0.5 rounded-full fa-solid fa-chevron-down text-xl bg-croonus-2 text-white animate-bounce cursor-pointer"
               onClick={() =>
