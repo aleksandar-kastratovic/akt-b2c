@@ -277,7 +277,7 @@ export default function Variants({
           <div className="flex flex-row items-center gap-7">
             <label
               htmlFor={item.id}
-              className="max-lg:text-center text-[1.125rem] font-medium"
+              className="max-lg:text-left text-[1.125rem] font-medium"
             >
               {item.attribute.name}:
             </label>

@@ -13,7 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 const ProductInfo = ({ products, description }) => {
   const router = useRouter();
   const pathname = usePathname();
-  let id = pathname.split("/")[2];
+  const segments = pathname.split("/");
+  let id = segments.pop();
   const [productVariant, setProductVariant] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
@@ -140,7 +141,6 @@ const ProductInfo = ({ products, description }) => {
         <h1 className="font-bold text-base">
           <p className="text-base font-normal">
             {products?.data?.item?.basic_data?.short_description}
-            {description?.description}
           </p>
         </h1>
       </div>
@@ -158,7 +158,7 @@ const ProductInfo = ({ products, description }) => {
         </div>
       )}
 
-      <h1 className="text-[1.5rem] font-medium max-lg:text-center">
+      <h1 className="text-[1.5rem] font-medium max-lg:text-left">
         {" "}
         {productVariant ? (
           <>{currencyFormat(productVariant?.price?.price?.original)}</>
