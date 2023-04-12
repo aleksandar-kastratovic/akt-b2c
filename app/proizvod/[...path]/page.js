@@ -47,15 +47,29 @@ const ProductPage = async ({ params: { path } }) => {
           <GenerateBreadCrumbsServer />
         </div>
       </div>
-      <div className="mt-10 w-[95%] lg:w-[85%] mx-auto">
+      <div className="mt-5 sm:mt-10 w-[95%] lg:w-[85%] mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-10">
           <div className="col-span-2 lg:col-span-3">
-            <ProductDetailsSlider gallery={productGallery} />
+            <ProductDetailsSlider
+              gallery={productGallery}
+              description={description}
+            />
           </div>
-          <ProductInfo products={products} description={description} />
+          <ProductInfo products={products} />
         </div>
       </div>
-      <div className="mt-[7.688rem]">
+
+      <div className="w-[95%] mx-auto lg:w-[85%] mt-[4rem]">
+        <h1 className="text-xl">Opis proizvoda</h1>
+        {description?.description && (
+          <p
+            className="mt-2"
+            dangerouslySetInnerHTML={{ __html: description?.description }}
+          ></p>
+        )}
+      </div>
+
+      <div className="mt-[3rem] sm:mt-[7.688rem]">
         <ProductsSlider
           products={relatedProducts}
           text="Možda će Vas zanimati i sledeći proizvodi"

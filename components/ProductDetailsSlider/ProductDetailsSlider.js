@@ -110,10 +110,11 @@ function ImageMagnifier({
   );
 }
 
-const ItemGallery = ({ gallery }) => {
+const ItemGallery = ({ gallery, description }) => {
   const [modal, setModal] = useState({ show: false, image: null });
   const [isGrabbing, setIsGrabbing] = useState(false);
   const isViewportWide = useMediaQuery({ query: "(min-width: 1024px)" });
+  console.log(isViewportWide);
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     loop: true,
@@ -127,8 +128,8 @@ const ItemGallery = ({ gallery }) => {
         "(max-width: 1024px)": {
           vertical: false,
           slides: {
-            spacing: 14,
-            perView: 4,
+            spacing: 10,
+            perView: 3,
           },
         },
         "(min-width: 1025px": {
@@ -179,53 +180,47 @@ const ItemGallery = ({ gallery }) => {
         onMouseDown={() => setIsGrabbing(true)}
         onMouseUp={() => setIsGrabbing(false)}
         onClick={() => {
-          instanceRef.current.moveToIdx(index + 1);
+          instanceRef.current.moveToIdx(index);
         }}
       />
     </div>
   ));
   return (
-    <div className=" relative lg:mt-1 max-lg:col-span-2 lg:col-span-2 3xl:col-span-3 max-lg:mt-5 lg:w-full max-lg:flex-col-reverse max-lg:flex lg:flex">
+    <div className=" relative lg:mt-1 max-lg:col-span-2 lg:col-span-2 3xl:col-span-3 max-lg:mt-0 lg:w-full max-lg:flex-col-reverse max-lg:flex lg:flex">
       {isViewportWide ? (
         <div
           ref={thumbnailRef}
-          className="keen-slider max-lg:mt-5 thumbnail max-lg:w-full lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px] relative mr-4 z-0"
+          className="keen-slider max-lg:mt-5 thumbnail lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px] relative mr-4 z-0"
           style={{ width: 150 }}
         >
           {thumbImages}
           {thumbImages?.length > 3 && (
-            <i
-              className="absolute max-lg:hidden bottom-0 left-[40%] px-2 py-0.5 rounded-full fa-solid fa-chevron-down text-xl bg-croonus-2 text-white animate-bounce cursor-pointer"
-              onClick={() =>
-                ThumbnailPlugin(
-                  instanceRef.current.next() &&
-                    thumbnailRef.initial.moveToIdx(0)
-                )
-              }
-            ></i>
+            <div>
+              <i
+                className="absolute max-lg:hidden bottom-0 left-[40%] px-2 py-0.5 rounded-full fa-solid fa-chevron-down text-xl bg-croonus-2 text-white animate-bounce cursor-pointer"
+                onClick={() =>
+                  ThumbnailPlugin(
+                    instanceRef.current.next() &&
+                      thumbnailRef.initial.moveToIdx(0)
+                  )
+                }
+              ></i>
+            </div>
           )}
         </div>
       ) : (
         <div
           ref={thumbnailRef}
           className="keen-slider max-lg:mt-5 thumbnail lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px] relative mr-4 z-0"
-          style={{ width: "26%" }}
+          style={{ width: "100%" }}
         >
           {thumbImages}
-          <i
-            className="absolute max-lg:hidden bottom-0 left-[40%] px-2 py-0.5 rounded-full fa-solid fa-chevron-down text-xl bg-croonus-2 text-white animate-bounce cursor-pointer"
-            onClick={() =>
-              ThumbnailPlugin(
-                instanceRef.current.next() && thumbnailRef.initial.moveToIdx(0)
-              )
-            }
-          ></i>
         </div>
       )}
 
       <div
         ref={sliderRef}
-        className="keen-slider relative lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px]"
+        className="keen-slider relative max-lg:h-[300px] lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px]"
       >
         {images}
       </div>
@@ -243,7 +238,7 @@ const ItemGallery = ({ gallery }) => {
           className="fixed translate-x-0 flex items-center justify-center top-0 left-0 h-screen w-screen bg-black bg-opacity-40 z-[100]"
         >
           <div className="relative flex items-center justify-center h-[650px]">
-            <ImageMagnifier src={modal.image} />
+            <ImageMagnifier src={convertHttpToHttps(modal.image)} />
             <i
               className="absolute top-2 right-4 text-xl fa-solid fa-xmark hover:text-red-500 cursor-pointer"
               onClick={() => setModal({ show: false })}
