@@ -31,12 +31,12 @@ const Products = ({ products = [] }) => {
               />
             ) : null}
           </Link>
-          <div className="absolute bg-white bottom-5 w-[60%] flex justify-center items-center divide-x-2 hovered">
-            <div className="pr-10">
+          <div className="absolute bg-white bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
+            <div className="flex items-center justify-center w-full">
               <Image
                 src={Wishlist}
-                width={35}
-                height={35}
+                width={33}
+                height={33}
                 alt=""
                 className="cursor-pointer"
                 onClick={() => {
@@ -53,11 +53,11 @@ const Products = ({ products = [] }) => {
                 }}
               />
             </div>
-            <div className="pl-10">
+            <div className="flex items-center justify-center w-full">
               <Image
                 src={Cart}
-                width={35}
-                height={35}
+                width={38}
+                height={38}
                 alt=""
                 className="cursor-pointer"
                 onClick={() => {

@@ -66,7 +66,7 @@ const FilterIn = ({
   selected,
   changeFilterOptions,
 }) => {
-  const [filterNumber, setFilterNumber] = useState(1);
+  const [filterNumber, setFilterNumber] = useState(3);
   const numFiltersLoaded = Math.min(filterNumber, filter?.params?.items.length);
   const allFiltersLoaded = numFiltersLoaded === filter?.params?.items.length;
   const handleFilterNumber = () => {
@@ -188,7 +188,7 @@ const FilterRange = ({ filter, onChange, selected }) => {
 
 const FilterWithinTree = ({ filter }) => {
   const router = useRouter();
-  const [filterNumber, setFilterNumber] = useState(1);
+  const [filterNumber, setFilterNumber] = useState(3);
   const numFiltersLoaded = Math.min(filterNumber, filter?.params?.items.length);
   const allFiltersLoaded = numFiltersLoaded === filter?.params?.items.length;
   const handleFilterNumber = () => {
