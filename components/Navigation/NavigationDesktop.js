@@ -111,13 +111,14 @@ const NavigationDesktop = () => {
                   placeholder="Unesite pojam za pretragu..."
                   value={searchTerm}
                   onChange={({ target }) => setSearchTerm(target.value)}
-                  className="border-t-0 h-6 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 "
+                  className="border-t-0 h-6 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 font-light"
                 ></input>
                 <Image
                   src={Search}
                   width={25}
                   height={25}
-                  className="absolute -right-10 bottom-0"
+                  className="absolute -right-10 bottom-0 cursor-pointer"
+                  onClick={handleSearch}
                 />
               </form>
               <div className="flex items-center gap-5">
@@ -150,7 +151,7 @@ const NavigationDesktop = () => {
         }
       >
         <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
-          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[656px] w-2/5 overflow-y-scroll">
+          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[656px] w-1/5 overflow-y-auto">
             <div className="flex flex-col mt-10 ">
               {categories.map((item) => {
                 return item?.children ? (
@@ -176,14 +177,14 @@ const NavigationDesktop = () => {
               })}
             </div>
           </div>
-          <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[656px] self-start xl:ml-32 3xl:ml-20 overflow-y-scroll">
+          <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[656px] self-start xl:ml-32 3xl:ml-20 hidescroll overflow-y-auto">
             {subCategory?.map((item) => (
               <div className="col-span-1 flex flex-col">
                 <Link
                   href={`/kategorije/${item?.slug}`}
                   onClick={() => setOpen(false)}
                 >
-                  <h1 className="text-xl font-medium hover:underline">
+                  <h1 className="text-xl font-light hover:underline">
                     {item?.name}
                   </h1>
                 </Link>
@@ -195,7 +196,7 @@ const NavigationDesktop = () => {
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
-                          <div className="text-lg py-1 px-1 hover:bg-croonus-2">
+                          <div className="text-lg font-light py-1 px-1 hover:bg-croonus-2">
                             <p className="">{child?.name}</p>
                           </div>
                         </Link>

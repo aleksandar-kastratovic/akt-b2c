@@ -32,7 +32,7 @@ const Filters = ({
                 <div
                   className={`border-l hover:border-t hover:border-t-croonus-4 border-r relative py-4`}
                 >
-                  <h1 className="uppercase text-base text-center">
+                  <h1 className="uppercase text-[0.9rem] text-center">
                     {filter?.name}
                   </h1>
                   <i className="fa-solid absolute right-0 top-4 fa-chevron-down text-base ml-auto mr-2"></i>

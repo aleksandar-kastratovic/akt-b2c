@@ -104,7 +104,7 @@ const BannerSlider = ({ banners }) => {
         )} */}
       </div>
       {loaded && instanceRef.current && (
-        <div className="dots mt-3">
+        <div className="dots2 mt-3">
           {[
             ...Array(instanceRef.current.track.details.slides.length).keys(),
           ].map((idx) => {
@@ -114,7 +114,7 @@ const BannerSlider = ({ banners }) => {
                 onClick={() => {
                   instanceRef.current?.moveToIdx(idx);
                 }}
-                className={"dot" + (currentSlide === idx ? " active" : "")}
+                className={"dot2" + (currentSlide === idx ? " active" : "")}
               ></button>
             );
           })}

@@ -10,6 +10,7 @@ import Wishlist from "../../assets/Icons/favorite.png";
 import Cart from "../../assets/Icons/shopping-bag.png";
 import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { toast, ToastContainer } from "react-toastify";
+import ArrowPic from "../../assets/Icons/arrow.png";
 import "react-toastify/dist/ReactToastify.css";
 const ProductsSlider = ({ products, text }) => {
   const globalAddToCart = useGlobalAddToCart();
@@ -63,12 +64,12 @@ const ProductsSlider = ({ products, text }) => {
             className="h-full object-cover"
           />
         </Link>
-        <div className="absolute bg-white bottom-5 w-[60%] flex justify-center items-center divide-x-2 hovered">
-          <div className="pr-10">
+        <div className="absolute bg-white bottom-5 w-[70%] flex justify-center divide-x items-center py-0 divide-black hovered">
+          <div className="flex items-center justify-center w-full">
             <Image
               src={Wishlist}
-              width={35}
-              height={35}
+              width={33}
+              height={33}
               alt=""
               className="cursor-pointer"
               onClick={() => {
@@ -79,11 +80,12 @@ const ProductsSlider = ({ products, text }) => {
               }}
             />
           </div>
-          <div className="pl-10">
+
+          <div className="flex items-center justify-center w-full">
             <Image
               src={Cart}
-              width={35}
-              height={35}
+              width={38}
+              height={38}
               alt=""
               className="cursor-pointer"
               onClick={() => {
@@ -128,7 +130,7 @@ const ProductsSlider = ({ products, text }) => {
       {" "}
       <ToastContainer />
       <div className="mt-[3.688rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
-        <h1 className="text-xl font-medium">{text}</h1>
+        <h1 className="text-xl font-normal">{text}</h1>
 
         <div ref={sliderRef} className="keen-slider mt-[2.875rem]">
           {product}
@@ -179,21 +181,31 @@ const ProductsSlider = ({ products, text }) => {
 function Arrow(props) {
   const disabeld = props.disabled ? " arrow--disabled" : "";
   return (
-    <svg
+    <div
       onClick={props.onClick}
-      className={`arrow ${
+      className={`flex flex-col items-center justify-center arrow ${
         props.left ? "arrow--left" : "arrow--right"
       } ${disabeld}`}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
     >
       {props.left && (
-        <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+        <Image
+          src={ArrowPic}
+          width={35}
+          height={35}
+          alt=""
+          className="cursor-pointer rotate-90"
+        />
       )}
       {!props.left && (
-        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+        <Image
+          src={ArrowPic}
+          width={35}
+          height={35}
+          alt=""
+          className="cursor-pointer -rotate-90"
+        />
       )}
-    </svg>
+    </div>
   );
 }
 
