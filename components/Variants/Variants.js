@@ -1,4 +1,6 @@
 "use client";
+import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 export default function Variants({
   product,
@@ -281,12 +283,11 @@ export default function Variants({
             >
               {item.attribute.name}:
             </label>
-
-            <select
+            <form
               key={item.id}
               id={item.id}
               name={item.attribute.key}
-              className="px-16 border 2xl:min-w-[12.625rem] border-[#eaeaea] focus:border-2 focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
+              className="px-16  2xl:min-w-[12.625rem] flex flex-row items-center  gap-4 text-[0.875rem]"
               onChange={(e) => {
                 onChangeHandler(item.attribute.key, e.target.value);
                 handleVariantOptionChange();
@@ -302,23 +303,94 @@ export default function Variants({
                 }
               }}
             >
-              {item.values.map((value) => {
-                let display = value.display;
-                return (
-                  <option
-                    key={value.id}
-                    value={value.key}
-                    selected={value.selected}
-                    style={{ display: value.display }}
-                    className={
-                      display === "show" ? `block text-[0.875rem]` : `hidden`
+              {item?.attribute?.name === "Boja" ? (
+                item.values.map((value) => {
+                  let display = value.display;
+                  return (
+                    <div className="flex flex-row items-center gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onChangeHandler(item.attribute.key, value.key);
+                          handleVariantOptionChange();
+                          variant_product = getProductVariant();
+                          if (variant_product) {
+                            updateProductVariant(variant_product);
+                            updateProductPrice(
+                              variant_product?.price?.price?.original
+                            );
+                            handleURLChange(variant_product?.slug);
+                            product_slug = variant_product?.slug;
+                          }
+                        }}
+                        key={value.id}
+                        value={value.key}
+                        selected={value.selected}
+                        style={{ display: value.display }}
+                        className={
+                          display === "show"
+                            ? `block text-[0.875rem]`
+                            : `hidden`
+                        }
+                      >
+                        {value?.image && (
+                          <div className="rounded-full  h-[23px] w-[23px]">
+                            <Image
+                              src={convertHttpToHttps(value?.image)}
+                              width={40}
+                              height={40}
+                              className="rounded-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                      </button>
+                    </div>
+                  );
+                })
+              ) : (
+                <select
+                  key={item.id}
+                  id={item.id}
+                  name={item.attribute.key}
+                  className="px-16 border 2xl:min-w-[12.625rem] border-[#eaeaea] focus:border-2 focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
+                  onChange={(e) => {
+                    onChangeHandler(item.attribute.key, e.target.value);
+                    handleVariantOptionChange();
+                    variant_product = getProductVariant();
+                    if (variant_product) {
+                      updateProductVariant(variant_product);
+                      updateProductPrice(
+                        variant_product?.price?.price?.original
+                      );
+                      handleURLChange(variant_product?.slug);
+                      product_slug = variant_product?.slug;
+                    } else {
+                      updateProductVariant(null);
+                      updateProductPrice(null);
                     }
-                  >
-                    {value.name}
-                  </option>
-                );
-              })}
-            </select>
+                  }}
+                >
+                  {item.values.map((value) => {
+                    let display = value.display;
+                    return (
+                      <option
+                        key={value.id}
+                        value={value.key}
+                        selected={value.selected}
+                        style={{ display: value.display }}
+                        className={
+                          display === "show"
+                            ? `block text-[0.875rem]`
+                            : `hidden`
+                        }
+                      >
+                        {value.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              )}
+            </form>
           </div>
         );
       })}
