@@ -211,7 +211,7 @@ const ItemGallery = ({ gallery, description }) => {
       ) : (
         <div
           ref={thumbnailRef}
-          className="keen-slider max-lg:mt-5 thumbnail lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px] relative mr-4 z-0"
+          className="keen-slider max-lg:mt-5  lg:h-[550px] 2xl:h-[400px] 4xl:h-[550px] relative mr-4 z-0"
           style={{ width: "100%" }}
         >
           {thumbImages}
