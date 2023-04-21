@@ -1,12 +1,46 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Roboto+Flex:wght@300;400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @layer base {
   html,
   body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Flex", sans-serif;
   }
+}
+.roboto {
+  font-family: "Roboto Flex", sans-serif;
+} /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.bganimate {
+  position: relative;
+  overflow: hidden;
+  border-bottom: rgb(107 114 128);
+}
+
+.bganimate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  border-bottom: black;
+  animation: progress-bar 3s linear forwards;
+}
+
+@keyframes progress-bar {
+  to {
+    width: 100%;
+  }
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 .clamp {
   overflow: hidden;

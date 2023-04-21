@@ -29,9 +29,18 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
   }, [updateImage]);
 
   if (bannerimages?.length >= 2) {
-    const [sliderRef] = useKeenSlider(
+    const [loaded, setLoaded] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    const [sliderRef, instanceRef] = useKeenSlider(
       {
         loop: true,
+        slideChanged(slider) {
+          setCurrentSlide(slider.track.details.rel);
+        },
+        created() {
+          setLoaded(true);
+        },
       },
       [
         (slider) => {
@@ -97,6 +106,25 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           >
             {images}
           </div>
+          {loaded && instanceRef.current && bannerimages?.length > 0 ? (
+            <div className="dots3 relative flex items-center gap-[4.688rem] ml-auto justify-end mt-[1.875rem] text-[1.25rem]">
+              {bannerimages?.map((idx, index) => {
+                return (
+                  <>
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        instanceRef.current?.moveToIdx(index);
+                      }}
+                      className={currentSlide === index ? "underline" : ""}
+                    >
+                      {idx?.name}
+                    </button>
+                  </>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
       </>
     );

@@ -79,8 +79,8 @@ const ProductInfo = ({ products, description }) => {
     setProductAmount(1);
   };
   return (
-    <div className="col-span-2 max-lg:mt-6 lg:col-span-3">
-      <h1 className="uppercase text-[1.2rem] font-medium">
+    <div className="col-span-2 max-lg:mt-6 lg:col-span-3 text-croonus-1">
+      <h1 className="uppercase text-[1.5rem] text-croonus-1 font-bold">
         {productVariant ? (
           <>{productVariant?.basic_data?.name}</>
         ) : (
@@ -88,7 +88,7 @@ const ProductInfo = ({ products, description }) => {
         )}{" "}
       </h1>
       <div className="flex flex-row gap-10">
-        <p className="text-base mt-2 font-medium">
+        <p className="text-sm mt-0 font-bold">
           Šifra:{" "}
           <span className="font-normal">
             {productVariant ? (
@@ -98,7 +98,7 @@ const ProductInfo = ({ products, description }) => {
             )}{" "}
           </span>
         </p>
-        <p className="font-medium mt-2 text-base">
+        <p className="font-bold mt-0 text-sm">
           Dostupno:{" "}
           <span className="font-medium">
             {productVariant ? (
@@ -115,8 +115,8 @@ const ProductInfo = ({ products, description }) => {
           </span>
         </p>
       </div>
-      <div className="flex flex-row items-center gap-10 mt-2 py-5">
-        <p className="font-normal text-[1.125rem]">
+      <div className="flex flex-row items-center gap-10 mt-4 py-5">
+        <p className="font-normal text-[1rem]">
           {products?.data?.item?.price?.min?.price?.original &&
           products?.data?.item?.price?.max?.price?.original ? (
             <>
@@ -138,8 +138,8 @@ const ProductInfo = ({ products, description }) => {
         </p> */}
       </div>
       <div>
-        <h1 className="font-bold text-base">
-          <p className="text-base font-normal">
+        <h1 className="font-bold ">
+          <p className="text-[1rem] font-normal">
             {products?.data?.item?.basic_data?.short_description}
           </p>
         </h1>
@@ -158,7 +158,7 @@ const ProductInfo = ({ products, description }) => {
         </div>
       )}
 
-      <h1 className="text-[1.5rem] font-medium max-lg:text-left">
+      <h1 className="text-[1.5rem] font-bold max-lg:text-left">
         {" "}
         {productVariant ? (
           <>{currencyFormat(productVariant?.price?.price?.original)}</>

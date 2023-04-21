@@ -64,14 +64,14 @@ const ProductsSlider = ({ products, text }) => {
             className="h-full object-cover"
           />
         </Link>
-        <div className="absolute bg-white bottom-5 w-[70%] flex justify-center divide-x items-center py-0 divide-black hovered">
+        <div className="absolute bg-white py-0.5 bottom-5 w-[70%] flex justify-center divide-x items-center  divide-black hovered">
           <div className="flex items-center justify-center w-full">
             <Image
               src={Wishlist}
-              width={33}
-              height={33}
+              width={28}
+              height={28}
               alt=""
-              className="cursor-pointer"
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
               onClick={() => {
                 globalAddToWishlist(item?.basic_data?.id_product);
                 toast.success("Proizvod je dodat u listu želja!", {
@@ -84,10 +84,10 @@ const ProductsSlider = ({ products, text }) => {
           <div className="flex items-center justify-center w-full">
             <Image
               src={Cart}
-              width={38}
-              height={38}
+              width={30}
+              height={30}
               alt=""
-              className="cursor-pointer"
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
               onClick={() => {
                 globalAddToCart(item?.basic_data?.id_product, 1, false);
                 toast.success("Proizvod je dodat u korpu!", {
@@ -132,7 +132,7 @@ const ProductsSlider = ({ products, text }) => {
       <div className="mt-[3.688rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
         <h1 className="text-xl font-normal">{text}</h1>
 
-        <div ref={sliderRef} className="keen-slider mt-[2.875rem]">
+        <div ref={sliderRef} className="keen-slider mt-[1.625rem]">
           {product}
         </div>
         {loaded && instanceRef?.current && (

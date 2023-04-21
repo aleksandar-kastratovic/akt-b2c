@@ -31,14 +31,14 @@ const Products = ({ products = [] }) => {
               />
             ) : null}
           </Link>
-          <div className="absolute bg-white bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
+          <div className="absolute bg-white py-[2.5px] bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
             <div className="flex items-center justify-center w-full">
               <Image
                 src={Wishlist}
-                width={33}
-                height={33}
+                width={28}
+                height={28}
                 alt=""
-                className="cursor-pointer"
+                className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
                   globalAddToWishlist(item?.basic_data?.id_product);
                   toast.success("Proizvod je dodat u listu želja!", {
@@ -56,10 +56,10 @@ const Products = ({ products = [] }) => {
             <div className="flex items-center justify-center w-full">
               <Image
                 src={Cart}
-                width={38}
-                height={38}
+                width={32}
+                height={32}
                 alt=""
-                className="cursor-pointer"
+                className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
                   globalAddToCart(item?.basic_data?.id_product, 1, false);
                   toast.success("Proizvod je dodat u korpu!", {
