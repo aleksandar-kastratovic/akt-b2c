@@ -458,11 +458,12 @@ input[type="number"] {
 
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .thumbnail .keen-slider__slide {
   cursor: pointer;
-  height: 150px;
-  width: 150px;
+  width: 100%;
+  height: 100%;
 }
 .thumbnail .keen-slider__slide.active {
   border: 2px dashed black;

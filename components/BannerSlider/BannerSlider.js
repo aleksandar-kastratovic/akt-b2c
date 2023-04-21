@@ -56,7 +56,7 @@ const BannerSlider = ({ banners }) => {
             neki od materijala čija gustina tkanja zapravo određuje naš kvalitet
             i udobnost, po kom smo prepoznatljivi.
           </p>
-          <button className="bg-croonus-1 text-white text-base font-normal px-4 py-2 w-1/3">
+          <button className="bg-croonus-1 text-white text-base font-normal px-4 py-2 max-md:w-2/3 w-1/3">
             Saznajte više
           </button>
         </div>

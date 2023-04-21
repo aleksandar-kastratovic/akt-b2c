@@ -88,7 +88,7 @@ const NavigationMobile = () => {
       <div
         className={
           open
-            ? "lg:hidden overflow-y-scroll translate-x-0 transition-all duration-[550ms] bg-white fixed top-0 w-[85%] h-[95%] left-0 z-[300]"
+            ? "lg:hidden overflow-y-auto translate-x-0 transition-all duration-[550ms] bg-white fixed top-0 w-[85%] h-[95%] left-0 z-[300]"
             : "lg:hidden -translate-x-full transition-all duration-[550ms] bg-white fixed top-0 w-[85%] h-[95%] left-0 z-[300]"
         }
       >
@@ -123,27 +123,36 @@ const NavigationMobile = () => {
               onClick={handleSearch}
             ></i>
           </form>
-          <div className="pb-5 w-full flex flex-col gap-3 mx-auto mt-10">
+          <div className="pb-5 w-full flex flex-col gap-3 mx-auto mt-10 overflow-y-auto">
             {categories?.map((category) =>
               category?.children ? (
                 <div className=" w-full hover:bg-croonus-1 hover:text-white py-3 ">
-                  <div className="w-[90%] mx-auto flex justify-between items-center">
-                    <p
-                      className="uppercase text-2xl font-medium "
-                      onClick={() =>
-                        setSubcategory({
-                          isOpen: !subCategory.isOpen,
-                          data: category?.children,
-                        })
-                      }
-                    >
+                  <div
+                    className="w-[90%] mx-auto flex justify-between items-center"
+                    onClick={() =>
+                      setSubcategory({
+                        isOpen: !subCategory.isOpen,
+                        data: category?.children,
+                      })
+                    }
+                  >
+                    <p className="uppercase text-2xl font-medium ">
                       {category?.name}
                     </p>
 
                     <i className="text-sm fa-solid fa-chevron-right"></i>
                   </div>
                 </div>
-              ) : null
+              ) : (
+                <div className=" w-[90%] mx-auto hover:bg-croonus-1 hover:text-white py-3 ">
+                  <Link
+                    href={`/kategorije/${category?.slug_path}`}
+                    className="uppercase text-2xl font-medium"
+                  >
+                    {category?.name}
+                  </Link>
+                </div>
+              )
             )}
             {subCategory.isOpen &&
               subCategory?.data?.map((item) => (

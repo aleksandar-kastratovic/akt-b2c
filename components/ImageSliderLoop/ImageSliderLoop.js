@@ -107,7 +107,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
             {images}
           </div>
           {loaded && instanceRef.current && bannerimages?.length > 0 ? (
-            <div className="dots3 relative flex items-center gap-[4.688rem] ml-auto justify-end mt-[1.875rem] text-[1.25rem]">
+            <div className="dots3 relative flex max-md:justify-center items-center gap-[4.688rem] ml-auto justify-end mt-[1.875rem] text-[1.25rem]">
               {bannerimages?.map((idx, index) => {
                 return (
                   <>
