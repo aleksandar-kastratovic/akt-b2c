@@ -250,7 +250,7 @@ const CategoriesPageDisplay = ({
 
       {router?.asPath?.includes("search") ? null : (
         <div
-          className={`mt-4 w-[95%] lg:w-[80%] mx-auto h-[550px] 3xl:h-[43.125rem]`}
+          className={`mt-4 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`}
         >
           {" "}
           {categoryDataa?.seo?.image ? (
@@ -309,7 +309,7 @@ const CategoriesPageDisplay = ({
           limit={limit}
         />
       </div>
-      <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-4 2xl:grid-cols-4 ">
+      <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
         <Products products={products} />
       </div>
       {loading ? (

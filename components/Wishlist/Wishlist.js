@@ -19,7 +19,7 @@ const Wishlist = () => {
     <div className="mx-auto 4xl:container">
       <div className="w-[95%] lg:w-[85%] mx-auto">
         {wishListProducts.length > 0 ? (
-          <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-5">
+          <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-4">
             {wishListProducts.map((item) => (
               <div key={item?.wishlist?.id}>
                 <WishlistItems

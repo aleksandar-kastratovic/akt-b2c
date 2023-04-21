@@ -30,7 +30,7 @@ const Filters = ({
                 }}
               >
                 <div
-                  className={`border-l hover:border-t hover:border-t-croonus-4 border-r relative py-4`}
+                  className={`border-l border-t border-t-transparent hover:border-t hover:border-t-croonus-4 border-r relative py-4`}
                 >
                   <h1 className="uppercase text-[0.9rem] text-center">
                     {filter?.name}
@@ -62,11 +62,13 @@ const Filters = ({
           className="mt-6 max-lg:hidden row-start-1 hover:border-black cursor-pointer border py-2 relative flex justify-center items-center gap-3 col-span-1 w-full"
           onClick={() => setSelectedFilters([])}
         >
-          <p className="uppercase">Poništi filtere</p>
+          <p className="uppercase text-[0.9rem]">Poništi filtere</p>
           <i className="fa-solid fa-x text-xs"></i>
         </div>
         <div className="col-span-2 max-lg:hidden mt-6 flex justify-end gap-5 items-center 2xl:col-start-5 3xl:col-start-5">
-          <span className="uppercase font-normal text-base">Sortiraj po</span>
+          <span className="uppercase font-normal text-[0.9rem]">
+            Sortiraj po
+          </span>
           <select
             name="sort"
             id="sort"
@@ -87,9 +89,19 @@ const Filters = ({
         >
           <p className="uppercase text-base font-medium py-3.5">Filteri</p>
         </div>
-        <div className="col-span-1 lg:hidden text-center text-white bg-croonus-4">
-          <p className="uppercase text-base font-medium py-3.5">Sortiraj</p>
-        </div>
+        <select
+          name="sort"
+          id="sort"
+          className="col-span-1 uppercase focus:ring-0 lg:hidden text-center text-white bg-croonus-4 relative focus:border-croonus-1 focus:outline-none"
+          onChange={onSortChange}
+          value={sort ? sort.field + "_" + sort.direction : "none"}
+        >
+          {Object.entries(sortKeys).map((item) => (
+            <option className="text-xs uppercase" value={item[0]} key={item[0]}>
+              {item[1].label}
+            </option>
+          ))}
+        </select>
         <div
           className={
             openModal

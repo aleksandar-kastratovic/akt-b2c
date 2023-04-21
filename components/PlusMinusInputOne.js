@@ -22,7 +22,7 @@ const PlusMinusInputOne = ({ className, amount, setCount }) => {
   };
 
   return (
-    <div className="bg-croonus-5 px-3 border">
+    <div className="bg-[#fbfbfb] px-3 border border-[#eaeaea]">
       <div className="flex items-center w-full">
         <span
           className="cursor-pointer text-lg select-none"
@@ -36,7 +36,7 @@ const PlusMinusInputOne = ({ className, amount, setCount }) => {
           type="number"
           value={amount}
           onChange={onInputChange}
-          className="w-12 text-center bg-croonus-5 focus:border-none focus:outline-none focus:ring-0 select-none font-bold border-none"
+          className="w-12 text-center bg-[#fbfbfb] focus:border-none focus:outline-none focus:ring-0 select-none font-bold border-none"
         ></input>
         <span
           className="cursor-pointer text-lg select-none"

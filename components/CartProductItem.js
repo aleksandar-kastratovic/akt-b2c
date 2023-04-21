@@ -6,6 +6,8 @@ import { currencyFormat } from "../helpers/functions";
 import PlusMinusInputTwo from "./PlusMinusInputTwo";
 import classes from "./CartProductItem.module.css";
 import PlusMinusInputOne from "./PlusMinusInputOne";
+import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import Link from "next/link";
 
 const CartProductItem = ({ item }) => {
   const [productAmount, setProductAmount] = useState(
@@ -27,22 +29,26 @@ const CartProductItem = ({ item }) => {
   const currency = item?.product?.price?.currency;
   return (
     <>
-      <div className="col-span-2 grid grid-cols-3 mt-1 relative">
-        <div className="relative col-span-1 flex items-center ">
-          <div className="w-[130px]">
-            <Image
-              src={item?.product?.image[0]}
-              width={250}
-              height={250}
-              alt=""
-              className="object-cover w-full"
-            />
+      <div className="col-span-2 grid grid-cols-3 gap-x-10 mt-1 relative">
+        <div className="relative col-span-1 w-full flex items-center ">
+          <div className="">
+            <Link href={`/proizvod/${item?.product?.slug}`}>
+              <Image
+                src={convertHttpToHttps(item?.product?.image[0])}
+                width={250}
+                height={250}
+                alt=""
+                className="object-cover h-full w-full"
+              />
+            </Link>
           </div>
         </div>
         <div className="col-span-2 flex justify-evenly flex-col ">
-          <span className="text-base font-medium">
-            {item?.product?.basic_data?.name}
-          </span>
+          <Link href={`/proizvod/${item?.product?.slug}`}>
+            <span className="text-base font-medium">
+              {item?.product?.basic_data?.name}
+            </span>
+          </Link>
           <span>Šifra: {item?.product?.basic_data?.sku}</span>
           <div className="flex items-center gap-3">
             <span>Količina</span>

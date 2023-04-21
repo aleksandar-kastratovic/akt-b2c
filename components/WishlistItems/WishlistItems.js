@@ -7,6 +7,7 @@ import Image from "next/image";
 import { currencyFormat } from "@/helpers/functions";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import Cart from "../../assets/Icons/shopping-bag.png";
+import { toast } from "react-toastify";
 const Wishlistproducts = ({ items, product }) => {
   const removeFromWishList = useGlobalRemoveFromWishlist();
   const globalAddToCart = useGlobalAddToCart();
@@ -24,23 +25,32 @@ const Wishlistproducts = ({ items, product }) => {
             className="h-full object-cover"
           />
         </Link>
-        <div className="absolute bg-white bottom-5 w-[60%] flex justify-center items-center divide-x-2 hovered">
+        <div className="absolute py-0.5 bg-white bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
           <div className="w-full flex items-center justify-center">
             <i
-              className="fa-solid fa-xmark text-2xl cursor-pointer"
+              className="fa-solid fa-xmark text-2xl cursor-pointer hover:scale-110 transition-all duration-300"
               onClick={() => removeFromWishList(items)}
             ></i>
           </div>
           <div className="w-full flex items-center justify-center">
             <Image
               src={Cart}
-              width={35}
-              height={35}
+              width={28}
+              height={28}
               alt=""
-              className="cursor-pointer"
-              onClick={() =>
-                globalAddToCart(product?.basic_data?.id_product, 1, false)
-              }
+              className="cursor-pointer hover:scale-110 transition-all duration-300"
+              onClick={() => {
+                globalAddToCart(product?.basic_data?.id_product, 1, false);
+                toast.success("Proizvod je dodat u korpu!", {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }}
             />
           </div>
         </div>

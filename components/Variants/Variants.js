@@ -277,48 +277,48 @@ export default function Variants({
           <div className="flex flex-row items-center gap-7">
             <label
               htmlFor={item.id}
-              className="max-lg:text-left text-[1.125rem] font-medium"
+              className="max-lg:text-left text-[1.125rem] font-bold min-w-[5.619rem]"
             >
               {item.attribute.name}:
             </label>
-            {item?.attribute?.name === "Boja" ? null : (
-              <select
-                key={item.id}
-                id={item.id}
-                name={item.attribute.key}
-                className="px-16 border border-slate-200 focus:border-2 focus:border-croonus-3 focus:ring-0 "
-                onChange={(e) => {
-                  onChangeHandler(item.attribute.key, e.target.value);
-                  handleVariantOptionChange();
-                  variant_product = getProductVariant();
-                  if (variant_product) {
-                    updateProductVariant(variant_product);
-                    updateProductPrice(variant_product?.price?.price?.original);
-                    handleURLChange(variant_product?.slug);
-                    product_slug = variant_product?.slug;
-                  } else {
-                    updateProductVariant(null);
-                    updateProductPrice(null);
-                  }
-                }}
-              >
-                <option>Izaberite</option>
-                {item.values.map((value) => {
-                  let display = value.display;
-                  return (
-                    <option
-                      key={value.id}
-                      value={value.key}
-                      selected={value.selected}
-                      style={{ display: value.display }}
-                      className={display === "show" ? `block` : `hidden`}
-                    >
-                      {value.name}
-                    </option>
-                  );
-                })}
-              </select>
-            )}
+
+            <select
+              key={item.id}
+              id={item.id}
+              name={item.attribute.key}
+              className="px-16 border 2xl:min-w-[12.625rem] border-[#eaeaea] focus:border-2 focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
+              onChange={(e) => {
+                onChangeHandler(item.attribute.key, e.target.value);
+                handleVariantOptionChange();
+                variant_product = getProductVariant();
+                if (variant_product) {
+                  updateProductVariant(variant_product);
+                  updateProductPrice(variant_product?.price?.price?.original);
+                  handleURLChange(variant_product?.slug);
+                  product_slug = variant_product?.slug;
+                } else {
+                  updateProductVariant(null);
+                  updateProductPrice(null);
+                }
+              }}
+            >
+              {item.values.map((value) => {
+                let display = value.display;
+                return (
+                  <option
+                    key={value.id}
+                    value={value.key}
+                    selected={value.selected}
+                    style={{ display: value.display }}
+                    className={
+                      display === "show" ? `block text-[0.875rem]` : `hidden`
+                    }
+                  >
+                    {value.name}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         );
       })}

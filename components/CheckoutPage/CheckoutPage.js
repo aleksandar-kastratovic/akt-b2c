@@ -16,6 +16,7 @@ import {
 import Breadcrumbs from "../../helpers/generateBreadCrumbsServer";
 import { currencyFormat } from "../../helpers/functions";
 import { Breadcrumb } from "rsuite";
+import GenerateBreadCrumbsServer from "../../helpers/generateBreadCrumbsServer";
 
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
@@ -273,11 +274,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         refreshReCaptcha={refreshReCaptcha}
       />
       <div className="mx-auto text-sm 4xl:container">
-        <div className="mt-5 max-xl:w-[95%] mx-auto">
-          <div className="mx-auto flex w-full justify-between uppercase font-medium xl:w-[85%]">
-            <Breadcrumbs />
+        <div className="bg-[#f5f5f6] mt-3.5">
+          <div className="py-1 w-[95%] lg:w-[85%] mx-auto">
+            <GenerateBreadCrumbsServer />{" "}
           </div>
         </div>
+        <div className="mt-5 max-xl:w-[95%] mx-auto"></div>
         {cartItems.length > 0 ? (
           <div className="mx-auto grid grid-cols-5 gap-y-3 gap-x-3 w-[95%] xl:w-[85%] ">
             <div className="col-span-5 bg-white p-1 xl:col-span-3 max-xl:row-start-1">
