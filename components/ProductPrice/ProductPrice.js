@@ -188,9 +188,9 @@ const ProductInfo = ({ products, description }) => {
             setCount={setProductAmount}
           />
         </div>
-        <div className="col-span-4 self-stretch flex items-center gap-2">
+        <div className="col-span-4 max-md:h-full self-stretch flex items-center gap-2">
           <button
-            className="relative  hover:bg-opacity-80 flex items-center gap-2 px-5 justify-center  bg-croonus-1 text-white font-medium"
+            className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
             onClick={() => addToCart()}
           >
             <Image
@@ -202,14 +202,14 @@ const ProductInfo = ({ products, description }) => {
             />
             Dodaj u korpu
           </button>
-          <div className="hover:bg-red-500 p-2 rounded-full">
+          <div className="lg:hover:bg-red-500 p-2 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
             <Image
               src={Wishlist}
               alt="wishlist"
               width={30}
               height={30}
               onClick={() => addToWishlist()}
-              className="cursor-pointer hover:invert"
+              className="cursor-pointer lg:hover:invert"
             />
             <ToastContainer />
           </div>

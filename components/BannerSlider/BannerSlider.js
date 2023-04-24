@@ -45,9 +45,9 @@ const BannerSlider = ({ banners }) => {
     <div
       className={`grid grid-cols-2 keen-slider__slide number-slide${index} `}
     >
-      <div className="col-span-2 max-lg:py-10 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
+      <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
         <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-[95%] max-lg:pr-5 w-[80%] mx-auto">
-          <h1 className="text-[1.575rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
+          <h1 className="text-[1.661rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
             Kakve su naše posteljine?
           </h1>
           <p className="text-[1rem] font-normal text-black text-left max-lg:py-4">
@@ -75,7 +75,7 @@ const BannerSlider = ({ banners }) => {
   return (
     <>
       <div className="mt-24 max-lg:mt-16 navigation-wrapper w-[95%] lg:w-[65%] mx-auto ">
-        <h1 className="text-lg font-medium lg:hidden pb-5">
+        <h1 className="text-[1.661rem] font-medium lg:hidden pb-5">
           Kakve su naše posteljine?
         </h1>
         <div ref={sliderRef} className="keen-slider">

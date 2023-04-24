@@ -279,7 +279,7 @@ export default function Variants({
           <div className="flex flex-row items-center gap-7">
             <label
               htmlFor={item.id}
-              className="max-lg:text-left text-[1.125rem] font-bold min-w-[5.619rem]"
+              className="max-lg:text-left text-[1.125rem] font-bold max-md:font-normal min-w-[5.619rem]"
             >
               {item.attribute.name}:
             </label>
@@ -287,7 +287,7 @@ export default function Variants({
               key={item.id}
               id={item.id}
               name={item.attribute.key}
-              className="px-16  2xl:min-w-[12.625rem] flex flex-row items-center  gap-4 text-[0.875rem]"
+              className="px-16 max-md:px-0 2xl:min-w-[12.625rem] flex flex-row items-center  gap-4 text-[0.875rem]"
               onChange={(e) => {
                 onChangeHandler(item.attribute.key, e.target.value);
                 handleVariantOptionChange();
@@ -334,7 +334,17 @@ export default function Variants({
                         }
                       >
                         {value?.image && (
-                          <div className="rounded-full  h-[23px] w-[23px]">
+                          <div
+                            className={`rounded-full ${
+                              selected.find(
+                                (x) =>
+                                  x.attribute_key == item.attribute.key &&
+                                  x.value_key == value.key
+                              )
+                                ? `border border-[#797979] p-[3px]`
+                                : `p-[3px]`
+                            } md:h-[23px] h-[30px] w-[30px] md:w-[23px]`}
+                          >
                             <Image
                               src={convertHttpToHttps(value?.image)}
                               width={40}
@@ -352,7 +362,7 @@ export default function Variants({
                   key={item.id}
                   id={item.id}
                   name={item.attribute.key}
-                  className="px-16 border 2xl:min-w-[12.625rem] border-[#eaeaea] focus:border-2 focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
+                  className="px-16 border 2xl:min-w-[12.625rem] max-md:border-[#919191] border-[#eaeaea] focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
                   onChange={(e) => {
                     onChangeHandler(item.attribute.key, e.target.value);
                     handleVariantOptionChange();

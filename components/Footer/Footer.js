@@ -56,7 +56,7 @@ const Footer = () => {
               <Image src={Logo} width={350} height={350} />
             </div>
             <div className="flex flex-col max-lg:items-center gap-1 ">
-              <div className="flex max-lg:flex-col items-center gap-5">
+              <div className="flex max-lg:flex-row items-center gap-5">
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
                 </span>
@@ -67,7 +67,7 @@ const Footer = () => {
                   {process.env.TOWN}
                 </span>
               </div>
-              <div className="flex max-lg:flex-col items-center gap-5">
+              <div className="flex max-lg:flex-col items-center gap-2">
                 <span className=" text-sm font-normal">
                   PIB: {process.env.PIB} |
                 </span>
@@ -87,7 +87,9 @@ const Footer = () => {
           </div>
           <div className="flex max-lg:border-b max-lg:border-b-black max-lg:py-10 col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
             <h1 className="text-2xl font-medium">Newsletter</h1>
-            <p>Pratite dešavanja iz našeg svakodnevnog poslovanja.</p>
+            <p className="max-lg:text-center">
+              Pratite dešavanja iz našeg svakodnevnog poslovanja.
+            </p>
             {loading ? (
               <div>
                 <i className="fa-solid fa-spinner text-xl animate-spin"></i>
@@ -171,19 +173,19 @@ const Footer = () => {
         </div>
       )}
       <div className="flex items-center justify-center py-5 gap-5">
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image1}
             className="w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image2}
             className="w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image3}
             className="w-[60%] lg:w-[70%] object-scale-down"
@@ -192,25 +194,25 @@ const Footer = () => {
         <div className="w-[60%] lg:w-[10%]">
           <Image src={Image4} className=" object-scale-down" />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image5}
             className="w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image6}
             className="w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image7}
             className="w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="">
+        <div className="max-md:w-full">
           <Image
             src={Image8}
             className="w-[60%] lg:w-[70%] object-scale-down"
