@@ -15,11 +15,11 @@ const CategoriesPageDisplay = dynamic(
   }
 );
 
-const fetchProducts = async (id) => {
-  const fetchProducts = await get(`/categories/product/single/${id}`).then(
+const fetchCategory = async (id) => {
+  const fetchCategory = await get(`/categories/product/single/${id}`).then(
     (response) => response?.payload
   );
-  return fetchProducts;
+  return fetchCategory;
 };
 
 const fetchFilters = async (id) => {
@@ -36,10 +36,18 @@ const fetchNewProducts = async () => {
   return fetchNewProducts;
 };
 
+export async function generateMetadata({ params: { path } }) {
+  const category = await fetchCategory(path[path.length - 1]);
+  return {
+    title: `${process.env.COMPANY} ${category?.basic_data?.name}`,
+    description: category?.basic_data?.description,
+  };
+}
 const CategoryPage = async ({ params: { path } }) => {
-  const products = await fetchProducts(path[path.length - 1]);
+  const products = await fetchCategory(path[path.length - 1]);
   const filters = await fetchFilters(path[path.length - 1]);
   const newProducts = await fetchNewProducts();
+
   return (
     <>
       {products === undefined ? null : (

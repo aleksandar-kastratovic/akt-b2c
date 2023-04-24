@@ -34,7 +34,13 @@ const fetchDescription = async (id) => {
   );
   return fetchDescription;
 };
-
+export async function generateMetadata({ params: { path } }) {
+  const product = await fetchProduct(path[path?.length - 1]);
+  return {
+    title: `${process.env.COMPANY} ${product?.data?.item?.basic_data?.name}`,
+    description: product?.data?.item?.basic_data?.description,
+  };
+}
 const ProductPage = async ({ params: { path } }) => {
   const products = await fetchProduct(path[path?.length - 1]);
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
