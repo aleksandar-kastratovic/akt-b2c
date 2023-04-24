@@ -12,11 +12,13 @@ import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { toast, ToastContainer } from "react-toastify";
 import ArrowPic from "../../assets/Icons/arrow.png";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 const ProductsSlider = ({ products, text }) => {
   const globalAddToCart = useGlobalAddToCart();
   const globalAddToWishlist = useGlobalAddToWishList();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const router = useRouter();
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     slides: {
@@ -25,7 +27,8 @@ const ProductsSlider = ({ products, text }) => {
     breakpoints: {
       "(max-width: 1024px)": {
         slides: {
-          perView: 1,
+          perView: 1.2,
+          spacing: 20,
         },
       },
       "(min-width:1024px)": {
@@ -73,10 +76,14 @@ const ProductsSlider = ({ products, text }) => {
               alt=""
               className="cursor-pointer hover:scale-110 transition-all duration-300"
               onClick={() => {
-                globalAddToWishlist(item?.basic_data?.id_product);
-                toast.success("Proizvod je dodat u listu želja!", {
-                  position: "top-center",
-                });
+                if (item?.product_type === "single") {
+                  globalAddToWishlist(item?.basic_data?.id_product);
+                  toast.success("Proizvod je dodat u listu želja!", {
+                    position: "top-center",
+                  });
+                } else {
+                  router.push(`/proizvod/${item?.slug}`);
+                }
               }}
             />
           </div>
@@ -89,16 +96,14 @@ const ProductsSlider = ({ products, text }) => {
               alt=""
               className="cursor-pointer hover:scale-110 transition-all duration-300"
               onClick={() => {
-                globalAddToCart(item?.basic_data?.id_product, 1, false);
-                toast.success("Proizvod je dodat u korpu!", {
-                  position: "top-center",
-                  autoClose: 2000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
+                if (item?.product_type === "single") {
+                  globalAddToCart(item?.basic_data?.id_product, 1, false);
+                  toast.success("Proizvod je dodat u korpu!", {
+                    position: "top-center",
+                  });
+                } else {
+                  router.push(`/proizvod/${item?.slug}`);
+                }
               }}
             />
           </div>
@@ -112,15 +117,30 @@ const ProductsSlider = ({ products, text }) => {
           {item?.basic_data?.name}
         </Link>
       </p>
-      <div className=" self-start w-1/3">
-        <p className="text-[0.875rem] self-start text-black font-normal py-1 line-through">
-          {currencyFormat(item?.price?.price?.original)}
+      <div className=" self-start max-lg:w-[210px] w-2/3">
+        <p
+          className={`text-[0.875rem] self-start text-black font-normal py-1 ${
+            item?.price?.discount?.active === true && "line-through"
+          }`}
+        >
+          {item?.product_type === "variant" ? (
+            <>
+              {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+              {currencyFormat(item?.price?.max?.price?.original)}
+            </>
+          ) : (
+            currencyFormat(item?.price?.price?.original)
+          )}
         </p>
       </div>
-      <div className=" bg-croonus-3 self-start w-1/3">
-        <p className="text-[1rem] self-start text-black font-normal py-2 pl-2">
-          {currencyFormat(item?.price?.price?.original)}
-        </p>
+      <div className=" bg-croonus-3  max-lg:w-[210px] self-start w-1/3">
+        {item?.price?.discount?.active && (
+          <p className="text-[1rem] self-start text-black font-normal py-2 pl-2">
+            {currencyFormat(
+              item?.price?.price?.original - item?.price?.discount?.amount
+            )}
+          </p>
+        )}
       </div>
     </div>
   ));
@@ -130,7 +150,7 @@ const ProductsSlider = ({ products, text }) => {
       {" "}
       <ToastContainer />
       <div className="mt-[3.688rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
-        <h1 className="text-xl font-normal">{text}</h1>
+        <h1 className="text-[1.4rem] font-medium">{text}</h1>
 
         <div ref={sliderRef} className="keen-slider mt-[1.625rem]">
           {product}

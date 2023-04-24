@@ -267,7 +267,7 @@ const CategoriesPageDisplay = ({
       )}
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
-        <h1 className="font-medium uppercase text-2xl">
+        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
           {router?.pathname?.includes("search") ? (
             <>Pretražili ste: {search}</>
           ) : (
@@ -279,7 +279,7 @@ const CategoriesPageDisplay = ({
           </span>
         </h1>{" "}
         {router?.asPath?.includes("search") ? null : (
-          <p className="text-[1.125rem] text-center mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left">
+          <p className="text-[1rem] text-center mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
             Lorem Ipsum is a simply dummy text of the prinitng industry and
             typesetting industry. Lorem Ipsum is a simply dummy text of the
             prinitng industry and typesetting industry.Lorem Ipsum is a simply

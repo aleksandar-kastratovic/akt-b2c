@@ -12,6 +12,7 @@ const Filter = ({
   changeFilters,
   setChangeFilters,
   changeFilterOptions,
+  setActiveFilters,
 }) => {
   const changeHandler = (data) => {
     let tmp = [...selectedFilters];
@@ -29,6 +30,7 @@ const Filter = ({
       }
     }
     setSelectedFilters([...tmp]);
+    setActiveFilters([...tmp]);
   };
 
   let selected = selectedFilters.filter(

@@ -491,3 +491,7 @@ input[type="number"] {
 .hidescroll::-webkit-scrollbar {
   display: none;
 }
+
+.hyphens {
+  hyphens: auto;
+}

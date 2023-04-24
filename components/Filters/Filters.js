@@ -1,5 +1,5 @@
 import Filter from "../Filter/Filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const Filters = ({
   filtersMap,
   selectedFilters,
@@ -15,6 +15,11 @@ const Filters = ({
   const handleClick = (filter) => {
     setActiveFilter(filter);
   };
+  const [activeFilters, setActiveFilters] = useState([]);
+  console.log(activeFilters);
+  useEffect(() => {
+    setActiveFilters(selectedFilters);
+  }, [selectedFilters]);
   return (
     <>
       <div className="grid grid-cols-2 2xl:grid-cols-5 3xl:grid-cols-6 max-lg:border-none border">
@@ -113,10 +118,17 @@ const Filters = ({
             <h1 className="uppercase text-xl pb-4 font-semibold text-center">
               Odaberite filtere
             </h1>
+            {activeFilters?.map((item) => {
+              item.value.selected.map((item2) => {
+                console.log(item2);
+                return <p>{item2}</p>;
+              });
+            })}
             <i
               className="absolute fa-solid fa-x right-10 top-1"
               onClick={() => setOpenModal(false)}
             ></i>
+
             {(filtersMap ?? []).map((filter, index) => {
               const isOpen = openIndex === index;
               const isActive = filter === activeFilter;
@@ -148,6 +160,7 @@ const Filters = ({
                           filter={filter}
                           selectedFilters={selectedFilters}
                           setSelectedFilters={setSelectedFilters}
+                          setActiveFilters={setActiveFilters}
                         />
                       </div>
                     </div>
