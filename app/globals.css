@@ -92,12 +92,7 @@ input[type="number"] {
 .rs-tooltip-arrow {
   display: none;
 }
-.hovered {
-  display: none;
-}
-.hover:hover > .hovered {
-  display: flex;
-}
+
 [class^="number-slide"],
 [class*=" number-slide"] {
   font-size: 50px;
@@ -199,12 +194,6 @@ input[type="number"] {
   border-bottom: 1px solid black;
   bottom: -20px;
   right: 0;
-}
-.hovered {
-  display: none;
-}
-.hover:hover > .hovered {
-  display: flex;
 }
 
 @media (max-width: 1024px) {
@@ -494,4 +483,12 @@ input[type="number"] {
 
 .hyphens {
   hyphens: auto;
+}
+@media (min-width: 1024px) {
+  .hovered {
+    display: none;
+  }
+  .hover:hover > .hovered {
+    display: flex;
+  }
 }

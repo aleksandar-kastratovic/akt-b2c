@@ -343,7 +343,7 @@ export default function Variants({
                               )
                                 ? `border border-[#797979] p-[3px]`
                                 : `p-[3px]`
-                            } md:h-[23px] h-[30px] w-[30px] md:w-[23px]`}
+                            } md:h-[25px] h-[30px] w-[30px] md:w-[25px]`}
                           >
                             <Image
                               src={convertHttpToHttps(value?.image)}

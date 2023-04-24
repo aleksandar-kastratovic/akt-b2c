@@ -58,15 +58,18 @@ const ProductPage = async ({ params: { path } }) => {
           <ProductInfo products={products} description={description} />
         </div>
       </div>
-      <div className="w-[95%] lg:w-[85%] mx-auto mt-10">
-        <h1 className="text-[1.1rem] font-medium max-lg:text-left">
-          Opis proizvoda
-        </h1>
-        <p
-          className="text-[1rem] mt-2 font-normal roboto"
-          dangerouslySetInnerHTML={{ __html: description?.description }}
-        ></p>
-      </div>
+      {description?.description && (
+        <div className="w-[95%] lg:w-[85%] mx-auto mt-10">
+          <h1 className="text-[1.1rem] font-medium max-lg:text-left">
+            Opis proizvoda
+          </h1>
+          <p
+            className="text-[1rem] mt-2 font-normal roboto"
+            dangerouslySetInnerHTML={{ __html: description?.description }}
+          ></p>
+        </div>
+      )}
+
       <div className="mt-[3rem] sm:mt-[7.688rem]">
         <ProductsSlider
           products={relatedProducts}

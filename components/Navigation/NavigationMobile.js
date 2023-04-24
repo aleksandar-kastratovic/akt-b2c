@@ -34,6 +34,7 @@ const NavigationMobile = () => {
     setOpen(false);
   };
   const [view, setView] = useState("");
+  console.log(view);
   return (
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">
@@ -159,7 +160,7 @@ const NavigationMobile = () => {
                       className="w-[90%] mx-auto flex justify-between items-center"
                       onClick={() => {
                         setSubcategory({
-                          isOpen: !subCategory.isOpen,
+                          isOpen: true,
                           data: category?.children,
                         });
                         setView("subcategories");
@@ -173,84 +174,88 @@ const NavigationMobile = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className=" w-[90%] mx-auto hover:bg-croonus-1 hover:text-white py-3 ">
-                    <Link
-                      href={`/kategorije/${category?.slug_path}`}
-                      className="uppercase text-xl font-medium"
-                      onClick={() => {
-                        setOpen(false);
-                        setView("");
-                      }}
-                    >
-                      {category?.name}
-                    </Link>
+                  <div className="w-full hover:bg-croonus-1 hover:text-white py-3 ">
+                    <div className=" w-[90%] mx-auto ">
+                      <Link
+                        href={`/kategorije/${category?.slug_path}`}
+                        className="uppercase text-xl font-medium"
+                        onClick={() => {
+                          setOpen(false);
+                          setView("");
+                        }}
+                      >
+                        {category?.name}
+                      </Link>
+                    </div>
                   </div>
                 )
               )}
             {view === "subcategories" && (
-              <div
-                className="w-[90%] mx-auto flex items-center justify-start gap-3"
-                onClick={() => setView("")}
-              >
-                <i className="fa-solid fa-chevron-left text-base"></i>
-                <h1 className="text-xl uppercase font-medium">Nazad</h1>
-              </div>
-            )}
-            {view === "subcategories" &&
-              subCategory.isOpen &&
-              subCategory?.data?.map((item) => (
-                <div className="flex flex-col">
-                  {item?.children ? (
-                    <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
-                      <Link
-                        href={`/kategorije/${item?.slug_path}`}
-                        className="text-xl font-medium hover:underline"
-                        onClick={() => {
-                          setOpen(false);
-                          setView("");
-                        }}
-                      >
-                        {item?.name}
-                      </Link>
-                      <i className="fa-solid fa-chevron-right text-sm"></i>
-                    </div>
-                  ) : (
-                    <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
-                      <Link
-                        href={`/kategorije/${item?.slug_path}`}
-                        onClick={() => {
-                          setOpen(false);
-                          setView("");
-                        }}
-                      >
-                        <h1 className="text-xl font-medium hover:underline">
-                          {item?.name}
-                        </h1>
-                      </Link>
-                      <i className="fa-solid fa-chevron-right text-sm"></i>
-                    </div>
-                  )}
+              <>
+                <div
+                  className="w-[90%] mx-auto flex items-center justify-start gap-3"
+                  onClick={() => setView("")}
+                >
+                  <i className="fa-solid fa-chevron-left text-base"></i>
+                  <h1 className="text-xl uppercase font-medium">Nazad</h1>
+                </div>
 
-                  <div className="mt-5 pl-2 ">
-                    {item?.children
-                      ? item?.children?.map((child) => (
+                {subCategory.isOpen &&
+                  subCategory?.data?.map((item) => (
+                    <div className="flex flex-col">
+                      {item?.children ? (
+                        <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
                           <Link
-                            href={`/kategorije/${child?.slug_path}`}
-                            key={child?.id}
+                            href={`/kategorije/${item?.slug_path}`}
+                            className="text-xl font-medium hover:underline"
                             onClick={() => {
                               setOpen(false);
                               setView("");
                             }}
                           >
-                            <div className="text-lg py-1 px-1 hover:bg-croonus-2 hover:font-medium">
-                              <p className="pl-12">{child?.name}</p>
-                            </div>
+                            {item?.name}
                           </Link>
-                        ))
-                      : null}
-                  </div>
-                </div>
-              ))}
+                          <i className="fa-solid fa-chevron-right text-sm"></i>
+                        </div>
+                      ) : (
+                        <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
+                          <Link
+                            href={`/kategorije/${item?.slug_path}`}
+                            onClick={() => {
+                              setOpen(false);
+                              setView("");
+                            }}
+                          >
+                            <h1 className="text-xl font-medium hover:underline">
+                              {item?.name}
+                            </h1>
+                          </Link>
+                          <i className="fa-solid fa-chevron-right text-sm"></i>
+                        </div>
+                      )}
+
+                      <div className="mt-5 pl-2 ">
+                        {item?.children
+                          ? item?.children?.map((child) => (
+                              <Link
+                                href={`/kategorije/${child?.slug_path}`}
+                                key={child?.id}
+                                onClick={() => {
+                                  setOpen(false);
+                                  setView("");
+                                }}
+                              >
+                                <div className="text-lg py-1 px-1 hover:bg-croonus-2 hover:font-medium">
+                                  <p className="pl-12">{child?.name}</p>
+                                </div>
+                              </Link>
+                            ))
+                          : null}
+                      </div>
+                    </div>
+                  ))}
+              </>
+            )}
           </div>
           <div className="w-full mt-auto bg-croonus-4 grid grid-cols-2 divide-x">
             <div className="flex items-center justify-center gap-3 py-4">
