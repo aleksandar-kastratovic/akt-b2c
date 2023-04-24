@@ -21,7 +21,6 @@ const Products = ({ products = [] }) => {
         key={item.id}
         className={` flex flex-col relative items-center keen-slider__slide number-slide${index}`}
       >
-        <ToastContainer />
         <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center hover">
           <Link href={`/proizvod/${item?.slug}`}>
             {item?.image[0]?.toString() ? (
@@ -114,8 +113,8 @@ const Products = ({ products = [] }) => {
       <>
         {[...Array(5)].map((_, index) => (
           <div key={index} className="col-span-1 flex flex-col gap-2">
-            <div className="h-[350px] w-[252px] animate-pulse bg-croonus-2"></div>
-            <div className="h-[15px] w-[252px] animate-pulse bg-croonus-2"></div>
+            <div className="h-[470px] w-[375px] animate-pulse bg-croonus-2"></div>
+            <div className="h-[15px] w-[375px] animate-pulse bg-croonus-2"></div>
           </div>
         ))}
       </>
