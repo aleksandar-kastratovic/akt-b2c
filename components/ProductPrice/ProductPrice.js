@@ -81,19 +81,23 @@ const ProductInfo = ({ products, description }) => {
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex items-center justify-between">
-        <h1 className="uppercase max-md:text-[1.2rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] hyphens">
+        <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] hyphens">
           {productVariant ? (
             <>{productVariant?.basic_data?.name}</>
           ) : (
             <> {products?.data?.item?.basic_data?.name}</>
           )}{" "}
         </h1>
-        <div className="block min-w-[145px] max-w-[146px] md:hidden self-start text-[1.2rem] text-croonus-1 font-semibold">
+        <div className=" flex flex-col max-[280px]:max-[130px] min-w-[145px] max-w-[146px] md:hidden self-start float-right text-right text-[0.9rem] text-croonus-1 font-semibold">
           {productVariant ? (
             <>{currencyFormat(productVariant?.price?.price?.original)} </>
           ) : (
             <>{currencyFormat(20000)}</>
           )}
+          <div className="flex items-center mt-[2px] justify-between px-1 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
+            <span>-10%</span>
+            <span>3.200 RSD</span>
+          </div>
         </div>
       </div>
       <div className="flex flex-row gap-10 max-md:mt-3">

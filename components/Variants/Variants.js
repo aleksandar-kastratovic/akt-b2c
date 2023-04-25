@@ -390,7 +390,7 @@ export default function Variants({
                         style={{ display: value.display }}
                         className={
                           display === "show"
-                            ? `block text-[0.875rem]`
+                            ? `block text-[0.875rem] max-md:bg-[#fbfbfb]`
                             : `hidden`
                         }
                       >

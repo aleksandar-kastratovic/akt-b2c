@@ -47,17 +47,17 @@ const BannerSlider = ({ banners }) => {
       className={`grid grid-cols-2 keen-slider__slide number-slide${index} `}
     >
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
-        <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-[95%] max-lg:pr-5 w-[80%] mx-auto">
-          <h1 className="text-[1.661rem] max-md:text-[1rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
+        <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-full max-md:px-2 max-lg:pr-5 w-[80%] mx-auto">
+          <h1 className="text-[1.661rem] max-md:text-[1.1rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
             Kakve su naše posteljine?
           </h1>
-          <p className="text-[1rem] font-normal text-black text-left max-lg:py-4">
+          <p className="text-[1rem] max-md:text-[0.8rem] font-normal text-black text-left max-lg:py-4 max-md:py-0">
             Širok asortiman tekstilnih materijala je ono što razlikuje naš brend
             od ostalih. Pamučni šifon, krep, saten, flanel ili damast, samo su
             neki od materijala čija gustina tkanja zapravo određuje naš kvalitet
             i udobnost, po kom smo prepoznatljivi.
           </p>
-          <button className="bg-croonus-1 text-white text-base font-normal px-4 py-2 max-md:w-2/3 w-1/3">
+          <button className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-md:w-1/3 w-1/3">
             Saznajte više
           </button>
         </div>
@@ -76,7 +76,7 @@ const BannerSlider = ({ banners }) => {
   return (
     <>
       <div className="mt-24 max-lg:mt-16 navigation-wrapper w-[95%] lg:w-[65%] mx-auto ">
-        <h1 className="text-[1.661rem] font-medium lg:hidden pb-5 max-md:text-[1.3rem]">
+        <h1 className="text-[1.661rem] font-semibold lg:hidden pb-5 max-md:text-[1.1rem]">
           Kakve su naše posteljine?
         </h1>
         <div ref={sliderRef} className="keen-slider">

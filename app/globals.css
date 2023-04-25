@@ -10,7 +10,7 @@
 }
 .roboto {
   font-family: "Roboto Flex", sans-serif;
-} /* Chrome, Safari, Edge, Opera */
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -21,7 +21,13 @@ input::-webkit-inner-spin-button {
   overflow: hidden;
   border-bottom: rgb(107 114 128);
 }
-
+select {
+  /* hide the default arrow icon */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+}
 .bganimate::after {
   content: "";
   position: absolute;
@@ -126,7 +132,12 @@ input[type="number"] {
   padding: 5px;
   cursor: pointer;
 }
-.dots3 {
+.dots4 {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+}
+.dots5 {
   display: flex;
   padding: 10px 0;
   justify-content: center;
@@ -136,7 +147,6 @@ input[type="number"] {
   right: 15px;
   top: 27%;
 }
-
 .dot3 {
   border: none;
   width: 10px;
@@ -515,5 +525,11 @@ input[type="number"] {
   }
   .hover:hover > .hovered {
     display: flex;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hovered {
+    display: none;
   }
 }

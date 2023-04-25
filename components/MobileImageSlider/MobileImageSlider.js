@@ -42,7 +42,7 @@ const MobileImageSlider = ({ images }) => {
           {items}
         </div>
         <div
-          className="absolute max-[380px]:-bottom-1.5 w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-5 bg-white border border-slate-500"
+          className="absolute max-[380px]:-bottom-1.5 max-[280px]:-bottom-10 w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-5 bg-white border border-[#333]"
           onClick={() => {
             instanceRef.current?.next();
           }}
@@ -51,7 +51,7 @@ const MobileImageSlider = ({ images }) => {
         </div>
       </div>
       {loaded && instanceRef.current && (
-        <div className="dots3 mt-3">
+        <div className="dots5 mt-3">
           {[
             ...Array(instanceRef.current.track.details.slides.length).keys(),
           ].map((idx) => {
@@ -61,7 +61,7 @@ const MobileImageSlider = ({ images }) => {
                 onClick={() => {
                   instanceRef.current?.moveToIdx(idx);
                 }}
-                className={"dot3" + (currentSlide === idx ? " active" : "")}
+                className={"dot5" + (currentSlide === idx ? " active" : "")}
               ></button>
             );
           })}

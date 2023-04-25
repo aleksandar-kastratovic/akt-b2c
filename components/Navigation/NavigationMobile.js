@@ -56,8 +56,8 @@ const NavigationMobile = () => {
           <div className="flex items-center gap-5">
             <Image
               src={Search}
-              width={25}
-              height={25}
+              width={22}
+              height={22}
               onClick={() => setSearchOpen(!searchOpen)}
             />
             <Link href="/korpa">
@@ -98,7 +98,7 @@ const NavigationMobile = () => {
         }
       >
         <div className="flex flex-col h-full">
-          <div className="flex p-4 flex-row items-center justify-between">
+          <div className="flex p-4 flex-row items-center h-[60.81px] justify-between">
             <i
               className="fa-solid fa-xmark text-2xl"
               onClick={() => setOpen(false)}
@@ -115,7 +115,7 @@ const NavigationMobile = () => {
             <div className="w-[90%] mx-auto flex flex-col gap-[20px]">
               <Link
                 href="/novo"
-                className="text-xl font-medium uppercase"
+                className="text-base font-medium uppercase"
                 onClick={() => {
                   setOpen(false);
                   setView("");
@@ -125,7 +125,7 @@ const NavigationMobile = () => {
               </Link>
               <Link
                 href="/akcija"
-                className="text-xl font-medium uppercase"
+                className="text-base font-medium uppercase"
                 onClick={() => {
                   setOpen(false);
                   setView("");
@@ -141,7 +141,7 @@ const NavigationMobile = () => {
           >
             <input
               type="text"
-              className="w-full p-3 border focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"
+              className="w-full p-3 border placeholder:text-xs text-xs focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"
               placeholder="Pretražite kategoriju"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
@@ -150,7 +150,7 @@ const NavigationMobile = () => {
               src={Search}
               width={18}
               height={18}
-              className="absolute right-4 top-4"
+              className="absolute right-4 top-3"
               onClick={handleSearch}
             />
           </form>
@@ -158,7 +158,7 @@ const NavigationMobile = () => {
             {view === "" &&
               categories?.map((category) =>
                 category?.children ? (
-                  <div className=" w-full hover:bg-croonus-1 hover:text-white py-3 ">
+                  <div className=" w-full hover:bg-croonus-1 hover:text-white py-1 ">
                     <div
                       className="w-[90%] mx-auto flex justify-between items-center"
                       onClick={() => {
@@ -169,7 +169,7 @@ const NavigationMobile = () => {
                         setView("subcategories");
                       }}
                     >
-                      <p className="uppercase text-xl font-medium ">
+                      <p className="uppercase text-base font-medium ">
                         {category?.name}
                       </p>
 
@@ -177,11 +177,11 @@ const NavigationMobile = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="w-full hover:bg-croonus-1 hover:text-white py-3 ">
+                  <div className="w-full hover:bg-croonus-1 hover:text-white py-1">
                     <div className=" w-[90%] mx-auto ">
                       <Link
                         href={`/kategorije/${category?.slug_path}`}
-                        className="uppercase text-xl font-medium"
+                        className="uppercase text-base font-medium"
                         onClick={() => {
                           setOpen(false);
                           setView("");
@@ -262,14 +262,16 @@ const NavigationMobile = () => {
               </>
             )}
           </div>
-          <div className="w-full mt-auto bg-croonus-4 grid grid-cols-2 divide-x">
-            <div className="flex items-center justify-center gap-3 py-4">
-              <i className="fa-solid text-white fa-phone text-2xl"></i>
-              <p className="uppercase font-normal text-white">Pozovite nas</p>
+          <div className="w-full mt-auto bg-croonus-4 py-2 grid grid-cols-2 divide-x">
+            <div className="flex items-center justify-center gap-3 py-2 w-full">
+              <i className="fa-solid text-white fa-phone text-lg"></i>
+              <p className="uppercase font-normal text-xs text-white">
+                Pozovite nas
+              </p>
             </div>
-            <div className="flex items-center justify-center gap-3 py-4">
-              <i className="fa-solid text-white fa-envelope text-2xl"></i>
-              <p className="uppercase font-normal text-white text-center">
+            <div className="flex items-center justify-center gap-3 py-2 w-full">
+              <i className="fa-solid text-white fa-envelope text-lg"></i>
+              <p className="uppercase font-normal text-xs text-white text-center">
                 Pišite nam
               </p>
             </div>
@@ -286,6 +288,12 @@ const NavigationMobile = () => {
           </div>
         </div>
       ) : null}
+      {open && (
+        <div
+          className="fixed top-0 left-0 bg-black bg-opacity-60 z-[190] w-screen h-screen"
+          onClick={() => setOpen(false)}
+        ></div>
+      )}
     </>
   );
 };

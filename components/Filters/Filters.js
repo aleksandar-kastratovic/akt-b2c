@@ -89,15 +89,17 @@ const Filters = ({
           </select>
         </div>
         <div
-          className="col-span-1 lg:hidden text-center text-white bg-croonus-4"
+          className="col-span-1 lg:hidden text-center text-white bg-croonus-1"
           onClick={() => setOpenModal(true)}
         >
-          <p className="uppercase text-base font-medium py-3.5">Filteri</p>
+          <p className="uppercase text-base font-medium py-3.5 max-md:text-xs">
+            Filteri
+          </p>
         </div>
         <select
           name="sort"
           id="sort"
-          className="col-span-1 uppercase focus:ring-0 lg:hidden text-center text-white bg-croonus-4 relative focus:border-croonus-1 focus:outline-none"
+          className="col-span-1 uppercase focus:ring-0 lg:hidden text-center text-white bg-croonus-1 relative focus:border-croonus-1 focus:outline-none max-md:text-xs"
           onChange={onSortChange}
           value={sort ? sort.field + "_" + sort.direction : "none"}
         >
@@ -111,17 +113,16 @@ const Filters = ({
         <div
           className={
             openModal
-              ? `fixed top-12 translate-x-0 transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
-              : `fixed top-12 -translate-x-full transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
+              ? `fixed top-12 justify-between flex flex-col translate-x-0 transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
+              : `fixed top-12 justify-between flex flex-col -translate-x-full transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
           }
         >
-          <div className="w-[95%] relative mt-5 mx-auto">
+          <div className="w-[95%] relative mt-5 mx-auto ">
             <h1 className="uppercase text-xl pb-4 font-semibold text-center">
               Odaberite filtere
             </h1>
             {activeFilters?.map((item) => {
               item.value.selected.map((item2) => {
-                console.log(item2);
                 return <p>{item2}</p>;
               });
             })}
@@ -171,7 +172,7 @@ const Filters = ({
             })}
           </div>
           <button
-            className="py-3.5 w-full text-white mt-10 text-center bg-croonus-4 uppercase font-medium"
+            className="py-3.5  w-full text-white text-center bg-croonus-4 uppercase font-medium"
             onClick={() => setOpenModal(false)}
           >
             Prikaži rezultat

@@ -83,7 +83,7 @@ const Products = ({ products = [] }) => {
         </p>
         <div className=" self-start max-lg:w-[210px] w-2/3">
           <p
-            className={`text-[0.875rem] self-start text-black font-normal py-1 ${
+            className={`text-[0.875rem] self-start text-black font-semibold py-1 ${
               item?.price?.discount?.active === true && "line-through"
             }`}
           >
