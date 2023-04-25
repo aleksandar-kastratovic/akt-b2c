@@ -132,7 +132,7 @@ const Footer = () => {
                     })}
                     className="max-lg:w-full max-lg:py-2 w-full pl-5 placeholder:text-black placeholder:text-sm border border-black self-stretch focus:ring-0 focus:outline-none focus:border-black"
                   />
-                  <button className="bg-croonus-1 max-lg:mt-2 max-lg:w-full max-lg:py-2 px-12 text-base py-3 text-white hover:bg-opacity-80">
+                  <button className="bg-croonus-1 max-lg:mt-2 max-lg:w-full max-lg:py-2 w-[16rem] text-base py-3 text-white hover:bg-opacity-80">
                     Prijavite se!
                   </button>
                 </form>
