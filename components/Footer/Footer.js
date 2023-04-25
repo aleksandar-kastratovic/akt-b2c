@@ -67,17 +67,17 @@ const Footer = () => {
                   {process.env.TOWN}
                 </span>
               </div>
-              <div className="flex max-lg:flex-col items-center gap-2">
+              <div className="flex max-lg:flex-row items-center gap-2">
                 <span className=" text-sm font-normal">
                   PIB: {process.env.PIB} |
                 </span>
                 <span className=" text-sm font-normal">
                   MB: {process.env.MB} |
                 </span>
-                <span className="text-sm font-normal">
-                  e-mail: {process.env.EMAIL}
-                </span>
               </div>
+              <span className="text-sm font-normal">
+                e-mail: {process.env.EMAIL}
+              </span>
             </div>
             <div className="flex items-center gap-10">
               <i className="fa-brands fa-facebook-f text-3xl text-black hover:text-croonus-1 cursor-pointer"></i>
@@ -133,7 +133,7 @@ const Footer = () => {
                     className="max-lg:w-full max-lg:py-2 w-full pl-5 placeholder:text-black placeholder:text-sm border border-black self-stretch focus:ring-0 focus:outline-none focus:border-black"
                   />
                   <button className="bg-black max-lg:mt-2 max-lg:w-full max-lg:py-2 px-12 text-base py-3 text-white hover:bg-opacity-80">
-                    Prijavi
+                    Prijavite se!
                   </button>
                 </form>
                 <div className="flex items-center gap-5">
@@ -176,52 +176,52 @@ const Footer = () => {
         <div className="max-md:w-full">
           <Image
             src={Image1}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image2}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className=" max-md:w-fullw-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image3}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className=" max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="w-[60%] lg:w-[10%]">
+        <div className="max-md:w-full w-[60%] lg:w-[10%]">
           <Image src={Image4} className=" object-scale-down" />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image5}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image6}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image7}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
         <div className="max-md:w-full">
           <Image
             src={Image8}
-            className="w-[60%] lg:w-[70%] object-scale-down"
+            className=" max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
       </div>
       <div className="w-[50%] mx-auto"></div>
       <div className="w-[95%] lg:w-[80%] mx-auto">
-        <p className="text-xs mt-5">
+        <p className="text-xs mt-5 max-md:hidden">
           Cene na sajtu su iskazane u dinarima sa uračunatim porezom, a plaćanje
           se vrši isključivo u dinarima, isporuka se vrši samo na teritoriji
           Republike Srbije. Nastojimo da budemo što precizniji u opisu
