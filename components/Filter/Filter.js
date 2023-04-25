@@ -109,7 +109,7 @@ const FilterIn = ({
           >
             <input
               type="checkbox"
-              className="h-4 w-4 rounded-sm bg-croonus-1  text-croonus-3 focus:ring-0"
+              className="h-4 w-4 rounded-sm bg-transparent   text-croonus-1 focus:ring-0"
               name={item.label}
               checked={selected.includes(
                 filter?.params?.use_field

@@ -275,11 +275,19 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       />
       <div className="mx-auto text-sm 4xl:container">
         <div className="bg-[#f5f5f6] mt-3.5">
-          <div className="py-1 w-[95%] lg:w-[85%] mx-auto">
+          <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
             <GenerateBreadCrumbsServer />{" "}
           </div>
         </div>
+        <div className="md:hidden bg-[#f5f5f6]">
+          <div className="font-semibold py-3 uppercase text-xl w-[85%] mx-auto">
+            Korpa
+          </div>
+        </div>
         <div className="mt-5 max-xl:w-[95%] mx-auto"></div>
+        <div className="md:hidden w-[85%] mx-auto uppercase font-semibold">
+          <h1 className="text-lg underline">Informacije</h1>
+        </div>
         {cartItems.length > 0 ? (
           <div className="mx-auto grid grid-cols-5 gap-y-3 gap-x-3 w-[95%] xl:w-[85%] ">
             <div className="col-span-5 bg-white p-1 xl:col-span-3 max-xl:row-start-1">
@@ -292,7 +300,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     id="personal"
                     onChange={formChangeHandler}
                     checked={formData.type === "personal"}
-                    className="h-3 w-3 text-blue-500 focus:ring-0"
+                    className="h-3 w-3 text-croonus-1 focus:ring-0"
                   />
                   <label htmlFor="personal">Fizičko lice</label>
                 </div>
@@ -304,7 +312,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     value="company"
                     onChange={formChangeHandler}
                     checked={formData.type === "company"}
-                    className="h-3 w-3 text-blue-500 focus:ring-0"
+                    className="h-3 w-3 text-croonus-1 focus:ring-0"
                   />
                   <label htmlFor="company">Pravno lice</label>
                 </div>
@@ -705,7 +713,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
             {cartItems.length > 0 && (
               <>
-                <div className="grid grid-cols-1 col-span-3 max-xl:row-start-3 max-xl:col-span-5 gap-y-3">
+                <div className="grid grid-cols-1 max-md:mt-10 col-span-3 max-xl:row-start-3 max-xl:col-span-5 gap-y-3">
                   <span className="text-xl uppercase font-bold">
                     Odaberite način dostave:
                   </span>
@@ -730,7 +738,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                               value={option.id}
                               id={"delivery" + option.id}
                               onChange={formChangeHandler}
-                              className="h-3 w-3"
+                              className="h-3 w-3 focus:ring-0 focus:outline-none focus:border-none text-croonus-1"
                             />
                             <label htmlFor={"delivery" + option.id}>
                               {option.name}
@@ -740,7 +748,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                       </div>
                     </div>
                   </div>
-                  <span className="text-xl uppercase font-bold">
+                  <span className="text-xl max-md:mt-10 uppercase font-bold">
                     Odaberite način plaćanja:
                   </span>
                   <div className="bg-croonus-5 pt-7 pl-5 pb-5">
@@ -764,7 +772,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                               value={option.id}
                               id={"payment" + option.id}
                               onChange={formChangeHandler}
-                              className="h-3 w-3"
+                              className="h-3 w-3 focus:ring-0 focus:outline-none focus:border-none text-croonus-1"
                             />
                             <label htmlFor={"payment" + option.id}>
                               {option.name}
@@ -796,7 +804,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               <span className="font-bold uppercase text-2xl">Korpa</span>
               <CartProductBox cartItems={cartItems} />
             </div>{" "}
-            <div className="flex flex-col col-span-2 max-xl:row-start-4 max-xl:row-end-5 row-start-2 max-xl:col-span-5 row-end-3 col-start-4 gap-4 bg-croonus-5 px-3 mt-0 pt-7 pb-5">
+            <div className="flex flex-col max-md:mt-5 col-span-2 max-xl:row-start-4 max-xl:row-end-5 row-start-2 max-xl:col-span-5 row-end-3 col-start-4 gap-4 bg-croonus-5 px-3 mt-0 pt-7 pb-5">
               {" "}
               <span className=" text-xl font-bold uppercase">
                 Vrednost Vaše korpe:
@@ -841,7 +849,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     name="agreed"
                     onChange={formChangeHandler}
                     value={formData.agreed === "1" ? "" : "1"}
-                    className="focus:ring-0 focus:border-none focus:outline-none text-croonus-2"
+                    className="focus:ring-0 focus:border-none focus:outline-none text-croonus-1"
                   />
                   <label htmlFor="agreed">
                     Saglasan sam sa opštim uslovima korišćenja AKT ONLINE

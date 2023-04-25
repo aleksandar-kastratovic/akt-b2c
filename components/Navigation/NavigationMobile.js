@@ -9,6 +9,7 @@ import Link from "next/link";
 import Search from "../../assets/Icons/search.png";
 import User from "../../assets/Icons/user.png";
 import { useRouter } from "next/navigation";
+import Burger from "../../assets/Icons/burger.png";
 const NavigationMobile = () => {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
@@ -39,13 +40,15 @@ const NavigationMobile = () => {
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">
         <div className="flex w-[95%] py-2.5 mx-auto items-center justify-between relative">
-          <div>
-            <i
-              className="fa-solid fa-bars text-2xl font-normal"
+          <div className="mt-0.5">
+            <Image
+              src={Burger}
+              width={33}
+              height={33}
               onClick={() => setOpen(!open)}
-            ></i>
+            />
           </div>
-          <div className="pl-3">
+          <div className="pl-10 pb-2">
             <Link href="/">
               <Image src={Logo} width={150} height={150} />
             </Link>
@@ -192,12 +195,14 @@ const NavigationMobile = () => {
               )}
             {view === "subcategories" && (
               <>
-                <div
-                  className="w-[90%] mx-auto flex items-center justify-start gap-3"
-                  onClick={() => setView("")}
-                >
-                  <i className="fa-solid fa-chevron-left text-base"></i>
-                  <h1 className="text-xl uppercase font-medium">Nazad</h1>
+                <div className="bg-white sticky top-0">
+                  <div
+                    className="w-[90%] mx-auto   flex items-center justify-start gap-3"
+                    onClick={() => setView("")}
+                  >
+                    <i className="fa-solid fa-chevron-left text-base"></i>
+                    <h1 className="text-xl uppercase font-medium">Nazad</h1>
+                  </div>
                 </div>
 
                 {subCategory.isOpen &&

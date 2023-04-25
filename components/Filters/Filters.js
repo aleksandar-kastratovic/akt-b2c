@@ -101,6 +101,7 @@ const Filters = ({
           onChange={onSortChange}
           value={sort ? sort.field + "_" + sort.direction : "none"}
         >
+          <option value="none">Sortiraj</option>
           {Object.entries(sortKeys).map((item) => (
             <option className="text-xs uppercase" value={item[0]} key={item[0]}>
               {item[1].label}

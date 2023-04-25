@@ -50,19 +50,23 @@ const CartProductItem = ({ item }) => {
             </span>
           </Link>
           <span>Šifra: {item?.product?.basic_data?.sku}</span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 max-md:hidden">
             <span>Količina</span>
             <PlusMinusInputOne
               amount={productAmount}
               setCount={setProductAmount}
             />
           </div>
+          <div className="flex items-center gap-3 md:hidden">
+            <span>Količina:</span>
+            {productAmount}
+          </div>
           <span>
             Ukupan iznos: {currencyFormat(total?.with_vat, currency)} sa PDV
           </span>
         </div>
         <span
-          className="absolute top-0 right-2 cursor-pointer"
+          className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => removeFromCart(item?.product?.id)}
         >
           X
