@@ -50,16 +50,18 @@ const MobileImageSlider = ({ images }) => {
           <i className="fa-solid fa-play fa-rotate-90 text-croonus-1 text-lg"></i>
         </div>
       </div>
-      {loaded && instanceRef.current && (
+      {loaded && instanceRef?.current && (
         <div className="dots5 mt-3">
           {[
-            ...Array(instanceRef.current.track.details.slides.length).keys(),
+            ...Array(
+              instanceRef?.current?.track?.details?.slides?.length
+            ).keys(),
           ].map((idx) => {
             return (
               <button
                 key={idx}
                 onClick={() => {
-                  instanceRef.current?.moveToIdx(idx);
+                  instanceRef?.current?.moveToIdx(idx);
                 }}
                 className={"dot5" + (currentSlide === idx ? " active" : "")}
               ></button>
