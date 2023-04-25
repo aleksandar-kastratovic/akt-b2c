@@ -14,7 +14,8 @@ const NavigationMobile = () => {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [subCategory, setSubcategory] = useState({ isOpen: false, data: [] });
+  const [category, setCategory] = useState({ id: null, data: [] });
+  const [subCategory, setSubcategory] = useState({ id: null, data: [] });
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchCategories = async () => {
@@ -24,6 +25,16 @@ const NavigationMobile = () => {
     };
     fetchCategories();
   }, []);
+  useEffect(() => {
+    const disableBodyScroll = () => {
+      if (open) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "unset";
+      }
+    };
+    disableBodyScroll();
+  }, [open]);
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (event) => {
@@ -101,7 +112,10 @@ const NavigationMobile = () => {
           <div className="flex p-4 flex-row items-center h-[60.81px] justify-between">
             <i
               className="fa-solid fa-xmark text-2xl"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                setCategory({ id: null, data: [] });
+              }}
             ></i>
             <div className="flex items-center gap-5 mr-5">
               <Link href="/lista-zelja">
@@ -154,113 +168,109 @@ const NavigationMobile = () => {
               onClick={handleSearch}
             />
           </form>
-          <div className="pb-5 w-full flex flex-col gap-3 mx-auto mt-10 overflow-y-auto">
-            {view === "" &&
-              categories?.map((category) =>
-                category?.children ? (
-                  <div className=" w-full hover:bg-croonus-1 hover:text-white py-1 ">
-                    <div
-                      className="w-[90%] mx-auto flex justify-between items-center"
-                      onClick={() => {
-                        setSubcategory({
-                          isOpen: true,
-                          data: category?.children,
-                        });
-                        setView("subcategories");
-                      }}
-                    >
-                      <p className="uppercase text-base font-medium ">
-                        {category?.name}
-                      </p>
-
-                      <i className="text-sm fa-solid fa-chevron-right"></i>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-full hover:bg-croonus-1 hover:text-white py-1">
-                    <div className=" w-[90%] mx-auto ">
-                      <Link
-                        href={`/kategorije/${category?.slug_path}`}
-                        className="uppercase text-base font-medium"
-                        onClick={() => {
-                          setOpen(false);
-                          setView("");
-                        }}
-                      >
-                        {category?.name}
-                      </Link>
-                    </div>
-                  </div>
-                )
-              )}
-            {view === "subcategories" && (
-              <>
-                <div className="bg-white sticky top-0">
+          <div className="pb-5 w-full flex flex-col gap-1 mx-auto mt-10 overflow-y-auto">
+            {categories.map((item) => {
+              const isActive = category?.id === item?.id;
+              return item?.children ? (
+                <>
                   <div
-                    className="w-[90%] mx-auto   flex items-center justify-start gap-3"
-                    onClick={() => setView("")}
+                    className={
+                      isActive ? `w-full bg-croonus-1 text-white` : `w-full`
+                    }
+                    onClick={() => {
+                      setCategory({
+                        id: category?.id === item?.id ? null : item?.id,
+                        data: item?.children,
+                      });
+                      setSubcategory({
+                        id: null,
+                        data: category?.data?.children,
+                      });
+                    }}
                   >
-                    <i className="fa-solid fa-chevron-left text-base"></i>
-                    <h1 className="text-xl uppercase font-medium">Nazad</h1>
-                  </div>
-                </div>
-
-                {subCategory.isOpen &&
-                  subCategory?.data?.map((item) => (
-                    <div className="flex flex-col">
-                      {item?.children ? (
-                        <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
-                          <Link
-                            href={`/kategorije/${item?.slug_path}`}
-                            className="text-xl font-medium hover:underline"
-                            onClick={() => {
-                              setOpen(false);
-                              setView("");
-                            }}
-                          >
-                            {item?.name}
-                          </Link>
-                          <i className="fa-solid fa-chevron-right text-sm"></i>
-                        </div>
-                      ) : (
-                        <div className="bg-croonus-2 pl-8 py-2 pr-5 flex items-center justify-between">
-                          <Link
-                            href={`/kategorije/${item?.slug_path}`}
-                            onClick={() => {
-                              setOpen(false);
-                              setView("");
-                            }}
-                          >
-                            <h1 className="text-xl font-medium hover:underline">
-                              {item?.name}
-                            </h1>
-                          </Link>
-                          <i className="fa-solid fa-chevron-right text-sm"></i>
-                        </div>
-                      )}
-
-                      <div className="mt-5 pl-2 ">
-                        {item?.children
-                          ? item?.children?.map((child) => (
-                              <Link
-                                href={`/kategorije/${child?.slug_path}`}
-                                key={child?.id}
-                                onClick={() => {
-                                  setOpen(false);
-                                  setView("");
-                                }}
-                              >
-                                <div className="text-lg py-1 px-1 hover:bg-croonus-2 hover:font-medium">
-                                  <p className="pl-12">{child?.name}</p>
-                                </div>
-                              </Link>
-                            ))
-                          : null}
-                      </div>
+                    <div className="w-[90%] py-2 mx-auto flex items-center justify-between">
+                      <h1 className="text-base font-medium uppercase">
+                        {item?.name}
+                      </h1>
+                      <i className="fa-solid fa-chevron-right text-sm"></i>
                     </div>
-                  ))}
-              </>
-            )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {isActive &&
+                      category?.data?.length > 0 &&
+                      category?.data?.map((subItem) => {
+                        return subItem?.children ? (
+                          <div className="w-full bg-[#eeeee0] ">
+                            <Link
+                              className="text-sm  font-medium uppercase"
+                              href={`/kategorije/${subItem?.slug_path}`}
+                              onClick={() => {
+                                setOpen(false);
+                                setCategory({ id: null, data: [] });
+                              }}
+                            >
+                              <div className="pl-2 w-[90%] py-2 mx-auto flex items-center justify-between">
+                                {subItem?.name}
+
+                                <i className="fa-solid fa-chevron-right text-sm"></i>
+                              </div>
+                            </Link>
+                            {subItem?.children?.length > 0 &&
+                              subItem?.children?.map((subSubItem) => {
+                                return (
+                                  <Link
+                                    href={`/kategorije/${subSubItem?.slug_path}`}
+                                    className="text-[11px]"
+                                    onClick={() => {
+                                      setOpen(false);
+                                      setCategory({ id: null, data: [] });
+                                    }}
+                                  >
+                                    <div className="w-full bg-white py-2">
+                                      <div className="pl-4 w-[90%] mx-auto">
+                                        {subSubItem?.name}
+                                      </div>
+                                    </div>
+                                  </Link>
+                                );
+                              })}
+                          </div>
+                        ) : (
+                          <Link
+                            className="text-sm  font-medium uppercase"
+                            href={`/kategorije/${subItem?.slug_path}`}
+                            onClick={() => {
+                              setOpen(false);
+                              setCategory({ id: null, data: [] });
+                            }}
+                          >
+                            {" "}
+                            <div className="flex bg-[#eeeee0] flex-col gap-1">
+                              <div className="pl-2 w-[90%] mx-auto  py-2">
+                                {subItem?.name}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                  </div>
+                </>
+              ) : (
+                <Link
+                  className="text-base  font-medium uppercase"
+                  href={`/kategorije/${item?.slug_path}`}
+                  onClick={() => {
+                    setOpen(false);
+                    setCategory({ id: null, data: [] });
+                  }}
+                >
+                  {" "}
+                  <div className="w-full py-2">
+                    <div className="w-[90%] mx-auto">{item?.name}</div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
           <div className="w-full mt-auto bg-croonus-4 py-2 grid grid-cols-2 divide-x">
             <div className="flex items-center justify-center gap-3 py-2 w-full">
