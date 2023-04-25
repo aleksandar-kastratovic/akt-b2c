@@ -50,7 +50,7 @@ const ProductPage = async ({ params: { path } }) => {
   return (
     <>
       <div className="bg-[#f5f5f6] mt-3.5">
-        <div className="py-1 w-[95%] lg:w-[85%] mx-auto">
+        <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
           <GenerateBreadCrumbsServer />
         </div>
       </div>

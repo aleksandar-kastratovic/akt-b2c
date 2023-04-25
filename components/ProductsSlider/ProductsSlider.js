@@ -111,7 +111,7 @@ const ProductsSlider = ({ products, text }) => {
       </div>
       <p className="text-black clamp self-start font-sm text-lg mt-2 uppercase">
         <Link
-          className="font-normal text-[1rem]"
+          className="font-normal text-[.9rem]"
           href={`/proizvod/${item?.slug}`}
         >
           {item?.basic_data?.name}
@@ -119,7 +119,7 @@ const ProductsSlider = ({ products, text }) => {
       </p>
       <div className=" self-start max-lg:w-[210px] w-2/3">
         <p
-          className={`text-[0.875rem] self-start text-black font-normal py-1 ${
+          className={`text-[0.875rem] self-start text-black font-semibold py-1 ${
             item?.price?.discount?.active === true && "line-through"
           }`}
         >
@@ -149,14 +149,23 @@ const ProductsSlider = ({ products, text }) => {
     <>
       {" "}
       <ToastContainer />
-      <div className="mt-[3.688rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
-        <h1 className="text-[1.4rem] font-medium">{text}</h1>
-
+      <div className="mt-[3.688rem] max-md:mt-[1rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
+        <div className="flex justify-between items-center">
+          <h1 className="text-[1.1rem] font-semibold">{text}</h1>
+          <div className="md:hidden">
+            <i
+              className="fa-solid md:hidden fa-chevron-right text-white text-xl bg-croonus-1 px-3 py-1.5"
+              onClick={() => {
+                instanceRef?.current?.next();
+              }}
+            ></i>
+          </div>
+        </div>
         <div ref={sliderRef} className="keen-slider mt-[1.625rem]">
           {product}
         </div>
         {loaded && instanceRef?.current && (
-          <>
+          <div className="max-md:hidden">
             <Arrow
               left
               onClick={(e) =>
@@ -174,7 +183,7 @@ const ProductsSlider = ({ products, text }) => {
                 instanceRef?.current?.track?.details?.slides?.length - 1
               }
             />
-          </>
+          </div>
         )}
       </div>
       {/* {loaded && instanceRef.current && (

@@ -242,7 +242,7 @@ const CategoriesPageDisplay = ({
     <>
       <div className="w-full bg-croonus-5">
         {router?.pathname?.includes("search") ? null : (
-          <div className="w-[85%] mx-auto mt-4 pb-1 pt-1">
+          <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
             <GenerateBreadCrumbsServer />
           </div>
         )}
@@ -250,7 +250,7 @@ const CategoriesPageDisplay = ({
 
       {router?.asPath?.includes("search") ? null : (
         <div
-          className={`mt-4 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`}
+          className={`mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`}
         >
           {" "}
           {categoryDataa?.seo?.image ? (
@@ -260,9 +260,7 @@ const CategoriesPageDisplay = ({
               src={convertHttpToHttps(categoryDataa?.seo?.image)}
               className="w-full h-full object-cover"
             />
-          ) : (
-            <div className="w-full h-full bg-croonus-5"></div>
-          )}
+          ) : null}
         </div>
       )}
 
@@ -274,12 +272,12 @@ const CategoriesPageDisplay = ({
             <>{categoryDataa?.basic_data?.name}</>
           )}
 
-          <span className="text-lg lowercase">
+          <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
         </h1>{" "}
         {router?.asPath?.includes("search") ? null : (
-          <p className="text-[1rem] text-center mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
+          <p className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
             Lorem Ipsum is a simply dummy text of the prinitng industry and
             typesetting industry. Lorem Ipsum is a simply dummy text of the
             prinitng industry and typesetting industry.Lorem Ipsum is a simply

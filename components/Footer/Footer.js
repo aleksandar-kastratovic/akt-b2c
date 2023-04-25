@@ -49,13 +49,13 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="max-lg:mt-0 mt-40 w-[95%] lg:w-[60%] mx-auto border-t border-t-black max-lg:border-t-0 ">
+      <div className="max-lg:mt-0 mt-40 w-[95%] lg:w-[60%] mx-auto border-t border-t-black max-lg:border-t-0 text-croonus-1">
         <div className="grid grid-cols-2 gap-x-20 items-center justify-center lg:justify-around max-lg:mt-0 mt-10 ">
           <div className="flex flex-col col-span-2 lg:col-span-1 max-lg:items-center gap-5 border-r-black border-r max-lg:border-r-0 max-lg:pr-0 pr-20 3xl:pr-32">
             <div className="max-lg:mt-10">
-              <Image src={Logo} width={350} height={350} />
+              <Image src={Logo} width={250} height={250} />
             </div>
-            <div className="flex flex-col max-lg:items-center gap-1 ">
+            <div className="flex flex-col max-lg:items-center gap-1 max-md:text-sm">
               <div className="flex max-lg:flex-row items-center gap-5">
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
@@ -80,14 +80,14 @@ const Footer = () => {
               </span>
             </div>
             <div className="flex items-center gap-10">
-              <i className="fa-brands fa-facebook-f text-3xl text-black hover:text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-instagram text-3xl text-black hover:text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-twitter text-3xl text-black hover:text-croonus-1 cursor-pointer"></i>
+              <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
+              <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
+              <i className="fa-brands fa-twitter text-3xl text-croonus-1 cursor-pointer"></i>
             </div>
           </div>
-          <div className="flex max-lg:border-b max-lg:border-b-black max-lg:py-10 col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
-            <h1 className="text-2xl font-medium">Newsletter</h1>
-            <p className="max-lg:text-center">
+          <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
+            <h1 className="text-2xl font-medium text-croonus-1">Newsletter</h1>
+            <p className="max-lg:text-center text-croonus-1 max-md:text-sm">
               Pratite dešavanja iz našeg svakodnevnog poslovanja.
             </p>
             {loading ? (
@@ -132,14 +132,15 @@ const Footer = () => {
                     })}
                     className="max-lg:w-full max-lg:py-2 w-full pl-5 placeholder:text-black placeholder:text-sm border border-black self-stretch focus:ring-0 focus:outline-none focus:border-black"
                   />
-                  <button className="bg-black max-lg:mt-2 max-lg:w-full max-lg:py-2 px-12 text-base py-3 text-white hover:bg-opacity-80">
+                  <button className="bg-croonus-1 max-lg:mt-2 max-lg:w-full max-lg:py-2 px-12 text-base py-3 text-white hover:bg-opacity-80">
                     Prijavite se!
                   </button>
                 </form>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5 text-croonus-1 max-md:text-sm">
                   <input type="checkbox"></input> Slažem se sa pravilima
                   privatnosti.
                 </div>
+                <div className="md:hidden w-[80%] mx-auto border border-l-0 border-t-0 border-r-0 border-b-croonus-1 pt-6"></div>
               </>
             )}
           </div>
@@ -155,14 +156,14 @@ const Footer = () => {
         <Link href="/kontakt">Kontakt</Link>
       </div>
       <div
-        className="bg-croonus-4 py-5 justify-center text-white text-center font-normal flex items-center gap-5 lg:hidden mt-10"
+        className="bg-croonus-1 py-5 justify-center text-white text-center font-normal flex items-center gap-5 lg:hidden mt-10"
         onClick={() => setOpen(!open)}
       >
-        <span className="text-center">Dodatne informacije</span>
+        <span className="text-center font-semibold">Dodatne informacije</span>
         <i className="fa-solid fa-chevron-down text-white"></i>
       </div>
       {open && (
-        <div className="bg-croonus-4 translate-y-0 transition-all  justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden">
+        <div className="bg-[#2e2524] translate-y-0 transition-all max-md:text-xs justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden pt-3">
           <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
           <Link href="/uslovi">Uslovi korišćenja</Link>
           <Link href="/kolacici">Politika o kolačićima</Link>
@@ -172,7 +173,12 @@ const Footer = () => {
           <Link href="/kontakt">Kontakt</Link>
         </div>
       )}
-      <div className="flex items-center justify-center py-5 gap-5">
+      <div className="md:hidden flex items-center w-full justify-center mt-8">
+        <div className="">
+          <Image src={Image4} className=" object-scale-down" />
+        </div>
+      </div>
+      <div className="flex items-center justify-center py-5 gap-0.5 px-0.5">
         <div className="max-md:w-full">
           <Image
             src={Image1}
@@ -191,7 +197,7 @@ const Footer = () => {
             className=" max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
           />
         </div>
-        <div className="max-md:w-full w-[60%] lg:w-[10%]">
+        <div className="max-md:hidden w-[60%] lg:w-[10%]">
           <Image src={Image4} className=" object-scale-down" />
         </div>
         <div className="max-md:w-full">

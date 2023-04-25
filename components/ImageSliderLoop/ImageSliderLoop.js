@@ -86,8 +86,8 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           alt={item?.name}
         />
         <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
-          <h1 className="text-xl text-black">{item?.subtitle}</h1>
-          <h1 className="text-6xl text-black uppercase">{item?.title}</h1>
+          <h1 className="text-xl text-croonus-1">{item?.subtitle}</h1>
+          <h1 className="text-6xl text-croonus-1 uppercase">{item?.title}</h1>
           <Link href={`${item?.url}`}>
             <button className="px-6 py-2 text-xl bg-croonus-1 text-white hover:bg-opacity-80">
               {item?.button}
@@ -99,10 +99,10 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
 
     return (
       <>
-        <div className="mx-auto w-[95%] lg:w-[80%] overflow-visible mt-[1.313rem]">
+        <div className="mx-auto w-[95%] lg:w-[80%] overflow-visible max-md:mt-0 mt-[1.313rem]">
           <div
             ref={sliderRef}
-            className="keen-slider h-[400px] 2xl:h-[550px] 3xl:h-[620px] w-full"
+            className="keen-slider h-[550px] 2xl:h-[550px] 3xl:h-[620px] w-full"
           >
             {images}
           </div>
