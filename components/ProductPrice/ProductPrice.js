@@ -81,14 +81,14 @@ const ProductInfo = ({ products, description }) => {
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex items-center justify-between">
-        <h1 className="uppercase text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%]">
+        <h1 className="uppercase max-md:text-[1.2rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] hyphens">
           {productVariant ? (
             <>{productVariant?.basic_data?.name}</>
           ) : (
             <> {products?.data?.item?.basic_data?.name}</>
           )}{" "}
         </h1>
-        <div className="block min-w-[145px] max-w-[146px] md:hidden self-start text-[1.35rem] text-croonus-1 font-semibold">
+        <div className="block min-w-[145px] max-w-[146px] md:hidden self-start text-[1.2rem] text-croonus-1 font-semibold">
           {productVariant ? (
             <>{currencyFormat(productVariant?.price?.price?.original)} </>
           ) : (
