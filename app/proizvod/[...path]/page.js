@@ -3,6 +3,7 @@ import ProductDetailsSlider from "@/components/ProductDetailsSlider/ProductDetai
 import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
+import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
 
 const fetchProduct = async (id) => {
   fetch = get;
@@ -55,11 +56,14 @@ const ProductPage = async ({ params: { path } }) => {
       </div>
       <div className="mt-5 sm:mt-10 w-[95%] lg:w-[85%] mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-10">
-          <div className="col-span-2 lg:col-span-3">
+          <div className="col-span-2 lg:col-span-3 max-md:hidden">
             <ProductDetailsSlider
               gallery={productGallery}
               description={description}
             />
+          </div>
+          <div className="col-span-2 md:hidden">
+            <MobileImageSlider images={productGallery} />
           </div>
           <ProductInfo products={products} description={description} />
         </div>
