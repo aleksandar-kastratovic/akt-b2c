@@ -79,15 +79,24 @@ const ProductInfo = ({ products, description }) => {
     setProductAmount(1);
   };
   return (
-    <div className="col-span-2 max-lg:mt-6 lg:col-span-3 text-croonus-1">
-      <h1 className="uppercase text-[1.5rem] text-croonus-1 font-bold">
-        {productVariant ? (
-          <>{productVariant?.basic_data?.name}</>
-        ) : (
-          <> {products?.data?.item?.basic_data?.name}</>
-        )}{" "}
-      </h1>
-      <div className="flex flex-row gap-10">
+    <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
+      <div className="flex items-center justify-between">
+        <h1 className="uppercase text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%]">
+          {productVariant ? (
+            <>{productVariant?.basic_data?.name}</>
+          ) : (
+            <> {products?.data?.item?.basic_data?.name}</>
+          )}{" "}
+        </h1>
+        <div className="block min-w-[145px] max-w-[146px] md:hidden self-start text-[1.35rem] text-croonus-1 font-semibold">
+          {productVariant ? (
+            <>{currencyFormat(productVariant?.price?.price?.original)} </>
+          ) : (
+            <>{currencyFormat(20000)}</>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-row gap-10 max-md:mt-3">
         <p className="text-sm mt-0 font-bold">
           Šifra:{" "}
           <span className="font-normal">
@@ -115,7 +124,7 @@ const ProductInfo = ({ products, description }) => {
           </span>
         </p>
       </div>
-      <div className="flex flex-row items-center gap-10 mt-4 py-5">
+      <div className="flex flex-row items-center gap-10 mt-4 py-5 max-md:hidden">
         <p className="font-normal text-[1rem]">
           {products?.data?.item?.price?.min?.price?.original &&
           products?.data?.item?.price?.max?.price?.original ? (
@@ -146,7 +155,7 @@ const ProductInfo = ({ products, description }) => {
       </div>
 
       {products?.product_type === "single" ? null : (
-        <div className="py-10">
+        <div className="py-10 max-md:py-7">
           <Variants
             firstVariantOption={false}
             product={products}
@@ -158,7 +167,7 @@ const ProductInfo = ({ products, description }) => {
         </div>
       )}
 
-      <h1 className="text-[1.5rem] font-bold max-lg:text-left">
+      <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
         {" "}
         {productVariant ? (
           <>{currencyFormat(productVariant?.price?.price?.original)}</>
@@ -181,7 +190,7 @@ const ProductInfo = ({ products, description }) => {
           </>
         )}
       </h1>
-      <div className="flex items-center max-lg:justify-center flex-row lg:flex-row gap-5 mt-6">
+      <div className="flex items-center max-lg:justify-center max-md:mt-3 flex-row lg:flex-row gap-5 mt-6">
         <div className="col-span-1 max-lg:col-span-3">
           <PlusMinusInputOne
             amount={productAmount}

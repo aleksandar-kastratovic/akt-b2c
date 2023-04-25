@@ -126,12 +126,37 @@ input[type="number"] {
   padding: 5px;
   cursor: pointer;
 }
+.dots3 {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+  position: absolute;
+  flex-direction: column;
+  gap: 10px;
+  right: 15px;
+  top: 27%;
+}
 
+.dot3 {
+  border: none;
+  width: 10px;
+  height: 10px;
+  background: #352e2c;
+  border: 2px solid #352e2c;
+  border-radius: 50%;
+  margin: 0 5px;
+  padding: 5px;
+  cursor: pointer;
+}
 .dot2:focus {
   outline: none;
 }
 
 .dot2.active {
+  background: white;
+  border: 2px solid #352e2c;
+}
+.dot3.active {
   background: white;
   border: 2px solid #352e2c;
 }
