@@ -113,70 +113,83 @@ const Filters = ({
         <div
           className={
             openModal
-              ? `fixed top-12 justify-between flex flex-col translate-x-0 transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
-              : `fixed top-12 justify-between flex flex-col -translate-x-full transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
+              ? `fixed top-0 justify-between flex flex-col translate-x-0 transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
+              : `fixed top-0 justify-between flex flex-col -translate-x-full transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
           }
         >
-          <div className="w-[95%] relative mt-5 mx-auto ">
-            <h1 className="uppercase text-xl pb-4 font-semibold text-center">
-              Odaberite filtere
-            </h1>
-            {activeFilters?.map((item) => {
-              item.value.selected.map((item2) => {
-                return <p>{item2}</p>;
-              });
-            })}
-            <i
-              className="absolute fa-solid fa-x right-10 top-1"
-              onClick={() => setOpenModal(false)}
-            ></i>
+          <div className="flex flex-col h-full justify-between">
+            <div className="w-[95%] relative mt-5 mx-auto ">
+              <h1 className="uppercase text-xl pb-4 font-semibold text-center">
+                Odaberite filtere
+              </h1>
+              {activeFilters?.map((item) => {
+                item.value.selected.map((item2) => {
+                  return <p>{item2}</p>;
+                });
+              })}
+              <i
+                className="absolute fa-solid fa-x right-10 top-1"
+                onClick={() => setOpenModal(false)}
+              ></i>
 
-            {(filtersMap ?? []).map((filter, index) => {
-              const isOpen = openIndex === index;
-              const isActive = filter === activeFilter;
+              {(filtersMap ?? []).map((filter, index) => {
+                const isOpen = openIndex === index;
+                const isActive = filter === activeFilter;
 
-              return (
-                <>
-                  <details
-                    className={`relative border-t border-b px-5 py-5 ${
-                      isActive ? "bg-croonus-5" : ""
-                    }`}
-                    onClick={() => {
-                      handleClick(filter);
-
-                      setOpenIndex(isOpen ? null : index);
-                    }}
-                  >
-                    <summary className={`uppercase font-medium text-lg `}>
-                      {filter?.name}
-                    </summary>
-                  </details>
-                  {isOpen && (
+                return (
+                  <>
                     <div
-                      className={`row-start-2 z-[20] bg-white mt-5 border-t-white  w-full col-start-${
-                        index + 1
+                      className={`relative border-t border-b px-5 py-5 ${
+                        isActive ? "bg-croonus-5" : ""
                       }`}
+                      onClick={() => {
+                        handleClick(filter);
+
+                        setOpenIndex(isOpen ? null : index);
+                      }}
                     >
-                      <div className="w-[85%] uppercase mx-auto">
-                        <Filter
-                          filter={filter}
-                          selectedFilters={selectedFilters}
-                          setSelectedFilters={setSelectedFilters}
-                          setActiveFilters={setActiveFilters}
-                        />
-                      </div>
+                      <summary
+                        className={`uppercase font-medium text-lg flex items-center`}
+                      >
+                        <i
+                          className={
+                            isOpen
+                              ? `fa-solid fa-play -rotate-90 text-sm`
+                              : `fa-solid fa-play rotate-90 text-sm`
+                          }
+                        ></i>
+                        <p className="ml-5">{filter?.name}</p>
+                      </summary>
                     </div>
-                  )}
-                </>
-              );
-            })}
+                    {isOpen && (
+                      <div
+                        className={`row-start-2 z-[20] bg-white mt-5 border-t-white  w-full col-start-${
+                          index + 1
+                        }`}
+                      >
+                        <div className="w-[85%] uppercase mx-auto">
+                          <Filter
+                            filter={filter}
+                            selectedFilters={selectedFilters}
+                            setSelectedFilters={setSelectedFilters}
+                            setActiveFilters={setActiveFilters}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </>
+                );
+              })}
+            </div>
+            <div>
+              <button
+                className="py-3.5  w-full text-white text-center bg-croonus-4 uppercase font-medium"
+                onClick={() => setOpenModal(false)}
+              >
+                Prikaži rezultat
+              </button>
+            </div>
           </div>
-          <button
-            className="py-3.5  w-full text-white text-center bg-croonus-4 uppercase font-medium"
-            onClick={() => setOpenModal(false)}
-          >
-            Prikaži rezultat
-          </button>
         </div>
       </div>
     </>

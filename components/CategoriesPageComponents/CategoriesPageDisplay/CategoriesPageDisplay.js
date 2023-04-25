@@ -250,7 +250,11 @@ const CategoriesPageDisplay = ({
 
       {router?.asPath?.includes("search") ? null : (
         <div
-          className={`mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`}
+          className={
+            categoryDataa?.seo?.image
+              ? `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`
+              : `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto`
+          }
         >
           {" "}
           {categoryDataa?.seo?.image ? (
