@@ -12,7 +12,7 @@ const OrderSuccess = ({ order }) => {
               <Image src={Image1} alt="404" width={130} height={130} />
             </div>
             <span className="text-lg font-medium">
-              BROJ PORUDŽBENICE: {order?.order?.slug}
+              Broj porudžbenice: {order?.order?.slug}
             </span>
             <span>
               Uspešno ste izvršili plaćanje, račun Vaše platne kartice je
@@ -127,7 +127,7 @@ const OrderSuccess = ({ order }) => {
     conditions = (
       <div className="w-[95%] lg:w-[90%] mx-auto bg-croonus-5  mt-5 lg:mt-16 max-lg:text-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 ">
-          <div className="col-span-1 p-16">
+          <div className="col-span-1 max-lg:p-6 lg:p-16">
             <h1 className="uppercase font-bold text-2xl">
               Vaša porudžbenica je uspešno kreirana!
             </h1>
@@ -136,7 +136,7 @@ const OrderSuccess = ({ order }) => {
               <span className="lowercase">{order?.order?.slug}</span>
             </h2>
             <div className="mt-10">
-              <p className="uppercase text-base font-medium">
+              <p className=" text-base font-medium">
                 Sledi obrada porudžbenice nakon čega ćete dobiiti sve potrebne
                 informacije putem e-maila koji ste ostavili prilikom kreiranja
                 porudžbenice.
@@ -148,8 +148,8 @@ const OrderSuccess = ({ order }) => {
               </Link>
             </div>
           </div>
-          <div className="col-span-1 place-self-center p-5">
-            <Image src={Image1} width={200} height={200} />
+          <div className="col-span-1 max-sm:row-start-1 place-self-center p-5">
+            <Image src={Image1} width={100} height={100} />
           </div>
         </div>
       </div>

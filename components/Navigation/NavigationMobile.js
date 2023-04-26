@@ -1,8 +1,9 @@
 "use client";
-import { get } from "@/app/api/api";
+import { get, list } from "@/app/api/api";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Cart from "../../assets/Icons/shopping-bag.png";
+import { useCartContext } from "@/app/api/cartContext";
 import Logo from "../../assets/logo.png";
 import Wishlist from "../../assets/Icons/favorite.png";
 import Link from "next/link";
@@ -10,9 +11,15 @@ import Search from "../../assets/Icons/search.png";
 import User from "../../assets/Icons/user.png";
 import { useRouter } from "next/navigation";
 import Burger from "../../assets/Icons/burger.png";
+import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 const NavigationMobile = () => {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const [cart, , wishList] = useCartContext();
+  const [wishListCount, setWishListCount] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
   const [category, setCategory] = useState({ id: null, data: [] });
   const [activeSubcategory, setActiveSubcategory] = useState({
@@ -29,6 +36,17 @@ const NavigationMobile = () => {
     };
     fetchCategories();
   }, []);
+  const [searchData, setSearchData] = useState([]);
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      const data = await list("/products/search/list", { search }).then(
+        (response) => {
+          setSearchData(response?.payload?.items);
+        }
+      );
+    };
+    fetchSearchData();
+  }, [search]);
   useEffect(() => {
     const disableBodyScroll = () => {
       if (open) {
@@ -48,9 +66,31 @@ const NavigationMobile = () => {
     setSearchTerm("");
     setSearchOpen(false);
     setOpen(false);
+    setSearch("");
   };
-  const [view, setView] = useState("");
-  console.log("ALOOO", activeSubcategory.data);
+  const getCartCount = useCallback(() => {
+    get("/cart/badge-count")
+      .then((response) => {
+        setCartCount(response?.payload?.summary?.items_count ?? 0);
+      })
+      .catch((error) => console.warn(error));
+  }, []);
+
+  const getWishlistCount = useCallback(() => {
+    get("/wishlist/badge-count")
+      .then((response) => {
+        setWishListCount(response?.payload?.summary?.items_count ?? 0);
+      })
+      .catch((error) => console.warn(error));
+  }, []);
+
+  useEffect(() => {
+    getWishlistCount();
+  }, [getWishlistCount, wishList]);
+
+  useEffect(() => {
+    getCartCount();
+  }, [getCartCount, cart]);
   return (
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">
@@ -68,7 +108,7 @@ const NavigationMobile = () => {
               <Image src={Logo} width={150} height={150} />
             </Link>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 relative">
             <Image
               src={Search}
               width={22}
@@ -78,31 +118,97 @@ const NavigationMobile = () => {
             <Link href="/korpa">
               <Image src={Cart} width={35} height={35} />
             </Link>
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
+                {cartCount}
+              </span>
+            )}
           </div>
         </div>
         <div
           className={
             searchOpen
-              ? "absolute w-full flex items-center justify-center py-2 translate-y-0  bg-white shadow duration-500 transition-all"
-              : "absolute w-full flex items-center justify-center py-2 -translate-y-[500%]  bg-white shadow duration-[700ms] transition-all"
+              ? `h-full w-full flex items-center justify-start  absolute z-[61] bg-white shadow-black shadow-2xl transition-all duration-[550ms] translate-y-0`
+              : `h-full w-full flex items-center justify-start  absolute z-[61] bg-white  transition-all duration-[550ms] -translate-y-[200%]`
           }
         >
-          <form className="relative" onSubmit={handleSearch}>
-            <input
-              type="text"
-              className="w-full p-3 border-l-0 border-t-0 border-r-0 border-b border-b-croonus-1 h-3 border-black focus:ring-0 focus:outline-none focus:border-b-croonus-1"
-              placeholder="Pretraga"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-            />
-            <Image
-              src={Search}
-              width={18}
-              height={18}
-              className="absolute right-0 top-0.5"
-              onClick={handleSearch}
-            />
+          <form
+            onSubmit={handleSearch}
+            className="relative flex px-3 w-full items-center justify-between"
+          >
+            <div className="flex items-center justify-center gap-5 relative">
+              <input
+                type="text"
+                placeholder="Pretraži proizvode"
+                className="w-[300px] h-10 rounded-md border border-gray-300 focus:outline-none focus:border-croonus-2 focus:ring-0"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onInput={(e) => setSearch(e.target.value)}
+              />
+              <i
+                onClick={handleSearch}
+                className="absolute right-2 cursor-pointer fa-solid fa-search text-gray-400"
+              ></i>
+            </div>
+            <i
+              className="fa-solid fa-xmark text-2xl cursor-pointer"
+              onClick={() => {
+                setSearchOpen(!searchOpen);
+                setSearchTerm("");
+                setSearch("");
+              }}
+            ></i>
           </form>
+          {search.length > 0 ? (
+            <div className="absolute top-[3.5rem] w-full bg-white shadow-xl rounded-b-lg  ">
+              <div className="flex flex-col gap-2 w-full relative">
+                <div className="max-h-[400px] overflow-y-auto customscroll2">
+                  {searchData?.length > 0
+                    ? searchData.slice(0, 6).map((item) => (
+                        <Link
+                          href={`/proizvod/${item?.categories[0]?.slug}/${item.slug}`}
+                          className="h-[83px]"
+                          onClick={() => {
+                            setSearchTerm("");
+                            setSearch("");
+                            setSearchOpen(false);
+                          }}
+                        >
+                          <div className="flex items-center justify-between h-[83px] p-2.5 hover:bg-croonus-1 cursor-pointer">
+                            <div className="flex items-center p-1 gap-5 h-[83px]">
+                              {item?.image[0] && (
+                                <Image
+                                  src={convertHttpToHttps(item?.image[0])}
+                                  width={50}
+                                  height={50}
+                                  alt="Akt webshop"
+                                  className="h-full"
+                                />
+                              )}
+
+                              <p className="text-sm">{item.basic_data.name}</p>
+                            </div>
+                          </div>
+                        </Link>
+                      ))
+                    : null}
+                </div>
+                {searchData?.length > 6 && (
+                  <div
+                    className="flex py-1.5 justify-center items-center sticky bottom-0 w-full bg-croonus-2 text-white hover:bg-opacity-90 cursor-pointer"
+                    onClick={handleSearch}
+                  >
+                    {searchData?.length > 6 ? (
+                      <span>
+                        Prikaži sve rezultate ( još&nbsp;
+                        {searchData.length - 6} )
+                      </span>
+                    ) : null}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
       <div
@@ -121,12 +227,17 @@ const NavigationMobile = () => {
                 setCategory({ id: null, data: [] });
               }}
             ></i>
-            <div className="flex items-center gap-5 mr-5">
+            <div className="flex items-center relative gap-5 mr-5">
               <Link href="/lista-zelja">
                 {" "}
                 <Image src={Wishlist} width={30} height={30} />
               </Link>
               <Image src={User} width={35} height={35} />
+              {wishListCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
+                  {wishListCount}
+                </span>
+              )}
             </div>
           </div>
           <div className=" bg-[#f8f8fa] py-3">
@@ -314,10 +425,13 @@ const NavigationMobile = () => {
           </div>
         </div>
       ) : null}
-      {open && (
+      {(open || searchOpen) && (
         <div
           className="fixed top-0 left-0 bg-black bg-opacity-60 z-[190] w-screen h-screen"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            setSearchOpen(false);
+          }}
         ></div>
       )}
     </>

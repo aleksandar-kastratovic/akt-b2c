@@ -70,11 +70,11 @@ const ProductPage = async ({ params: { path } }) => {
       </div>
       {description?.description && (
         <div className="w-[95%] lg:w-[85%] mx-auto mt-10 ">
-          <h1 className="text-[1.1rem] font-medium max-lg:text-left">
+          <h1 className="text-[1.1rem] font-bold max-lg:text-left">
             Opis proizvoda
           </h1>
           <p
-            className="text-[1rem] mt-3 font-normal roboto bg-[#fbfbfb] px-[24px] py-3"
+            className="text-[.8rem] mt-3 font-normal roboto bg-[#fbfbfb] px-[24px] py-3"
             dangerouslySetInnerHTML={{ __html: description?.description }}
           ></p>
         </div>

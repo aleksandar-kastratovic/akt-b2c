@@ -153,7 +153,7 @@ const ProductInfo = ({ products, description }) => {
         </p> */}
       </div>
       <div>
-        <h1 className="font-bold ">
+        <h1 className="font-bold max-sm:hidden">
           <p className="text-[1rem] font-normal">
             {products?.data?.item?.basic_data?.short_description}
           </p>
