@@ -318,15 +318,15 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                 </div>
               </div>
               {formData.type === "personal" && (
-                <div className="mt-4 grid grid-cols-2 gap-x-10 pb-4 max-xl:mx-3 max-xl:text-base ">
+                <div className="mt-4 grid grid-cols-2 gap-x-10 pb-4 max-xl:text-base ">
                   <div className="flex flex-col gap-3 max-xl:col-span-3 xl:col-start-1 xl:col-end-2">
                     <div className="flex flex-col gap-2  ">
-                      <label htmlFor="name">
+                      <label htmlFor="name" className="hidden">
                         Ime:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("first_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -334,18 +334,19 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         type="text"
                         id="name"
                         name="first_name"
+                        placeholder="Ime*"
                         value={formData.first_name}
                         onChange={formChangeHandler}
                       />
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="surname">
+                      <label htmlFor="surname" className="hidden">
                         Prezime:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("last_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -353,13 +354,14 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         type="text"
                         id="surname"
                         name="last_name"
+                        placeholder="Prezime*"
                         value={formData.last_name}
                         onChange={formChangeHandler}
                       />
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="email">
+                      <label htmlFor="email" className="hidden">
                         Email:
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
@@ -369,17 +371,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="email"
                         value={formData.email}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 h-[37px] max-sm:text-sm rounded-md ${
                           errors.includes("email")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
                         }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                        placeholder="Email*"
                       />
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 max-xl:col-span-3 xl:col-span-1 xl:col-start-2 xl:col-end-3">
                     <div className="flex flex-col gap-2 max-xl:mt-2">
-                      <label htmlFor="phone">
+                      <label htmlFor="phone" className="hidden">
                         Telefon:
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
@@ -389,16 +392,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="phone"
                         value={formData.phone}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("phone")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
                         }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                        placeholder="Telefon*"
                       />
                     </div>
                     <div className="xl:grid xl:grid-cols-2 xl:gap-x-3">
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="address">
+                        <label htmlFor="address" className="hidden">
                           Adresa dostave:
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -408,15 +412,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="address"
                           value={formData.address}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("address")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Adresa dostave*"
                         />
                       </div>
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="object_number">
+                        <label htmlFor="object_number" className="hidden">
                           Broj{" "}
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -426,17 +431,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="object_number"
                           value={formData.object_number}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("object_number")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Broj*"
                         />
                       </div>
                     </div>
                     <div className="xl:grid xl:grid-cols-2 xl:gap-x-3">
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="zip_code">
+                        <label htmlFor="zip_code" className="hidden">
                           Poštanski broj:
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -446,15 +452,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="zip_code"
                           value={formData.zip_code}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("zip_code")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Poštanski broj*"
                         />
                       </div>
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="town">
+                        <label htmlFor="town" className="hidden">
                           Grad{" "}
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -464,16 +471,19 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="town"
                           value={formData.town}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("town")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Grad*"
                         />
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="note">Napomena:</label>
+                      <label htmlFor="note" className="hidden">
+                        Napomena:
+                      </label>
                       <textarea
                         type="text"
                         name="note"
@@ -481,17 +491,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="note"
                         value={formData.note}
                         onChange={formChangeHandler}
-                        className="ml-2 rounded-md border-none focus:border-none focus:ring-0 bg-croonus-5 max-xl:mx-3"
+                        className="ml-2 max-sm:text-sm rounded-md border-none focus:border-none focus:ring-0 bg-croonus-5 max-xl:mx-3"
+                        placeholder="Napomena"
                       />
                     </div>
                   </div>
                 </div>
               )}
               {formData.type === "company" && (
-                <div className="mt-4 grid grid-cols-2 gap-x-10 pb-4 max-xl:mx-3 max-xl:text-base">
+                <div className="mt-4 grid grid-cols-2 gap-x-10 pb-4 max-xl:text-base">
                   <div className="flex flex-col gap-3 max-xl:col-span-3 xl:col-start-1 xl:col-end-2">
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="company_name">
+                      <label htmlFor="company_name" className="hidden">
                         Naziv firme:
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
@@ -501,20 +512,21 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="company_name"
                         value={formData.company_name}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("company_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
                         }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                        placeholder="Naziv firme*"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="pib">
+                      <label htmlFor="pib" className="hidden">
                         PIB:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("pib")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -524,15 +536,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="pib"
                         value={formData.pib}
                         onChange={formChangeHandler}
+                        placeholder="PIB*"
                       />
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="maticni_broj">
+                      <label htmlFor="maticni_broj" className="hidden">
                         Matični broj:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("maticni_broj")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -542,15 +555,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="maticni_broj"
                         value={formData.maticni_broj}
                         onChange={formChangeHandler}
+                        placeholder="Matični broj*"
                       />
                     </div>
                     <div className="flex flex-col gap-2  ">
-                      <label htmlFor="name">
+                      <label htmlFor="name" className="hidden">
                         Ime:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("first_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -560,16 +574,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         name="first_name"
                         value={formData.first_name}
                         onChange={formChangeHandler}
+                        placeholder="Ime*"
                       />
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="surname">
+                      <label htmlFor="surname" className="hidden">
                         Prezime:{" "}
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("last_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -579,12 +594,13 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         name="last_name"
                         value={formData.last_name}
                         onChange={formChangeHandler}
+                        placeholder="Prezime*"
                       />
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 max-xl:col-span-3 xl:col-span-1 xl:col-start-2 xl:col-end-3">
                     <div className="flex flex-col gap-2 max-xl:mt-2">
-                      <label htmlFor="email">
+                      <label htmlFor="email" className="hidden">
                         Email:
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
@@ -594,15 +610,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="email"
                         value={formData.email}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("email")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
                         }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                        placeholder="Email*"
                       />
                     </div>
                     <div className="flex flex-col gap-2 max-xl:mt-2">
-                      <label htmlFor="phone">
+                      <label htmlFor="phone" className="hidden">
                         Telefon:
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
@@ -612,16 +629,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="phone"
                         value={formData.phone}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                           errors.includes("phone")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
                         }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                        placeholder="Telefon*"
                       />
                     </div>
                     <div className="xl:grid xl:grid-cols-2 xl:gap-x-3">
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="address">
+                        <label htmlFor="address" className="hidden">
                           Adresa dostave:
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -631,15 +649,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="address"
                           value={formData.address}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("address")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Adresa dostave*"
                         />
                       </div>
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="object_number">
+                        <label htmlFor="object_number" className="hidden">
                           Broj{" "}
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -649,17 +668,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="object_number"
                           value={formData.object_number}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("object_number")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Broj*"
                         />
                       </div>
                     </div>
                     <div className="xl:grid xl:grid-cols-2 xl:gap-x-3">
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="zip_code">
+                        <label htmlFor="zip_code" className="hidden">
                           Poštanski broj:
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -669,15 +689,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="zip_code"
                           value={formData.zip_code}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("zip_code")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Poštanski broj*"
                         />
                       </div>
                       <div className="flex flex-col gap-2 max-xl:mt-2">
-                        <label htmlFor="town">
+                        <label htmlFor="town" className="hidden">
                           Grad{" "}
                           <span className="snap-mandatory text-red-500">*</span>
                         </label>
@@ -687,16 +708,19 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="town"
                           value={formData.town}
                           onChange={formChangeHandler}
-                          className={`ml-2 h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
                             errors.includes("town")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
                           }  focus:ring-0 bg-croonus-5 max-xl:mx-3`}
+                          placeholder="Grad*"
                         />
                       </div>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="note">Napomena:</label>
+                      <label htmlFor="note" className="hidden">
+                        Napomena:
+                      </label>
                       <textarea
                         type="text"
                         name="note"
@@ -704,7 +728,8 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="note"
                         value={formData.note}
                         onChange={formChangeHandler}
-                        className="ml-2 rounded-md border-none focus:border-none focus:ring-none bg-croonus-5 max-xl:mx-3"
+                        className="ml-2 max-sm:text-sm rounded-md border-none focus:border-none focus:ring-none bg-croonus-5 max-xl:mx-3"
+                        placeholder="Napomena"
                       />
                     </div>
                   </div>
@@ -713,9 +738,9 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
             {cartItems.length > 0 && (
               <>
-                <div className="grid grid-cols-1 max-md:mt-10 col-span-3 max-xl:row-start-3 max-xl:col-span-5 gap-y-3">
-                  <span className="text-xl uppercase font-bold">
-                    Odaberite način dostave:
+                <div className="grid grid-cols-1 max-md:mt-0 col-span-3 max-xl:row-start-2 max-xl:col-span-5 gap-y-3">
+                  <span className="text-xl uppercase font-bold underline">
+                    Način dostave{" "}
                   </span>
                   <div className="bg-croonus-5 pt-7 pl-5 pb-5">
                     <div className="flex flex-col gap-2 relative">
@@ -726,7 +751,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           {errorSelect}
                         </span>
                       )}
-                      <div className="flex flex-col gap-1 max-xl:text-base">
+                      <div className="flex flex-col gap-1 max-xl:text-sm">
                         {deliveryoptions.map((option) => (
                           <div
                             className="flex flex-row items-center gap-1"
@@ -748,8 +773,8 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                       </div>
                     </div>
                   </div>
-                  <span className="text-xl max-md:mt-10 uppercase font-bold">
-                    Odaberite način plaćanja:
+                  <span className="text-xl max-md:mt-0 uppercase underline font-bold">
+                    Način plaćanja:
                   </span>
                   <div className="bg-croonus-5 pt-7 pl-5 pb-5">
                     <div className="flex flex-col gap-2 relative">
@@ -763,7 +788,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                       <div className="flex flex-col gap-1">
                         {(paymentoptions ?? []).map((option) => (
                           <div
-                            className="flex flex-row items-center gap-1 text-base xl:text-sm"
+                            className="flex flex-row items-center gap-1 text-sm xl:text-sm"
                             key={option.id}
                           >
                             <input
@@ -800,7 +825,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                 <div></div>
               </>
             )}
-            <div className="overflow-y-scroll max-h-[411px] col-span-5 bg-white max-xl:row-start-2 xl:col-span-2 xl:col-start-4 xl:col-end-6 xl:row-start-1 ">
+            <div className="overflow-y-scroll max-h-[411px] col-span-5 bg-white max-xl:row-start-3 xl:col-span-2 xl:col-start-4 xl:col-end-6 xl:row-start-1 ">
               <span className="font-bold uppercase text-2xl">Korpa</span>
               <CartProductBox cartItems={cartItems} />
             </div>{" "}
@@ -811,34 +836,34 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               </span>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1 max-xl:text-base">
-                  <span className="text-sm font-medium max-xl:text-base">
+                  <span className="text-sm  font-medium max-xl:text-sm">
                     Ukupna vrednost korpe:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-base">
+                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
                     {currencyFormat(cartCost)}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1 max-xl:text-base">
-                  <span className="text-sm font-medium max-xl:text-base">
+                  <span className="text-sm font-medium max-xl:text-sm">
                     Iznos dodatnog popusta u korpi:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-base">
+                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
                     0,00 RSD
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1">
-                  <span className="text-sm font-medium max-xl:text-base">
+                  <span className="text-sm font-medium max-xl:text-sm">
                     Iznos koštanja transporta:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-base">
+                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
                     0,00 RSD
                   </span>
                 </div>{" "}
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1">
-                  <span className="text-sm font-medium max-xl:text-base">
+                  <span className="text-sm font-medium max-xl:text-sm">
                     Ukupna vrednost korpe:
                   </span>
-                  <span className="mr-3 text-xl font-medium max-xl:text-base">
+                  <span className="mr-3 text-xl font-medium max-xl:text-sm">
                     {currencyFormat(cartCost)}
                   </span>
                 </div>
