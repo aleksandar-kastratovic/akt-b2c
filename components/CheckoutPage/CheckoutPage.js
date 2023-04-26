@@ -17,6 +17,7 @@ import Breadcrumbs from "../../helpers/generateBreadCrumbsServer";
 import { currencyFormat } from "../../helpers/functions";
 import { Breadcrumb } from "rsuite";
 import GenerateBreadCrumbsServer from "../../helpers/generateBreadCrumbsServer";
+import { ToastContainer, toast } from "react-toastify";
 
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
@@ -97,7 +98,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const errorCheck = "Morate prihvatiti uslove";
 
   const [errors, setErrors] = useState([]);
-
+  useEffect(() => {
+    if (errors.length > 0) {
+      toast.error("Morate popuniti sva obavezna polja", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      return;
+    }
+  });
   const getCart = useCallback(() => {
     list("/cart")
       .then((response) => {
@@ -273,6 +285,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         onVerify={verifyCaptcha}
         refreshReCaptcha={refreshReCaptcha}
       />
+      <ToastContainer />
       <div className="mx-auto text-sm 4xl:container">
         <div className="bg-[#f5f5f6] mt-3.5">
           <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
@@ -285,12 +298,14 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           </div>
         </div>
         <div className="mt-5 max-xl:w-[95%] mx-auto"></div>
-        <div className="md:hidden w-[85%] mx-auto uppercase font-semibold">
-          <h1 className="text-lg underline">Informacije</h1>
-        </div>
+        <div className="md:hidden w-[85%] mx-auto uppercase font-semibold"></div>
         {cartItems.length > 0 ? (
           <div className="mx-auto grid grid-cols-5 gap-y-3 gap-x-3 w-[95%] xl:w-[85%] ">
             <div className="col-span-5 bg-white p-1 xl:col-span-3 max-xl:row-start-1">
+              {" "}
+              <h1 className="text-xl  uppercase font-bold underline">
+                Informacije
+              </h1>
               <div className="flex flex-row items-center gap-5 pt-7">
                 <div className="flex items-center gap-2">
                   <input
@@ -826,12 +841,14 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               </>
             )}
             <div className="overflow-y-scroll max-h-[411px] col-span-5 bg-white max-xl:row-start-3 xl:col-span-2 xl:col-start-4 xl:col-end-6 xl:row-start-1 ">
-              <span className="font-bold uppercase text-2xl">Korpa</span>
+              <span className="font-bold uppercase underline text-xl">
+                Korpa
+              </span>
               <CartProductBox cartItems={cartItems} />
             </div>{" "}
             <div className="flex flex-col max-md:mt-5 col-span-2 max-xl:row-start-4 max-xl:row-end-5 row-start-2 max-xl:col-span-5 row-end-3 col-start-4 gap-4 bg-croonus-5 px-3 mt-0 pt-7 pb-5">
               {" "}
-              <span className=" text-xl font-bold uppercase">
+              <span className=" text-xl underline font-bold uppercase">
                 Vrednost Vaše korpe:
               </span>
               <div className="flex flex-col gap-2">
@@ -900,7 +917,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           </div>
         ) : (
           <>
-            <div className="nocontent-holder m-24">
+            <div className="nocontent-holder m-6">
               <div className="text-center">
                 <span className="text-2xl font-medium">Vaša korpa</span>
               </div>
