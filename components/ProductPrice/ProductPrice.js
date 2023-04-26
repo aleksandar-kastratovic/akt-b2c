@@ -81,7 +81,7 @@ const ProductInfo = ({ products, description }) => {
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex items-center justify-between">
-        <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] hyphens">
+        <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] self-start hyphens">
           {productVariant ? (
             <>{productVariant?.basic_data?.name}</>
           ) : (
@@ -90,11 +90,13 @@ const ProductInfo = ({ products, description }) => {
         </h1>
         <div className=" flex flex-col max-[280px]:max-[130px] min-w-[145px] max-w-[146px] md:hidden self-start float-right text-right text-[0.9rem] text-croonus-1 font-semibold">
           {productVariant ? (
-            <>{currencyFormat(productVariant?.price?.price?.original)} </>
+            <h1 className="pr-2">
+              {currencyFormat(productVariant?.price?.price?.original)}{" "}
+            </h1>
           ) : (
-            <>{currencyFormat(20000)}</>
+            <h1 className="pr-2">{currencyFormat(20000)}</h1>
           )}
-          <div className="flex items-center mt-[2px] justify-between px-1 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
+          <div className="flex items-center mt-[2px] justify-between px-2 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
             <span>-10%</span>
             <span>3.200 RSD</span>
           </div>
@@ -203,7 +205,7 @@ const ProductInfo = ({ products, description }) => {
         </div>
         <div className="col-span-4 max-md:h-full self-stretch flex items-center gap-2">
           <button
-            className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
+            className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
             onClick={() => addToCart()}
           >
             <Image

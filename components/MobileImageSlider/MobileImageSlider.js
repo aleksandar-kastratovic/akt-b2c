@@ -42,7 +42,7 @@ const MobileImageSlider = ({ images }) => {
           {items}
         </div>
         <div
-          className="absolute max-[380px]:-bottom-1.5 max-[280px]:-bottom-20 w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-5 bg-white border border-[#333]"
+          className="absolute max-[370px]:bottom-[0.3rem] max-[390px]:-bottom-[0.6rem] w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-6 bg-white border border-[#939393]"
           onClick={() => {
             instanceRef.current?.next();
           }}

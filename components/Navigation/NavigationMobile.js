@@ -15,6 +15,10 @@ const NavigationMobile = () => {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [category, setCategory] = useState({ id: null, data: [] });
+  const [activeSubcategory, setActiveSubcategory] = useState({
+    id: null,
+    data: [],
+  });
   const [subCategory, setSubcategory] = useState({ id: null, data: [] });
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -46,7 +50,7 @@ const NavigationMobile = () => {
     setOpen(false);
   };
   const [view, setView] = useState("");
-  console.log(view);
+  console.log("ALOOO", activeSubcategory.data);
   return (
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">
@@ -195,62 +199,74 @@ const NavigationMobile = () => {
                       <i className="fa-solid fa-chevron-right text-sm"></i>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col mt-1 gap-2">
                     {isActive &&
                       category?.data?.length > 0 &&
-                      category?.data?.map((subItem) => {
-                        return subItem?.children ? (
-                          <div className="w-full bg-[#eeeee0] ">
-                            <Link
-                              className="text-sm  font-medium uppercase"
-                              href={`/kategorije/${subItem?.slug_path}`}
-                              onClick={() => {
-                                setOpen(false);
-                                setCategory({ id: null, data: [] });
-                              }}
-                            >
-                              <div className="pl-2 w-[90%] py-2 mx-auto flex items-center justify-between">
-                                {subItem?.name}
+                      category?.data?.map((item) => {
+                        const isActiveSubCategory =
+                          activeSubcategory?.id === item?.id;
 
-                                <i className="fa-solid fa-chevron-right text-sm"></i>
-                              </div>
-                            </Link>
-                            {subItem?.children?.length > 0 &&
-                              subItem?.children?.map((subSubItem) => {
+                        return item?.children ? (
+                          <div
+                            className={
+                              isActiveSubCategory
+                                ? `bg-[#eeeee0] w-full`
+                                : `w-full`
+                            }
+                          >
+                            <div
+                              className="w-[90%] py-2 mx-auto flex items-center justify-between pl-2"
+                              onClick={() =>
+                                setActiveSubcategory({
+                                  id:
+                                    activeSubcategory?.id === item?.id
+                                      ? null
+                                      : item?.id,
+                                  data: item?.children,
+                                })
+                              }
+                            >
+                              <h1 className="text-sm font-medium">
+                                {item?.name}
+                              </h1>
+                              <i className="fa-solid fa-chevron-right text-sm"></i>
+                            </div>
+                            {isActiveSubCategory &&
+                              activeSubcategory.data?.length > 0 &&
+                              activeSubcategory.data.map((item2) => {
                                 return (
-                                  <Link
-                                    href={`/kategorije/${subSubItem?.slug_path}`}
-                                    className="text-[11px]"
-                                    onClick={() => {
-                                      setOpen(false);
-                                      setCategory({ id: null, data: [] });
-                                    }}
-                                  >
-                                    <div className="w-full bg-white py-2">
-                                      <div className="pl-4 w-[90%] mx-auto">
-                                        {subSubItem?.name}
-                                      </div>
+                                  <div className="w-full py-2 bg-white">
+                                    <div className="w-[90%] mx-auto pl-4">
+                                      <Link
+                                        className="text-xs font-medium"
+                                        href={`/kategorije/${item2?.slug_path}`}
+                                        onClick={() => {
+                                          setOpen(false);
+                                          setCategory({ id: null, data: [] });
+                                        }}
+                                      >
+                                        {item2?.name}
+                                      </Link>
                                     </div>
-                                  </Link>
+                                  </div>
                                 );
                               })}
                           </div>
                         ) : (
-                          <Link
-                            className="text-sm  font-medium uppercase"
-                            href={`/kategorije/${subItem?.slug_path}`}
-                            onClick={() => {
-                              setOpen(false);
-                              setCategory({ id: null, data: [] });
-                            }}
-                          >
-                            {" "}
-                            <div className="flex bg-[#eeeee0] flex-col gap-1">
-                              <div className="pl-2 w-[90%] mx-auto  py-2">
-                                {subItem?.name}
-                              </div>
+                          <div className="w-full py-2">
+                            <div className="w-[90%] mx-auto pl-2">
+                              <Link
+                                className="text-sm font-medium"
+                                href={`/kategorije/${item?.slug_path}`}
+                                onClick={() => {
+                                  setOpen(false);
+                                  setCategory({ id: null, data: [] });
+                                }}
+                              >
+                                {item?.name}
+                              </Link>
                             </div>
-                          </Link>
+                          </div>
                         );
                       })}
                   </div>
