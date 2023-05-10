@@ -570,4 +570,5 @@ input[type="number"] {
 }
 .mySwiper2 {
   height: 100% !important;
+  max-height: 700px !important;
 }
