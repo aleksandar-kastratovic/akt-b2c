@@ -43,6 +43,7 @@ export async function generateMetadata({ params: { path } }) {
     description: category?.basic_data?.description,
   };
 }
+
 const CategoryPage = async ({ params: { path } }) => {
   const products = await fetchCategory(path[path.length - 1]);
   const filters = await fetchFilters(path[path.length - 1]);

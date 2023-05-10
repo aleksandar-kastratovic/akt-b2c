@@ -58,7 +58,7 @@ const ProductPage = async ({ params: { path } }) => {
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-10">
           <div className="col-span-2 lg:col-span-3 max-md:hidden">
             <ProductDetailsSlider
-              gallery={productGallery}
+              productGallery={productGallery}
               description={description}
             />
           </div>
@@ -75,6 +75,7 @@ const ProductPage = async ({ params: { path } }) => {
           </h1>
           <p
             className="text-[.8rem] mt-3 font-normal roboto bg-[#fbfbfb] px-[24px] py-3"
+            style={{ fontFamily: "Roboto Flex" }}
             dangerouslySetInnerHTML={{ __html: description?.description }}
           ></p>
         </div>
