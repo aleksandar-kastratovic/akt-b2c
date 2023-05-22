@@ -239,7 +239,8 @@ const CategoriesPageDisplay = ({
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
   useEffect(() => {
-    window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+    process?.env?.GTM_ENABLED === "true" &&
+      window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer.push({
       ecommerce: {
         currencyCode: "RSD",

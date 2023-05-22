@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
@@ -66,28 +66,30 @@ const ProductsSlider = ({ products, text }) => {
         <Link
           href={`/proizvod/${item?.slug}`}
           onClick={() => {
-            dataLayer.push({
-              event: "productClick",
-              ecommerce: {
-                click: {
-                  actionField: {
-                    list: "Homepage",
-                  },
-                  products: [
-                    {
-                      name: item?.basic_data?.name,
-                      id: item?.basic_data?.id_product,
-                      price: item?.basic_data?.price,
-                      brand: item?.basic_data?.brand,
-                      category: item?.basic_data?.category,
-                      variant: item?.basic_data?.variant,
-                      list: "Homepage",
-                      position: index + 1,
+            process?.env?.GTM_ENABLED === "true"
+              ? dataLayer.push({
+                  event: "productClick",
+                  ecommerce: {
+                    click: {
+                      actionField: {
+                        list: "Homepage",
+                      },
+                      products: [
+                        {
+                          name: item?.basic_data?.name,
+                          id: item?.basic_data?.id_product,
+                          price: item?.basic_data?.price,
+                          brand: item?.basic_data?.brand,
+                          category: item?.basic_data?.category,
+                          variant: item?.basic_data?.variant,
+                          list: "Homepage",
+                          position: index + 1,
+                        },
+                      ],
                     },
-                  ],
-                },
-              },
-            });
+                  },
+                })
+              : null;
           }}
         >
           <Image

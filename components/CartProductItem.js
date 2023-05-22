@@ -69,26 +69,28 @@ const CartProductItem = ({ item }) => {
           className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => {
             removeFromCart(item?.product?.id);
-            window?.dataLayer?.push({
-              ecommerce: null,
-            });
-            window?.dataLayer?.push({
-              event: "removeFromCart",
-              ecommerce: {
-                remove: {
-                  products: [
-                    {
-                      id: item?.product?.id,
-                      name: item?.product?.basic_data?.name,
-                      price: item?.product?.price?.with_vat,
-                      brand: item?.product?.brand?.name,
-                      category: item?.product?.category?.name,
-                      quantity: item?.cart?.quantity,
-                    },
-                  ],
+            if (process?.env?.GTM_ENABLED === "true") {
+              window?.dataLayer?.push({
+                ecommerce: null,
+              });
+              window?.dataLayer?.push({
+                event: "removeFromCart",
+                ecommerce: {
+                  remove: {
+                    products: [
+                      {
+                        id: item?.product?.id,
+                        name: item?.product?.basic_data?.name,
+                        price: item?.product?.price?.with_vat,
+                        brand: item?.product?.brand?.name,
+                        category: item?.product?.category?.name,
+                        quantity: item?.cart?.quantity,
+                      },
+                    ],
+                  },
                 },
-              },
-            });
+              });
+            }
           }}
         >
           X

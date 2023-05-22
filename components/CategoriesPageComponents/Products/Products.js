@@ -25,7 +25,8 @@ const Products = ({ products = [] }) => {
           <Link
             href={`/proizvod/${item?.slug}`}
             onClick={() => {
-              window?.dataLayer?.push({ ecommerce: null });
+              process?.env?.GTM_ENABLED === "true" &&
+                window?.dataLayer?.push({ ecommerce: null });
               window?.dataLayer?.push({
                 event: "productClick",
                 ecommerce: {
@@ -89,26 +90,28 @@ const Products = ({ products = [] }) => {
                     toast.success("Proizvod je dodat u korpu!", {
                       position: "top-center",
                     });
-                    window?.dataLayer?.push({ ecommerce: null });
-                    window?.dataLayer?.push({
-                      event: "addToCart",
-                      ecommerce: {
-                        currencyCode: "RSD",
-                        add: {
-                          products: [
-                            {
-                              name: item?.basic_data?.name,
-                              id: item?.basic_data?.id_product,
-                              price: item?.price?.price?.original,
-                              brand: item?.basic_data?.brand,
-                              category: item?.categories[0]?.name,
-                              variant: null,
-                              quantity: 1,
-                            },
-                          ],
+                    if (process?.env?.GTM_ENABLED === "true") {
+                      window?.dataLayer?.push({ ecommerce: null });
+                      window?.dataLayer?.push({
+                        event: "addToCart",
+                        ecommerce: {
+                          currencyCode: "RSD",
+                          add: {
+                            products: [
+                              {
+                                name: item?.basic_data?.name,
+                                id: item?.basic_data?.id_product,
+                                price: item?.price?.price?.original,
+                                brand: item?.basic_data?.brand,
+                                category: item?.categories[0]?.name,
+                                variant: null,
+                                quantity: 1,
+                              },
+                            ],
+                          },
                         },
-                      },
-                    });
+                      });
+                    }
                   } else {
                     router.push(`/proizvod/${item?.slug}`);
                   }
@@ -122,7 +125,8 @@ const Products = ({ products = [] }) => {
             className="font-normal text-sm clamp"
             href={`/proizvod/${item?.slug}`}
             onClick={() => {
-              window?.dataLayer?.push({ ecommerce: null });
+              process?.env?.GTM_ENABLED === "true" &&
+                window?.dataLayer?.push({ ecommerce: null });
               window?.dataLayer?.push({
                 event: "productClick",
                 ecommerce: {
