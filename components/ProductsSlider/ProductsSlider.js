@@ -13,10 +13,6 @@ import { toast, ToastContainer } from "react-toastify";
 import ArrowPic from "../../assets/Icons/arrow.png";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import {
-  GoogleTagManager,
-  dataLayer,
-} from "../GoogleTagManager/GoogleTagManager";
 const ProductsSlider = ({ products, text }) => {
   const globalAddToCart = useGlobalAddToCart();
   const globalAddToWishlist = useGlobalAddToWishList();
