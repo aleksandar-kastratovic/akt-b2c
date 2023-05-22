@@ -13,6 +13,10 @@ import { toast, ToastContainer } from "react-toastify";
 import ArrowPic from "../../assets/Icons/arrow.png";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import {
+  GoogleTagManager,
+  dataLayer,
+} from "../GoogleTagManager/GoogleTagManager";
 const ProductsSlider = ({ products, text }) => {
   const globalAddToCart = useGlobalAddToCart();
   const globalAddToWishlist = useGlobalAddToWishList();
@@ -59,7 +63,33 @@ const ProductsSlider = ({ products, text }) => {
       className={` flex flex-col relative items-center keen-slider__slide number-slide${index}`}
     >
       <div className="max-lg:h-[429px] h-[360px] 3xl:h-[32.563rem] relative flex justify-center hover">
-        <Link href={`/proizvod/${item?.slug}`}>
+        <Link
+          href={`/proizvod/${item?.slug}`}
+          onClick={() => {
+            dataLayer.push({
+              event: "productClick",
+              ecommerce: {
+                click: {
+                  actionField: {
+                    list: "Homepage",
+                  },
+                  products: [
+                    {
+                      name: item?.basic_data?.name,
+                      id: item?.basic_data?.id_product,
+                      price: item?.basic_data?.price,
+                      brand: item?.basic_data?.brand,
+                      category: item?.basic_data?.category,
+                      variant: item?.basic_data?.variant,
+                      list: "Homepage",
+                      position: index + 1,
+                    },
+                  ],
+                },
+              },
+            });
+          }}
+        >
           <Image
             src={convertHttpToHttps(item?.image[0]?.toString())}
             width={500}

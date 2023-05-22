@@ -22,7 +22,31 @@ const Products = ({ products = [] }) => {
         className={` flex flex-col relative items-center keen-slider__slide number-slide${index}`}
       >
         <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center hover">
-          <Link href={`/proizvod/${item?.slug}`}>
+          <Link
+            href={`/proizvod/${item?.slug}`}
+            onClick={() => {
+              window?.dataLayer?.push({ ecommerce: null });
+              window?.dataLayer?.push({
+                event: "productClick",
+                ecommerce: {
+                  click: {
+                    products: [
+                      {
+                        name: item?.basic_data?.name,
+                        id: item?.basic_data?.id_product,
+                        price: item?.price?.price?.original,
+                        brand: item?.basic_data?.brand,
+                        category: item?.basic_data?.category,
+                        variant: item?.basic_data?.variant,
+                        list: "Search Results",
+                        position: index + 1,
+                      },
+                    ],
+                  },
+                },
+              });
+            }}
+          >
             {item?.image[0]?.toString() ? (
               <Image
                 src={convertHttpToHttps(item?.image[0]?.toString())}
@@ -65,6 +89,26 @@ const Products = ({ products = [] }) => {
                     toast.success("Proizvod je dodat u korpu!", {
                       position: "top-center",
                     });
+                    window?.dataLayer?.push({ ecommerce: null });
+                    window?.dataLayer?.push({
+                      event: "addToCart",
+                      ecommerce: {
+                        currencyCode: "RSD",
+                        add: {
+                          products: [
+                            {
+                              name: item?.basic_data?.name,
+                              id: item?.basic_data?.id_product,
+                              price: item?.price?.price?.original,
+                              brand: item?.basic_data?.brand,
+                              category: item?.categories[0]?.name,
+                              variant: null,
+                              quantity: 1,
+                            },
+                          ],
+                        },
+                      },
+                    });
                   } else {
                     router.push(`/proizvod/${item?.slug}`);
                   }
@@ -77,6 +121,28 @@ const Products = ({ products = [] }) => {
           <Link
             className="font-normal text-sm clamp"
             href={`/proizvod/${item?.slug}`}
+            onClick={() => {
+              window?.dataLayer?.push({ ecommerce: null });
+              window?.dataLayer?.push({
+                event: "productClick",
+                ecommerce: {
+                  click: {
+                    products: [
+                      {
+                        name: item?.basic_data?.name,
+                        id: item?.basic_data?.id_product,
+                        price: item?.price?.price?.original,
+                        brand: item?.basic_data?.brand,
+                        category: item?.basic_data?.category,
+                        variant: item?.basic_data?.variant,
+                        list: "Search Results",
+                        position: index + 1,
+                      },
+                    ],
+                  },
+                },
+              });
+            }}
           >
             {item?.basic_data?.name}
           </Link>

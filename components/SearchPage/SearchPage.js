@@ -44,7 +44,21 @@ const SearchPagee = ({
   const router = useRouter();
   const { search } = router.query;
   const [loading, setLoading] = useState(false);
-
+  useEffect(() => {
+    window?.dataLayer?.push({
+      currencyCode: "RSD",
+      impressions: [
+        products.map((product) => ({
+          name: product?.basic_data?.name,
+          id: product?.basic_data?.id_product,
+          price: product?.price?.price?.original,
+          brand: product?.brand,
+          category: product?.categories[0]?.name,
+          list: "Pretraga",
+        })),
+      ],
+    });
+  }, [newProductsArray]);
   return (
     <>
       <div className="w-full bg-croonus-5">
