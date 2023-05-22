@@ -26,14 +26,14 @@ export default function RootLayout({ children }) {
       </head>
       <html lang="en">
         <body className="4xl:container mx-auto">
-          <noscript>
+          {/* <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-KZMS3QG"
               height="0"
               width="0"
               style="display:none;visibility:hidden"
             ></iframe>
-          </noscript>
+          </noscript> */}
           <Suspense>
             <Analytics />
           </Suspense>
