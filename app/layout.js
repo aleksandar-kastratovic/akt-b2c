@@ -16,7 +16,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  let dataLayer = [];
   return (
     <CartContextProvider>
       <head>
