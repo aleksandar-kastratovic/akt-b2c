@@ -12,6 +12,8 @@ const nextConfig = {
     MB: process.env.MB,
     EMAIL: process.env.EMAIL,
     CAPTCHAKEY: process.env.CAPTCHAKEY,
+    GTM_ENABLED: process.env.GTM_ENABLED,
+    GTM_ID: process.env.GTM_ID,
   },
   images: {
     domains: ["api.akt.croonus.com"],

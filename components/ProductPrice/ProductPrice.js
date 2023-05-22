@@ -81,44 +81,48 @@ const ProductInfo = ({ products, description }) => {
       }
     }
     setProductAmount(1);
-    window?.dataLayer?.push({ ecommerce: null });
-    window?.dataLayer?.push({
-      event: "addToCart",
-      ecommerce: {
-        currencyCode: "RSD",
-        add: {
-          products: [
-            {
-              name: products?.data?.item?.basic_data?.name,
-              id: products?.data?.item?.basic_data?.id_product,
-              price: products?.data?.item?.price?.price?.original,
-              brand: products?.data?.item?.basic_data?.brand,
-              category: products?.data?.item?.categories[0]?.name,
-              variant: productVariant?.basic_data?.name,
-              quantity: 1,
-            },
-          ],
+    if (process?.env?.GTM_ENABLED === "true") {
+      window?.dataLayer?.push({ ecommerce: null });
+      window?.dataLayer?.push({
+        event: "addToCart",
+        ecommerce: {
+          currencyCode: "RSD",
+          add: {
+            products: [
+              {
+                name: products?.data?.item?.basic_data?.name,
+                id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.price?.original,
+                brand: products?.data?.item?.basic_data?.brand,
+                category: products?.data?.item?.categories[0]?.name,
+                variant: productVariant?.basic_data?.name,
+                quantity: 1,
+              },
+            ],
+          },
         },
-      },
-    });
+      });
+    }
   };
   useEffect(() => {
-    window?.dataLayer?.push({
-      ecommerce: {
-        detail: {
-          products: [
-            {
-              name: products?.data?.item?.basic_data?.name,
-              id: products?.data?.item?.basic_data?.id_product,
-              price: products?.data?.item?.price?.price?.original,
-              brand: products?.data?.item?.basic_data?.brand,
-              category: products?.data?.item?.categories[0]?.name,
-              variant: productVariant?.basic_data?.name,
-            },
-          ],
+    if (process?.env?.GTM_ENABLED === "true") {
+      window?.dataLayer?.push({
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                name: products?.data?.item?.basic_data?.name,
+                id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.price?.original,
+                brand: products?.data?.item?.basic_data?.brand,
+                category: products?.data?.item?.categories[0]?.name,
+                variant: productVariant?.basic_data?.name,
+              },
+            ],
+          },
         },
-      },
-    });
+      });
+    }
   });
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
