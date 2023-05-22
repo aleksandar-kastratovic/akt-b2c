@@ -238,6 +238,24 @@ const CategoriesPageDisplay = ({
   }, [products]);
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
+  useEffect(() => {
+    window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+    window?.dataLayer.push({
+      ecommerce: {
+        currencyCode: "RSD",
+        impressions: [
+          products?.map((item) => {
+            return {
+              id: item?.basic_data?.id_product,
+              name: item?.basic_data?.name,
+              price: item?.price?.price?.original,
+              list: `Kategorija ${item?.categories[0]?.name}`,
+            };
+          }),
+        ],
+      },
+    });
+  }, [pagination]);
   return (
     <>
       <div className="w-full bg-croonus-5">
