@@ -1,12 +1,6 @@
 "use client";
-
-import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { useEffect } from "react";
-
 export default function Analytics() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   return (
     <>
       {process?.env?.GTM_ENABLED === "true" ? (
