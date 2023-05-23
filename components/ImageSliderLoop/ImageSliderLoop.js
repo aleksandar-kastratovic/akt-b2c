@@ -75,7 +75,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
     );
     const images = newArray?.map((item, index) => (
       <div
-        key={item.id}
+        key={index}
         className={` w-full relative flex items-center flex-col keen-slider__slide number-slide${index}`}
       >
         <Image
@@ -110,21 +110,19 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
             <div className="dots3 relative flex max-md:justify-center items-center max-md:gap-[3rem] gap-[4.688rem] ml-auto justify-end mt-[1.875rem] text-[1.25rem]">
               {bannerimages?.map((idx, index) => {
                 return (
-                  <>
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        instanceRef.current?.moveToIdx(index);
-                      }}
-                      className={
-                        currentSlide === index
-                          ? "underline max-md:text-base"
-                          : "max-md:text-base"
-                      }
-                    >
-                      {idx?.name}
-                    </button>
-                  </>
+                  <button
+                    key={index}
+                    onClick={() => {
+                      instanceRef.current?.moveToIdx(index);
+                    }}
+                    className={
+                      currentSlide === index
+                        ? "underline max-md:text-base"
+                        : "max-md:text-base"
+                    }
+                  >
+                    {idx?.name}
+                  </button>
                 );
               })}
             </div>
@@ -134,7 +132,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
     );
   } else {
     const images = bannerimages?.map((item, index) => (
-      <div key={item.id} className={`keen-slider__slide number-slide${index}`}>
+      <div key={index} className={`keen-slider__slide number-slide${index}`}>
         <Image
           width={1222}
           height={1222}

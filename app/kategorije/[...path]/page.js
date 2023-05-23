@@ -65,3 +65,15 @@ const CategoryPage = async ({ params: { path } }) => {
 };
 
 export default CategoryPage;
+export async function generateStaticParams() {
+  const categories = await get("/categories/product/tree").then(
+    (res) => res?.payload
+  );
+  return categories?.map((category) => ({
+    params: {
+      path: category?.slug_path,
+    },
+  }));
+}
+
+export const revalidate = 30;
