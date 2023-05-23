@@ -19,21 +19,13 @@ export default function RootLayout({ children }) {
   return (
     <CartContextProvider>
       <head>
-        <script
+        <Script
           src="https://kit.fontawesome.com/f141ac3909.js"
           crossorigin="anonymous"
-        ></script>
+        ></Script>
       </head>
       <html lang="en">
         <body className="4xl:container mx-auto">
-          {/* <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-KZMS3QG"
-              height="0"
-              width="0"
-              style="display:none;visibility:hidden"
-            ></iframe>
-          </noscript> */}
           <Suspense>
             <Analytics />
           </Suspense>

@@ -44,6 +44,7 @@ const BannerSlider = ({ banners }) => {
 
   const items = banners.map((item, index) => (
     <div
+      key={index}
       className={`grid grid-cols-2 keen-slider__slide number-slide${index} `}
     >
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
