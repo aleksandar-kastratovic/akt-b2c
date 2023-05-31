@@ -96,7 +96,7 @@ const ProductInfo = ({ products, description }) => {
                 brand: products?.data?.item?.basic_data?.brand,
                 category: products?.data?.item?.categories[0]?.name,
                 variant: productVariant?.basic_data?.name,
-                quantity: 1,
+                quantity: productAmount,
               },
             ],
           },

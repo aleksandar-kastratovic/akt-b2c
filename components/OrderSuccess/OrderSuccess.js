@@ -8,7 +8,7 @@ const OrderSuccess = ({ order }) => {
   useEffect(() => {
     window?.dataLayer?.push({
       ecommerce: {
-        purchase: {
+        transaction: {
           actionField: {
             id: order?.order?.slug,
             tax: order?.order?.total_vat,
