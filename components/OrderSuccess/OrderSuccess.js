@@ -8,6 +8,7 @@ const OrderSuccess = ({ order }) => {
   useEffect(() => {
     window?.dataLayer?.push({
       ecommerce: {
+        event: "transaction",
         transaction: {
           actionField: {
             id: order?.order?.slug,
