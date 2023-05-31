@@ -289,6 +289,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               },
             },
           });
+
         })
         .catch((error) => console.warn(error));
     }

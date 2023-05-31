@@ -1,7 +1,33 @@
+"use client";
 import Image from "next/image";
 import Image1 from "../../assets/Icons/check.png";
 import Link from "next/link";
+import { useEffect } from "react";
+
 const OrderSuccess = ({ order }) => {
+  useEffect(() => {
+    window?.dataLayer?.push({
+      ecommerce: {
+        purchase: {
+          actionField: {
+            id: order?.order?.slug,
+
+            revenue: order?.order?.total,
+          },
+          products: order?.items?.map((item) => {
+            return {
+              name: item?.basic_data?.name,
+              id: item?.id,
+              price: item?.price?.total_with_vat,
+              brand: item?.basic_data?.brand_name,
+              quantity: item?.price?.quantity,
+            };
+          }),
+        },
+      },
+    });
+  }, []);
+
   let conditions;
   if (order?.credit_card !== null && order) {
     if (order?.credit_card?.payment_status?.toLowerCase() === "approved") {
