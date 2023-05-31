@@ -11,13 +11,14 @@ const OrderSuccess = ({ order }) => {
         purchase: {
           actionField: {
             id: order?.order?.slug,
-
+            tax: order?.order?.total_vat,
             revenue: order?.order?.total,
+            shipping: order?.order?.total_delivery,
           },
           products: order?.items?.map((item) => {
             return {
               name: item?.basic_data?.name,
-              id: item?.id,
+              id: item?.basic_data?.id_product,
               price: item?.price?.total_with_vat,
               brand: item?.basic_data?.brand_name,
               quantity: item?.price?.quantity,
