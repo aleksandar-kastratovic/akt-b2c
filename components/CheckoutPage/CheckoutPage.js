@@ -275,6 +275,20 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             );
           }
           setLoading(false);
+          window?.dataLayer?.push({
+            event: "checkout",
+            ecommerce: {
+              checkout: {
+                actionField: { step: 1, option: "checkout" },
+                products: cartItems.map((item) => ({
+                  name: item?.product?.basic_data?.name,
+                  id: item?.product?.id,
+                  price: item?.product?.price?.cost?.with_vat,
+                  quantity: item?.cart?.quantity,
+                })),
+              },
+            },
+          });
         })
         .catch((error) => console.warn(error));
     }
