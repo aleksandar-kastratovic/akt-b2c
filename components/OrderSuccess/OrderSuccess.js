@@ -7,9 +7,9 @@ import { useEffect } from "react";
 const OrderSuccess = ({ order }) => {
   useEffect(() => {
     window?.dataLayer?.push({
+      event: "transaction",
       ecommerce: {
-        event: "transaction",
-        transaction: {
+        purchase: {
           actionField: {
             id: order?.order?.slug,
             tax: order?.order?.total_vat,
@@ -28,7 +28,7 @@ const OrderSuccess = ({ order }) => {
         },
       },
     });
-  });
+  }, [order]);
 
   let conditions;
   if (order?.credit_card !== null && order) {
