@@ -271,7 +271,6 @@ export default function Variants({
 
     setSelected(temp_selected);
   };
-
   return (
     <div className="flex flex-col  gap-3 max-lg:w-full  ">
       {variantOptions?.map((item) => {
@@ -287,50 +286,38 @@ export default function Variants({
               key={item.id}
               id={item.id}
               name={item.attribute.key}
-              className="px-16 max-md:px-0 2xl:min-w-[12.625rem] flex flex-row items-center  gap-4 text-[0.875rem]"
-              onChange={(e) => {
-                onChangeHandler(item.attribute.key, e.target.value);
-                handleVariantOptionChange();
-                variant_product = getProductVariant();
-                if (variant_product) {
-                  updateProductVariant(variant_product);
-                  updateProductPrice(variant_product?.price?.price?.original);
-                  handleURLChange(variant_product?.slug);
-                  product_slug = variant_product?.slug;
-                } else {
-                  updateProductVariant(null);
-                  updateProductPrice(null);
-                }
-              }}
+              className="px-16 max-md:px-0 2xl:min-w-[12.625rem] flex flex-row items-center gap-4 text-[0.875rem]"
             >
               {item?.attribute?.name === "Boja" ? (
                 item.values.map((value) => {
                   let display = value.display;
                   return (
-                    <div className="flex flex-row items-center gap-2">
+                    <div
+                      className="flex flex-row items-center gap-2"
+                      key={value.id}
+                    >
                       <button
                         onClick={(e) => {
                           e.preventDefault();
                           onChangeHandler(item.attribute.key, value.key);
                           handleVariantOptionChange();
-                          variant_product = getProductVariant();
-                          if (variant_product) {
-                            updateProductVariant(variant_product);
+                          const variantProduct = getProductVariant();
+                          if (variantProduct) {
+                            updateProductVariant(variantProduct);
                             updateProductPrice(
-                              variant_product?.price?.price?.original
+                              variantProduct?.price?.price?.original
                             );
-                            handleURLChange(variant_product?.slug);
-                            product_slug = variant_product?.slug;
+                            handleURLChange(variantProduct?.slug);
+                            product_slug = variantProduct?.slug;
                           }
                         }}
-                        key={value.id}
                         value={value.key}
                         selected={value.selected}
                         style={{ display: value.display }}
                         className={
                           display === "show"
-                            ? `block text-[0.875rem]`
-                            : `hidden`
+                            ? "block text-[0.875rem]"
+                            : "hidden"
                         }
                       >
                         {value?.image && (
@@ -338,11 +325,11 @@ export default function Variants({
                             className={`rounded-full ${
                               selected.find(
                                 (x) =>
-                                  x.attribute_key == item.attribute.key &&
-                                  x.value_key == value.key
+                                  x.attribute_key === item.attribute.key &&
+                                  x.value_key === value.key
                               )
-                                ? `border border-[#797979] p-[3px]`
-                                : `p-[3px]`
+                                ? "border border-[#797979] p-[3px]"
+                                : "p-[3px]"
                             } md:h-[25px] h-[30px] w-[30px] md:w-[25px]`}
                           >
                             <Image
@@ -364,22 +351,26 @@ export default function Variants({
                   name={item.attribute.key}
                   className="px-16 border 2xl:min-w-[12.625rem] max-md:border-[#919191] border-[#eaeaea] focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
                   onChange={(e) => {
-                    onChangeHandler(item.attribute.key, e.target.value);
-                    handleVariantOptionChange();
-                    variant_product = getProductVariant();
-                    if (variant_product) {
-                      updateProductVariant(variant_product);
-                      updateProductPrice(
-                        variant_product?.price?.price?.original
-                      );
-                      handleURLChange(variant_product?.slug);
-                      product_slug = variant_product?.slug;
+                    if (e.target.value === "none") {
                     } else {
-                      updateProductVariant(null);
-                      updateProductPrice(null);
+                      onChangeHandler(item.attribute.key, e.target.value);
+                      handleVariantOptionChange();
+                      const variantProduct = getProductVariant();
+                      if (variantProduct) {
+                        updateProductVariant(variantProduct);
+                        updateProductPrice(
+                          variantProduct?.price?.price?.original
+                        );
+                        handleURLChange(variantProduct?.slug);
+                        product_slug = variantProduct?.slug;
+                      } else {
+                        updateProductVariant(null);
+                        updateProductPrice(null);
+                      }
                     }
                   }}
                 >
+                  <option value="none">Izaberite</option>
                   {item.values.map((value) => {
                     let display = value.display;
                     return (
@@ -390,8 +381,8 @@ export default function Variants({
                         style={{ display: value.display }}
                         className={
                           display === "show"
-                            ? `block text-[0.875rem] max-md:bg-[#fbfbfb]`
-                            : `hidden`
+                            ? "block text-[0.875rem] max-md:bg-[#fbfbfb]"
+                            : "hidden"
                         }
                       >
                         {value.name}

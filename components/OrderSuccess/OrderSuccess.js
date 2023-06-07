@@ -22,6 +22,9 @@ const OrderSuccess = ({ order }) => {
               id: item?.basic_data?.id_product,
               price: item?.price?.total_with_vat,
               brand: item?.basic_data?.brand_name,
+              currency: item?.basic_data?.currency,
+              category: item?.basic_data?.category_breadcrumbs,
+              manufacturer: item?.basic_data?.manufacture_name,
               quantity: item?.price?.quantity,
             };
           }),
