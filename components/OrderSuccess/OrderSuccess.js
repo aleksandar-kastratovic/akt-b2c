@@ -28,7 +28,7 @@ const OrderSuccess = ({ order }) => {
         },
       },
     });
-  }, []);
+  });
 
   let conditions;
   if (order?.credit_card !== null && order) {
