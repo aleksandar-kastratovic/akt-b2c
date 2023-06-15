@@ -32,114 +32,48 @@ const ContactPage = () => {
     message: "",
     gcaptcha: token,
   });
-  const [formFileds, setFormFields] = useState({});
-  const [message, setMessage] = useState({ error: false, content: null });
 
-  const formChangeHandler = ({ target }) => {
-    setMessage({ error: false, content: null });
-    if (target.name === "company_sector") {
-      const mail = formFileds?.company_sector?.ddl_options.filter(
-        (item) => item.id === target.value
-      )[0].mail_to;
-
-      setFormData({ ...formData, company_sector: target.value, mail_to: mail });
-    } else {
-      setFormData({
-        ...formData,
-        [target.name]:
-          target.type === "checkbox" ? target.checked : target.value,
-      });
-    }
+  const formChangeHandler = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    get("/contact/contact_page")
-      .then((response) => setFormFields(response?.payload))
-      .catch((error) => console.warn(error));
-  }, []);
-
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-
-    setError(true);
-
-    for (const item in formData) {
-      if (
-        formData[item] === "" &&
-        formFileds[item]?.fields_rule?.includes("required")
-      ) {
-        setMessage({
-          error: true,
-          content: "Nisu popunjena sva obavezna polja!",
-        });
-        return;
-      }
-    }
-
-    if (!emailRegex.test(formData.email)) {
-      setMessage({
-        error: true,
-        content: "Molimo unesite validnu e-mail adresu.",
-      });
-      return;
-    }
-
     setLoading(true);
-    setRefreshReCaptcha((r) => !r);
-
-    post("contact/contact_page", formData)
-      .then((response) => {
-        if (response?.success !== true) {
-          setError(true);
-          setMessage({
-            error: true,
-            content: "Došlo je do greške, molimo Vas pokušajte ponovo.",
-          });
-          toast.error(message.content, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-          });
-          return;
-        }
-
-        setMessage({
-          error: false,
-          content: "Uspešno ste poslali poruku, uskoro ćemo Vas kontaktirati.",
-        });
-
-        setFormData({
-          ...formData,
-          page_section: "contact_page",
-          customer_name: "",
-          phone: "",
-          email: "",
-          mail_to: "",
-          subject: "",
-          company_sector: "",
-          message: "",
-          accept_rules: false,
-          gcaptcha: token,
-        });
-
-        setLoading(false);
-        setError(false);
-        toast.success(message.content, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-        });
-      })
-      .catch((error) => console.warn(error));
+    const res = await post("/contact/contact_page", formData);
+    if (res?.code === 200) {
+      toast.success("Uspešno ste poslali poruku!", {
+        autoClose: 3000,
+        position: "top-center",
+      });
+      setLoading(false);
+      setFormData({
+        page_section: "contact_page",
+        customer_name: "",
+        phone: "",
+        email: "",
+        mail_to: "",
+        subject: "",
+        company_sector: "",
+        message: "",
+        gcaptcha: token,
+      });
+    } else {
+      toast.error("Došlo je do greške, molimo Vas pokušajte ponovo!", {
+        autoClose: 3000,
+        position: "top-center",
+      });
+      setLoading(false);
+    }
   };
+
   useEffect(() => {
     setFormData({ ...formData, gcaptcha: token });
   }, [token]);
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey={process.env.CAPTCHAKEY}>
+      <ToastContainer />
       <GoogleReCaptcha
         onVerify={verifyCaptcha}
         refreshReCaptcha={refreshReCaptcha}
@@ -170,7 +104,7 @@ const ContactPage = () => {
                       value={formData.customer_name}
                       name="customer_name"
                       className="infoForm col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
-                      placeholder="Ime i prezime"
+                      placeholder="Ime i prezime*"
                       onChange={formChangeHandler}
                     />
                     <input
@@ -178,7 +112,7 @@ const ContactPage = () => {
                       value={formData.email}
                       name="email"
                       className="placeholder:top-0 col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  placeholder:absolute placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
-                      placeholder="E-mail"
+                      placeholder="E-mail*"
                       onChange={formChangeHandler}
                     />
                     <input
@@ -186,7 +120,7 @@ const ContactPage = () => {
                       value={formData.phone}
                       name="phone"
                       className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
-                      placeholder="Broj telefona"
+                      placeholder="Broj telefona*"
                       onChange={formChangeHandler}
                     />
                     <input
@@ -194,7 +128,7 @@ const ContactPage = () => {
                       value={formData.subject}
                       name="subject"
                       className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
-                      placeholder="Naslov poruke"
+                      placeholder="Naslov poruke*"
                       onChange={formChangeHandler}
                     />
                     <textarea
@@ -202,7 +136,7 @@ const ContactPage = () => {
                       value={formData.message}
                       name="message"
                       className="messageForm  col-span-2  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0 max-lg:w-full  border-b border-b-black border-l-0 border-t-0 border-r-0"
-                      placeholder="Poruka"
+                      placeholder="Poruka*"
                       rows={"4"}
                       onChange={formChangeHandler}
                     />
