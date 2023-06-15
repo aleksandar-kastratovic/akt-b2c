@@ -75,9 +75,12 @@ const Footer = () => {
                   MB: {process.env.MB} |
                 </span>
               </div>
-              <span className="text-sm font-normal">
+              <a
+                href={`mailto:${process.env.EMAIL}`}
+                className="text-sm font-normal"
+              >
                 e-mail: {process.env.EMAIL}
-              </span>
+              </a>
             </div>
             <div className="flex items-center gap-10">
               <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>

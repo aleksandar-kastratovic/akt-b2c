@@ -10,10 +10,7 @@ import Cart from "../../assets/Icons/shopping-bag.png";
 import Wishlist from "../../assets/Icons/bookmark.png";
 import Variants from "../Variants/Variants";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  GoogleTagManager,
-  dataLayer,
-} from "../GoogleTagManager/GoogleTagManager";
+
 const ProductInfo = ({ products, description }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -24,10 +21,7 @@ const ProductInfo = ({ products, description }) => {
   const [newURL, setNewURL] = useState(null);
   useEffect(() => {
     if (newURL) {
-      router.replace(`/proizvod/${newURL}`, undefined, {
-        scroll: false,
-      });
-      id = newURL;
+      router.replace(`/proizvod/${newURL}`);
     }
   }, [newURL]);
   const updateProductVariant = (newProduct) => {
