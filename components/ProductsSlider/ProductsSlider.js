@@ -56,11 +56,12 @@ const ProductsSlider = ({ products, text }) => {
   const product = products.map((item, index) => (
     <div
       key={item.id}
-      className={` flex flex-col relative items-center keen-slider__slide number-slide${index}`}
+      className={` flex flex-col !relative items-center keen-slider__slide number-slide${index}`}
     >
-      <div className="max-lg:h-[429px] h-[360px] 3xl:h-[32.563rem] relative flex justify-center hover">
+      <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[32.563rem] relative flex justify-center hover">
         <Link
           href={`/proizvod/${item?.slug}`}
+          className={`w-full`}
           onClick={() => {
             process?.env?.GTM_ENABLED === "true"
               ? dataLayer.push({
@@ -88,12 +89,14 @@ const ProductsSlider = ({ products, text }) => {
               : null;
           }}
         >
-          <Image
-            src={convertHttpToHttps(item?.image[0]?.toString())}
-            width={500}
-            height={500}
-            className="h-full object-cover"
-          />
+          <div className={`!relative h-full w-full`}>
+            <Image
+              src={convertHttpToHttps(item?.image[0]?.toString())}
+              fill
+              priority={true}
+              className="h-full object-cover !z-50 "
+            />
+          </div>
         </Link>
         <div className="absolute bg-white py-0.5 bottom-5 w-[70%] flex justify-center divide-x items-center  divide-black hovered">
           <div className="flex items-center justify-center w-full">

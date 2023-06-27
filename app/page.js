@@ -8,9 +8,17 @@ const fetchBanners = async () => {
   return banners;
 };
 
-const fetchProducts = async () => {
+const fetchTopSellProducts = async () => {
   fetch = list;
-  const products = await fetch("/products/new-in/list", {
+  const products = await fetch("/products/section/list/top_sellers", {
+    cache: "no-store",
+  }).then((response) => response?.payload?.items);
+  return products;
+};
+
+const fetchRecommendedProducts = async () => {
+  fetch = list;
+  const products = await fetch("/products/section/list/recommendation", {
     cache: "no-store",
   }).then((response) => response?.payload?.items);
   return products;
@@ -21,13 +29,14 @@ import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import BannerSlider from "@/components/BannerSlider/BannerSlider";
 const Index = async () => {
   const banners = await fetchBanners();
-  const products = await fetchProducts();
+  const topSellers = await fetchTopSellProducts();
+  const recommended = await fetchRecommendedProducts();
   return (
     <>
       <HomepageBanners banners={banners} />
-      <ProductsSlider products={products} text="Najpopularnije" />
+      <ProductsSlider products={topSellers} text="Najpopularnije" />
       <BannerSlider banners={banners} />
-      <ProductsSlider products={products} text="Izdvajamo" />
+      <ProductsSlider products={recommended} text="Izdvajamo" />
     </>
   );
 };

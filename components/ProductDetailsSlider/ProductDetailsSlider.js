@@ -34,8 +34,8 @@ const ProductGallery = ({ productGallery }) => {
       >
         <Image
           src={src}
-          width={2000}
-          height={2000}
+          fill
+          priority
           className="h-full w-full object-cover"
           onMouseEnter={(e) => {
             const elem = e.currentTarget;
@@ -84,22 +84,24 @@ const ProductGallery = ({ productGallery }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const productImage = productGallery?.map((image, index) => {
     return (
-      <SwiperSlide key={index} className="w-full">
+      <SwiperSlide key={index} className="w-full !relative">
         <ImageMagnifier
           src={convertHttpToHttps(image?.image)}
-          width={2000}
-          height={2000}
+          fill
+          priority
+          style={{ objectFit: "fill" }}
         />
       </SwiperSlide>
     );
   });
   const thumbImage = productGallery?.map((image, index) => {
     return (
-      <SwiperSlide key={index}>
+      <SwiperSlide key={index} className={`!relative h-full w-full`}>
         <Image
           src={convertHttpToHttps(image?.image)}
-          width={2000}
-          height={2000}
+          fill
+          priority
+          style={{ objectFit: "fill" }}
           className="cursor-pointer max-md:hidden"
         />
       </SwiperSlide>

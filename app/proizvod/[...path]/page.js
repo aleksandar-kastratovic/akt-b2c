@@ -44,6 +44,7 @@ export async function generateMetadata({ params: { path } }) {
 }
 const ProductPage = async ({ params: { path } }) => {
   const products = await fetchProduct(path[path?.length - 1]);
+  console.log("fdsfs", products);
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
@@ -75,7 +76,6 @@ const ProductPage = async ({ params: { path } }) => {
           </h1>
           <p
             className="text-[.8rem] mt-3 font-normal roboto bg-[#fbfbfb] px-[24px] py-3"
-            style={{ fontFamily: "Roboto Flex" }}
             dangerouslySetInnerHTML={{ __html: description?.description }}
           ></p>
         </div>

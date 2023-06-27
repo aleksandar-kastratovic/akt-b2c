@@ -60,9 +60,8 @@ const NavigationMobile = () => {
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearch = (event) => {
-    setLoading(true);
     event.preventDefault();
-    navigate(`/search?search=${searchTerm}`);
+    navigate(`/pretraga?query=${searchTerm}`);
     setSearchTerm("");
     setSearchOpen(false);
     setOpen(false);
@@ -416,16 +415,7 @@ const NavigationMobile = () => {
           </div>
         </div>
       </div>
-      {loading ? (
-        <div className="fixed top-0 left-0 bg-black bg-opacity-30 z-[2000] w-screen h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center bg-white rounded-lg p-10">
-            <h1 className="text-black text-xl font-normal mb-5">
-              Pretražujemo...
-            </h1>
-            <i className="fa-solid fa-spinner animate-spin text-4xl text-black"></i>
-          </div>
-        </div>
-      ) : null}
+
       {(open || searchOpen) && (
         <div
           className="fixed top-0 left-0 bg-black bg-opacity-60 z-[190] w-screen h-screen"
