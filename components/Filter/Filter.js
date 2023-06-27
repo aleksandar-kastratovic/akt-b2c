@@ -30,7 +30,7 @@ const Filter = ({
       }
     }
     setSelectedFilters([...tmp]);
-    setActiveFilters([...tmp]);
+    // setActiveFilters([...tmp]);
   };
 
   let selected = selectedFilters.filter(

@@ -1,7 +1,7 @@
 "use client";
 import { get } from "@/app/api/api";
 import { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
 import Link from "next/link";
 import Logo from "../../assets/logo.png";
@@ -11,6 +11,8 @@ import Cart from "../../assets/Icons/shopping-bag.png";
 import Burger from "../../assets/Icons/burger.png";
 import Search from "../../assets/Icons/search.png";
 const NavigationDesktop = () => {
+  const pathname = usePathname();
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -52,11 +54,18 @@ const NavigationDesktop = () => {
     fetchCategories();
   }, []);
   const handleSearch = (event) => {
-    setLoading(true);
     event.preventDefault();
-    navigate(`/search?search=${searchTerm}`);
+    navigate(`/pretraga?query=${searchTerm}`);
     setSearchTerm("");
   };
+
+  useEffect(() => {
+    if (pathname?.includes("/korpa/")) {
+      getCartCount();
+      router?.refresh();
+    }
+  }, [pathname]);
+
   return (
     <>
       <div className=" max-lg:hidden z-[100] lg:sticky lg:top-0">
@@ -222,16 +231,6 @@ const NavigationDesktop = () => {
           </div>
         </div>
       </div>
-      {loading ? (
-        <div className="fixed top-0 left-0 bg-black bg-opacity-30 z-[2000] w-screen h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center justify-center bg-white rounded-lg p-20">
-            <h1 className="text-black text-xl font-normal mb-5">
-              Pretražujemo...
-            </h1>
-            <i className="fa-solid fa-spinner animate-spin text-4xl text-black"></i>
-          </div>
-        </div>
-      ) : null}
     </>
   );
 };

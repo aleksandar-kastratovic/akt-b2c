@@ -179,16 +179,20 @@ const Products = ({ products = [] }) => {
       </div>
     ));
   } else {
-    items = (
-      <>
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className="col-span-1 flex flex-col gap-2">
-            <div className="h-[470px] w-[375px] animate-pulse bg-croonus-2"></div>
-            <div className="h-[15px] w-[375px] animate-pulse bg-croonus-2"></div>
-          </div>
-        ))}
-      </>
-    );
+    if (products?.length === 0) {
+      <div>Nema proizvoda za prikaz.</div>
+    } else {
+      items = (
+        <>
+          {[...Array(5)].map((_, index) => (
+            <div key={index} className="col-span-1 flex flex-col gap-2">
+              <div className="h-[470px] w-[375px] animate-pulse bg-croonus-2"></div>
+              <div className="h-[15px] w-[375px] animate-pulse bg-croonus-2"></div>
+            </div>
+          ))}
+        </>
+      );
+    }
   }
   return <>{items}</>;
 };

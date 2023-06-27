@@ -19,11 +19,14 @@ const ProductInfo = ({ products, description }) => {
   const [productVariant, setProductVariant] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
+
+
   useEffect(() => {
     if (newURL) {
-      router.replace(`/proizvod/${newURL}`);
+      window.history.replaceState(null, null, `/proizvod/${newURL}`);
     }
   }, [newURL]);
+
   const updateProductVariant = (newProduct) => {
     setProductVariant(newProduct);
   };
