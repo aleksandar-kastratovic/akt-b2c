@@ -16,6 +16,7 @@ const CategoriesPageDisplay = ({
   query,
   newProducts,
   categoryDataa,
+  productsDataResponse,
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
@@ -46,10 +47,7 @@ const CategoriesPageDisplay = ({
   //   [router]
   // );
   const [loading, setLoading] = useState(false);
-  const [productsData, setProductsData] = useState({
-    items: [],
-    pagination: {},
-  });
+  const [productsData, setProductsData] = useState(productsDataResponse);
 
   const [limit, setLimit] = useState(16);
 
@@ -79,16 +77,6 @@ const CategoriesPageDisplay = ({
   const [availableFilters, setAvailableFilters] = useState(filters);
   const [changeFilters, setChangeFilters] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
-
-  useEffect(() => {
-    post(`/products/category/filters/${categoryData?.id}`).then((response) => {
-      setSelectedFilters([]);
-      setPage(1);
-      setAvailableFilters(response?.payload);
-    });
-  }, [categoryData?.id]);
-
-  console.log(changeFilters);
 
   useEffect(() => {
     if (changeFilters) {
@@ -146,46 +134,62 @@ const CategoriesPageDisplay = ({
   const changeFilterOptions = (value) => {
     setChangeFilters(value);
   };
+
   const getProductList = useCallback(
     (limit, sort, page, selectedFilters) => {
-      setLoading(true);
-      list(`products/category/list/${categoryData?.id}`, {
-        limit,
-        page,
-        sort,
-        filters: selectedFilters,
-      })
-        .then((response) => {
-          if (page > 1) {
-            setProductsData((prevData) => ({
-              items:
-                prevData?.items?.length === 0
-                  ? response?.payload?.items
-                  : [
-                      ...prevData?.items,
-                      ...response?.payload?.items.filter(
-                        (item) =>
-                          !prevData?.items?.some((i) => i.id === item.id)
-                      ),
-                    ],
-              pagination: response?.payload?.pagination,
-            }));
-          } else {
-            setProductsData({
-              items: response?.payload?.items,
-              pagination: response?.payload?.pagination,
-            });
-          }
+      if (
+        query?.hasOwnProperty(queryKeys?.page) ||
+        query?.hasOwnProperty(queryKeys?.limit) ||
+        query?.hasOwnProperty(queryKeys?.sort) || 
+        selectedFilters?.length >= 0
+      ) {
+        setLoading(true);
+        list(`products/category/list/${categoryData?.id}`, {
+          limit,
+          page,
+          sort,
+          filters: selectedFilters,
         })
-        .finally(() => setLoading(false));
+          .then((response) => {
+            if (page > 1) {
+              setProductsData((prevData) => ({
+                items:
+                  prevData?.items?.length === 0
+                    ? response?.payload?.items
+                    : [
+                        ...prevData?.items,
+                        ...response?.payload?.items.filter(
+                          (item) =>
+                            !prevData?.items?.some((i) => i.id === item.id)
+                        ),
+                      ],
+                pagination: response?.payload?.pagination,
+              }));
+            } else {
+              setProductsData({
+                items: response?.payload?.items,
+                pagination: response?.payload?.pagination,
+              });
+            }
+          })
+          .finally(() => setLoading(false));
+      }
     },
-    [categoryData?.id]
+    [page, limit, sort, selectedFilters]
   );
   useEffect(() => {
-    if (!showSearch) {
+    if (
+      query?.hasOwnProperty(queryKeys?.page) ||
+      query?.hasOwnProperty(queryKeys?.sort) ||
+      query?.hasOwnProperty(queryKeys?.limit) || 
+      selectedFilters?.length >= 0
+    ) {
       getProductList(limit, sort, page, selectedFilters);
     }
-  }, [getProductList, limit, sort, page, selectedFilters, showSearch]);
+  }, [selectedFilters, showSearch, page, limit, sort]);
+  
+  
+  console.log('selectedFilters', selectedFilters)
 
   const searchProducts = () => {
     getProductList(limit, sort, page, selectedFilters);
@@ -284,6 +288,7 @@ const CategoriesPageDisplay = ({
               height={22200}
               src={convertHttpToHttps(categoryDataa?.seo?.image)}
               className="w-full h-full object-cover"
+              priority={true}
             />
           ) : null}
         </div>

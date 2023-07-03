@@ -5,17 +5,33 @@ import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
 
-const fetchProduct = async (id) => {
+export async function generateStaticParams() {
+  const categories = await get("/categories/product/tree").then(
+    (res) => res?.payload
+  );
+  const products = await list(
+    `/products/category/list/${categories[0]?.slug}`
+  ).then((res) => res?.payload?.items);
+  const trimmedProducts = products;
+
+  return trimmedProducts?.map((product) => ({
+    slug: product?.slug,
+  }));
+}
+
+export const revalidate = 30;
+
+const fetchProduct = async (slug) => {
   fetch = get;
-  const response = await fetch(`/product-details/basic-data/${id}`, {
+  const response = await fetch(`/product-details/basic-data/${slug}`, {
     cache: "force-cache",
   }).then((response) => response?.payload);
   return response;
 };
 
-const fetchProductGallery = async (id) => {
+const fetchProductGallery = async (slug) => {
   fetch = get;
-  const response = await fetch(`/product-details/gallery/${id}`, {
+  const response = await fetch(`/product-details/gallery/${slug}`, {
     cache: "force-cache",
   }).then((response) => response?.payload?.gallery);
   return response;
@@ -29,25 +45,25 @@ const fetchRelated = async () => {
   return response;
 };
 
-const fetchDescription = async (id) => {
-  const fetchDescription = await get(`/product-details/description/${id}`).then(
+const fetchDescription = async (slug) => {
+  const fetchDescription = await get(`/product-details/description/${slug}`).then(
     (response) => response?.payload
   );
   return fetchDescription;
 };
-export async function generateMetadata({ params: { path } }) {
-  const product = await fetchProduct(path[path?.length - 1]);
+export async function generateMetadata({ params: { slug } }) {
+  const product = await fetchProduct(slug);
   return {
     title: `${process.env.COMPANY} ${product?.data?.item?.basic_data?.name}`,
     description: product?.data?.item?.basic_data?.description,
   };
 }
-const ProductPage = async ({ params: { path } }) => {
-  const products = await fetchProduct(path[path?.length - 1]);
-  console.log("fdsfs", products);
-  const productGallery = await fetchProductGallery(path[path?.length - 1]);
+const ProductPage = async ({ params: { slug } }) => {
+  const products = await fetchProduct(slug);
+
+  const productGallery = await fetchProductGallery(slug);
   const relatedProducts = await fetchRelated();
-  const description = await fetchDescription(path[path?.length - 1]);
+  const description = await fetchDescription(slug);
   return (
     <>
       <div className="bg-[#f5f5f6] mt-3.5">
@@ -92,21 +108,3 @@ const ProductPage = async ({ params: { path } }) => {
 };
 
 export default ProductPage;
-
-export async function generateStaticParams() {
-  const categories = await get("/categories/product/tree").then(
-    (res) => res?.payload
-  );
-  const products = await list(
-    `/products/category/list/${categories[0]?.slug}`
-  ).then((res) => res?.payload?.items);
-  const trimmedProducts = products?.slice(0, 10);
-
-  return trimmedProducts?.map((product) => ({
-    params: {
-      path: product?.slug,
-    },
-  }));
-}
-
-export const revalidate = 30;

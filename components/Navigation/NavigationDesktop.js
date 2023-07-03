@@ -163,16 +163,16 @@ const NavigationDesktop = () => {
           <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-1/5 overflow-y-auto">
             <div className="flex flex-col mt-10 ">
               <div>
-                <Link href="/novo">
+                <a href="/novo">
                   <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">
                     Novo
                   </h1>
-                </Link>
-                <Link href="/novo">
+                </a>
+                <a href="/novo">
                   <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">
                     Akcija
                   </h1>
-                </Link>
+                </a>
               </div>
               <div className="flex flex-col mt-10">
                 {categories.map((item) => {
@@ -187,14 +187,14 @@ const NavigationDesktop = () => {
                       {item?.name}
                     </span>
                   ) : (
-                    <Link
-                      href={`/kategorije/${item?.slug_path}`}
+                    <a
+                      href={`/kategorije/${item?.slug}`}
                       key={item?.id}
                       className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
                       onClick={() => setOpen(false)}
                     >
                       {item?.name}
-                    </Link>
+                    </a>
                   );
                 })}
               </div>
@@ -203,26 +203,26 @@ const NavigationDesktop = () => {
           <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-32 3xl:ml-20 hidescroll overflow-y-auto">
             {subCategory?.map((item) => (
               <div className="col-span-1 flex flex-col">
-                <Link
-                  href={`/kategorije/${item?.slug_path}`}
+                <a
+                  href={`/kategorije/${item?.slug}`}
                   onClick={() => setOpen(false)}
                 >
                   <h1 className="text-xl font-light hover:underline">
                     {item?.name}
                   </h1>
-                </Link>
+                </a>
                 <div className="mt-5 pl-2 ">
                   {item?.children
                     ? item?.children?.map((child) => (
-                        <Link
-                          href={`/kategorije/${child?.slug_path}`}
+                        <a
+                          href={`/kategorije/${child?.slug}`}
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
                           <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
                             <p className="">{child?.name}</p>
                           </div>
-                        </Link>
+                        </a>
                       ))
                     : null}
                 </div>

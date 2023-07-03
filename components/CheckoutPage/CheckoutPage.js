@@ -123,7 +123,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
 
   const cartItems = cartData.items ?? [];
   const cartCost = cartData.summary?.total ?? 0;
-  console.log(cartItems);
+
   const formChangeHandler = ({ target }) => {
     setErrors(errors.filter((item) => item != target.name));
 
@@ -156,7 +156,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     }
     if (err.length > 0) {
       setErrors(err);
-      console.log(err);
     } else {
       const ret = {
         customer_type_billing: formData.type,
@@ -289,7 +288,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               },
             },
           });
-
         })
         .catch((error) => console.warn(error));
     }
