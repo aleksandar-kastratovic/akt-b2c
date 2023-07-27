@@ -16,7 +16,7 @@ const Filters = ({
     setActiveFilter(filter);
   };
   const [activeFilters, setActiveFilters] = useState([]);
-  console.log(activeFilters);
+
   useEffect(() => {
     setActiveFilters(selectedFilters);
   }, [selectedFilters]);

@@ -14,12 +14,11 @@ import { usePathname, useRouter } from "next/navigation";
 const ProductInfo = ({ products, description }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const segments = pathname.split("/");
-  let id = segments.pop();
+  const segments = pathname?.split("/");
+  let productSlug = segments?.pop();
   const [productVariant, setProductVariant] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
-
 
   useEffect(() => {
     if (newURL) {
@@ -208,7 +207,7 @@ const ProductInfo = ({ products, description }) => {
           <Variants
             firstVariantOption={false}
             product={products}
-            productSlug={id}
+            productSlug={productSlug}
             handleURLChange={handleURLChange}
             updateProductVariant={updateProductVariant}
             updateProductPrice={updateProductPrice}

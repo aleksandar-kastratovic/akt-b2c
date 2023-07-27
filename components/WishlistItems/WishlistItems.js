@@ -23,6 +23,7 @@ const Wishlistproducts = ({ items, product }) => {
             width={500}
             height={500}
             className="h-full object-cover"
+            priority={true}
           />
         </Link>
         <div className="absolute py-0.5 bg-white bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">

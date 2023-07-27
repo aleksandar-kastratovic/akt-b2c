@@ -19,7 +19,7 @@ const SearchAppPage = () => {
     };
     getProducts(search);
   }, [search]);
-  console.log(products);
+
   return (
     <>
       <div className="w-full bg-croonus-5">

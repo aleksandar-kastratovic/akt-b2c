@@ -44,7 +44,6 @@ export async function generateMetadata({ params: { path } }) {
 }
 const ProductPage = async ({ params: { path } }) => {
   const products = await fetchProduct(path[path?.length - 1]);
-  console.log("fdsfs", products);
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);

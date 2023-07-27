@@ -1,13 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import classes from "./ProductsItem.module.css";
 import Wishlist from "../../../assets/Icons/favorite.png";
 import { useGlobalAddToWishList } from "../../../app/api/globals";
 import { currencyFormat } from "../../../helpers/functions";
 import { useGlobalAddToCart } from "../../../app/api/globals";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import Cart from "../../../assets/Icons/shopping-bag.png";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 const Products = ({ products = [] }) => {
@@ -54,6 +53,8 @@ const Products = ({ products = [] }) => {
                 width={500}
                 height={500}
                 className="h-full object-cover"
+                priority={true}
+                alt={`proizvod-${item?.basic_data?.name}`}
               />
             ) : null}
           </Link>
@@ -180,7 +181,7 @@ const Products = ({ products = [] }) => {
     ));
   } else {
     if (products?.length === 0) {
-      <div>Nema proizvoda za prikaz.</div>
+      <div>Nema proizvoda za prikaz.</div>;
     } else {
       items = (
         <>
