@@ -20,7 +20,6 @@ const ProductInfo = ({ products, description }) => {
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
 
-
   useEffect(() => {
     if (newURL) {
       window.history.replaceState(null, null, `/proizvod/${newURL}`);

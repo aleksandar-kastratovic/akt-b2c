@@ -71,9 +71,9 @@ const NavigationDesktop = () => {
       <div className=" max-lg:hidden z-[100] lg:sticky lg:top-0">
         <div className="bg-croonus-1">
           <div className="w-[85%] flex items-center  justify-between mx-auto py-1">
-            <span className="text-white text-sm">
-              Call centar: 031 / 1234 432
-            </span>
+            <a href={`tel:0313894222`} className="text-white text-sm">
+              Call centar: 031 / 3894 - 222
+            </a>
             <Link
               href="/moj-profil"
               className="text-white text-sm hover:underline"
