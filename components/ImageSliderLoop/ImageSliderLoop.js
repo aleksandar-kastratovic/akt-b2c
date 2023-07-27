@@ -84,6 +84,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           className="relative object-cover h-full w-full"
           src={convertHttpToHttps(item?.image)}
           alt={item?.name}
+          priority={true}
         />
         <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
           <h1 className="text-xl text-croonus-1">{item?.subtitle}</h1>
@@ -139,6 +140,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           className="relative z-50 h-auto w-full max-lg:h-[10%] max-lg:w-full"
           src={item?.image}
           alt={item.id}
+          priority
         />
       </div>
     ));

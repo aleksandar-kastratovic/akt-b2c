@@ -1,14 +1,14 @@
-"use client";
-import Products from "../Products/Products";
-import { useState, useEffect, useCallback } from "react";
-import Filters from "../../Filters/Filters";
-import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
-import { queryKeys, sortKeys } from "@/helpers/const";
-import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
-import { post, list, get } from "@/app/api/api";
+'use client';
+import Products from '../Products/Products';
+import { useState, useEffect, useCallback } from 'react';
+import Filters from '../../Filters/Filters';
+import Breadcrumbs from '@/helpers/GenerateBreadCrumbs';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { convertHttpToHttps } from '@/helpers/convertHttpToHttps';
+import { queryKeys, sortKeys } from '@/helpers/const';
+import GenerateBreadCrumbsServer from '@/helpers/generateBreadCrumbsServer';
+import { post, list, get } from '@/app/api/api';
 const CategoriesPageDisplay = ({
   filtersMap,
   filters,
@@ -16,10 +16,11 @@ const CategoriesPageDisplay = ({
   query,
   newProducts,
   categoryDataa,
+  productsDataResponse,
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
@@ -46,10 +47,7 @@ const CategoriesPageDisplay = ({
   //   [router]
   // );
   const [loading, setLoading] = useState(false);
-  const [productsData, setProductsData] = useState({
-    items: [],
-    pagination: {},
-  });
+  const [productsData, setProductsData] = useState(productsDataResponse);
 
   const [limit, setLimit] = useState(16);
 
@@ -59,7 +57,7 @@ const CategoriesPageDisplay = ({
 
   const [sort, setSort] = useState(
     newSort
-      ? { field: newSort?.split("_")[0], direction: newSort?.split("_")[1] }
+      ? { field: newSort?.split('_')[0], direction: newSort?.split('_')[1] }
       : null
   );
 
@@ -79,16 +77,6 @@ const CategoriesPageDisplay = ({
   const [availableFilters, setAvailableFilters] = useState(filters);
   const [changeFilters, setChangeFilters] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
-
-  useEffect(() => {
-    post(`/products/category/filters/${categoryData?.id}`).then((response) => {
-      setSelectedFilters([]);
-      setPage(1);
-      setAvailableFilters(response?.payload);
-    });
-  }, [categoryData?.id]);
-
-  console.log(changeFilters);
 
   useEffect(() => {
     if (changeFilters) {
@@ -146,46 +134,62 @@ const CategoriesPageDisplay = ({
   const changeFilterOptions = (value) => {
     setChangeFilters(value);
   };
+
   const getProductList = useCallback(
     (limit, sort, page, selectedFilters) => {
-      setLoading(true);
-      list(`products/category/list/${categoryData?.id}`, {
-        limit,
-        page,
-        sort,
-        filters: selectedFilters,
-      })
-        .then((response) => {
-          if (page > 1) {
-            setProductsData((prevData) => ({
-              items:
-                prevData?.items?.length === 0
-                  ? response?.payload?.items
-                  : [
-                      ...prevData?.items,
-                      ...response?.payload?.items.filter(
-                        (item) =>
-                          !prevData?.items?.some((i) => i.id === item.id)
-                      ),
-                    ],
-              pagination: response?.payload?.pagination,
-            }));
-          } else {
-            setProductsData({
-              items: response?.payload?.items,
-              pagination: response?.payload?.pagination,
-            });
-          }
+      if (
+        query?.hasOwnProperty(queryKeys?.page) ||
+        query?.hasOwnProperty(queryKeys?.limit) ||
+        query?.hasOwnProperty(queryKeys?.sort) || 
+        selectedFilters?.length >= 0
+      ) {
+        setLoading(true);
+        list(`products/category/list/${categoryData?.id}`, {
+          limit,
+          page,
+          sort,
+          filters: selectedFilters,
         })
-        .finally(() => setLoading(false));
+          .then((response) => {
+            if (page > 1) {
+              setProductsData((prevData) => ({
+                items:
+                  prevData?.items?.length === 0
+                    ? response?.payload?.items
+                    : [
+                        ...prevData?.items,
+                        ...response?.payload?.items.filter(
+                          (item) =>
+                            !prevData?.items?.some((i) => i.id === item.id)
+                        ),
+                      ],
+                pagination: response?.payload?.pagination,
+              }));
+            } else {
+              setProductsData({
+                items: response?.payload?.items,
+                pagination: response?.payload?.pagination,
+              });
+            }
+          })
+          .finally(() => setLoading(false));
+      }
     },
-    [categoryData?.id]
+    [page, limit, sort, selectedFilters]
   );
   useEffect(() => {
-    if (!showSearch) {
+    if (
+      query?.hasOwnProperty(queryKeys?.page) ||
+      query?.hasOwnProperty(queryKeys?.sort) ||
+      query?.hasOwnProperty(queryKeys?.limit) || 
+      selectedFilters?.length >= 0
+    ) {
       getProductList(limit, sort, page, selectedFilters);
     }
-  }, [getProductList, limit, sort, page, selectedFilters, showSearch]);
+  }, [selectedFilters, showSearch, page, limit, sort]);
+  
+  
+  console.log('selectedFilters', selectedFilters)
 
   const searchProducts = () => {
     getProductList(limit, sort, page, selectedFilters);
@@ -205,7 +209,7 @@ const CategoriesPageDisplay = ({
         [queryKeys?.sort]: sortValue.query,
         [queryKeys?.page]: 1,
       };
-      const [field, direction] = target?.value?.split("_");
+      const [field, direction] = target?.value?.split('_');
       setSort({ field, direction });
     } else {
       const newQuery = { ...query };
@@ -239,11 +243,11 @@ const CategoriesPageDisplay = ({
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
   useEffect(() => {
-    process?.env?.GTM_ENABLED === "true" &&
+    process?.env?.GTM_ENABLED === 'true' &&
       window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer.push({
       ecommerce: {
-        currencyCode: "RSD",
+        currencyCode: 'RSD',
         impressions: [
           products?.map((item) => {
             return {
@@ -257,17 +261,19 @@ const CategoriesPageDisplay = ({
       },
     });
   }, [pagination]);
+
+  console.log('categoryData', categoryDataa);
   return (
     <>
       <div className="w-full bg-croonus-5">
-        {router?.pathname?.includes("search") ? null : (
+        {router?.pathname?.includes('search') ? null : (
           <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
             <GenerateBreadCrumbsServer />
           </div>
         )}
       </div>
 
-      {router?.asPath?.includes("search") ? null : (
+      {router?.asPath?.includes('search') ? null : (
         <div
           className={
             categoryDataa?.seo?.image
@@ -275,13 +281,14 @@ const CategoriesPageDisplay = ({
               : `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto`
           }
         >
-          {" "}
+          {' '}
           {categoryDataa?.seo?.image ? (
             <Image
               width={22200}
               height={22200}
               src={convertHttpToHttps(categoryDataa?.seo?.image)}
               className="w-full h-full object-cover"
+              priority={true}
             />
           ) : null}
         </div>
@@ -289,7 +296,7 @@ const CategoriesPageDisplay = ({
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
-          {router?.pathname?.includes("search") ? (
+          {router?.pathname?.includes('search') ? (
             <>Pretražili ste: {search}</>
           ) : (
             <>{categoryDataa?.basic_data?.name}</>
@@ -298,17 +305,10 @@ const CategoriesPageDisplay = ({
           <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
-        </h1>{" "}
-        {router?.asPath?.includes("search") ? null : (
+        </h1>{' '}
+        {router?.asPath?.includes('search') ? null : (
           <p className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
-            Lorem Ipsum is a simply dummy text of the prinitng industry and
-            typesetting industry. Lorem Ipsum is a simply dummy text of the
-            prinitng industry and typesetting industry.Lorem Ipsum is a simply
-            dummy text of the prinitng industry and typesetting industry.Lorem
-            Ipsum is a simply dummy text of the prinitng industry and
-            typesetting industry.Lorem Ipsum is a simply dummy text of the
-            prinitng industry and typesetting industry.Lorem Ipsum is a simply
-            dummy text of the prinitng industry and typesetting industry.
+            {categoryDataa.basic_data.description}
           </p>
         )}
       </div>

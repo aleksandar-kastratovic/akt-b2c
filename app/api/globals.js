@@ -16,7 +16,7 @@ export const useGlobalAddToCart = (type = false) => {
     })
       .then((response) => {
         mutateCart();
-        console.log(response);
+        
       })
       .catch((error) => console.log("alo"));
   };
@@ -39,7 +39,7 @@ export const useGlobalRemoveFromCart = () => {
       status: null,
     })
       .then((response) => {
-        console.log(response);
+     
         mutateCart();
       })
       .catch((error) => console.warn(error));
@@ -80,7 +80,7 @@ export const useGlobalRemoveFromWishlist = () => {
   const removeFromWishList = (id) => {
     deleteMethod(`/wishlist/${id}`)
       .then((response) => {
-        console.log(response);
+        
         mutateWishList();
       })
       .catch((error) => console.warn(error));

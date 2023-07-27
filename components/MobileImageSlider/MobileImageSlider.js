@@ -29,6 +29,7 @@ const MobileImageSlider = ({ images }) => {
         width={2000}
         height={2000}
         alt=""
+        priority={true}
       />
     </div>
   ));
