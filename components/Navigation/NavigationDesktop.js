@@ -162,18 +162,18 @@ const NavigationDesktop = () => {
         <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
           <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-1/5 overflow-y-auto">
             <div className="flex flex-col mt-10 ">
-              <div>
-                <a href="/novo">
-                  <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">
-                    Novo
-                  </h1>
-                </a>
-                <a href="/novo">
-                  <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">
-                    Akcija
-                  </h1>
-                </a>
-              </div>
+              {/*<div>*/}
+              {/*  <a href="/novo">*/}
+              {/*    <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">*/}
+              {/*      Novo*/}
+              {/*    </h1>*/}
+              {/*  </a>*/}
+              {/*  <a href="/novo">*/}
+              {/*    <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">*/}
+              {/*      Akcija*/}
+              {/*    </h1>*/}
+              {/*  </a>*/}
+              {/*</div>*/}
               <div className="flex flex-col mt-10">
                 {categories.map((item) => {
                   return item?.children ? (
@@ -187,14 +187,14 @@ const NavigationDesktop = () => {
                       {item?.name}
                     </span>
                   ) : (
-                    <a
-                      href={`/kategorije/${item?.slug}`}
+                    <Link
+                      href={`/kategorije/${item?.slug_path}`}
                       key={item?.id}
                       className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
                       onClick={() => setOpen(false)}
                     >
                       {item?.name}
-                    </a>
+                    </Link>
                   );
                 })}
               </div>

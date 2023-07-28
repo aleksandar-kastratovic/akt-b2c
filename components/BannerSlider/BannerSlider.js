@@ -59,7 +59,7 @@ const BannerSlider = ({ banners }) => {
             <button className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-md:w-1/3 w-1/3">
               {item?.button}
             </button>
-            
+
           </Link>
         </div>
       </div>
