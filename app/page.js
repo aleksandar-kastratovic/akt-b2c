@@ -50,12 +50,12 @@ const Index = async () => {
   const topSellers = await fetchTopSellProducts();
   const recommended = await fetchRecommendedProducts();
   const mobileBanners = await fetchMobileBanners();
-  const homebanners = await fetchBannersBanners();
+  const homeBanners = await fetchBannersBanners();
   return (
     <>
       <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
       <ProductsSlider products={topSellers} text="Najpopularnije" />
-      <BannerSlider banners={homebanners} />
+      <BannerSlider banners={homeBanners} />
       <ProductsSlider products={recommended} text="Izdvajamo" />
     </>
   );

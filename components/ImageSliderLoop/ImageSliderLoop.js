@@ -86,17 +86,19 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           priority={true}
         />
         <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
-          <h1 className="text-3xl text-croonus-1">{item?.name}</h1>
+          <h1 className="text-3xl text-croonus-1">{item?.title}</h1>
           <div className={`w-[80%] mx-auto`}>
             <h1 className="text-base text-center text-croonus-1">
               {item?.text}
             </h1>
           </div>
-          <Link href={`${item?.url}`}>
-            <button className="px-6 py-2 text-xl bg-croonus-1 text-white hover:bg-opacity-80">
-              {item?.button}
-            </button>
-          </Link>
+          {item?.button && (
+            <Link href={`${item?.url}`}>
+              <button className="px-6 py-2 text-xl bg-croonus-1 text-white hover:bg-opacity-80">
+                {item?.button}
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     ));

@@ -58,7 +58,7 @@ const ProductsSlider = ({ products, text }) => {
       key={item.id}
       className={` flex flex-col !relative items-center keen-slider__slide number-slide${index}`}
     >
-      <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[32.563rem] relative flex justify-center hover">
+      <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[30.563rem] relative flex justify-center hover">
         <Link
           href={`/proizvod/${item?.slug}`}
           className={`w-full`}
@@ -94,7 +94,7 @@ const ProductsSlider = ({ products, text }) => {
               src={convertHttpToHttps(item?.image[0]?.toString())}
               fill
               priority={true}
-              className="h-full object-cover !z-50 "
+              className="h-full !z-50 "
             />
           </div>
         </Link>
