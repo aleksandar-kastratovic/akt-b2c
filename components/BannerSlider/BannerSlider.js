@@ -63,12 +63,11 @@ const BannerSlider = ({ banners }) => {
           </button>
         </div>
       </div>
-      <div className="col-span-2 max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
+      <div className="col-span-2  relative max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
         <Image
           src={convertHttpToHttps(item?.image)}
-          width={500}
-          height={500}
-          className="object-cover h-full w-full"
+          fill
+          className="object-cover"
         />
       </div>
     </div>
