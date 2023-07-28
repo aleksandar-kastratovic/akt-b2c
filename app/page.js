@@ -8,6 +8,15 @@ const fetchBanners = async () => {
   return banners;
 };
 
+const fetchMobileBanners = async () => {
+  fetch = get;
+  const banners = await fetch("/banners/index_slider_mobile", {
+    cache: "no-store",
+    next: { revalidate: 0 },
+  }).then((response) => response?.payload);
+  return banners;
+};
+
 const fetchTopSellProducts = async () => {
   fetch = list;
   const products = await fetch("/products/section/list/top_sellers", {
@@ -31,9 +40,10 @@ const Index = async () => {
   const banners = await fetchBanners();
   const topSellers = await fetchTopSellProducts();
   const recommended = await fetchRecommendedProducts();
+  const mobileBanners = await fetchMobileBanners();
   return (
     <>
-      <HomepageBanners banners={banners} />
+      <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
       <ProductsSlider products={topSellers} text="Najpopularnije" />
       <BannerSlider banners={banners} />
       <ProductsSlider products={recommended} text="Izdvajamo" />
