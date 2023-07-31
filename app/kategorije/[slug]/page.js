@@ -59,12 +59,10 @@ export async function generateStaticParams() {
     return res.payload;
   });
 
-  return categories.map((category) => ({
+  return categories.slice(0, 4).map((category) => ({
     slug: category?.slug,
   }));
 }
-
-export const dynamicParams = true;
 
 const CategoryPage = async ({ params: { slug } }) => {
   const categoryDataa = await fetchCategory(slug);
@@ -89,3 +87,6 @@ const CategoryPage = async ({ params: { slug } }) => {
 };
 
 export default CategoryPage;
+
+export const dynamicParams = true;
+export const revalidate = 30;
