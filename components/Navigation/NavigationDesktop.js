@@ -96,6 +96,7 @@ const NavigationDesktop = () => {
                   width={30}
                   height={30}
                   onClick={() => setOpen(!open)}
+                  alt="burger-menu"
                 />
               )}
 
@@ -106,6 +107,7 @@ const NavigationDesktop = () => {
                   width={220}
                   height={220}
                   onClick={() => setOpen(false)}
+                  alt="logo"
                 />
               </Link>
             </div>
@@ -128,12 +130,13 @@ const NavigationDesktop = () => {
                   height={25}
                   className="absolute -right-10 bottom-0 cursor-pointer"
                   onClick={handleSearch}
+                  alt="search"
                 />
               </form>
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <Link href="/lista-zelja">
-                    <Image src={Wishlist} width={35} height={35} />
+                    <Image src={Wishlist} width={35} height={35} alt="favorite"/>
                   </Link>
                   <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                     {wishListCount}
@@ -141,7 +144,7 @@ const NavigationDesktop = () => {
                 </div>
                 <div className="relative">
                   <Link href="/korpa">
-                    <Image src={Cart} width={38} height={38} />
+                    <Image src={Cart} width={38} height={38} alt="cart"/>
                   </Link>
                   <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                     {cartCount}
@@ -202,27 +205,27 @@ const NavigationDesktop = () => {
           </div>
           <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-32 3xl:ml-20 hidescroll overflow-y-auto">
             {subCategory?.map((item) => (
-              <div className="col-span-1 flex flex-col">
-                <a
-                  href={`/kategorije/${item?.slug}`}
+              <div className="col-span-1 flex flex-col" key={item.id}>
+                <Link
+                  href={`/kategorije/${item?.slug_path}`}
                   onClick={() => setOpen(false)}
                 >
                   <h1 className="text-xl font-light hover:underline">
                     {item?.name}
                   </h1>
-                </a>
+                </Link>
                 <div className="mt-5 pl-2 ">
                   {item?.children
                     ? item?.children?.map((child) => (
-                        <a
-                          href={`/kategorije/${child?.slug}`}
+                        <Link
+                          href={`/kategorije/${child?.slug_path}`}
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
                           <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
                             <p className="">{child?.name}</p>
                           </div>
-                        </a>
+                        </Link>
                       ))
                     : null}
                 </div>

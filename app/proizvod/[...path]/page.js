@@ -36,18 +36,21 @@ const fetchDescription = async (id) => {
   );
   return fetchDescription;
 };
-export async function generateMetadata({ params: { id } }) {
-  const product = await fetchProduct(id);
+export async function generateMetadata({ params: { path } }) {
+  const product = await fetchProduct(path[path?.length - 1]);
   return {
     title: `${process.env.COMPANY} ${product?.data?.item?.basic_data?.name}`,
     description: product?.data?.item?.basic_data?.description,
   };
 }
-const ProductPage = async ({ params: { id } }) => {
-  const products = await fetchProduct(id);
-  const productGallery = await fetchProductGallery(id);
+const ProductPage = async ({ params: { path } }) => {
+  const products = await fetchProduct(path[path?.length - 1]);
+  const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
-  const description = await fetchDescription(id);
+  const description = await fetchDescription(path[path?.length - 1]);
+
+  console.log('gallery',productGallery)
+
   return (
     <>
     {products ? 
@@ -87,9 +90,10 @@ export async function generateStaticParams() {
     `/products/category/list/${categories[0]?.slug}`
   ).then((res) => res?.payload?.items);
 
-  return products.slice(0, 2)?.map((product) => ({
-    id: product?.id.toString(),
-  }));
+  return products.slice(0, 2)?.map((product) => {
+    return {
+    path: product?.slug_path?.split("/"),
+  }});
 }
 
 export const revalidate = 30;

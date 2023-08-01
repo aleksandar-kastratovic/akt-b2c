@@ -2,7 +2,7 @@ import { get, list } from "./api/api";
 const fetchBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/index_slider", {
-    next: { revalidate: 0 },
+    next: { revalidate: 60 },
   }).then((response) => response?.payload);
   return banners;
 };
@@ -10,7 +10,7 @@ const fetchBanners = async () => {
 const fetchMobileBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/index_slider_mobile", {
-    next: { revalidate: 0 },
+    next: { revalidate: 60 },
   }).then((response) => response?.payload);
   return banners;
 };
@@ -35,7 +35,7 @@ const fetchRecommendedProducts = async () => {
 const fetchBannersBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/banners", {
-    next: { revalidate: 0 },
+    next: { revalidate: 60 },
   }).then((response) => response?.payload);
   return banners;
 };

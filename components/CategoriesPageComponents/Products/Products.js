@@ -22,7 +22,7 @@ const Products = ({ products = [] }) => {
       >
         <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center hover">
           <Link
-            href={`/proizvod/${item?.slug}`}
+            href={`/proizvod/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
                 window?.dataLayer?.push({ ecommerce: null });
@@ -64,7 +64,7 @@ const Products = ({ products = [] }) => {
                 src={Wishlist}
                 width={28}
                 height={28}
-                alt=""
+                alt="favorite"
                 className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
                   if (item?.product_type === "single") {
@@ -73,7 +73,7 @@ const Products = ({ products = [] }) => {
                       position: "top-center",
                     });
                   } else {
-                    router.push(`/proizvod/${item?.slug}`);
+                    router.push(`/proizvod/${item?.slug_path}`);
                   }
                 }}
               />
@@ -83,7 +83,7 @@ const Products = ({ products = [] }) => {
                 src={Cart}
                 width={32}
                 height={32}
-                alt=""
+                alt="cart"
                 className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
                   if (item?.product_type === "single") {
@@ -114,7 +114,7 @@ const Products = ({ products = [] }) => {
                       });
                     }
                   } else {
-                    router.push(`/proizvod/${item?.slug}`);
+                    router.push(`/proizvod/${item?.slug_path}`);
                   }
                 }}
               />
@@ -124,7 +124,7 @@ const Products = ({ products = [] }) => {
         <p className="text-black self-start font-sm text-lg mt-2 uppercase">
           <Link
             className="font-normal text-sm clamp"
-            href={`/proizvod/${item?.slug}`}
+            href={`/proizvod/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
                 window?.dataLayer?.push({ ecommerce: null });
