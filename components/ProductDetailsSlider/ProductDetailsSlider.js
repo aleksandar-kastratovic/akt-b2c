@@ -10,6 +10,9 @@ import Image from "next/image";
 import classes from "./styles.module.css";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 const ProductGallery = ({ productGallery }) => {
+
+console.log('productGallery',productGallery)
+
   function ImageMagnifier({
     src,
     width,
@@ -82,7 +85,7 @@ const ProductGallery = ({ productGallery }) => {
     );
   }
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const productImage = productGallery?.map((image, index) => {
+  const productImage =productGallery.length > 0 ? (productGallery?.map((image, index) => {
     return (
       <SwiperSlide key={index} className="w-full !relative">
         <ImageMagnifier
@@ -93,7 +96,10 @@ const ProductGallery = ({ productGallery }) => {
         />
       </SwiperSlide>
     );
-  });
+  })) : (<Image src="/placeholder.jpg"  fill
+  priority alt="no image" objectFit='cover' />);
+
+
   const thumbImage = productGallery?.map((image, index) => {
     return (
       <SwiperSlide key={index} className={`!relative h-full w-full`}>
@@ -108,7 +114,7 @@ const ProductGallery = ({ productGallery }) => {
     );
   });
   return (
-    <div className="h-full max-md:h-[450px] md:flex md:flex-row-reverse gap-5 md:h-[380px] lg:h-[550px] xl:h-[680px] 2xl:h-[720px] 3xl:h-[878px]">
+    <div className="h-full max-md:h-[450px] md:flex md:flex-row-reverse gap-5 md:h-[380px] lg:h-[550px] xl:h-[680px] 2xl:h-[720px] 3xl:h-[778px]">
       <Swiper
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper }}

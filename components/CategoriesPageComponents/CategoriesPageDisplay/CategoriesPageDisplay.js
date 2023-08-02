@@ -262,7 +262,6 @@ const CategoriesPageDisplay = ({
     });
   }, [pagination]);
 
-  console.log('categoryData', categoryDataa);
   return (
     <>
       <div className="w-full bg-croonus-5">
@@ -330,9 +329,17 @@ const CategoriesPageDisplay = ({
           limit={limit}
         />
       </div>
-      <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-        <Products products={products} />
-      </div>
+      {
+        products?.length === 0 ? (
+          <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
+          Za ovu kategoriju trenutno nemamo proizvoda
+        </div>) : (
+            <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
+            <Products products={products} />
+          </div> 
+        )
+      }
+    
       {loading ? (
         <div className="w-full flex items-center justify-center mt-10">
           <i className="fa-solid fa-spinner animate-spin text-3xl "></i>
