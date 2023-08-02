@@ -138,10 +138,10 @@ const ProductInfo = ({ products, description }) => {
           ) : (
             <h1 className="pr-2">{currencyFormat(20000)}</h1>
           )}
-          <div className="flex items-center mt-[2px] justify-between px-2 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
+          {/* <div className="flex items-center mt-[2px] justify-between px-2 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
             <span>-10%</span>
             <span>3.200 RSD</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex flex-row gap-10 max-md:mt-3">

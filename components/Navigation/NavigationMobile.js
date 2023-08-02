@@ -100,6 +100,7 @@ const NavigationMobile = () => {
               width={33}
               height={33}
               onClick={() => setOpen(!open)}
+              alt="burger-menu"
             />
           </div>
           <div className="pl-10 pb-2">
@@ -113,9 +114,10 @@ const NavigationMobile = () => {
               width={22}
               height={22}
               onClick={() => setSearchOpen(!searchOpen)}
+              alt="search"
             />
             <Link href="/korpa">
-              <Image src={Cart} width={35} height={35} />
+              <Image src={Cart} width={35} height={35} alt="cart"/>
             </Link>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
@@ -230,7 +232,7 @@ const NavigationMobile = () => {
             <div className="flex items-center relative gap-5 mr-5">
               <Link href="/lista-zelja">
                 {" "}
-                <Image src={Wishlist} width={30} height={30} />
+                <Image src={Wishlist} width={30} height={30} alt="favorite" />
               </Link>
               <Image src={User} width={35} height={35} />
               {wishListCount > 0 && (
@@ -281,6 +283,7 @@ const NavigationMobile = () => {
               height={18}
               className="absolute right-4 top-3"
               onClick={handleSearch}
+              alt="search"
             />
           </form>
           <div className="pb-5 w-full flex flex-col gap-1 mx-auto mt-10 overflow-y-auto">

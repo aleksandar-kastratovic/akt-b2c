@@ -46,8 +46,8 @@ const fetchNewProducts = async () => {
   return fetchNewProducts;
 };
 
-export async function generateMetadata({ params: { slug } }) {
-  const category = await fetchCategory(slug);
+export async function generateMetadata({ params: { path } }) {
+  const category = await fetchCategory(path[path?.length - 1]);
   return {
     title: `${process.env.COMPANY} ${category?.basic_data?.name}`,
     description: category?.basic_data?.description,
@@ -60,15 +60,15 @@ export async function generateStaticParams() {
   });
 
   return categories.slice(0, 4).map((category) => ({
-    slug: category?.slug,
+    path: category?.slug_path.split('/'),
   }));
 }
 
-const CategoryPage = async ({ params: { slug } }) => {
-  const categoryDataa = await fetchCategory(slug);
-  const filters = await fetchFilters(slug);
+const CategoryPage = async ({ params: { path } }) => {
+  const categoryDataa = await fetchCategory(path[path?.length - 1]);
+  const filters = await fetchFilters(path[path?.length - 1]);
   const newProducts = await fetchNewProducts();
-  const products = await fetchProducts(slug);
+  const products = await fetchProducts(path[path?.length - 1]);
 
   return (
     <>
@@ -76,8 +76,8 @@ const CategoryPage = async ({ params: { slug } }) => {
         <CategoriesPageDisplay
           filtersMap={filters}
           categoryDataa={categoryDataa}
-          query={slug}
-          id={slug}
+          query={path[path?.length - 1]}
+          id={path[path?.length - 1]}
           newProducts={newProducts}
           productsDataResponse={products}
         />
