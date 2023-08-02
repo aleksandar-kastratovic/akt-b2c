@@ -4,7 +4,7 @@ import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
-import NotFoundd from "../not-found";
+import { notFound } from "next/navigation";
 
 const fetchProduct = async (id) => {
   fetch = get;
@@ -48,7 +48,7 @@ const ProductPage = async ({ params: { path } }) => {
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
-  console.log(description)
+
   return (
     <>
       {products ? (
@@ -70,7 +70,15 @@ const ProductPage = async ({ params: { path } }) => {
                 <MobileImageSlider images={productGallery} />
               </div>
               <ProductInfo products={products} description={description} />
-              
+              <div
+                className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}
+              >
+                <h1 className={`font-medium text-[1.4rem`}>Opis proizvoda</h1>
+                <div
+                  className={`p-3 bg-croonus-2 prose !max-w-full prose:!max-w-full prose:!w-full w-full roboto`}
+                  dangerouslySetInnerHTML={{ __html: description?.description }}
+                ></div>
+              </div>
             </div>
           </div>
           <div className="mt-[3rem] sm:mt-[7.688rem]">
@@ -81,7 +89,7 @@ const ProductPage = async ({ params: { path } }) => {
           </div>
         </>
       ) : (
-        <NotFoundd />
+        notFound()
       )}
     </>
   );

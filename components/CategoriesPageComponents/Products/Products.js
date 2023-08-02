@@ -47,7 +47,7 @@ const Products = ({ products = [] }) => {
               });
             }}
           >
-            {item?.image[0]?.toString() ? (
+            {item?.image[0] ? (
               <Image
                 src={convertHttpToHttps(item?.image[0]?.toString())}
                 width={500}
@@ -56,7 +56,16 @@ const Products = ({ products = [] }) => {
                 priority={true}
                 alt={`proizvod-${item?.basic_data?.name}`}
               />
-            ) : null}
+            ) : (
+              <Image
+                src="/placeholder.jpg"
+                width={500}
+                height={500}
+                className="h-full object-cover"
+                priority={true}
+                alt={`proizvod-${item?.basic_data?.name}`}
+              />
+            )}
           </Link>
           <div className="absolute bg-white py-[2.5px] bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
             <div className="flex items-center justify-center w-full">

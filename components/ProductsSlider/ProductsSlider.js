@@ -95,6 +95,7 @@ const ProductsSlider = ({ products, text }) => {
               fill
               priority={true}
               className="h-full !z-50 "
+              alt="akt"
             />
           </div>
         </Link>

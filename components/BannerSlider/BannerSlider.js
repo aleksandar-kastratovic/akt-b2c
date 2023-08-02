@@ -48,18 +48,15 @@ const BannerSlider = ({ banners }) => {
       className={`grid grid-cols-2 keen-slider__slide number-slide${index} `}
     >
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
-        <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-full max-md:px-2 max-lg:pr-5 w-[80%] mx-auto">
+        <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-full max-md:px-2 max-lg:pr-5 w-[80%] mx-auto px-0 md:px-5">
           <h1 className="text-[1.661rem] max-md:text-[1.1rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
             {item?.title}
           </h1>
           <p className="text-[1rem] max-md:text-[0.8rem] font-normal text-black text-left max-lg:py-4 max-md:py-0">
             {item?.text}
           </p>
-          <Link href={`${item?.url}`}>
-            <button className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-md:w-1/3 w-1/3">
+          <Link href={`${item?.url}`} className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-w-max">
               {item?.button}
-            </button>
-
           </Link>
         </div>
       </div>

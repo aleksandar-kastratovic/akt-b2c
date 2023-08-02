@@ -271,7 +271,7 @@ const ProductInfo = ({ products, description }) => {
             <ToastContainer />
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };
