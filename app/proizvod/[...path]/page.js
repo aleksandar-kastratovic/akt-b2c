@@ -4,7 +4,7 @@ import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
-import NotFoundd from "../not-found";
+import { notFound } from "next/navigation";
 
 const fetchProduct = async (id) => {
   fetch = get;
@@ -49,8 +49,6 @@ const ProductPage = async ({ params: { path } }) => {
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
 
-  console.log('gallery',productGallery)
-
   return (
     <>
     {products ? 
@@ -64,6 +62,7 @@ const ProductPage = async ({ params: { path } }) => {
                 <ProductDetailsSlider
                   productGallery={productGallery}
                   description={description} />
+   <div dangerouslySetInnerHTML={{ __html: description?.description}} className='mt-10' />   
               </div>
               <div className="col-span-2 md:hidden">
                 <MobileImageSlider images={productGallery} />
@@ -74,7 +73,7 @@ const ProductPage = async ({ params: { path } }) => {
             <ProductsSlider
               products={relatedProducts}
               text="Možda će Vas zanimati i sledeći proizvodi" />
-          </div></> ): <NotFoundd />
+          </div></> ): notFound()
 }
     </>
   );
