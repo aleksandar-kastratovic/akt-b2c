@@ -573,6 +573,6 @@ input[type="number"] {
   max-height: 700px !important;
 }
 
-.roboto span {
+.roboto span, .roboto p {
     font-family: "Roboto", sans-serif !important;
 }

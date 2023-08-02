@@ -108,7 +108,7 @@ const ProductGallery = ({ productGallery }) => {
     );
   });
   return (
-    <div className="h-full max-md:h-[450px] md:flex md:flex-row-reverse gap-5 md:h-[380px] lg:h-[550px] xl:h-[680px] 2xl:h-[720px] 3xl:h-[878px]">
+    <div className="h-full max-md:h-[450px] md:flex md:flex-row-reverse gap-5 md:h-[380px] lg:h-[550px] xl:h-[680px] 2xl:h-[720px] 3xl:h-[778px]">
       <Swiper
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper }}

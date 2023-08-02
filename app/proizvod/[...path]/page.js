@@ -48,34 +48,41 @@ const ProductPage = async ({ params: { path } }) => {
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
-
-  console.log('gallery',productGallery)
-
+  console.log(description)
   return (
     <>
-    {products ? 
- (     <><div className="bg-[#f5f5f6] mt-3.5">
-          <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
-            <GenerateBreadCrumbsServer />
+      {products ? (
+        <>
+          <div className="bg-[#f5f5f6] mt-3.5">
+            <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
+              <GenerateBreadCrumbsServer />
+            </div>
           </div>
-        </div><div className="mt-5 sm:mt-10 w-[95%] lg:w-[85%] mx-auto">
+          <div className="mt-5 sm:mt-10 w-[95%] lg:w-[85%] mx-auto">
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-10">
               <div className="col-span-2 lg:col-span-3 max-md:hidden">
                 <ProductDetailsSlider
                   productGallery={productGallery}
-                  description={description} />
+                  description={description}
+                />
               </div>
               <div className="col-span-2 md:hidden">
                 <MobileImageSlider images={productGallery} />
               </div>
               <ProductInfo products={products} description={description} />
+              
             </div>
-          </div><div className="mt-[3rem] sm:mt-[7.688rem]">
+          </div>
+          <div className="mt-[3rem] sm:mt-[7.688rem]">
             <ProductsSlider
               products={relatedProducts}
-              text="Možda će Vas zanimati i sledeći proizvodi" />
-          </div></> ): <NotFoundd />
-}
+              text="Možda će Vas zanimati i sledeći proizvodi"
+            />
+          </div>
+        </>
+      ) : (
+        <NotFoundd />
+      )}
     </>
   );
 };
@@ -92,8 +99,9 @@ export async function generateStaticParams() {
 
   return products.slice(0, 2)?.map((product) => {
     return {
-    path: product?.slug_path?.split("/"),
-  }});
+      path: product?.slug_path?.split("/"),
+    };
+  });
 }
 
 export const revalidate = 30;
