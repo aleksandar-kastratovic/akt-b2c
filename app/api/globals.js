@@ -18,7 +18,7 @@ export const useGlobalAddToCart = (type = false) => {
         mutateCart();
         
       })
-      .catch((error) => console.log("alo"));
+      .catch((error) => console.log(error));
   };
 
   return addToCart;
@@ -64,7 +64,7 @@ export const useGlobalAddToWishList = () => {
       status: null,
     }).then((response) => {
       mutateWishList();
-      console.log("alo");
+
     });
   };
 

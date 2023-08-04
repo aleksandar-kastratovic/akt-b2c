@@ -79,5 +79,4 @@ const CategoryPage = async ({ params: { path } }) => {
 
 export default CategoryPage;
 
-export const dynamicParams = true;
 export const revalidate = 30;
