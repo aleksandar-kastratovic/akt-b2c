@@ -55,16 +55,6 @@ export async function generateMetadata({ params: { path } }) {
   };
 }
 
-export async function generateStaticParams() {
-  const categories = await get("/categories/product/tree").then((res) => {
-    return res.payload;
-  });
-
-  return categories.slice(0, 4).map((category) => ({
-    path: category?.slug_path.split('/'),
-  }));
-}
-
 const CategoryPage = async ({ params: { path } }) => {
   const categoryDataa = await fetchCategory(path[path?.length - 1]);
   const filters = await fetchFilters(path[path?.length - 1]);
