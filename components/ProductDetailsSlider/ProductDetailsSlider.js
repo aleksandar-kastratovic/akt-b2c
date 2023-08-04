@@ -10,9 +10,6 @@ import Image from "next/image";
 import classes from "./styles.module.css";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 const ProductGallery = ({ productGallery }) => {
-
-console.log('productGallery',productGallery)
-
   function ImageMagnifier({
     src,
     width,
@@ -85,20 +82,29 @@ console.log('productGallery',productGallery)
     );
   }
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const productImage =productGallery.length > 0 ? (productGallery?.map((image, index) => {
-    return (
-      <SwiperSlide key={index} className="w-full !relative">
-        <ImageMagnifier
-          src={convertHttpToHttps(image?.image)}
-          fill
-          priority
-          style={{ objectFit: "fill" }}
-        />
-      </SwiperSlide>
+  const productImage =
+    productGallery.length > 0 ? (
+      productGallery?.map((image, index) => {
+        return (
+          <SwiperSlide key={index} className="w-full !relative">
+            <ImageMagnifier
+              src={convertHttpToHttps(image?.image)}
+              fill
+              priority
+              style={{ objectFit: "fill" }}
+            />
+          </SwiperSlide>
+        );
+      })
+    ) : (
+      <Image
+        src="/placeholder.jpg"
+        fill
+        priority
+        alt="no image"
+        objectFit="cover"
+      />
     );
-  })) : (<Image src="/placeholder.jpg"  fill
-  priority alt="no image" objectFit='cover' />);
-
 
   const thumbImage = productGallery?.map((image, index) => {
     return (

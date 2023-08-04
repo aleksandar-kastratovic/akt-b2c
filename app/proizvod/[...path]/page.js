@@ -97,19 +97,4 @@ const ProductPage = async ({ params: { path } }) => {
 
 export default ProductPage;
 
-export async function generateStaticParams() {
-  const categories = await get("/categories/product/tree").then(
-    (res) => res?.payload
-  );
-  const products = await list(
-    `/products/category/list/${categories[0]?.slug}`
-  ).then((res) => res?.payload?.items);
-
-  return products.slice(0, 2)?.map((product) => {
-    return {
-      path: product?.slug_path?.split("/"),
-    };
-  });
-}
-
 export const revalidate = 30;

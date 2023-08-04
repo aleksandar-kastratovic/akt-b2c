@@ -1,14 +1,14 @@
-'use client';
-import Products from '../Products/Products';
-import { useState, useEffect, useCallback } from 'react';
-import Filters from '../../Filters/Filters';
-import Breadcrumbs from '@/helpers/GenerateBreadCrumbs';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { convertHttpToHttps } from '@/helpers/convertHttpToHttps';
-import { queryKeys, sortKeys } from '@/helpers/const';
-import GenerateBreadCrumbsServer from '@/helpers/generateBreadCrumbsServer';
-import { post, list, get } from '@/app/api/api';
+"use client";
+import Products from "../Products/Products";
+import { useState, useEffect, useCallback } from "react";
+import Filters from "../../Filters/Filters";
+import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import { queryKeys, sortKeys } from "@/helpers/const";
+import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
+import { post, list, get } from "@/app/api/api";
 const CategoriesPageDisplay = ({
   filtersMap,
   filters,
@@ -20,7 +20,7 @@ const CategoriesPageDisplay = ({
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
@@ -57,7 +57,7 @@ const CategoriesPageDisplay = ({
 
   const [sort, setSort] = useState(
     newSort
-      ? { field: newSort?.split('_')[0], direction: newSort?.split('_')[1] }
+      ? { field: newSort?.split("_")[0], direction: newSort?.split("_")[1] }
       : null
   );
 
@@ -140,7 +140,7 @@ const CategoriesPageDisplay = ({
       if (
         query?.hasOwnProperty(queryKeys?.page) ||
         query?.hasOwnProperty(queryKeys?.limit) ||
-        query?.hasOwnProperty(queryKeys?.sort) || 
+        query?.hasOwnProperty(queryKeys?.sort) ||
         selectedFilters?.length >= 0
       ) {
         setLoading(true);
@@ -181,15 +181,12 @@ const CategoriesPageDisplay = ({
     if (
       query?.hasOwnProperty(queryKeys?.page) ||
       query?.hasOwnProperty(queryKeys?.sort) ||
-      query?.hasOwnProperty(queryKeys?.limit) || 
+      query?.hasOwnProperty(queryKeys?.limit) ||
       selectedFilters?.length >= 0
     ) {
       getProductList(limit, sort, page, selectedFilters);
     }
   }, [selectedFilters, showSearch, page, limit, sort]);
-  
-  
-  console.log('selectedFilters', selectedFilters)
 
   const searchProducts = () => {
     getProductList(limit, sort, page, selectedFilters);
@@ -209,7 +206,7 @@ const CategoriesPageDisplay = ({
         [queryKeys?.sort]: sortValue.query,
         [queryKeys?.page]: 1,
       };
-      const [field, direction] = target?.value?.split('_');
+      const [field, direction] = target?.value?.split("_");
       setSort({ field, direction });
     } else {
       const newQuery = { ...query };
@@ -243,11 +240,11 @@ const CategoriesPageDisplay = ({
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
   useEffect(() => {
-    process?.env?.GTM_ENABLED === 'true' &&
+    process?.env?.GTM_ENABLED === "true" &&
       window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer.push({
       ecommerce: {
-        currencyCode: 'RSD',
+        currencyCode: "RSD",
         impressions: [
           products?.map((item) => {
             return {
@@ -265,14 +262,14 @@ const CategoriesPageDisplay = ({
   return (
     <>
       <div className="w-full bg-croonus-5">
-        {router?.pathname?.includes('search') ? null : (
+        {router?.pathname?.includes("search") ? null : (
           <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
             <GenerateBreadCrumbsServer />
           </div>
         )}
       </div>
 
-      {router?.asPath?.includes('search') ? null : (
+      {router?.asPath?.includes("search") ? null : (
         <div
           className={
             categoryDataa?.seo?.image
@@ -280,7 +277,7 @@ const CategoriesPageDisplay = ({
               : `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto`
           }
         >
-          {' '}
+          {" "}
           {categoryDataa?.seo?.image ? (
             <Image
               width={22200}
@@ -295,7 +292,7 @@ const CategoriesPageDisplay = ({
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
-          {router?.pathname?.includes('search') ? (
+          {router?.pathname?.includes("search") ? (
             <>Pretražili ste: {search}</>
           ) : (
             <>{categoryDataa?.basic_data?.name}</>
@@ -304,8 +301,8 @@ const CategoriesPageDisplay = ({
           <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
-        </h1>{' '}
-        {router?.asPath?.includes('search') ? null : (
+        </h1>{" "}
+        {router?.asPath?.includes("search") ? null : (
           <p className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
             {categoryDataa.basic_data.description}
           </p>
@@ -329,17 +326,16 @@ const CategoriesPageDisplay = ({
           limit={limit}
         />
       </div>
-      {
-        products?.length === 0 ? (
-          <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
+      {products?.length === 0 ? (
+        <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
           Za ovu kategoriju trenutno nemamo proizvoda
-        </div>) : (
-            <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-            <Products products={products} />
-          </div> 
-        )
-      }
-    
+        </div>
+      ) : (
+        <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
+          <Products products={products} />
+        </div>
+      )}
+
       {loading ? (
         <div className="w-full flex items-center justify-center mt-10">
           <i className="fa-solid fa-spinner animate-spin text-3xl "></i>
