@@ -142,8 +142,7 @@ const Uslovi = () => {
         podložne promeni do momenta potvrde kupovine.
       </p>
       <p className="mt-8">
-        Troškovi dostave putem usluge kurirske službe se naplaćuju Korisniku u
-        iznosu od 400,00 dinara.
+        Troškovi dostave putem usluge kurirske službe se naplaćuju Korisniku u iznosu od 450 dinara za porudžbine ispod 5000 dinara. Troškovi dostave za iznose iznad 5000 dinara se ne naplaćuju.
       </p>
       <p className="mt-8">
         U postupku naručivanja, prilikom izbora svakog novog artikla, program će
