@@ -1,6 +1,6 @@
 "use client";
 import { currencyFormat } from "@/helpers/functions";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PlusMinusInputOne from "../PlusMinusInputOne";
 import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { toast, ToastContainer } from "react-toastify";
@@ -120,29 +120,135 @@ const ProductInfo = ({ products, description }) => {
       });
     }
   });
+
+  const renderPrices = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                    >
+                      {currencyFormat(item?.price?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        -
+                        {(item?.price?.discount?.amount /
+                          item?.price?.price?.original) *
+                          100}
+                        % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+            }
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <p
+                  className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+                <div className="bg-croonus-3 self-start w-fit ">
+                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                    {currencyFormat(item?.price?.price?.discount)}
+                  </p>
+                </div>
+              </>
+            );
+            break;
+          case false:
+            return (
+              <>
+                <p
+                  className={`text-[1rem] self-start text-black font-normal py-1`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+              </>
+            );
+            break;
+        }
+    }
+  };
+
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex items-center justify-between">
-        <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-[59%] self-start hyphens">
-          {productVariant ? (
-            <>{productVariant?.basic_data?.name}</>
-          ) : (
-            <> {products?.data?.item?.basic_data?.name}</>
-          )}{" "}
+        <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-full self-start hyphens">
+          {products?.data?.item?.basic_data?.name}
         </h1>
-        <div className=" flex flex-col max-[280px]:max-[130px] min-w-[145px] max-w-[146px] md:hidden self-start float-right text-right text-[0.9rem] text-croonus-1 font-semibold">
-          {productVariant ? (
-            <h1 className="pr-2">
-              {currencyFormat(productVariant?.price?.price?.original)}{" "}
-            </h1>
-          ) : (
-            <h1 className="pr-2">{currencyFormat(20000)}</h1>
-          )}
-          {/* <div className="flex items-center mt-[2px] justify-between px-2 py-1 font-medium bg-[#eddd9e] text-[0.9rem]">
-            <span>-10%</span>
-            <span>3.200 RSD</span>
-          </div> */}
-        </div>
+        {/*<div className=" flex flex-col max-[280px]:max-[130px] min-w-[145px] max-w-[146px] md:hidden self-start float-right text-right text-[0.9rem] text-croonus-1 font-semibold">*/}
+        {/*  {productVariant ? (*/}
+        {/*    <h1 className="pr-2">*/}
+        {/*      {currencyFormat(productVariant?.price?.price?.original)}{" "}*/}
+        {/*    </h1>*/}
+        {/*  ) : (*/}
+        {/*    <h1 className="pr-2">{currencyFormat(20000)}</h1>*/}
+        {/*  )}*/}
+        {/*  */}
+        {/*</div>*/}
       </div>
       <div className="flex flex-row gap-10 max-md:mt-3">
         <p className="text-sm mt-0 font-bold">
@@ -172,43 +278,44 @@ const ProductInfo = ({ products, description }) => {
           </span>
         </p>
       </div>
-      <div className="flex flex-row items-center gap-10 mt-4 py-5 max-md:hidden">
-        <p className="font-normal text-[1rem]">
-          {products?.data?.item?.price?.min?.price?.original &&
-          products?.data?.item?.price?.max?.price?.original ? (
-            <>
-              {currencyFormat(
-                products?.data?.item?.price?.min?.price?.original
-              )}{" "}
-              -{" "}
-              {currencyFormat(
-                products?.data?.item?.price?.max?.price?.original
-              )}
-            </>
-          ) : (
-            currencyFormat(products?.data?.item?.price?.price?.original)
-          )}
-        </p>
-        <p className="bg-croonus-3 px-2.5 py-1.5 text-[1.2rem]">
-          {products?.data?.item?.price?.discount?.active && (
-            <>
-              -{" "}
-              {(products?.data?.item?.price?.discount?.amount /
-                products?.data?.item?.price?.price?.original) *
-                100}
-              % &nbsp;
-            </>
-          )}
-          {products?.data?.item?.price?.discount?.active && (
-            <>
-              {currencyFormat(
-                products?.type === "single"
-                  ? products?.data?.item?.price?.price?.discount
-                  : productVariant?.price?.price?.discount
-              )}
-            </>
-          )}
-        </p>
+      <div className="flex max-md:flex-col max-md:gap-1 flex-row items-center gap-10 mt-4 py-5">
+        {/*<p className="font-normal text-[1rem]">*/}
+        {/*  {products?.data?.item?.price?.min?.price?.original &&*/}
+        {/*  products?.data?.item?.price?.max?.price?.original ? (*/}
+        {/*    <>*/}
+        {/*      {currencyFormat(*/}
+        {/*        products?.data?.item?.price?.min?.price?.original*/}
+        {/*      )}{" "}*/}
+        {/*      -{" "}*/}
+        {/*      {currencyFormat(*/}
+        {/*        products?.data?.item?.price?.max?.price?.original*/}
+        {/*      )}*/}
+        {/*    </>*/}
+        {/*  ) : (*/}
+        {/*    currencyFormat(products?.data?.item?.price?.price?.original)*/}
+        {/*  )}*/}
+        {/*</p>*/}
+        {/*<p className="bg-croonus-3 px-2.5 py-1.5 text-[1.2rem]">*/}
+        {/*  {products?.data?.item?.price?.discount?.active && (*/}
+        {/*    <>*/}
+        {/*      -{" "}*/}
+        {/*      {(products?.data?.item?.price?.discount?.amount /*/}
+        {/*        products?.data?.item?.price?.price?.original) **/}
+        {/*        100}*/}
+        {/*      % &nbsp;*/}
+        {/*    </>*/}
+        {/*  )}*/}
+        {/*  {products?.data?.item?.price?.discount?.active && (*/}
+        {/*    <>*/}
+        {/*      {currencyFormat(*/}
+        {/*        products?.type === "single"*/}
+        {/*          ? products?.data?.item?.price?.price?.discount*/}
+        {/*          : productVariant?.price?.price?.discount*/}
+        {/*      )}*/}
+        {/*    </>*/}
+        {/*  )}*/}
+        {/*</p>*/}
+        {renderPrices(products?.data?.item)}
       </div>
       <div>
         <h1 className="font-bold max-sm:hidden">
@@ -232,12 +339,48 @@ const ProductInfo = ({ products, description }) => {
       )}
 
       <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
-        {products?.data?.item?.price?.discount?.active && (
+        {products?.data?.item?.price?.discount?.active ? (
           <>
-            {currencyFormat(
-              products?.type === "single"
-                ? products?.data?.item?.price?.price?.discount
-                : productVariant?.price?.price?.discount
+            {products?.product_type === "single" ? (
+              <>
+                {currencyFormat(products?.data?.item?.price?.price?.discount)}
+              </>
+            ) : productVariant?.id ? (
+              <>{currencyFormat(productVariant?.price?.price?.discount)}</>
+            ) : (
+              <>
+                {currencyFormat(
+                  products?.data?.item?.price?.min?.price?.discount
+                )}{" "}
+                -{" "}
+                {currencyFormat(
+                  products?.data?.item?.price?.max?.price?.discount
+                )}
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            {products?.product_type === "single" ? (
+              <>
+                {currencyFormat(products?.data?.item?.price?.price?.original)}
+              </>
+            ) : (
+              <>
+                {productVariant?.id ? (
+                  <>{currencyFormat(productVariant?.price?.price?.original)}</>
+                ) : (
+                  <>
+                    {currencyFormat(
+                      products?.data?.item?.price?.min?.price?.original
+                    )}{" "}
+                    -{" "}
+                    {currencyFormat(
+                      products?.data?.item?.price?.max?.price?.original
+                    )}
+                  </>
+                )}
+              </>
             )}
           </>
         )}

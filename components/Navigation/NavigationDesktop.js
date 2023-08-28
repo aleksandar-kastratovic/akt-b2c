@@ -75,7 +75,7 @@ const NavigationDesktop = () => {
               Call centar: 031 / 3894 - 222
             </a>
             <Link
-              href="/moj-profil"
+              href="/nalog"
               className="text-white text-sm hover:underline"
             >
               Moj profil

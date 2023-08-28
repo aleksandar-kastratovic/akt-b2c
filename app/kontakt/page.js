@@ -141,7 +141,7 @@ const ContactPage = () => {
                       onChange={formChangeHandler}
                     />
                   </form>
-                  <div className="mt-5 flex w-full items-center justify-end rounded-lg pb-5 uppercase">
+                  <div className="mt-5 flex w-full items-center justify-end  pb-5 uppercase">
                     {loading ? (
                       <i className="fas fa-spinner fa-spin text-croonus-1 text-2xl"></i>
                     ) : (
