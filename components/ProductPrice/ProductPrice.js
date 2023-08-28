@@ -189,10 +189,26 @@ const ProductInfo = ({ products, description }) => {
             currencyFormat(products?.data?.item?.price?.price?.original)
           )}
         </p>
-
-        {/* <p className="bg-croonus-3 px-2.5 py-1.5 text-[1.2rem]">
-          -10% 3.200RSD
-        </p> */}
+        <p className="bg-croonus-3 px-2.5 py-1.5 text-[1.2rem]">
+          {products?.data?.item?.price?.discount?.active && (
+            <>
+              -{" "}
+              {(products?.data?.item?.price?.discount?.amount /
+                products?.data?.item?.price?.price?.original) *
+                100}
+              % &nbsp;
+            </>
+          )}
+          {products?.data?.item?.price?.discount?.active && (
+            <>
+              {currencyFormat(
+                products?.type === "single"
+                  ? products?.data?.item?.price?.price?.discount
+                  : productVariant?.price?.price?.discount
+              )}
+            </>
+          )}
+        </p>
       </div>
       <div>
         <h1 className="font-bold max-sm:hidden">
@@ -201,7 +217,7 @@ const ProductInfo = ({ products, description }) => {
           </p>
         </h1>
       </div>
-
+      {console.log(products?.data?.item?.price)}
       {products?.product_type === "single" ? null : (
         <div className="py-10 max-md:py-7">
           <Variants
@@ -216,24 +232,12 @@ const ProductInfo = ({ products, description }) => {
       )}
 
       <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
-        {" "}
-        {productVariant ? (
-          <>{currencyFormat(productVariant?.price?.price?.original)}</>
-        ) : (
+        {products?.data?.item?.price?.discount?.active && (
           <>
-            {products?.data?.item?.price?.min?.price?.original &&
-            products?.data?.item?.price?.max?.price?.original ? (
-              <>
-                {currencyFormat(
-                  products?.data?.item?.price?.min?.price?.original
-                )}{" "}
-                -&nbsp;
-                {currencyFormat(
-                  products?.data?.item?.price?.max?.price?.original
-                )}
-              </>
-            ) : (
-              currencyFormat(products?.data?.item?.price?.price?.original)
+            {currencyFormat(
+              products?.type === "single"
+                ? products?.data?.item?.price?.price?.discount
+                : productVariant?.price?.price?.discount
             )}
           </>
         )}
@@ -271,7 +275,7 @@ const ProductInfo = ({ products, description }) => {
             <ToastContainer />
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   );
 };

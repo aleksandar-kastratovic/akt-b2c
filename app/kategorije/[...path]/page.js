@@ -1,6 +1,6 @@
 import { get, list, post } from "@/app/api/api";
 import dynamic from "next/dynamic";
-import { notFound } from 'next/navigation'
+import { notFound } from "next/navigation";
 
 const CategoriesPageDisplay = dynamic(
   () =>
@@ -72,7 +72,9 @@ const CategoryPage = async ({ params: { path } }) => {
           newProducts={newProducts}
           productsDataResponse={products}
         />
-      ) : notFound()}
+      ) : (
+        notFound()
+      )}
     </>
   );
 };
