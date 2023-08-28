@@ -61,9 +61,7 @@ const CartProductItem = ({ item }) => {
             <span>Količina:</span>
             {productAmount}
           </div>
-          <span>
-            Ukupan iznos: {currencyFormat(total?.with_vat, currency)} sa PDV
-          </span>
+          <span>Ukupan iznos: {currencyFormat(total?.discount, currency)}</span>
         </div>
         <span
           className="absolute -top-4 right-2 cursor-pointer"

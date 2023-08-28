@@ -53,6 +53,114 @@ const ProductsSlider = ({ products, text }) => {
     },
   });
 
+  const renderPrices = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+            }
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+                <div className="bg-croonus-3 self-start w-fit ">
+                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                    {currencyFormat(item?.price?.price?.discount)}
+                  </p>
+                </div>
+              </>
+            );
+            break;
+          case false:
+            return (
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+              </>
+            );
+            break;
+        }
+    }
+  };
+
   const product = products.map((item, index) => (
     <div
       key={item.id}
@@ -149,31 +257,7 @@ const ProductsSlider = ({ products, text }) => {
           {item?.basic_data?.name}
         </Link>
       </p>
-      <div className=" self-start max-lg:w-[210px] w-2/3">
-        <p
-          className={`text-[0.875rem] self-start text-black font-semibold py-1 ${
-            item?.price?.discount?.active === true && "line-through"
-          }`}
-        >
-          {item?.product_type === "variant" ? (
-            <>
-              {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-              {currencyFormat(item?.price?.max?.price?.original)}
-            </>
-          ) : (
-            currencyFormat(item?.price?.price?.original)
-          )}
-        </p>
-      </div>
-      <div className=" bg-croonus-3  max-lg:w-[210px] self-start w-1/3">
-        {item?.price?.discount?.active && (
-          <p className="text-[1rem] self-start text-black font-normal py-2 pl-2">
-            {currencyFormat(
-              item?.price?.price?.original - item?.price?.discount?.amount
-            )}
-          </p>
-        )}
-      </div>
+      {renderPrices(item)}
     </div>
   ));
 
