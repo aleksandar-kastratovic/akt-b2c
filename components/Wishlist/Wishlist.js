@@ -31,7 +31,7 @@ const Wishlist = () => {
           </div>
         ) : (
           <div className="mt-10 flex flex-col items-center justify-center  py-5 text-center">
-            <div className="rounded-lg border p-10">
+            <div className=" border p-10">
               <h1 className="text-lg font-medium">
                 Vaša lista želja je prazna!
               </h1>{" "}
