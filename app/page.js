@@ -40,6 +40,7 @@ const fetchBannersBanners = async () => {
   return banners;
 };
 
+
 import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import BannerSlider from "@/components/BannerSlider/BannerSlider";
