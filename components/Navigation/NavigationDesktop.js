@@ -74,10 +74,7 @@ const NavigationDesktop = () => {
             <a href={`tel:0313894222`} className="text-white text-sm">
               Call centar: 031 / 3894 - 222
             </a>
-            <Link
-              href="/nalog"
-              className="text-white text-sm hover:underline"
-            >
+            <Link href="/nalog" className="text-white text-sm hover:underline">
               Moj profil
             </Link>
           </div>
@@ -136,7 +133,12 @@ const NavigationDesktop = () => {
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <Link href="/lista-zelja">
-                    <Image src={Wishlist} width={35} height={35} alt="favorite"/>
+                    <Image
+                      src={Wishlist}
+                      width={35}
+                      height={35}
+                      alt="favorite"
+                    />
                   </Link>
                   <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                     {wishListCount}
@@ -144,7 +146,7 @@ const NavigationDesktop = () => {
                 </div>
                 <div className="relative">
                   <Link href="/korpa">
-                    <Image src={Cart} width={38} height={38} alt="cart"/>
+                    <Image src={Cart} width={38} height={38} alt="cart" />
                   </Link>
                   <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                     {cartCount}
@@ -163,7 +165,7 @@ const NavigationDesktop = () => {
         }
       >
         <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
-          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-1/5 overflow-y-auto">
+          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-[25%] overflow-y-auto">
             <div className="flex flex-col mt-10 ">
               {/*<div>*/}
               {/*  <a href="/novo">*/}
@@ -183,7 +185,7 @@ const NavigationDesktop = () => {
                     <span
                       key={item.id}
                       className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
-                      onClick={() => {
+                      onMouseEnter={() => {
                         setSubcategory(item?.children);
                       }}
                     >

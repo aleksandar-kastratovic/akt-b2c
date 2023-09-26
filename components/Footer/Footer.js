@@ -60,9 +60,9 @@ const Footer = () => {
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
                 </span>
-                <span className="text-sm font-normal">
+                <a href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7669451,20.0846158,15z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`} target={`_blank`} className="text-sm font-normal">
                   {process.env.ADDRESS} |
-                </span>
+                </a>
                 <span className=" text-sm ffont-normal">
                   {process.env.TOWN}
                 </span>
@@ -83,9 +83,8 @@ const Footer = () => {
               </a>
             </div>
             <div className="flex items-center gap-10">
-              <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-twitter text-3xl text-croonus-1 cursor-pointer"></i>
+              <a href={`https://www.facebook.com/STEFAN.DOO.ARILJE`} target={`_blank`}><i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i></a>
+              <a href={`https://www.instagram.com/stefantekstil.rs/`} target={`_blank`}><i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i></a>
             </div>
           </div>
           <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">

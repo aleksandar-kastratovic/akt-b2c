@@ -48,19 +48,24 @@ const UserPage = () => {
   };
 
   const formSubmitHandler = () => {
-    setLoading(true);
     const err = [];
+    required.forEach((field) => {
+      if (!formData[field]) {
+        err.push(field);
+      }
+    });
     if (err.length > 0) {
       setErrors(err);
       setLoading(false);
     } else {
+      setLoading(true);
       const ret = {
         email: formData.email,
         password: formData.password,
       };
       post("/customers/sign-in/login", ret)
         .then((response) => {
-          if (response?.payload?.customer_token !== "") {
+          if (response?.code === 200) {
             setLoading(false);
             router.push("/customer-profil");
             Cookies.set("customer_token", response.payload.customer_token, {
@@ -178,21 +183,31 @@ const UserPage = () => {
                   <input
                     type="email"
                     name="email"
+                    required={true}
                     value={formData.email}
                     onChange={formChangeHandler}
-                    placeholder="E-mail:"
-                    className="lg:w-[24rem] bg-white   border border-[#e0e0e0] focus:outline-0 focus:ring-0 focus:border-[#e0e0e0] py-[0.6rem]"
+                    placeholder="E-mail*"
+                    className={`lg:w-[24rem] bg-white   border ${
+                      errors.includes("email")
+                        ? "border-red-500"
+                        : "border-[#e0e0e0]"
+                    } focus:outline-0 focus:ring-0 focus:border-[#e0e0e0] py-[0.6rem]`}
                   />
 
                   <div className="flex relative">
                     <input
                       name="password"
+                      required={true}
                       type={showLoginPassword ? "text" : "password"}
                       value={formData.password}
                       onChange={formChangeHandler}
                       id="password"
                       placeholder="Lozinka*"
-                      className="mt-[0.6rem] block lg:w-[24rem] bg-white  border border-[#e0e0e0] focus:outline-0 focus:ring-0 focus:border-[#e0e0e0] py-[0.6rem] lg:mr-[0.6em] w-full"
+                      className={`mt-[0.6rem] block lg:w-[24rem] bg-white  border ${
+                        errors.includes("password")
+                          ? "border-red-500"
+                          : "border-[#e0e0e0]"
+                      } focus:outline-0 focus:ring-0 focus:border-[#e0e0e0] py-[0.6rem] lg:mr-[0.6em] w-full`}
                     />
                     <button
                       type={"button"}

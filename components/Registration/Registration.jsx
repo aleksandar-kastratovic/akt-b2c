@@ -416,7 +416,7 @@ const Registration = ({ setIsReg }) => {
                         defaultChecked={
                           formData.accept_terms === 1 ? true : false
                         }
-                        className="focus:ring-0 focus:border-none focus:outline-none bg-white  text-green-500 mr-[0.4rem] rounded"
+                        className="focus:ring-0 focus:border border  focus:outline-none bg-white  text-green-500 mr-[0.4rem] rounded"
                       />
                       <label
                         htmlFor="accept_terms"
@@ -442,7 +442,7 @@ const Registration = ({ setIsReg }) => {
                         defaultChecked={
                           formData.accept_newsletter === 1 ? true : false
                         }
-                        className="focus:ring-0 focus:border-none focus:outline-none bg-white  text-green-500 mr-[0.4rem] rounded"
+                        className="focus:ring-0 focus:border border focus:outline-none bg-white  text-green-500 mr-[0.4rem] rounded"
                       />
                       <label
                         htmlFor="accept_newsletter"

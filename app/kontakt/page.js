@@ -8,7 +8,33 @@ import {
 } from "react-google-recaptcha-v3";
 import Image from "next/image";
 import Map from "../../assets/mapa.png";
+import GoogleMapReact from "google-map-react";
+import pin from "../../assets/location-pin.png";
+
 import { toast, ToastContainer } from "react-toastify";
+import { footerMapStyle } from "@/app/kontakt/footerMapStyle";
+
+const Marker = () => {
+  return (
+    <div
+      className={"relative"}
+      style={{
+        color: "white",
+        width: "40px",
+        height: "80px",
+        padding: "15px 10px",
+        display: "inline-flex",
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        transform: "translate(-50%, -50%)",
+      }}
+    >
+      <Image src={pin} alt="" layout="fill" objectFit="contain" />
+    </div>
+  );
+};
+
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState();
@@ -173,58 +199,102 @@ const ContactPage = () => {
                   Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.
                 </p>
               </div>
-              <div className="flex flex-col">
-                <h1 className="text-xl font-normal">Pozovite nas</h1>
-                <p className="text-sm font-light">
-                  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.
-                </p>
-              </div>
-              <div className="flex flex-col">
-                <h1 className="text-xl font-normal">Pozovite nas</h1>
-                <p className="text-sm font-light">
-                  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.
-                </p>
-              </div>
+              {/*<div className="flex flex-col">*/}
+              {/*  <h1 className="text-xl font-normal">Pozovite nas</h1>*/}
+              {/*  <p className="text-sm font-light">*/}
+              {/*    Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.*/}
+              {/*  </p>*/}
+              {/*</div>*/}
+              {/*<div className="flex flex-col">*/}
+              {/*  <h1 className="text-xl font-normal">Pozovite nas</h1>*/}
+              {/*  <p className="text-sm font-light">*/}
+              {/*    Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.*/}
+              {/*  </p>*/}
+              {/*</div>*/}
             </div>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-x-10 mt-16 ">
           <div className="col-span-1 max-lg:col-span-2 w-full max-lg:pt-5 lg:pl-20 h-[450px]">
-            <Image
-              src={Map}
-              alt={process.env.COMPANY}
-              width={22000}
-              height={22000}
-              className="w-full h-full object-cover"
-            />
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: "AIzaSyAb3yABiMy-kIRMSGFD1YQMMp8pMHPZ2m0",
+              }}
+              defaultCenter={{
+                lat: 43.7669451,
+                lng: 20.0846158,
+              }}
+              defaultZoom={6}
+              options={{ styles: footerMapStyle }}
+              yesIWantToUseGoogleMapApiInternals={true}
+            >
+              <Marker lat={43.7669451} lng={20.0846158} active={true} />
+
+              <Marker lat={44.7508643} lng={20.5842746} active={true} />
+
+              <Marker lat={45.23864} lng={19.8184152} active={true} />
+            </GoogleMapReact>
           </div>
           <div className="col-span-1  pl-10 pt-3 bg-[#f5f5f6] max-lg:col-span-2 w-full max-lg:pt-5 flex flex-col justify-around">
             <div className="flex flex-col max-lg:items-center max-lg:justify-center max-lg:text-center gap-0">
               <h1 className="text-base font-medium">Arilje</h1>
-              <p className="text-sm font-light">
+              <a
+                href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7574576,20.0701954,14z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`}
+                target={`_blank`}
+                className="text-sm font-light"
+              >
                 Put 22. avgusta bb, 31230 Arilje
-              </p>
-              <p className="text-sm font-light">031 / 3894 222</p>
-              <p className="text-sm font-light">031 / 3891 946</p>
-              <p className="text-sm font-light">prodaja@stefantekstil.rs</p>
+              </a>
+              <a href={`tel:0313894222`} className="text-sm font-light">
+                031 / 3894 222
+              </a>
+              <a href={`tel:0313894946`} className="text-sm font-light">
+                031 / 3891 946
+              </a>
+              <a
+                href={`mailto:prodaja@stefantekstil.rs`}
+                className="text-sm font-light"
+              >
+                prodaja@stefantekstil.rs
+              </a>
             </div>
             <div className="flex flex-col max-lg:items-center max-lg:justify-center max-lg:text-center gap-0">
-              <h1 className="text-base font-medium">Arilje</h1>
-              <p className="text-sm font-light">
-                Put 22. avgusta bb, 31230 Arilje
-              </p>
-              <p className="text-sm font-light">031 / 3894 222</p>
-              <p className="text-sm font-light">031 / 3891 946</p>
-              <p className="text-sm font-light">prodaja@stefantekstil.rs</p>
+              <h1 className="text-base font-medium">Beograd</h1>
+              <a
+                href={`https://www.google.com/maps/place/%D0%A1%D0%BC%D0%B5%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%81%D0%BA%D0%B8+%D0%BF%D1%83%D1%82+39a,+%D0%91%D0%B5%D0%BE%D0%B3%D1%80%D0%B0%D0%B4+11000/@44.7508643,20.5842746,19.5z/data=!4m6!3m5!1s0x475a77af3c7ef441:0xf90be4a66f96f46e!8m2!3d44.7506404!4d20.5850449!16s%2Fg%2F11js97gppd?entry=ttu`}
+                target={`_blank`}
+                className="text-sm font-light"
+              >
+                Smederevski put 39a
+              </a>
+              <a href={`tel:0118036602`} className="text-sm font-light">
+                011 / 803 6602
+              </a>
+              <a
+                href={`mailto:vpbeograd@stefantekstil.rs`}
+                className="text-sm font-light"
+              >
+                vpbeograd@stefantekstil.rs
+              </a>
             </div>
             <div className="flex flex-col max-lg:items-center max-lg:justify-center max-lg:text-center gap-0">
-              <h1 className="text-base font-medium">Arilje</h1>
-              <p className="text-sm font-light">
-                Put 22. avgusta bb, 31230 Arilje
-              </p>
-              <p className="text-sm font-light">031 / 3894 222</p>
-              <p className="text-sm font-light">031 / 3891 946</p>
-              <p className="text-sm font-light">prodaja@stefantekstil.rs</p>
+              <h1 className="text-base font-medium">Novi Sad</h1>
+              <a
+                href={`https://www.google.com/maps/place/%D0%8B%D0%B8%D1%80%D0%B8%D0%BB%D0%B0+%D0%B8+%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D1%98%D0%B0+42a,+%D0%9D%D0%BE%D0%B2%D0%B8+%D0%A1%D0%B0%D0%B4+21000/@45.2386437,19.8158403,17z/data=!3m1!4b1!4m6!3m5!1s0x475b1025c59f848d:0x20192a17d9430c85!8m2!3d45.23864!4d19.8184152!16s%2Fg%2F11fxf1bp5r?entry=ttu`}
+                target={`_blank`}
+                className="text-sm font-light"
+              >
+                Ćirila i Metodija 42A
+              </a>
+              <a href={`tel:0216337910`} className="text-sm font-light">
+                021 / 6337 910
+              </a>
+              <a
+                href={`mailto:nsstefan@stefantekstil.rs`}
+                className="text-sm font-light"
+              >
+                nsstefan@stefantekstil.rs
+              </a>
             </div>
           </div>
         </div>

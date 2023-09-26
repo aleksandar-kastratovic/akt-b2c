@@ -1,6 +1,6 @@
 "use client";
 import Products from "../Products/Products";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Filters from "../../Filters/Filters";
 import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,7 @@ import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { queryKeys, sortKeys } from "@/helpers/const";
 import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
+import Link from "next/link";
 const CategoriesPageDisplay = ({
   filtersMap,
   filters,
@@ -259,12 +260,74 @@ const CategoriesPageDisplay = ({
     });
   }, [pagination]);
 
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
+
+  useEffect(() => {
+    const generateBreadcrumbs = (categoryDataa) => {
+      categoryDataa?.parents?.forEach((parent) => {
+        if (
+          !breadcrumbs.some((breadcrumb) => breadcrumb.name === parent?.name)
+        ) {
+          setBreadcrumbs((prevBreadcrumbs) => [
+            ...prevBreadcrumbs,
+            {
+              name: parent?.name,
+              slug: parent?.slug,
+            },
+          ]);
+        }
+      });
+    };
+
+    if (categoryDataa?.parents) {
+      generateBreadcrumbs(categoryDataa);
+    }
+  }, [categoryDataa, breadcrumbs]);
+
+  const uniqueBreadcrumbs = [
+    ...new Set(breadcrumbs?.map((breadcrumb) => breadcrumb?.slug)),
+  ];
+
   return (
     <>
       <div className="w-full bg-croonus-5">
         {router?.pathname?.includes("search") ? null : (
           <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
-            <GenerateBreadCrumbsServer />
+            <div className="text-[0.875rem] max-lg:hidden font-light">
+              {breadcrumbs?.length > 0 && (
+                <div className="flex items-center gap-1 py-2flex-wrap">
+                  <Link
+                    href={`/`}
+                    className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                  >
+                    Početna
+                  </Link>{" "}
+                  <span className="text-[#191919] text-[0.85rem]">/</span>
+                  {uniqueBreadcrumbs.map((slug, index) => {
+                    const breadcrumb = breadcrumbs.find(
+                      (bc) => bc.slug === slug
+                    );
+                    return (
+                      <div key={index} className="flex items-center gap-1">
+                        <Link
+                          href={`/kategorije/${slug}`}
+                          className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                        >
+                          {breadcrumb?.name}
+                        </Link>
+                        {index !== uniqueBreadcrumbs.length - 1 && (
+                          <span className="text-[#191919] text-[0.85rem]">/</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                  <span className="text-[#191919] text-[0.85rem]">/</span>
+                  <h1 className="text-[#191919] text-[0.85rem] font-normal text-[#e10000]">
+                    {categoryDataa?.basic_data?.name}
+                  </h1>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -303,9 +366,12 @@ const CategoriesPageDisplay = ({
           </span>
         </h1>{" "}
         {router?.asPath?.includes("search") ? null : (
-          <p className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens">
-            {categoryDataa.basic_data.description}
-          </p>
+          <p
+            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens"
+            dangerouslySetInnerHTML={{
+              __html: categoryDataa.basic_data.description,
+            }}
+          ></p>
         )}
       </div>
       <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">

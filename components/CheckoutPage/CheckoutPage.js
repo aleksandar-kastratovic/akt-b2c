@@ -145,6 +145,11 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     }
     if (err.length > 0) {
       setErrors(err);
+
+      toast.error("Molimo Vas da popunite sva obavezna polja", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     } else {
       const ret = {
         customer_type_billing: formData.type,
@@ -247,7 +252,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             formData.submit();
             mutateCart();
           } else {
-            router.push(`/korpa/${response?.payload?.order?.order_token}`);
+            router.push(`/kupovina/${response?.payload?.order?.order_token}`);
           }
 
           if (response?.code === 500 || response?.code === 400) {
@@ -915,7 +920,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                 </div>
                 <div className="mt-2 flex gap-3 py-3 relative">
                   <input
-                    type="radio"
+                    type="checkbox"
                     id="agreed"
                     name="agreed"
                     onChange={formChangeHandler}

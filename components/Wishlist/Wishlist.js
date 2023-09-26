@@ -3,6 +3,7 @@ import { list } from "@/app/api/api";
 import WishlistItems from "../WishlistItems/WishlistItems";
 import { useEffect, useState } from "react";
 import { useCartContext } from "@/app/api/cartContext";
+import Link from "next/link";
 
 const Wishlist = () => {
   const [wishListData, setWishListData] = useState();
@@ -36,7 +37,9 @@ const Wishlist = () => {
                 Vaša lista želja je prazna!
               </h1>{" "}
               <p>Kada dodate artikle u listu želja, oni će se pojaviti ovde.</p>
-            </div>
+              <button className="rounded-[5rem] mt-10 bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
+                <a href="/">Vrati se na početnu stranu.</a>
+              </button>            </div>
           </div>
         )}
       </div>
