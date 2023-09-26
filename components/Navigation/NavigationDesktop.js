@@ -165,7 +165,7 @@ const NavigationDesktop = () => {
         }
       >
         <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
-          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-[25%] overflow-y-auto">
+          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-[30%] 3xl:w-[25%] overflow-y-auto">
             <div className="flex flex-col mt-10 ">
               {/*<div>*/}
               {/*  <a href="/novo">*/}
