@@ -367,7 +367,7 @@ const CategoriesPageDisplay = ({
         </h1>{" "}
         {router?.asPath?.includes("search") ? null : (
           <p
-            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left hyphens"
+            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left"
             dangerouslySetInnerHTML={{
               __html: categoryDataa.basic_data.description,
             }}
