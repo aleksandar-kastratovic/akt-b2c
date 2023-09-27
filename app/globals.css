@@ -624,4 +624,5 @@ input[type="number"] {
 }
 .nobg p , .nobg span {
   background: transparent !important;
+  font-weight: normal !important;
 }

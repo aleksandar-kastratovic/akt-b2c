@@ -93,7 +93,7 @@ const ProductPage = async ({ params: { path } }) => {
               <div className="flex items-center gap-[0.3rem] flex-wrap">
                 <Link
                   href={`/`}
-                  className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                  className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                 >
                   Početna
                 </Link>{" "}
@@ -107,7 +107,7 @@ const ProductPage = async ({ params: { path } }) => {
                             ? `/kategorije/${breadcrumb?.slug}`
                             : `/kategorije/${breadcrumb?.slug}`
                         }
-                        className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                        className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                       >
                         {breadcrumb?.name}
                       </Link>
@@ -118,7 +118,7 @@ const ProductPage = async ({ params: { path } }) => {
                   );
                 })}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <h1 className="text-[#191919] text-[0.85rem] font-normal text-[#e10000]">
+                <h1 className="text-[0.85rem] font-normal text-black">
                   {breadcrumbs?.end?.name}
                 </h1>
               </div>
