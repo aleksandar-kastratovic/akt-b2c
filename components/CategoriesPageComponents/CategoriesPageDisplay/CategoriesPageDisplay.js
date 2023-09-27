@@ -298,7 +298,7 @@ const CategoriesPageDisplay = ({
                 <div className="flex items-center gap-1 py-2flex-wrap">
                   <Link
                     href={`/`}
-                    className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                    className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                   >
                     Početna
                   </Link>{" "}
@@ -311,7 +311,7 @@ const CategoriesPageDisplay = ({
                       <div key={index} className="flex items-center gap-1">
                         <Link
                           href={`/kategorije/${slug}`}
-                          className="text-[#191919] text-[0.85rem] font-normal hover:text-[#e10000]"
+                          className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                         >
                           {breadcrumb?.name}
                         </Link>
@@ -322,7 +322,7 @@ const CategoriesPageDisplay = ({
                     );
                   })}
                   <span className="text-[#191919] text-[0.85rem]">/</span>
-                  <h1 className="text-[#191919] text-[0.85rem] font-normal text-[#e10000]">
+                  <h1 className="text-[0.85rem] font-normal text-black">
                     {categoryDataa?.basic_data?.name}
                   </h1>
                 </div>
