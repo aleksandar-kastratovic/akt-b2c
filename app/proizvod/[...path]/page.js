@@ -141,7 +141,7 @@ const ProductPage = async ({ params: { path } }) => {
               >
                 <h1 className={`font-medium text-[1.4rem`}>Opis proizvoda</h1>
                 <div
-                  className={`p-3 bg-croonus-2 prose !max-w-full prose:!max-w-full prose:!w-full w-full roboto`}
+                  className={`p-3 bg-croonus-2 prose !max-w-full prose:!max-w-full prose:!w-full w-full roboto nobg`}
                   dangerouslySetInnerHTML={{ __html: description?.description }}
                 ></div>
               </div>
