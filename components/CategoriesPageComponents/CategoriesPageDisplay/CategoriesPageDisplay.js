@@ -311,7 +311,7 @@ const CategoriesPageDisplay = ({
                       <div key={index} className="flex items-center gap-1">
                         <Link
                           href={`/kategorije/${slug}`}
-                          className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
+                          className="text-[#191919] text-[0.851rem] font-normal hover:text-black"
                         >
                           {breadcrumb?.name}
                         </Link>
