@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Image1 from "../../assets/Icons/check.png";
+import Image2 from '../../assets/Icons/neuspesno.png'
 import Link from "next/link";
 import { useEffect } from "react";
 
