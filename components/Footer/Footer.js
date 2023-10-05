@@ -15,7 +15,10 @@ import Image5 from "../../assets/Icons/img.png";
 import Image6 from "../../assets/Icons/img1.png";
 import Image7 from "../../assets/Icons/img3.png";
 import Image8 from "../../assets/Icons/img4.png";
+
+
 const Footer = () => {
+  
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const {
@@ -60,9 +63,9 @@ const Footer = () => {
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
                 </span>
-                <a href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7669451,20.0846158,15z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`} target={`_blank`} className="text-sm font-normal">
+                <span className="text-sm font-normal">
                   {process.env.ADDRESS} |
-                </a>
+                </span>
                 <span className=" text-sm ffont-normal">
                   {process.env.TOWN}
                 </span>
@@ -83,8 +86,9 @@ const Footer = () => {
               </a>
             </div>
             <div className="flex items-center gap-10">
-              <a href={`https://www.facebook.com/STEFAN.DOO.ARILJE`} target={`_blank`}><i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i></a>
-              <a href={`https://www.instagram.com/stefantekstil.rs/`} target={`_blank`}><i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i></a>
+              <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
+              <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
+              <i className="fa-brands fa-twitter text-3xl text-croonus-1 cursor-pointer"></i>
             </div>
           </div>
           <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
@@ -175,58 +179,89 @@ const Footer = () => {
           <Link href="/kontakt">Kontakt</Link>
         </div>
       )}
-      <div className="md:hidden flex items-center w-full justify-center mt-8">
-        <div className="">
-          <Image src={Image4} className=" object-scale-down" />
+    
+    <div className="flex flex-row justify-center items-center gap-5 w-full flex-wrap 3xl:w-[100%] xl:mt-[2rem]">
+          <div className="w-[44px] h-[44px] relative">
+            <Image
+              src={Image5}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+          <div className="w-[44px] h-[44px] relative">
+            <Image
+              src={Image6}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+          <div className="w-[50px] h-[50px] relative">
+            <Image
+              src={Image7}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+          <div className="w-[50px] h-[50px] relative">
+            <Image
+              src={Image8}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+
+          <div className="w-[40px] h-[40px] relative">
+            <Image
+              src={Image1}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+
+          <Link href="https://www.bancaintesa.rs" rel="noopener noreferrer" target="_blank">
+            <div className="w-[160px] h-[40px] relative">
+              <Image
+                src={Image4}
+                alt="Winea"
+                fill={true}
+                style={{ objectFit: "contain" }}
+                className="object-scale-down"
+              />
+            </div>
+          </Link>
+          <Link href="http://www.mastercard.com/rs/consumer/credit-cards.html" rel="noopener noreferrer" target="_blank">
+            <div className="w-[80px] h-[50px] relative">
+              <Image
+                src={Image3}
+                alt="Winea"
+                fill={true}
+                style={{ objectFit: "contain" }}
+                className="object-scale-down max-sm:w-[100%]"
+              />
+            </div>
+          </Link>
+          <Link href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html" rel="noopener noreferrer" target="_blank">
+            <div className="w-[50px] h-[50px] relative">
+              <Image
+                src={Image2}
+                alt="Winea"
+                fill={true}
+                style={{ objectFit: "contain" }}
+                className="object-scale-down"
+              />
+            </div>
+          </Link>
         </div>
-      </div>
-      <div className="flex items-center justify-center py-5 gap-0.5 px-0.5">
-        <div className="max-md:w-full">
-          <Image
-            src={Image1}
-            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image2}
-            className=" max-md:w-fullw-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image3}
-            className=" max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:hidden w-[60%] lg:w-[10%]">
-          <Image src={Image4} className=" object-scale-down" />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image5}
-            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image6}
-            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image7}
-            className="max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-        <div className="max-md:w-full">
-          <Image
-            src={Image8}
-            className=" max-md:w-full w-[60%] lg:w-[70%] object-scale-down"
-          />
-        </div>
-      </div>
       <div className="w-[50%] mx-auto"></div>
       <div className="w-[95%] lg:w-[80%] mx-auto">
         <p className="text-xs mt-5 max-md:hidden">

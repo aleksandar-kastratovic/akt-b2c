@@ -1,9 +1,59 @@
+import Link from "next/link";
+
 const Uslovi = () => {
   return (
     <div className="w-[85%] mx-auto max-lg:w-[95%] ">
       <div className="text-xl font-normal text-white bg-croonus-1 w-1/4 pl-5 py-1 mt-4">
         <h1 className="">Uslovi korišćenja - AKT DOO Arilje</h1>
       </div>
+      <h5 className="font-semibold text-lg mt-[3rem]">Osnovni podaci o firmi</h5>
+      <ul className="mt-3">
+        <li>pun naziv pravnog subjekta:  <span className="font-semibold">{process.env.COMPANY}</span></li>
+        <li>adresa: <span className="font-semibold">{process.env.ADDRESS}</span></li>
+        <li>delatnost i šifra delatnosti: <span className="font-semibold">{process.env.CODE}</span></li>
+        <li>matični broj: <span className="font-semibold">{process.env.MB}</span></li>
+        <li>poreski broj: <span className="font-semibold">{process.env.PIB}</span></li>
+        <li>web adresa: <span className="font-semibold">{process.env.SITE}</span></li>
+        <li>kontakt telefon: <span className="font-semibold">{process.env.TELEPHONE}</span></li>
+        <li>kontakt e-mail: <span className="font-semibold">{process.env.EMAIL}</span></li>
+      </ul>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Izjava o konverziji </h5>
+      <p>Sva plaćanja biće izvršena u lokalnoj valuti Republike Srbije – dinar (RSD).Za informativni prikaz cena u drugim valutama koristi se srednji kurs Narodne Banke Srbije. Iznos za koji će biti zadužena Vaša platna kartica biće izražen u Vašoj lokalnoj valuti kroz konverziju u istu po kursu koji koriste kartičarske organizacije, a koji nama u trenutku transakcije ne može biti poznat. Kao rezultat ove konverzije postoji mogućnost neznatne razlike od originalne cene navedene na našem sajtu</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem] ">Kontakt podaci – korisnički servis</h5>
+      <span>Broj telefona: </span>
+      <Link href={`tel:${process.env.TELEPHONE}`} className="underline font-semibold">031 389 4222</Link>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Dostava robe i eventualna ograničenja</h5>
+      <p>Dostava naručenih proizvoda i/ili usluga se vrši putem kurirske službe Dexpress na adresu Korisnika ili na adresu koju je Korisnik naveo kao adresu za dostavu i moguća je (trenutno) na teritoriji Republike Srbije. Naručeni proizvodi se dostavljaju u roku od 7 dana od dana prispeća narudžbine. S obzirom na radno vreme kurirske službe, potrebno je da Korisnik ili drugo lice koje može preuzeti pošiljku, bude na naznačenoj adresi za dostavu, u vremenskom periodu od 9h do 15h.</p>
+      <p>Ukoliko iz bilo kog razloga Korisnik, prilikom podnošenja narudžbine, unese netačne ili pogršne podatke, AKT ne snosi odgovornost za slučaj neisporučivanja prizvoda i/ili usluga. U tom slučaju AKT će kontaktirati Korisnika na dostavljeni kontakt broj ili e-mail adresu, proveriti tačnost navedenih podataka i ponoviti postupak isporuke. U slučaju da se ponovi nemogućnost isporuke, kupovina će se smatrati neuspelom.</p>
+      <p>U slučaju eventualnih promena ili situacija koje onemogućavaju redovan tok isporuke, ili u slučaju da iz tehničkih razloga, razloga više sile i slično AKT nije u mogućnosti da isporuči kupljenu robu i/ili usluge, bez odlaganja će obavestiti Korisnika o novonastalim promenama, sa naznačenjem novih rokova isporuke, ili u slučaju nemogućnosti izvršenja isporuke i sa povraćajem uplaćenih sredstava.</p>
+      <p>Prilikom isporuke proizvoda, dužnost je Korisnika da izvrši pregled proizvoda i da ukaže na evetualna mehanička oštećenja, u kom slučaju će proizvod biti zamenjen.</p>
+  <p>Ukoliko pri prispeću pošiljke Korisnik ustanovi nedostatak ili grešku na proizvodu, isti može zameniti za novi, u kom slučaju troškove ponovne dostave snosi AKT.</p>
+  <p>U slučaju da Korisnik želi da promeni artikal za isti artikal druge veličine, troškove ponovne dostave snosi Korisnik.Odgovornost zbog nesaobraznosti robe ugovoru</p>
+  <p>Odgovornost Akta zbog nesaobraznosti robe ugovoru predviđena je Zakonom o zaštiti potrošača („Sl. glasnik RS“ br.62/2014 I 6/2016 – dr. zakon).</p>
+  <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Politika reklamacija</h5>
+      <p>Sve reklamacije na proizvode kupljene preko vebsajta Korisnik može izjaviti elektronski na e-mail adresu <Link href="mailto:webshop@stefantekstil.rs" className="underline">webshop@stefantekstil.rs</Link> ili uputiti na broj korisničkog servisa <Link href="tel:0313894222" className="underline">031/3894-222</Link>.</p>
+      <p>Prilikom izjavljivanja reklamacije dužni ste da dostavite robu na koju se reklamacija odnosi, kao i račun na uvid ili drugi dokaz o kupovini te robe (kopija računa, slip i sl.).</p>
+      <p>Nemogućnost potrošača da dostavi ambalažu robe ne može biti uslov za rešavanje reklamacije, niti razlog za odbijanje otklanjanja nesaobraznosti.</p>
+      <p>Stefan će elektronski potvrditi prijem reklamacije Korisnika, odnosno saopštiti broj pod kojim je ista zavedena u evidenciji primljenih reklamacija i odgovoriti na istu u zakonom predviđenom roku za rešavanje reklamacija.</p>
+      <p className="font-semibold my-[0.6rem]">Obaveštenje o pravu na odustanak od ugovora</p>
+      <p>Korisnik ima pravo da odustane od ugovora o kupovini proizvoda koje je kupio preko vebsajta, bez navođenja razloga zbog kojeg odustaje od ugovora, u roku od 14 dana od dana kada je roba dospela u državinu korisnika, odnosno trećeg lica koje je korisnik odredio, a koje nije prevoznik.</p>
+      <p>Ukoliko korisnik želi da odustane od ugovora o kupovini proizvoda koji je zaključen putem vebsajta, to može učiniti slanjem obrasca za odustanak od ugovora elektronski na mail adresu <Link href="mailto:webshop@stefantekstil.rs" className="underline">webshop@stefantekstil.rs</Link> ili na drugi nedvosmislen način.</p>
+      <p>Ukoliko obrazac za odustanak od ugovora Korisnik dostavi elektronski, AKT će ga, bez odlaganja pismenim putem obavestiti o prijemu obrasca.</p>
+      <p>Izjava o odustajanju od ugovora proizvodi pravno dejstvo od dana kada je poslata Aktu i smatra se blagovremenom, ako je poslata u roku od 14 dana od dana kada je roba dospela u državinu korisnika, odnosno trećeg lica koje je korisnik odredio, a koje nije prevoznik. Istekom navedenog roka Korisnik gubi pravo na odustajanje od ugovora.</p>
+      <p>U slučaju odustanka od ugovora, Korisnik snosi troškove vraćanja robe i dužan je da u roku od 14 dana od dana odustajanja od ugovora pošalje kupljene proizvode Aktu.</p>
+      <p>AKT će, bez odlaganja izvršiti povraćaj uplata koje je primio za robu, uključujući i troškove isporuke, a najkasnije u roku od 14 dana od dana kada je primio obrazac o odustanku od ugovora, s tim da AKT može odložiti povraćaj navedenih sredstava dok ne dobije robu koja se vraća, ili dok Korisnik ne dostavi dokaz da je poslao robu Aktu, u zavisnosti od toga šta nastupa prvo.</p>
+      <p>Korisnik je u obavezi da dostavljene proizvode vrati Aktu u originalnom trgovačkom pakovanju, kako mu je roba bila i dostavljena.</p>
+      <p>Korisnik je isključivo odgovoran za umanjenu vrednost robe koja nastane kao posledica rukovanja robom na način koji nije adekvatan, odnosno prevazilazi ono što je neophodno da bi se ustanovili priroda, karakteristike i funkcionalnost robe.</p>
+      <p>Korisnik nema pravo da odustane od ugovora u slučaju isporuke robe proizvedene prema posebnim zahtevima korisnika ili jasno personalizovane.</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Zaštita privatnosti korisnika</h5>
+      <p>U ime {process.env.COMPANY} obavezujemo se da ćemo čuvati privatnost svih naših kupaca. Prikupljamo samo neophodne, osnovne podatke o kupcima/ korisnicima i podatke neophodne za poslovanje i informisanje korisnika u skladu sa dobrim poslovnim običajima i u cilju pružanja kvalitetne usluge. Dajemo kupcima mogućnost izbora uključujući mogućnost odluke da li žele ili ne da se izbrišu sa mailing lista koje se koriste za marketinške kampanje. Svi podaci o korisnicima/kupcima se strogo čuvaju i dostupni su samo zaposlenima kojima su ti podaci nužni za obavljanje posla. Svi zaposleni {process.env.COMPANY} (i poslovni partneri) odgovorni su za poštovanje načela zaštite privatnosti.</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Zaštita poverljivih podataka o transakciji</h5>
+      <p>Prilikom unošenja podataka o platnoj kartici, poverljive informacija se prenose putem javne mreže u zaštićenoj (kriptovanoj) formi upotrebom SSL protokola i PKI sistema, kao trenutno najsavremenije kriptografske tehnologije.</p>
+      <p>Sigurnost podataka prilikom kupovine, garantuje procesor platnih kartica, Banca Intesa ad Beograd, pa se tako kompletni proces naplate obavlja na stranicama banke. Niti jednog trenutka podaci o platnoj kartici nisu dostupni našem sistemu.</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Povraćaj sredstava</h5>
+      <p>U slučaju vraćanja robe i povraćaja sredstava kupcu koji je prethodno platio nekom od platnih kartica, delimično ili u celosti, a bez obzira na razlog vraćanja, [upisati IME_PRODAJNOG_MESTA] je u obavezi da povraćaj vrši isključivo preko VISA, EC/MC, Maestro, Amex i Dina metoda plaćanja, što znači da će banka na zahtev prodavca obaviti povraćaj sredstava na račun korisnika kartice</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Izjava o PDV-u</h5>
+      <p>PDV uračunat u cenu i nema skrivenih troškova.</p>
       <p className="mt-8">
         Slede odredbe kojima se utvrđuju uslovi koji regulišu pristup i
         korišćenje usluga na vebsajtu stefantekstil.rs i posebno vršenje
