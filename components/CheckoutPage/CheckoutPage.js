@@ -20,7 +20,6 @@ const CartProductBox = dynamic(
   { loading: () => <p>Loading...</p> }
 );
 
-
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
   const { asPath } = router;
@@ -121,7 +120,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   }, []);
   useEffect(() => {
     getCart();
-  }, [getCart, cart]);
+  }, [getCart]);
 
   const cartItems = cartData.items ?? [];
   const cartCost = cartData.summary?.total ?? 0;
@@ -135,7 +134,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       setFormData({ ...formData, [target.name]: target.value });
     }
   };
-
+  const [loadingCreditCard, setLoadingCreditCard] = useState(false);
   const formSubmitHandler = () => {
     setRefreshReCaptcha((r) => !r);
     const err = [];
@@ -244,6 +243,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       };
       if (errors.length === 0) {
         setLoading(true);
+        setLoadingCreditCard(true);
       } else {
         setLoading(false);
       }
@@ -258,9 +258,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
 
             const formData = document.getElementById("bank_send_form");
             formData.submit();
+
+            setLoading(false);
             mutateCart();
           } else {
-            router.push(`/korpa/${response?.payload?.order?.order_token}`);
+            setLoading(false);
+            router.push(`/kupovina/${response?.payload?.order?.order_token}`);
           }
 
           if (response?.code === 500 || response?.code === 400) {
@@ -275,7 +278,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               </div>
             );
           }
-          setLoading(false);
+
           window?.dataLayer?.push({
             event: "checkout",
             ecommerce: {
@@ -909,8 +912,11 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     className="focus:ring-0 focus:border-none focus:outline-none text-croonus-1"
                   />
                   <label htmlFor="agreed">
-                    Saglasan sam sa <Link href="/uslovi" className="underline" target="_blank">Opštim uslovima korišćenja</Link> AKT ONLINE
-                    SHOP-a.
+                    Saglasan sam sa{" "}
+                    <Link href="/uslovi" className="underline" target="_blank">
+                      Opštim uslovima korišćenja
+                    </Link>{" "}
+                    AKT ONLINE SHOP-a.
                   </label>
                   {errors.includes("agreed") && (
                     <span
@@ -958,16 +964,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
           </>
         )}
-        {loading && (
-          <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center gap-3">
-              <h1 className="text-xl text-white uppercase">
-                Vaš zahtev se obrađuje...
-              </h1>
-              <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
+        {loading ||
+          (loadingCreditCard && (
+            <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-3">
+                <h1 className="text-xl text-white uppercase">
+                  Vaš zahtev se obrađuje...
+                </h1>
+                <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
+              </div>
             </div>
-          </div>
-        )}
+          ))}
       </div>
     </GoogleReCaptchaProvider>
   );
