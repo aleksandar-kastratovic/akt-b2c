@@ -134,7 +134,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       setFormData({ ...formData, [target.name]: target.value });
     }
   };
-
+  const [loadingCreditCard, setLoadingCreditCard] = useState(false);
   const formSubmitHandler = () => {
     setRefreshReCaptcha((r) => !r);
     const err = [];
@@ -243,6 +243,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       };
       if (errors.length === 0) {
         setLoading(true);
+        setLoadingCreditCard(true);
       } else {
         setLoading(false);
       }
@@ -963,16 +964,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
           </>
         )}
-        {loading && (
-          <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center gap-3">
-              <h1 className="text-xl text-white uppercase">
-                Vaš zahtev se obrađuje...
-              </h1>
-              <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
+        {loading ||
+          (loadingCreditCard && (
+            <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center gap-3">
+                <h1 className="text-xl text-white uppercase">
+                  Vaš zahtev se obrađuje...
+                </h1>
+                <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
+              </div>
             </div>
-          </div>
-        )}
+          ))}
       </div>
     </GoogleReCaptchaProvider>
   );
