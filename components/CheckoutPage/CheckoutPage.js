@@ -1,23 +1,25 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
-const CartProductBox = dynamic(
-  () => import("../../components/CartProductBox"),
-  { loading: () => <p>Loading...</p> }
-);
+import { get, list, post } from "@/app/api/api";
 import { useCartContext } from "@/app/api/cartContext";
 import { useRouter } from "next/navigation";
-import { get, list, post } from "@/app/api/api";
-import classes from "./Cart.module.css";
+import { currencyFormat } from "../../helpers/functions";
+import GenerateBreadCrumbsServer from "../../helpers/generateBreadCrumbsServer";
+import { ToastContainer, toast } from "react-toastify";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 import {
   GoogleReCaptchaProvider,
   GoogleReCaptcha,
 } from "react-google-recaptcha-v3";
-import Breadcrumbs from "../../helpers/generateBreadCrumbsServer";
-import { currencyFormat } from "../../helpers/functions";
-import { Breadcrumb } from "rsuite";
-import GenerateBreadCrumbsServer from "../../helpers/generateBreadCrumbsServer";
-import { ToastContainer, toast } from "react-toastify";
+
+import classes from "./Cart.module.css";
+
+const CartProductBox = dynamic(
+  () => import("../../components/CartProductBox"),
+  { loading: () => <p>Loading...</p> }
+);
+
 
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
@@ -98,7 +100,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const errorCheck = "Morate prihvatiti uslove";
 
   const [errors, setErrors] = useState([]);
-
+  useEffect(() => {
+    if (errors.length > 0) {
+      toast.error("Morate popuniti sva obavezna polja", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      return;
+    }
+  });
   const getCart = useCallback(() => {
     list("/cart")
       .then((response) => {
@@ -145,11 +158,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     }
     if (err.length > 0) {
       setErrors(err);
-
-      toast.error("Molimo Vas da popunite sva obavezna polja", {
-        position: "top-center",
-        autoClose: 3000,
-      });
     } else {
       const ret = {
         customer_type_billing: formData.type,
@@ -252,7 +260,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             formData.submit();
             mutateCart();
           } else {
-            router.push(`/kupovina/${response?.payload?.order?.order_token}`);
+            router.push(`/korpa/${response?.payload?.order?.order_token}`);
           }
 
           if (response?.code === 500 || response?.code === 400) {
@@ -286,18 +294,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         .catch((error) => console.warn(error));
     }
   };
-
-  const [checkoutSummary, setCheckoutSummary] = useState([]);
-
-  useEffect(() => {
-    const getSummary = async () => {
-      return await get(`/checkout/summary`).then((response) => {
-        setCheckoutSummary(response?.payload);
-      });
-    };
-    getSummary();
-  }, [cartItems]);
-
   return (
     <GoogleReCaptchaProvider reCaptchaKey={process.env.CAPTCHAKEY}>
       <GoogleReCaptcha
@@ -873,54 +869,39 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1 max-xl:text-base">
                   <span className="text-sm  font-medium max-xl:text-sm">
-                    Ukupna vrednost korpe bez popusta:{" "}
+                    Ukupna vrednost korpe:{" "}
                   </span>
                   <span className="mr-3 text-sm font-medium max-xl:text-sm">
-                    {currencyFormat(checkoutSummary?.summary?.totals?.with_vat)}
+                    {currencyFormat(cartCost)}
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1 max-xl:text-base">
                   <span className="text-sm font-medium max-xl:text-sm">
-                    Iznos popusta u korpi:{" "}
+                    Iznos dodatnog popusta u korpi:{" "}
                   </span>
                   <span className="mr-3 text-sm font-medium max-xl:text-sm">
-                    {currencyFormat(
-                      checkoutSummary?.summary?.totals?.items_discount_amount +
-                        checkoutSummary?.summary?.totals?.cart_discount_amount
-                    )}
+                    0,00 RSD
                   </span>
                 </div>
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1">
                   <span className="text-sm font-medium max-xl:text-sm">
-                    Ukupna vrednost korpe sa popustom:
+                    Iznos koštanja transporta:{" "}
                   </span>
                   <span className="mr-3 text-sm font-medium max-xl:text-sm">
-                    {currencyFormat(
-                      checkoutSummary?.summary?.totals?.cart_discount
-                    )}
+                    0,00 RSD
                   </span>
                 </div>{" "}
                 <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1">
                   <span className="text-sm font-medium max-xl:text-sm">
-                    Iznos koštanja dostave:
-                  </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
-                    {currencyFormat(
-                      checkoutSummary?.summary?.totals?.delivery_amount
-                    )}
-                  </span>
-                </div>
-                <div className="flex flex-row items-center justify-between border-b-[1px] border-b-slate-100 py-1">
-                  <span className="text-sm font-medium max-xl:text-sm">
-                    Ukupno za naplatu:
+                    Ukupna vrednost korpe:
                   </span>
                   <span className="mr-3 text-xl font-medium max-xl:text-sm">
-                    {currencyFormat(checkoutSummary?.summary?.totals?.total)}
+                    {currencyFormat(cartCost)}
                   </span>
                 </div>
                 <div className="mt-2 flex gap-3 py-3 relative">
                   <input
-                    type="checkbox"
+                    type="radio"
                     id="agreed"
                     name="agreed"
                     onChange={formChangeHandler}
@@ -928,7 +909,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     className="focus:ring-0 focus:border-none focus:outline-none text-croonus-1"
                   />
                   <label htmlFor="agreed">
-                    Saglasan sam sa opštim uslovima korišćenja AKT ONLINE
+                    Saglasan sam sa <Link href="/uslovi" className="underline" target="_blank">Opštim uslovima korišćenja</Link> AKT ONLINE
                     SHOP-a.
                   </label>
                   {errors.includes("agreed") && (
