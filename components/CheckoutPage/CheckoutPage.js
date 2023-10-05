@@ -20,7 +20,6 @@ const CartProductBox = dynamic(
   { loading: () => <p>Loading...</p> }
 );
 
-
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
   const { asPath } = router;
@@ -121,7 +120,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   }, []);
   useEffect(() => {
     getCart();
-  }, [getCart, cart]);
+  }, [getCart]);
 
   const cartItems = cartData.items ?? [];
   const cartCost = cartData.summary?.total ?? 0;
@@ -258,9 +257,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
 
             const formData = document.getElementById("bank_send_form");
             formData.submit();
+
+            setLoading(false);
             mutateCart();
           } else {
-            router.push(`/korpa/${response?.payload?.order?.order_token}`);
+            setLoading(false);
+            router.push(`/kupovina/${response?.payload?.order?.order_token}`);
           }
 
           if (response?.code === 500 || response?.code === 400) {
@@ -275,7 +277,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               </div>
             );
           }
-          setLoading(false);
+
           window?.dataLayer?.push({
             event: "checkout",
             ecommerce: {
@@ -909,8 +911,11 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                     className="focus:ring-0 focus:border-none focus:outline-none text-croonus-1"
                   />
                   <label htmlFor="agreed">
-                    Saglasan sam sa <Link href="/uslovi" className="underline" target="_blank">Opštim uslovima korišćenja</Link> AKT ONLINE
-                    SHOP-a.
+                    Saglasan sam sa{" "}
+                    <Link href="/uslovi" className="underline" target="_blank">
+                      Opštim uslovima korišćenja
+                    </Link>{" "}
+                    AKT ONLINE SHOP-a.
                   </label>
                   {errors.includes("agreed") && (
                     <span
