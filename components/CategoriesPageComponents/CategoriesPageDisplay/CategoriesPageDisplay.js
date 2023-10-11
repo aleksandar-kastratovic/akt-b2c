@@ -56,12 +56,11 @@ const CategoriesPageDisplay = ({
     (key) => sortKeys[key]?.query === query[queryKeys?.sort]
   );
 
-  const [sort, setSort] = useState(
-    newSort
-      ? { field: newSort?.split("_")[0], direction: newSort?.split("_")[1] }
-      : null
-  );
-
+  const [sort, setSort] = useState({
+    field: "price",
+    direction: "asc",
+  });
+console.log(filtersMap)
   const [page, setPage] = useState(
     query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1
   );
@@ -146,9 +145,9 @@ const CategoriesPageDisplay = ({
       ) {
         setLoading(true);
         list(`products/category/list/${categoryData?.id}`, {
-          limit,
-          page,
-          sort,
+          limit: limit,
+          page: page,
+          sort: sort,
           filters: selectedFilters,
         })
           .then((response) => {
@@ -231,10 +230,11 @@ const CategoriesPageDisplay = ({
   const onPageChange = (num) => {
     setPage(num);
   };
-
   const products = productsData?.items;
   const pagination = productsData?.pagination;
   const [newProductsArray, setNewProductsArray] = useState(products);
+  console.log("proizvodi", products);
+
   useEffect(() => {
     setNewProductsArray(products);
   }, [products]);
@@ -287,7 +287,7 @@ const CategoriesPageDisplay = ({
   const uniqueBreadcrumbs = [
     ...new Set(breadcrumbs?.map((breadcrumb) => breadcrumb?.slug)),
   ];
-
+  console.log(categoryDataa);
   return (
     <>
       <div className="w-full bg-croonus-5">
@@ -316,7 +316,9 @@ const CategoriesPageDisplay = ({
                           {breadcrumb?.name}
                         </Link>
                         {index !== uniqueBreadcrumbs.length - 1 && (
-                          <span className="text-[#191919] text-[0.85rem]">/</span>
+                          <span className="text-[#191919] text-[0.85rem]">
+                            /
+                          </span>
                         )}
                       </div>
                     );
