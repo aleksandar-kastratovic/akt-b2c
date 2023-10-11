@@ -34,7 +34,10 @@ const fetchProducts = async (slug) => {
   const fetcProducts = await list(`/products/category/list/${slug}`, {
     limit: 16,
     page: 1,
-    sort: null,
+    sort: {
+      field: "price",
+      direction: "asc",
+    },
     filters: [],
   }).then((response) => response?.payload);
   return fetcProducts;
