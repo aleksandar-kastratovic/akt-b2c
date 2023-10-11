@@ -60,7 +60,7 @@ const CategoriesPageDisplay = ({
     field: "price",
     direction: "asc",
   });
-
+console.log(filtersMap)
   const [page, setPage] = useState(
     query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1
   );
