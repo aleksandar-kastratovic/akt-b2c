@@ -53,8 +53,27 @@ const fetchNewProducts = async () => {
 export async function generateMetadata({ params: { path } }) {
   const category = await fetchCategory(path[path?.length - 1]);
   return {
-    title: `${process.env.COMPANY} ${category?.basic_data?.name}`,
-    description: category?.basic_data?.description,
+    title: `${category?.seo?.title}` ?? "",
+    description: category?.seo?.description ?? "",
+    keywords: category?.seo?.keywords ?? "",
+    type: category?.seo?.type ?? "",
+    image: category?.seo?.image ?? "",
+    openGraph: {
+      title: `${category?.seo?.title}` ?? "",
+      description: category?.seo?.description ?? "",
+      url: category?.seo?.url ?? "",
+      type: category?.seo?.type ?? "",
+      images: [
+        {
+          url: category?.seo?.image ?? "",
+          width: 800,
+          height: 600,
+          alt: category?.seo?.title ?? "",
+          title: category?.seo?.title ?? "",
+          description: category?.seo?.description ?? "",
+        },
+      ],
+    },
   };
 }
 
