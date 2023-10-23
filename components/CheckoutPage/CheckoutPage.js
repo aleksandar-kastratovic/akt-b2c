@@ -120,7 +120,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   }, []);
   useEffect(() => {
     getCart();
-  }, [getCart]);
+  }, []);
 
   const cartItems = cartData.items ?? [];
   const cartCost = cartData.summary?.total ?? 0;
@@ -245,7 +245,8 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         setLoading(true);
         setLoadingCreditCard(true);
       } else {
-        setLoading(false);
+        setLoading(true);
+        setLoadingCreditCard(true);
       }
       post("/checkout/one-page", ret)
         .then((response) => {
@@ -259,10 +260,10 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             const formData = document.getElementById("bank_send_form");
             formData.submit();
 
-            setLoading(false);
             mutateCart();
           } else {
-            setLoading(false);
+            mutateCart();
+
             router.push(`/kupovina/${response?.payload?.order?.order_token}`);
           }
 
@@ -964,17 +965,16 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
           </>
         )}
-        {loading ||
-          (loadingCreditCard && (
-            <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
-              <div className="flex flex-col items-center justify-center gap-3">
-                <h1 className="text-xl text-white uppercase">
-                  Vaš zahtev se obrađuje...
-                </h1>
-                <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
-              </div>
+        {(loading || loadingCreditCard) && (
+          <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center gap-3">
+              <h1 className="text-xl text-white uppercase">
+                Vaš zahtev se obrađuje...
+              </h1>
+              <i className="fa-solid fa-spinner animate-spin text-6xl text-white"></i>
             </div>
-          ))}
+          </div>
+        )}
       </div>
     </GoogleReCaptchaProvider>
   );
