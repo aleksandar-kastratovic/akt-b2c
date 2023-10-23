@@ -166,7 +166,7 @@ const Footer = () => {
         <Link href="/uslovi">Uslovi korišćenja</Link>
         <Link href="/kolacici">Politika o kolačićima</Link>
         <Link href="/politika-privatnosti">Politika privatnosti</Link>
-        <Link href="/nacini-placanja">Načini plaćanja</Link>
+        <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
         <Link href="/o-nama">O nama</Link>
         <Link href="/kontakt">Kontakt</Link>
       </div>
@@ -183,7 +183,7 @@ const Footer = () => {
           <Link href="/uslovi">Uslovi korišćenja</Link>
           <Link href="/kolacici">Politika o kolačićima</Link>
           <Link href="/politika-privatnosti">Politika privatnosti</Link>
-          <Link href="/nacini-placanja">Načini plaćanja</Link>
+          <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
           <Link href="/o-nama">O nama</Link>
           <Link href="/kontakt">Kontakt</Link>
         </div>

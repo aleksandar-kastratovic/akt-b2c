@@ -206,12 +206,13 @@ const Uslovi = () => {
         javi našoj službi prodaje na telefon 031/3894-222 i usmeno dostavi svoje
         podatke, kao i kod-broj narudžbine.
       </p>
-      <p className="mt-8">Način plaćanja</p>
+      <p className="mt-8" id={`nacin-placanja`}>Način plaćanja</p>
       <p className="mt-2">Korisnik naručenu robu i usluge može platiti:</p>
       <div className="ml-10">
         <ul className="list-disc mt-5">
           <li>uplatom na tekući račun,</li>
-          <li>pouzećem pri preuzimanju robe od kurirske službe</li>
+          <li>pouzećem pri preuzimanju robe od kurirske službe,</li>
+          <li>platnim karticama.</li>
         </ul>
       </div>
       <p className="mt-8">Dostava</p>
