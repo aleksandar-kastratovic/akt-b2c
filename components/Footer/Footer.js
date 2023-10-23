@@ -16,9 +16,7 @@ import Image6 from "../../assets/Icons/img1.png";
 import Image7 from "../../assets/Icons/img3.png";
 import Image8 from "../../assets/Icons/img4.png";
 
-
 const Footer = () => {
-  
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const {
@@ -63,9 +61,9 @@ const Footer = () => {
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
                 </span>
-                <span className="text-sm font-normal">
-                  {process.env.ADDRESS} |
-                </span>
+                <a className="text-sm font-normal">
+                  <a href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7588672,20.06973,14z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`} target={`_blank`}> {process.env.ADDRESS} |</a>
+                </a>
                 <span className=" text-sm ffont-normal">
                   {process.env.TOWN}
                 </span>
@@ -86,9 +84,20 @@ const Footer = () => {
               </a>
             </div>
             <div className="flex items-center gap-10">
-              <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
-              <i className="fa-brands fa-twitter text-3xl text-croonus-1 cursor-pointer"></i>
+              <a
+                href={`https://www.facebook.com/STEFAN.DOO.ARILJE`}
+                target={`_blank`}
+              >
+                {" "}
+                <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
+              </a>
+              <a
+                href={`https://www.instagram.com/stefantekstil.rs/`}
+                target={`_blank`}
+              >
+                {" "}
+                <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
+              </a>
             </div>
           </div>
           <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
@@ -157,7 +166,7 @@ const Footer = () => {
         <Link href="/uslovi">Uslovi korišćenja</Link>
         <Link href="/kolacici">Politika o kolačićima</Link>
         <Link href="/politika-privatnosti">Politika privatnosti</Link>
-        <Link href="/nacini-placanja">Načini plaćanja</Link>
+        <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
         <Link href="/o-nama">O nama</Link>
         <Link href="/kontakt">Kontakt</Link>
       </div>
@@ -174,94 +183,106 @@ const Footer = () => {
           <Link href="/uslovi">Uslovi korišćenja</Link>
           <Link href="/kolacici">Politika o kolačićima</Link>
           <Link href="/politika-privatnosti">Politika privatnosti</Link>
-          <Link href="/nacini-placanja">Načini plaćanja</Link>
+          <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
           <Link href="/o-nama">O nama</Link>
           <Link href="/kontakt">Kontakt</Link>
         </div>
       )}
-    
-    <div className="flex flex-row justify-center items-center gap-5 w-full flex-wrap 3xl:w-[100%] xl:mt-[2rem]">
-          <div className="w-[44px] h-[44px] relative">
-            <Image
-              src={Image5}
-              alt="Winea"
-              fill={true}
-              style={{ objectFit: "contain" }}
-              className="object-scale-down"
-            />
-          </div>
-          <div className="w-[44px] h-[44px] relative">
-            <Image
-              src={Image6}
-              alt="Winea"
-              fill={true}
-              style={{ objectFit: "contain" }}
-              className="object-scale-down"
-            />
-          </div>
-          <div className="w-[50px] h-[50px] relative">
-            <Image
-              src={Image7}
-              alt="Winea"
-              fill={true}
-              style={{ objectFit: "contain" }}
-              className="object-scale-down"
-            />
-          </div>
-          <div className="w-[50px] h-[50px] relative">
-            <Image
-              src={Image8}
-              alt="Winea"
-              fill={true}
-              style={{ objectFit: "contain" }}
-              className="object-scale-down"
-            />
-          </div>
 
-          <div className="w-[40px] h-[40px] relative">
-            <Image
-              src={Image1}
-              alt="Winea"
-              fill={true}
-              style={{ objectFit: "contain" }}
-              className="object-scale-down"
-            />
-          </div>
-
-          <Link href="https://www.bancaintesa.rs" rel="noopener noreferrer" target="_blank">
-            <div className="w-[160px] h-[40px] relative">
-              <Image
-                src={Image4}
-                alt="Winea"
-                fill={true}
-                style={{ objectFit: "contain" }}
-                className="object-scale-down"
-              />
-            </div>
-          </Link>
-          <Link href="http://www.mastercard.com/rs/consumer/credit-cards.html" rel="noopener noreferrer" target="_blank">
-            <div className="w-[80px] h-[50px] relative">
-              <Image
-                src={Image3}
-                alt="Winea"
-                fill={true}
-                style={{ objectFit: "contain" }}
-                className="object-scale-down max-sm:w-[100%]"
-              />
-            </div>
-          </Link>
-          <Link href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html" rel="noopener noreferrer" target="_blank">
-            <div className="w-[50px] h-[50px] relative">
-              <Image
-                src={Image2}
-                alt="Winea"
-                fill={true}
-                style={{ objectFit: "contain" }}
-                className="object-scale-down"
-              />
-            </div>
-          </Link>
+      <div className="flex flex-row justify-center items-center gap-5 w-full flex-wrap 3xl:w-[100%] xl:mt-[2rem]">
+        <div className="w-[44px] h-[44px] relative">
+          <Image
+            src={Image5}
+            alt="Winea"
+            fill={true}
+            style={{ objectFit: "contain" }}
+            className="object-scale-down"
+          />
         </div>
+        <div className="w-[44px] h-[44px] relative">
+          <Image
+            src={Image6}
+            alt="Winea"
+            fill={true}
+            style={{ objectFit: "contain" }}
+            className="object-scale-down"
+          />
+        </div>
+        <div className="w-[50px] h-[50px] relative">
+          <Image
+            src={Image7}
+            alt="Winea"
+            fill={true}
+            style={{ objectFit: "contain" }}
+            className="object-scale-down"
+          />
+        </div>
+        <div className="w-[50px] h-[50px] relative">
+          <Image
+            src={Image8}
+            alt="Winea"
+            fill={true}
+            style={{ objectFit: "contain" }}
+            className="object-scale-down"
+          />
+        </div>
+
+        <div className="w-[40px] h-[40px] relative">
+          <Image
+            src={Image1}
+            alt="Winea"
+            fill={true}
+            style={{ objectFit: "contain" }}
+            className="object-scale-down"
+          />
+        </div>
+
+        <Link
+          href="https://www.bancaintesa.rs"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div className="w-[160px] h-[40px] relative">
+            <Image
+              src={Image4}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+        </Link>
+        <Link
+          href="http://www.mastercard.com/rs/consumer/credit-cards.html"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div className="w-[80px] h-[50px] relative">
+            <Image
+              src={Image3}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down max-sm:w-[100%]"
+            />
+          </div>
+        </Link>
+        <Link
+          href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <div className="w-[50px] h-[50px] relative">
+            <Image
+              src={Image2}
+              alt="Winea"
+              fill={true}
+              style={{ objectFit: "contain" }}
+              className="object-scale-down"
+            />
+          </div>
+        </Link>
+      </div>
       <div className="w-[50%] mx-auto"></div>
       <div className="w-[95%] lg:w-[80%] mx-auto">
         <p className="text-xs mt-5 max-md:hidden">
