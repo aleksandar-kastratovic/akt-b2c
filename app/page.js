@@ -1,4 +1,8 @@
 import { get, list } from "./api/api";
+import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
+import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
+import BannerSlider from "@/components/BannerSlider/BannerSlider";
+
 const fetchBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/index_slider", {
@@ -40,22 +44,25 @@ const fetchBannersBanners = async () => {
   return banners;
 };
 
+const getInstagramPost = async () => {
+  const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_KEY}`;
+  const data = await fetch(url);
+  return await data.json();
+};
 
-import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
-import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
-import BannerSlider from "@/components/BannerSlider/BannerSlider";
 const Index = async () => {
   const banners = await fetchBanners();
   const topSellers = await fetchTopSellProducts();
   const recommended = await fetchRecommendedProducts();
   const mobileBanners = await fetchMobileBanners();
   const homeBanners = await fetchBannersBanners();
+  // const instagramPosts = await getInstagramPost();
+
   return (
     <>
       <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
       <ProductsSlider products={topSellers} text="Najpopularnije" />
       <BannerSlider banners={homeBanners} />
-      <ProductsSlider products={recommended} text="Izdvajamo" />
     </>
   );
 };

@@ -151,10 +151,7 @@ const Footer = () => {
                     Prijavite se!
                   </button>
                 </form>
-                <div className="flex items-center gap-5 text-croonus-1 max-md:text-sm">
-                  <input type="checkbox"></input> Slažem se sa pravilima
-                  privatnosti.
-                </div>
+
                 <div className="md:hidden w-[80%] mx-auto border border-l-0 border-t-0 border-r-0 border-b-croonus-1 pt-6"></div>
               </>
             )}
