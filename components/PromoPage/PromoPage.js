@@ -60,7 +60,7 @@ const LandingPage = ({ slug }) => {
 
   return (
     <>
-      {data ? (
+      {data?.basic_data || data?.conditions || data?.thumb ? (
         <div className={`w-[93.5%] mx-auto`}>
           <div className={`mt-[3rem] md:mt-[9rem] pb-10`}>
             <div className={`flex items-start flex-col justify-center`}>
