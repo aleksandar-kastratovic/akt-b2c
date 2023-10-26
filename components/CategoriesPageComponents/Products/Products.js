@@ -185,14 +185,10 @@ const Products = ({ products = [] }) => {
                 alt="favorite"
                 className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
-                  if (item?.product_type === "single") {
-                    globalAddToWishlist(item?.basic_data?.id_product);
-                    toast.success("Proizvod je dodat u listu želja!", {
-                      position: "top-center",
-                    });
-                  } else {
-                    router.push(`/proizvod/${item?.slug_path}`);
-                  }
+                  globalAddToWishlist(item?.basic_data?.id_product);
+                  toast.success("Proizvod je dodat u listu želja!", {
+                    position: "top-center",
+                  });
                 }}
               />
             </div>
