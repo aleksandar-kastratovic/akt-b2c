@@ -35,6 +35,17 @@ const nextConfig = {
       "scontent-atl3-1.cdninstagram.com",
       "scontent-cgk1-1.cdninstagram.com",
       "scontent-fco2-1.cdninstagram.com",
+      "scontent.cdninstagram.com",
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.akt.croonus.com",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent.cdninstagram.com",
+      },
     ],
   },
 };
