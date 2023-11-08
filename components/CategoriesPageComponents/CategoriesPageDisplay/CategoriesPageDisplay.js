@@ -10,6 +10,7 @@ import { queryKeys, sortKeys } from "@/helpers/const";
 import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
 import Link from "next/link";
+import {ToastContainer} from "react-toastify";
 const CategoriesPageDisplay = ({
   filtersMap,
   filters,
@@ -60,7 +61,7 @@ const CategoriesPageDisplay = ({
     field: "price",
     direction: "asc",
   });
-console.log(filtersMap)
+
   const [page, setPage] = useState(
     query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1
   );
@@ -422,6 +423,7 @@ console.log(filtersMap)
           </div>
         )
       )}
+      <ToastContainer />
     </>
     // <div className="py-12">
     //   <div className="relative z-10 flex flex-col items-center justify-between max-lg:gap-3 lg:flex-row">

@@ -22,7 +22,7 @@ const Filters = ({
   }, [selectedFilters]);
   return (
     <>
-      <div className="grid grid-cols-2 2xl:grid-cols-5 3xl:grid-cols-6 max-lg:border-none border">
+      <div className="grid grid-cols-2 2xl:grid-cols-4 3xl:grid-cols-5 max-lg:border-none border">
         {(filtersMap ?? []).map((filter, index) => {
           const isOpen = openIndex === index;
           return (
@@ -37,8 +37,8 @@ const Filters = ({
                 <div
                   className={`border-l border-t border-t-transparent hover:border-t hover:border-t-croonus-4 border-r relative py-4`}
                 >
-                  <h1 className="uppercase text-[0.9rem] text-center">
-                    {filter?.name}
+                  <h1 className="uppercase text-[0.9rem] text-center line-clamp-1">
+                    {filter?.attribute?.name}
                   </h1>
                   <i className="fa-solid absolute right-0 top-4 fa-chevron-down text-base ml-auto mr-2"></i>
                 </div>
