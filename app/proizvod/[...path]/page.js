@@ -78,12 +78,23 @@ export async function generateMetadata({ params: { path } }) {
     },
   };
 }
+
+const fetchRecommendedProducts = async () => {
+  fetch = list;
+  const products = await fetch(
+    "/products/section/list/recommendation",
+    {}
+  ).then((response) => response?.payload?.items);
+  return products;
+};
+
 const ProductPage = async ({ params: { path } }) => {
   const products = await fetchProduct(path[path?.length - 1]);
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
   const breadcrumbs = await getBreadcrumbs(path[path?.length - 1]);
+  const recommended = await fetchRecommendedProducts();
   return (
     <>
       {products ? (
@@ -147,12 +158,14 @@ const ProductPage = async ({ params: { path } }) => {
               </div>
             </div>
           </div>
-          <div className="mt-[3rem] sm:mt-[7.688rem]">
-            <ProductsSlider
-              products={relatedProducts}
-              text="Možda će Vas zanimati i sledeći proizvodi"
-            />
-          </div>
+          {recommended?.length > 0 && (
+            <div className="mt-[3rem] sm:mt-[7.688rem]">
+              <ProductsSlider
+                products={recommended}
+                text="Možda će Vas zanimati i sledeći proizvodi"
+              />
+            </div>
+          )}
         </>
       ) : (
         notFound()
