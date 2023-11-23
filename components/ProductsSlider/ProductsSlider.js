@@ -160,7 +160,7 @@ const ProductsSlider = ({ products, text }) => {
         }
     }
   };
-
+  console.log("TETETETWTE", products);
   const product = products.map((item, index) => (
     <div
       key={item.id}

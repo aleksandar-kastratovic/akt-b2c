@@ -79,22 +79,21 @@ export async function generateMetadata({ params: { path } }) {
   };
 }
 
-const fetchRecommendedProducts = async () => {
-  fetch = list;
-  const products = await fetch(
-    "/products/section/list/recommendation",
-    {}
-  ).then((response) => response?.payload?.items);
-  return products;
+const crosssellProductsList = async (id) => {
+  const crosssellProducts = await list(`product-details/cross-sell/${id}`).then(
+    (response) => response?.payload?.items
+  );
+  return crosssellProducts;
 };
 
 const ProductPage = async ({ params: { path } }) => {
   const products = await fetchProduct(path[path?.length - 1]);
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
-  const relatedProducts = await fetchRelated();
+  // const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
   const breadcrumbs = await getBreadcrumbs(path[path?.length - 1]);
-  const recommended = await fetchRecommendedProducts();
+  const recommended = await crosssellProductsList(path[path?.length - 1]);
+
   return (
     <>
       {products ? (
