@@ -28,14 +28,7 @@ const fetchTopSellProducts = async () => {
   return products;
 };
 
-const fetchRecommendedProducts = async () => {
-  fetch = list;
-  const products = await fetch(
-    "/products/section/list/recommendation",
-    {}
-  ).then((response) => response?.payload?.items);
-  return products;
-};
+
 
 const fetchBannersBanners = async () => {
   fetch = get;
@@ -48,7 +41,7 @@ const fetchBannersBanners = async () => {
 const Index = async () => {
   const banners = await fetchBanners();
   const topSellers = await fetchTopSellProducts();
-  const recommended = await fetchRecommendedProducts();
+
   const mobileBanners = await fetchMobileBanners();
   const homeBanners = await fetchBannersBanners();
   return (
