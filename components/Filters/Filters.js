@@ -20,56 +20,78 @@ const Filters = ({
   useEffect(() => {
     setActiveFilters(selectedFilters);
   }, [selectedFilters]);
+
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
   return (
     <>
-      <div className="grid grid-cols-2 2xl:grid-cols-4 3xl:grid-cols-5 max-lg:border-none border">
-        {(filtersMap ?? []).map((filter, index) => {
-          const isOpen = openIndex === index;
-          return (
-            <div className="relative max-lg:hidden">
-              <div
-                className="col-span-1 relative select-none cursor-pointer"
-                key={filter?.id}
-                onClick={() => {
-                  setOpenIndex(isOpen ? null : index);
-                }}
-              >
+      <div className={`relative ${!filtersOpen && "overflow-hidden"}`}>
+        <div
+          className={`relative z-20 min-w-[125px] w-fit flex items-center gap-10 border px-3 py-2 cursor-pointer hover:border-black`}
+          onClick={() => setFiltersOpen(!filtersOpen)}
+        >
+          <span className={`text-[0.9rem]`}>FILTERI</span>
+          {!filtersOpen && <i className={`fa fa-solid fa-chevron-right`}></i>}
+        </div>
+        <div
+          className={
+            filtersOpen
+              ? `visible opacity-100 absolute z-10 top-0  left-[125px] right-0 flex items-center translate-x-0 transition-all duration-500`
+              : `invisible opacity-0 -translate-x-[150%] transition-all duration-[1000ms] absolute top-0 -z-[50]  left-[125px] right-0 flex items-center`
+          }
+        >
+          {(filtersMap ?? []).map((filter, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div className={`relative max-lg:hidden w-[calc(100vw/9)]`}>
                 <div
-                  className={`border-l border-t border-t-transparent hover:border-t hover:border-t-croonus-4 border-r relative py-4`}
+                  className="col-span-1 relative select-none cursor-pointer"
+                  key={filter?.id}
+                  onClick={() => {
+                    setOpenIndex(isOpen ? null : index);
+                  }}
                 >
-                  <h1 className="uppercase text-[0.9rem] text-center line-clamp-1">
-                    {filter?.attribute?.name}
-                  </h1>
-                  <i className="fa-solid absolute right-0 top-4 fa-chevron-down text-base ml-auto mr-2"></i>
-                </div>
-              </div>
-              {isOpen && (
-                <div
-                  className={`row-start-2 z-[20] bg-white border-l border-r border-b border-t border-t-white absolute w-full col-start-${
-                    index + 1
-                  }`}
-                >
-                  <div className="w-[90%] uppercase mx-auto pb-3.5">
-                    <Filter
-                      filter={filter}
-                      selectedFilters={selectedFilters}
-                      setSelectedFilters={setSelectedFilters}
-                    />
+                  <div
+                    className={` border-t border-t-transparent hover:border-t hover:border-t-croonus-4 relative py-2`}
+                  >
+                    <h1 className="uppercase text-[0.9rem] text-center line-clamp-1">
+                      {filter?.attribute?.name}
+                    </h1>
+                    <i className="fa-solid absolute right-0 top-2 fa-chevron-down text-base ml-auto mr-2"></i>
                   </div>
                 </div>
-              )}
-            </div>
-          );
-        })}
+                {isOpen && (
+                  <div
+                    className={`row-start-2 z-[20] bg-white border-l border-r border-b border-t border-t-white absolute w-full col-start-${
+                      index + 1
+                    }`}
+                  >
+                    <div className="w-[90%] uppercase mx-auto pb-3.5">
+                      <Filter
+                        filter={filter}
+                        selectedFilters={selectedFilters}
+                        setSelectedFilters={setSelectedFilters}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          <div
+            className="max-lg:hidden row-start-1 hover:border-black cursor-pointer border py-2 relative flex justify-center items-center gap-3 col-span-1 w-fit px-5"
+            onClick={() => {
+              setSelectedFilters([]);
+              setActiveFilters([]);
+              setFiltersOpen(false);
+            }}
+          >
+            <p className="uppercase text-[0.9rem]">PONIŠTI I ZATVORI</p>
+            <i className="fa-solid fa-chevron-left text-xs"></i>
+          </div>
+        </div>
       </div>
       <div className="grid max-lg:gap-x-5 2xl:grid-cols-5 3xl:grid-cols-6 grid-cols-2">
-        <div
-          className="mt-6 max-lg:hidden row-start-1 hover:border-black cursor-pointer border py-2 relative flex justify-center items-center gap-3 col-span-1 w-full"
-          onClick={() => setSelectedFilters([])}
-        >
-          <p className="uppercase text-[0.9rem]">Poništi filtere</p>
-          <i className="fa-solid fa-x text-xs"></i>
-        </div>
         <div className="col-span-2 max-lg:hidden mt-6 flex justify-end gap-5 items-center 2xl:col-start-5 3xl:col-start-5">
           <span className="uppercase font-normal text-[0.9rem]">
             Sortiraj po
