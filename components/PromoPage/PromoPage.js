@@ -9,6 +9,8 @@ import { Pagination } from "swiper";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const LandingPage = ({ slug }) => {
   const [loadingBasicData, setLoadingBasicData] = useState(true);
@@ -89,7 +91,7 @@ const LandingPage = ({ slug }) => {
                         priority
                         quality={100}
                         style={{ objectFit: "cover" }}
-                        className={`w-full h-auto`}
+                        className={`w-full h-auto max-h-[460px]`}
                       />
                     </div>
                   )
@@ -102,14 +104,14 @@ const LandingPage = ({ slug }) => {
                   <div
                     className={`${
                       data?.basic_data?.gallery?.length > 0
-                        ? `grid grid-cols-2 gap-x-5 gap-y-5`
+                        ? `grid grid-cols-2 gap-x-5 gap-y-5 w-full`
                         : ``
                     } mt-10`}
                   >
                     <div
                       className={`${
                         data?.basic_data?.gallery?.length > 0 &&
-                        `col-span-1 deffont`
+                        `col-span-1 max-sm:col-span-2`
                       }`}
                       dangerouslySetInnerHTML={{
                         __html: data?.basic_data?.description,
@@ -119,29 +121,38 @@ const LandingPage = ({ slug }) => {
                     <div
                       className={`${
                         data?.basic_data?.gallery?.length > 0
-                          ? `block`
+                          ? `block max-sm:col-span-2 col-span-1`
                           : `hidden`
                       }
                 `}
                     >
                       <Swiper
-                        style={{ width: "40%" }}
+                          style={{
+                            width: "60%",
+                            maxHeight: "500px",
+                            minHeight: "350px",
+                          }}
                         modules={[Pagination]}
                         pagination={{ clickable: true }}
                       >
                         {data?.basic_data?.gallery?.map((image) => {
                           return (
                             <SwiperSlide>
+                              <div className={``}>
+                              <div
+                                className={`max-sm:h-[350px] relative h-[500px] w-[500px]`}
+                              >
                               <Image
                                 src={convertHttpToHttps(image?.image)}
                                 alt={``}
-                                width={1920}
-                                height={263}
+                                fill
                                 priority
                                 quality={100}
                                 style={{ objectFit: "cover" }}
                                 className={`w-full h-auto`}
                               />
+                              </div>
+                              </div>
                             </SwiperSlide>
                           );
                         })}
