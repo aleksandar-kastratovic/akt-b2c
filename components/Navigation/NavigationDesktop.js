@@ -1,5 +1,5 @@
 "use client";
-import { get } from "@/app/api/api";
+import { get, list } from "@/app/api/api";
 import { useEffect, useState, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
@@ -10,10 +10,14 @@ import Wishlist from "../../assets/Icons/favorite.png";
 import Cart from "../../assets/Icons/shopping-bag.png";
 import Burger from "../../assets/Icons/burger.png";
 import Search from "../../assets/Icons/search.png";
+
+
 const NavigationDesktop = () => {
+
   const pathname = usePathname();
   const router = useRouter();
   const [categories, setCategories] = useState([]);
+  const [landingPagesList, setLandingPagesList] = useState([]);
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
@@ -45,6 +49,8 @@ const NavigationDesktop = () => {
   useEffect(() => {
     getCartCount();
   }, [getCartCount, cart]);
+
+
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await get("/categories/product/tree").then((response) =>
@@ -53,6 +59,18 @@ const NavigationDesktop = () => {
     };
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    const getLandingPages = async () => {
+      const data = await list(`/landing-pages/list`).then((response) =>
+        setLandingPagesList(response?.payload)
+      );
+    };
+    getLandingPages();
+  }, []);
+
+
+
   const handleSearch = (event) => {
     event.preventDefault();
     navigate(`/pretraga?query=${searchTerm}`);
@@ -203,6 +221,7 @@ const NavigationDesktop = () => {
                   );
                 })}
               </div>
+             
             </div>
           </div>
           <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-32 3xl:ml-20 hidescroll overflow-y-auto">
@@ -234,7 +253,26 @@ const NavigationDesktop = () => {
               </div>
             ))}
           </div>
+          
         </div>
+        <div className="fixed bottom-0 bg-croonus-1 text-white w-full py-1">
+          <div className="w-[85%] mx-auto flex">
+              {landingPagesList?.items?.map((item, index) => {
+                  return (
+                 <div key={index}>
+                    <Link
+                      href={`/promo/${item?.slug}`}
+                      key={item?.id}
+                      className="font-medium uppercase px-3 text-2xl py-1"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item?.name}
+                    </Link>
+                    </div>
+                  );
+                })}
+                </div>
+            </div>
       </div>
     </>
   );
