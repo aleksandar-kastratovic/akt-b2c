@@ -74,7 +74,7 @@ const ContactPage = () => {
             phone: "",
             email: "",
             mail_to: "",
-            subject: `Upit za proizvod ${product?.data?.item?.basic_data?.name} ${product?.data?.item?.basic_data?.sku}`,
+            subject: `Upit za proizvod ${product?.data?.item?.basic_data?.name} (${product?.data?.item?.basic_data?.sku})`,
             company_sector: "",
             message: `Poštovani, \n\nMolim Vas da na datu e-mail adresu pošaljete ponudu za proizvod ${product?.data?.item?.basic_data?.name} ${product?.data?.item?.basic_data?.sku}.\n\nHvala.`,
             accept_rules: false,
