@@ -167,6 +167,7 @@ const ProductsSlider = ({ products, text }) => {
       className={` flex flex-col !relative items-center keen-slider__slide number-slide${index}`}
     >
       <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[30.563rem] relative flex justify-center hover">
+      
         <Link
           href={`/proizvod/${item?.slug}`}
           className={`w-full`}
@@ -205,8 +206,17 @@ const ProductsSlider = ({ products, text }) => {
               className="h-full !z-50 "
               alt="akt"
             />
+           <div className="relative h-full">
+            {item?.stickers[0]?.name ? (
+                    <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
+                      <p>{item?.stickers[0]?.name}</p>
+                    </div>
+                  ) : null}
+            </div>
           </div>
+          
         </Link>
+       
         <div className="absolute bg-white py-0.5 bottom-5 w-[70%] flex justify-center divide-x items-center  divide-black hovered">
           <div className="flex items-center justify-center w-full">
             <Image
@@ -249,7 +259,8 @@ const ProductsSlider = ({ products, text }) => {
           </div>
         </div>
       </div>
-      <p className="text-black clamp self-start font-sm text-lg mt-2 uppercase">
+      <p className="text-black clamp self-start font-sm text-lg mt-2 uppercase ">
+        
         <Link
           className="font-normal text-[.9rem]"
           href={`/proizvod/${item?.slug}`}
@@ -257,7 +268,23 @@ const ProductsSlider = ({ products, text }) => {
           {item?.basic_data?.name}
         </Link>
       </p>
-      {renderPrices(item)}
+      {item?.price?.price?.original !== 0 ? (
+        <>
+         {renderPrices(item)}
+         </>) : (
+             <button
+             className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+             onClick={() => {
+    
+               router?.push(
+                    `/kontakt?slug=${item?.slug}`
+                  );
+            }}
+           >
+            <span className="text-[0.8rem]">Pošaljite upit</span>     
+           </button>
+          )}
+      
     </div>
   ));
 

@@ -12,7 +12,7 @@ import Variants from "../Variants/Variants";
 import { usePathname, useRouter } from "next/navigation";
 
 
-const ProductInfo = ({ products, description }) => {
+const ProductInfo = ({ products, description, badge }) => {
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
@@ -238,7 +238,12 @@ const ProductInfo = ({ products, description }) => {
 
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4">
+        {badge[0]?.name ? (
+                <div className="px-4 py-1 bg-croonus-1 w-fit text-white">
+                  <span>{badge[0]?.name}</span>
+                </div>
+              ) : null}
         <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-full self-start hyphens">
           {products?.data?.item?.basic_data?.name}
         </h1>
