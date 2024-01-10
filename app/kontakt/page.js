@@ -10,7 +10,7 @@ import Image from "next/image";
 import Map from "../../assets/mapa.png";
 import GoogleMapReact from "google-map-react";
 import pin from "../../assets/location-pin.png";
-
+import { useSearchParams } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { footerMapStyle } from "@/app/kontakt/footerMapStyle";
 
@@ -42,6 +42,9 @@ const ContactPage = () => {
   const [error, setError] = useState(true);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const [open, setOpen] = useState(false);
+  const params = useSearchParams();
+  const slug = params.get("slug");
+  const [product, setProduct] = useState(null);
 
   const verifyCaptcha = useCallback((token) => {
     setToken(token);
@@ -58,7 +61,30 @@ const ContactPage = () => {
     message: "",
     gcaptcha: token,
   });
-
+ useEffect(() => {
+    if (slug) {
+      const getProduct = async (slug) => {
+        const getProduct = await get(
+          `/product-details/basic-data/${slug}`
+        ).then((res) => {
+          setProduct(res?.payload);
+          setFormData({
+            page_section: "contact_page",
+            customer_name: "",
+            phone: "",
+            email: "",
+            mail_to: "",
+            subject: `Upit za proizvod ${product?.data?.item?.basic_data?.name} ${product?.data?.item?.basic_data?.sku}`,
+            company_sector: "",
+            message: `Poštovani, \n\nMolim Vas da na datu e-mail adresu pošaljete ponudu za proizvod ${product?.data?.item?.basic_data?.name} ${product?.data?.item?.basic_data?.sku}.\n\nHvala.`,
+            accept_rules: false,
+            gcaptcha: token,
+          });
+        });
+      };
+      getProduct(slug);
+    } else return;
+  }, [slug, product?.data?.item?.basic_data?.name, product?.data?.item?.basic_data?.sku]);
   const formChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
