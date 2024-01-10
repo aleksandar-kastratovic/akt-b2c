@@ -156,6 +156,9 @@ const Products = ({ products = [] }) => {
               });
             }}
           >
+            <div className="relative h-full">
+
+           
             {item?.image[0] ? (
               <Image
                 src={convertHttpToHttps(item?.image[0]?.toString())}
@@ -175,6 +178,14 @@ const Products = ({ products = [] }) => {
                 alt={`proizvod-${item?.basic_data?.name}`}
               />
             )}
+             
+            {item?.stickers[0]?.name ? (
+                    <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
+                      <p>{item?.stickers[0]?.name}</p>
+                    </div>
+                  ) : null}
+          
+            </div>
           </Link>
           <div className="absolute bg-white py-[2.5px] bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
             <div className="flex items-center justify-center w-full">
@@ -266,7 +277,22 @@ const Products = ({ products = [] }) => {
             {item?.basic_data?.name}
           </Link>
         </p>
-        {renderPrices(item)}
+        {item?.price?.price?.original !== 0 ? (
+        <>
+         {renderPrices(item)}
+         </>) : (
+             <button
+             className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+             onClick={() => {
+    
+               router?.push(
+                    `/kontakt?slug=${item?.slug}`
+                  );
+            }}
+           >
+            <span className="text-[0.8rem]">Pošaljite upit</span>     
+           </button>
+          )}
       </div>
     ));
   } else {

@@ -165,6 +165,7 @@ const Footer = () => {
         <Link href="/politika-privatnosti">Politika privatnosti</Link>
         <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
         <Link href="/o-nama">O nama</Link>
+        <Link href="/blog">Blog</Link>
         <Link href="/kontakt">Kontakt</Link>
       </div>
       <div
@@ -182,6 +183,7 @@ const Footer = () => {
           <Link href="/politika-privatnosti">Politika privatnosti</Link>
           <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
           <Link href="/o-nama">O nama</Link>
+          <Link href="/blog">Blog</Link>
           <Link href="/kontakt">Kontakt</Link>
         </div>
       )}

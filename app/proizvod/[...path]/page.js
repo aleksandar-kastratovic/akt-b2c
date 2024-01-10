@@ -14,6 +14,12 @@ const fetchProduct = async (id) => {
   }).then((response) => response?.payload);
   return response;
 };
+const getBadge = async (id) => {
+  const getBadge = await get(`/product-details/gallery/${id}`).then(
+    (response) => response?.payload?.stickers
+  );
+  return getBadge;
+};
 
 const fetchProductGallery = async (id) => {
   fetch = get;
@@ -93,7 +99,7 @@ const ProductPage = async ({ params: { path } }) => {
   const description = await fetchDescription(path[path?.length - 1]);
   const breadcrumbs = await getBreadcrumbs(path[path?.length - 1]);
   const recommended = await crosssellProductsList(path[path?.length - 1]);
-
+  const badge = await getBadge(path[path?.length - 1]);
   return (
     <>
       {products ? (
@@ -145,7 +151,7 @@ const ProductPage = async ({ params: { path } }) => {
               <div className="col-span-2 md:hidden">
                 <MobileImageSlider images={productGallery} />
               </div>
-              <ProductInfo products={products} description={description} />
+              <ProductInfo products={products} description={description} badge={badge}/>
               <div
                 className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}
               >

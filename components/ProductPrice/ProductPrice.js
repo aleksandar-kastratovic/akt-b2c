@@ -11,7 +11,8 @@ import Wishlist from "../../assets/Icons/bookmark.png";
 import Variants from "../Variants/Variants";
 import { usePathname, useRouter } from "next/navigation";
 
-const ProductInfo = ({ products, description }) => {
+
+const ProductInfo = ({ products, description, badge }) => {
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
@@ -19,6 +20,7 @@ const ProductInfo = ({ products, description }) => {
   const [productVariant, setProductVariant] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
+ console.log(products, "produkt")
 
   useEffect(() => {
     if (newURL) {
@@ -219,6 +221,7 @@ const ProductInfo = ({ products, description }) => {
             );
             break;
           case false:
+           
             return (
               <>
                 <p
@@ -235,7 +238,12 @@ const ProductInfo = ({ products, description }) => {
 
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4">
+        {badge[0]?.name ? (
+                <div className="px-4 py-1 bg-croonus-1 w-fit text-white">
+                  <span>{badge[0]?.name}</span>
+                </div>
+              ) : null}
         <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-full self-start hyphens">
           {products?.data?.item?.basic_data?.name}
         </h1>
@@ -315,7 +323,12 @@ const ProductInfo = ({ products, description }) => {
         {/*    </>*/}
         {/*  )}*/}
         {/*</p>*/}
-        {renderPrices(products?.data?.item)}
+       { products?.data?.item?.price?.price?.original !== 0 ? (
+        <>
+        {renderPrices(products?.data?.item)}</>
+       )
+       : null}
+        
       </div>
       <div>
         <h1 className="font-bold max-sm:hidden">
@@ -325,6 +338,7 @@ const ProductInfo = ({ products, description }) => {
         </h1>
       </div>
       {console.log(products?.data?.item?.price)}
+      
       {products?.product_type === "single" ? null : (
         <div className="py-10 max-md:py-7">
           <Variants
@@ -337,7 +351,7 @@ const ProductInfo = ({ products, description }) => {
           />
         </div>
       )}
-
+      { products?.data?.item?.price?.price?.original !== 0 ? (
       <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
         {products?.data?.item?.price?.discount?.active ? (
           <>
@@ -384,15 +398,23 @@ const ProductInfo = ({ products, description }) => {
             )}
           </>
         )}
+      </h1> ) : (
+        <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
+          Cena na upit
       </h1>
+      )}
+     
       <div className="flex items-center max-lg:justify-center max-md:mt-3 flex-row lg:flex-row gap-5 mt-6">
+      {products?.data?.item?.price?.price?.original !== 0 ? (
         <div className="col-span-1 max-lg:col-span-3">
           <PlusMinusInputOne
             amount={productAmount}
             setCount={setProductAmount}
           />
         </div>
+        ) : null}
         <div className="col-span-4 max-md:h-full self-stretch flex items-center gap-2">
+        {products?.data?.item?.price?.price?.original !== 0 ? (
           <button
             className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
             onClick={() => addToCart()}
@@ -405,7 +427,22 @@ const ProductInfo = ({ products, description }) => {
               alt="cart"
             />
             Dodaj u korpu
-          </button>
+          </button>) : (
+             <button
+             className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
+             onClick={() => {
+              productVariant
+                ? router?.push(`/kontakt?slug=${productVariant?.slug}`)
+                : router?.push(
+                    `/kontakt?slug=${products?.data?.item?.slug}`
+                  );
+            }}
+           >
+            
+                    <span className="py-2 px-4">Pošaljite upit</span>
+                  
+           </button>
+          )}
           <div className="lg:hover:bg-red-500 p-2 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
             <Image
               src={Wishlist}
