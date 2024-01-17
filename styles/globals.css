@@ -25,6 +25,7 @@
   font-size: 0.9rem;
   letter-spacing: 1px;
 }
+
 .clamp {
   overflow: hidden;
   text-overflow: ellipsis;

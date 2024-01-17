@@ -86,6 +86,7 @@ const NavigationDesktop = () => {
 
   return (
     <>
+    <div className="fixed-menu-container">
       <div className=" max-lg:hidden z-[100] lg:sticky lg:top-0">
         <div className="bg-croonus-1">
           <div className="w-[85%] flex items-center  justify-between mx-auto py-1">
@@ -178,12 +179,12 @@ const NavigationDesktop = () => {
       <div
         className={
           open
-            ? `translate-x-0 z-[99] flex h-screen w-screen transition-all duration-[600ms] fixed top-0 left-0 bg-white`
-            : `-translate-x-full z-[99] flex h-screen w-screen transition-all duration-[600ms] fixed top-0 left-0 bg-white`
+            ? `translate-x-0 z-[99] flex h-screen w-screen lg:w-[70%] 2xl:w-[60%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
+            : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[70%] 2xl:w-[60%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
         }
       >
-        <div className="w-[85%] h-[70%] my-auto mx-auto flex justify-start items-start">
-          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] w-[30%] 3xl:w-[25%] overflow-y-auto">
+        <div className="w-[94%] h-[70%] my-auto mx-auto flex justify-start items-start">
+          <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll border-r-4 border-[#f9f9f9] h-full pr-4">
             <div className="flex flex-col mt-10 ">
               {/*<div>*/}
               {/*  <a href="/novo">*/}
@@ -200,15 +201,17 @@ const NavigationDesktop = () => {
               <div className="flex flex-col mt-10">
                 {categories.map((item) => {
                   return item?.children ? (
-                    <span
+                    <Link
                       key={item.id}
+                      href={`/kategorije/${item?.slug_path}`}
                       className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
+                      onClick={() => setOpen(false)}
                       onMouseEnter={() => {
                         setSubcategory(item?.children);
                       }}
                     >
                       {item?.name}
-                    </span>
+                    </Link>
                   ) : (
                     <Link
                       href={`/kategorije/${item?.slug_path}`}
@@ -224,7 +227,8 @@ const NavigationDesktop = () => {
              
             </div>
           </div>
-          <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-32 3xl:ml-20 hidescroll overflow-y-auto">
+          {subCategory?.some((item) => item?.children && item?.children.length > 0) ? (
+            <div className="grid grid-cols-2 xl:grid-cols-2 3xl:grid-cols-2 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto ">
             {subCategory?.map((item) => (
               <div className="col-span-1 flex flex-col" key={item.id}>
                 <Link
@@ -253,7 +257,37 @@ const NavigationDesktop = () => {
               </div>
             ))}
           </div>
-          
+          ) : (
+            <div className="flex flex-col ml-[1.4rem] xl:ml-[2rem] mt-[4%]">
+            {subCategory?.map((item) => (
+              <div className="col-span-1 flex flex-col" key={item.id}>
+                <Link
+                  href={`/kategorije/${item?.slug_path}`}
+                  onClick={() => setOpen(false)}
+                >
+                  <h1 className="text-xl font-light hover:underline">
+                    {item?.name}
+                  </h1>
+                </Link>
+                <div className="mt-2 pl-2 ">
+                  {item?.children
+                    ? item?.children?.map((child) => (
+                        <Link
+                          href={`/kategorije/${child?.slug_path}`}
+                          key={child?.id}
+                          onClick={() => setOpen(false)}
+                        >
+                          <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
+                            <p className="">{child?.name}</p>
+                          </div>
+                        </Link>
+                      ))
+                    : null}
+                </div>
+              </div>
+            ))}
+            </div>
+          )}
         </div>
         <div className="fixed bottom-0 bg-croonus-1 text-white w-full py-1">
           <div className="w-[85%] mx-auto flex">
@@ -273,6 +307,7 @@ const NavigationDesktop = () => {
                 })}
                 </div>
             </div>
+      </div>
       </div>
     </>
   );
