@@ -9,6 +9,7 @@ import { FreeMode, Pagination, Thumbs } from "swiper";
 import Image from "next/image";
 import classes from "./styles.module.css";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+
 const ProductGallery = ({ productGallery }) => {
   function ImageMagnifier({
     src,
@@ -113,7 +114,7 @@ const ProductGallery = ({ productGallery }) => {
           src={convertHttpToHttps(image?.image)}
           fill
           priority
-          style={{ objectFit: "fill" }}
+          style={{ objectFit: "contain" }}
           className="cursor-pointer max-md:hidden"
         />
       </SwiperSlide>
