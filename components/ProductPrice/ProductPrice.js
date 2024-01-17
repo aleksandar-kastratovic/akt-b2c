@@ -269,6 +269,7 @@ const ProductInfo = ({ products, description, badge }) => {
             )}{" "}
           </span>
         </p>
+        
         <p className="font-bold mt-0 text-sm">
           Dostupno:{" "}
           <span className="font-medium">
