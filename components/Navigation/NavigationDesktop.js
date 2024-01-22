@@ -179,37 +179,27 @@ const NavigationDesktop = () => {
       <div
         className={
           open
-            ? `translate-x-0 z-[99] flex h-screen w-screen lg:w-[70%] 2xl:w-[60%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
-            : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[70%] 2xl:w-[60%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
+            ? `translate-x-0 z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
+            : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
         }
       >
         <div className="w-[94%] h-[70%] my-auto mx-auto flex justify-start items-start">
           <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll border-r-4 border-[#f9f9f9] h-full pr-4">
-            <div className="flex flex-col mt-10 ">
-              {/*<div>*/}
-              {/*  <a href="/novo">*/}
-              {/*    <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">*/}
-              {/*      Novo*/}
-              {/*    </h1>*/}
-              {/*  </a>*/}
-              {/*  <a href="/novo">*/}
-              {/*    <h1 className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white">*/}
-              {/*      Akcija*/}
-              {/*    </h1>*/}
-              {/*  </a>*/}
-              {/*</div>*/}
+            <div className="flex flex-col">
               <div className="flex flex-col mt-10">
                 {categories.map((item) => {
                   return item?.children ? (
                     <Link
                       key={item.id}
                       href={`/kategorije/${item?.slug_path}`}
-                      className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
+                      className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
                       onClick={() => setOpen(false)}
                       onMouseEnter={() => {
-                        setSubcategory(item?.children);
-                      }}
-                    >
+                       
+                        setTimeout(() => {
+                          setSubcategory(item?.children);
+                        }, 200);
+                      }}>
                       {item?.name}
                     </Link>
                   ) : (
@@ -228,7 +218,7 @@ const NavigationDesktop = () => {
             </div>
           </div>
           {subCategory?.some((item) => item?.children && item?.children.length > 0) ? (
-            <div className="grid grid-cols-2 xl:grid-cols-2 3xl:grid-cols-2 gap-x-10 gap-y-10 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto ">
+            <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 ">
             {subCategory?.map((item) => (
               <div className="col-span-1 flex flex-col" key={item.id}>
                 <Link
@@ -247,7 +237,7 @@ const NavigationDesktop = () => {
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
-                          <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
+                          <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
                             <p className="">{child?.name}</p>
                           </div>
                         </Link>
@@ -258,9 +248,9 @@ const NavigationDesktop = () => {
             ))}
           </div>
           ) : (
-            <div className="flex flex-col ml-[1.4rem] xl:ml-[2rem] mt-[4%]">
+            <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[2rem] 2xl:gap-x-20 self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150 w-full">
             {subCategory?.map((item) => (
-              <div className="col-span-1 flex flex-col" key={item.id}>
+              <div className="col-span-1 flex flex-col h-fit" key={item.id}>
                 <Link
                   href={`/kategorije/${item?.slug_path}`}
                   onClick={() => setOpen(false)}
