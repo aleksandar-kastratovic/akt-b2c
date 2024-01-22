@@ -368,13 +368,19 @@ const CategoriesPageDisplay = ({
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
         </h1>{" "}
+       
         {router?.asPath?.includes("search") ? null : (
+          <>
+           <h5 className="font-medium max-lg:text-center mt-3 uppercase text-[#a6a6a6]">
+           {categoryDataa?.basic_data?.short_description}
+           </h5>
           <p
-            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-10 font-light w-[95%] lg:w-[80%] max-lg:text-left"
+            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1.4rem] font-light w-[95%] lg:w-[80%] max-lg:text-left"
             dangerouslySetInnerHTML={{
               __html: categoryDataa.basic_data.description,
             }}
           ></p>
+          </>
         )}
       </div>
       <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
