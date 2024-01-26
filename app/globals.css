@@ -16,6 +16,20 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.firstImage {
+  opacity: 1;
+}
+.secondImage {
+  opacity: 0;
+}
+.hoverThumbImage:hover .firstImage {
+  opacity: 0;
+}
+.hoverThumbImage:hover .secondImage {
+
+    opacity: 1;
+  
+}
 .bganimate {
   position: relative;
   overflow: hidden;

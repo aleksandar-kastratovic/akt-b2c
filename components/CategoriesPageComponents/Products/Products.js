@@ -127,9 +127,9 @@ const Products = ({ products = [] }) => {
     items = products?.map((item, index) => (
       <div
         key={item.id}
-        className={` flex flex-col relative items-center keen-slider__slide number-slide${index}`}
+       
       >
-        <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center hover">
+        <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center">
           <Link
             href={`/proizvod/${item?.slug_path}`}
             onClick={() => {
@@ -156,29 +156,59 @@ const Products = ({ products = [] }) => {
               });
             }}
           >
-            <div className="relative h-full">
-
+            <div className="relative h-[400px] w-[400px]">
+              <div className="relative">
            
-            {item?.image[0] ? (
-              <Image
-                src={convertHttpToHttps(item?.image[0]?.toString())}
-                width={500}
-                height={500}
-                className="h-full object-cover"
-                priority={true}
-                alt={`proizvod-${item?.basic_data?.name}`}
-              />
+              {item?.image[0] ? (
+              <>
+                {item?.image[1] ? (
+                  <div className="relative w-[380px] h-[350px] 3xl:h-[470px] max-md:h-[400px] max-md:w-[94%] mx-auto hoverThumbImage">
+                    <Image
+                      src={convertHttpToHttps(item?.image[0])}
+                      alt={item?.basic_data?.name}
+                      fill={true}
+                      style={{ objectFit: "cover" }}
+                      className={`object-scale-down transition-all duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                      loading="lazy"
+                    />
+                    <Image
+                      src={convertHttpToHttps(item?.image[1])}
+                      alt={item?.basic_data?.name}
+                      fill={true}
+                      style={{ objectFit: "cover" }}
+                      className={`object-scale-down transition-all duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-[380px] h-[350px] 3xl:h-[470px] max-md:h-[400px] max-md:w-[94%] mx-auto">
+                  <Image
+                    src={convertHttpToHttps(item?.image[0])}
+                    alt={item?.basic_data?.name}
+                    fill={true}
+                    style={{ objectFit: "cover" }}
+                    className={`object-scale-down transition-all duration-200 opacity-100 object-cover w-full h-full`}
+                    loading="lazy"
+                  />
+                  </div>
+                )}
+              </>
             ) : (
-              <Image
-                src="/placeholder.jpg"
-                width={500}
-                height={500}
-                className="h-full object-cover"
-                priority={true}
-                alt={`proizvod-${item?.basic_data?.name}`}
-              />
-            )}
-             
+          <Image
+            src="/placeholder.jpg"
+            width={500}
+            height={500}
+            className="h-full object-cover"
+            priority={true}
+            alt={`proizvod-${item?.basic_data?.name}`}
+          />
+        )}
+
+
+
+
+
+             </div>
             {item?.stickers[0]?.name ? (
                     <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
                       <p>{item?.stickers[0]?.name}</p>
@@ -187,12 +217,15 @@ const Products = ({ products = [] }) => {
           
             </div>
           </Link>
-          <div className="absolute bg-white py-[2.5px] bottom-5 w-[70%] flex justify-center items-center divide-x divide-black hovered">
+         
+        </div>
+        <div className="text-start w-full pt-1">
+        <div className=" py-[3px] w-[70%] flex justify-center items-center divide-x-2 divide-black w-full border-b-2 border-black">
             <div className="flex items-center justify-center w-full">
               <Image
                 src={Wishlist}
-                width={28}
-                height={28}
+                width={40}
+                height={40}
                 alt="favorite"
                 className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
@@ -206,8 +239,8 @@ const Products = ({ products = [] }) => {
             <div className="flex items-center justify-center w-full">
               <Image
                 src={Cart}
-                width={32}
-                height={32}
+                width={46}
+                height={46}
                 alt="cart"
                 className="cursor-pointer hover:scale-110 transition-all duration-200"
                 onClick={() => {
@@ -245,54 +278,54 @@ const Products = ({ products = [] }) => {
               />
             </div>
           </div>
-        </div>
-        <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-          <Link
-            className="font-normal text-sm clamp"
-            href={`/proizvod/${item?.slug_path}`}
-            onClick={() => {
-              process?.env?.GTM_ENABLED === "true" &&
-                window?.dataLayer?.push({ ecommerce: null });
-              window?.dataLayer?.push({
-                event: "productClick",
-                ecommerce: {
-                  click: {
-                    products: [
-                      {
-                        name: item?.basic_data?.name,
-                        id: item?.basic_data?.id_product,
-                        price: item?.price?.price?.original,
-                        brand: item?.basic_data?.brand,
-                        category: item?.basic_data?.category,
-                        variant: item?.basic_data?.variant,
-                        list: "Search Results",
-                        position: index + 1,
-                      },
-                    ],
+          <p className="text-black self-start font-sm text-lg mt-2 uppercase">
+            <Link
+              className="font-normal text-sm clamp"
+              href={`/proizvod/${item?.slug_path}`}
+              onClick={() => {
+                process?.env?.GTM_ENABLED === "true" &&
+                  window?.dataLayer?.push({ ecommerce: null });
+                window?.dataLayer?.push({
+                  event: "productClick",
+                  ecommerce: {
+                    click: {
+                      products: [
+                        {
+                          name: item?.basic_data?.name,
+                          id: item?.basic_data?.id_product,
+                          price: item?.price?.price?.original,
+                          brand: item?.basic_data?.brand,
+                          category: item?.basic_data?.category,
+                          variant: item?.basic_data?.variant,
+                          list: "Search Results",
+                          position: index + 1,
+                        },
+                      ],
+                    },
                   },
-                },
-              });
-            }}
-          >
-            {item?.basic_data?.name}
-          </Link>
-        </p>
-        {item?.price?.price?.original !== 0 ? (
-        <>
-         {renderPrices(item)}
-         </>) : (
-             <button
-             className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-             onClick={() => {
-    
-               router?.push(
-                    `/kontakt?slug=${item?.slug}`
-                  );
-            }}
-           >
-            <span className="text-[0.8rem]">Pošaljite upit</span>     
-           </button>
-          )}
+                });
+              }}
+            >
+              {item?.basic_data?.name}
+            </Link>
+          </p>
+          {item?.price?.price?.original !== 0 ? (
+          <>
+          {renderPrices(item)}
+          </>) : (
+              <button
+              className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+              onClick={() => {
+      
+                router?.push(
+                      `/kontakt?slug=${item?.slug}`
+                    );
+              }}
+            >
+              <span className="text-[0.8rem]">Pošaljite upit</span>     
+            </button>
+            )}
+          </div>
       </div>
     ));
   } else {
