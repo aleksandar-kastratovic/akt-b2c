@@ -409,13 +409,13 @@ console.log("kat:", categories)
            
                   {categories?.childrens && 
                     categories.childrens.map((child) => (
-                      <div className="mx-1 max-md:my-1" key={child?.id}>
+                      <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
                         <Link
                           href={`/kategorije/${child?.slug_path}`}
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
-                           <div className={`text-sm font-light py-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
+                           <div className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
                             <p className="">{child?.basic_data?.name}</p>
                           </div>
                         </Link>
