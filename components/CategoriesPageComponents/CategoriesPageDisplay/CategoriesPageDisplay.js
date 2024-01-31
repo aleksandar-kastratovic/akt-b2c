@@ -415,7 +415,7 @@ console.log("kat:", categories)
                           key={child?.id}
                           onClick={() => setOpen(false)}
                         >
-                           <div className={`text-sm font-light py-2 px-4 hover:bg-croonus-2 whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
+                           <div className={`text-sm font-light py-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
                             <p className="">{child?.basic_data?.name}</p>
                           </div>
                         </Link>
