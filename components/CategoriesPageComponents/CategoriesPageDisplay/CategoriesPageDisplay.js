@@ -11,6 +11,10 @@ import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
 import Link from "next/link";
 import {ToastContainer} from "react-toastify";
+
+
+
+
 const CategoriesPageDisplay = ({
   filtersMap,
   filters,
@@ -18,7 +22,8 @@ const CategoriesPageDisplay = ({
   query,
   newProducts,
   categoryDataa,
-  productsDataResponse,
+  productsDataResponse, 
+  categories
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
@@ -27,8 +32,9 @@ const CategoriesPageDisplay = ({
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
   };
-
+console.log("kat:", categories)
   const router = useRouter();
+
   const [productNum, setProductNum] = useState(6);
   function handleClick() {
     setLoading(true);
@@ -231,6 +237,7 @@ const CategoriesPageDisplay = ({
   const onPageChange = (num) => {
     setPage(num);
   };
+  const currentSlug = categories?.slug;
   const products = productsData?.items;
   const pagination = productsData?.pagination;
   const [newProductsArray, setNewProductsArray] = useState(products);
@@ -288,7 +295,7 @@ const CategoriesPageDisplay = ({
   const uniqueBreadcrumbs = [
     ...new Set(breadcrumbs?.map((breadcrumb) => breadcrumb?.slug)),
   ];
-  console.log(categoryDataa);
+  
   return (
     <>
       <div className="w-full bg-croonus-5">
@@ -382,7 +389,44 @@ const CategoriesPageDisplay = ({
           ></p>
           </>
         )}
-      </div>
+
+                <div className="mt-[2rem] pl-2 flex">
+                {/* {categories?.parents && 
+                    categories.parents.map((parent) => (
+                      <div className="col-span-1 flex flex-col" key={parent?.id}>
+                        <Link
+                          href={`/kategorije/${parent?.slug_path}`}
+                          key={parent?.id}
+                          onClick={() => setOpen(false)}
+                        >
+                          <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
+                            <p className="">{parent?.name}</p>
+                          </div>
+                        </Link>
+                      </div>
+                    ))
+                  } */}
+           
+                  {categories?.childrens && 
+                    categories.childrens.map((child) => (
+                      <div className="mx-1" key={child?.id}>
+                        <Link
+                          href={`/kategorije/${child?.slug_path}`}
+                          key={child?.id}
+                          onClick={() => setOpen(false)}
+                        >
+                           <div className={`text-sm font-light py-2 px-4 hover:bg-croonus-2 whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
+                            <p className="">{child?.basic_data?.name}</p>
+                          </div>
+                        </Link>
+                      </div>
+                    ))
+                  }
+           
+            </div>
+    
+       
+  
       <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
         <Filters
           filters={availableFilters}
@@ -430,6 +474,7 @@ const CategoriesPageDisplay = ({
         )
       )}
       <ToastContainer />
+    </div>
     </>
     // <div className="py-12">
     //   <div className="relative z-10 flex flex-col items-center justify-between max-lg:gap-3 lg:flex-row">
