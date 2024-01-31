@@ -390,7 +390,7 @@ console.log("kat:", categories)
           </>
         )}
 
-                <div className="mt-[2rem] pl-2 flex">
+                <div className="mt-[2rem] pl-2 flex max-md:flex-wrap ">
                 {/* {categories?.parents && 
                     categories.parents.map((parent) => (
                       <div className="col-span-1 flex flex-col" key={parent?.id}>
@@ -409,7 +409,7 @@ console.log("kat:", categories)
            
                   {categories?.childrens && 
                     categories.childrens.map((child) => (
-                      <div className="mx-1" key={child?.id}>
+                      <div className="mx-1 max-md:my-1" key={child?.id}>
                         <Link
                           href={`/kategorije/${child?.slug_path}`}
                           key={child?.id}
