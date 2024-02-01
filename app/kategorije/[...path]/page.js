@@ -23,6 +23,13 @@ const fetchCategory = async (slug) => {
   return fetchCategory;
 };
 
+const fetchCategoryChildren = async (slug) => {
+  const fetchCategoryChildren = await get(`/categories/product/tree/branch/parent/${slug}`).then(
+    (response) => response?.payload
+  );
+  return fetchCategoryChildren;
+};
+
 const fetchFilters = async (slug) => {
   const fetchFilters = await post(`/products/category/filters/${slug}`).then(
     (response) => response?.payload
@@ -82,7 +89,7 @@ const CategoryPage = async ({ params: { path } }) => {
   const filters = await fetchFilters(path[path?.length - 1]);
   const newProducts = await fetchNewProducts();
   const products = await fetchProducts(path[path?.length - 1]);
-
+  const categories = await fetchCategoryChildren(path[path?.length - 1]);
   return (
     <>
       {categoryDataa ? (
@@ -93,6 +100,7 @@ const CategoryPage = async ({ params: { path } }) => {
           id={path[path?.length - 1]}
           newProducts={newProducts}
           productsDataResponse={products}
+          categories={categories}
         />
       ) : (
         notFound()

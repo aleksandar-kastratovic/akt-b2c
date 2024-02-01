@@ -15,6 +15,24 @@
 .hover:hover > .hovered {
   display: flex;
 }
+
+.firstImage {
+  opacity: 1;
+  background-color: red;
+  padding: 2rem;
+  display: none;
+}
+.secondImage {
+  opacity: 0;
+}
+.hoverThumbImage:hover .firstImage {
+  opacity: 0;
+}
+.hoverThumbImage:hover .secondImage {
+
+    opacity: 1;
+  
+}
 .loadMoreButton {
   margin: 3rem auto;
   display: flex;
@@ -24,6 +42,18 @@
   text-transform: uppercase;
   font-size: 0.9rem;
   letter-spacing: 1px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.category-item-enter {
+  animation: fadeIn 1s ease;
 }
 
 .clamp {
