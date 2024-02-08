@@ -204,10 +204,10 @@ const Products = ({ products = [] }) => {
   let items = null;
   if (products.length) {
     items = products?.map((item, index) => (
-      <div key={item.id}>
+      <div key={item.id} className={`col-span-1 group`}>
         <div className="w-full relative flex justify-center">
           <a
-              className={`w-full`}
+            className={`w-full`}
             href={`/proizvod/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
@@ -234,47 +234,18 @@ const Products = ({ products = [] }) => {
             }}
           >
             <div className="relative w-full">
-              <div className="relative w-full">
+              <div className="relative w-full overflow-hidden">
                 {item?.image[0] ? (
-                  <>
-                    {item?.image[1] ? (
-                      <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
-                        <Image
-                          src={convertHttpToHttps(item?.image[0])}
-                          alt={item?.basic_data?.name}
-                          width={0}
-                          height={0}
-                          sizes={`100vw`}
-                          style={{ objectFit: "cover" }}
-                          className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
-                          loading="lazy"
-                        />
-                        <Image
-                          src={convertHttpToHttps(item?.image[1])}
-                          alt={item?.basic_data?.name}
-                          width={0}
-                          height={0}
-                          sizes={`100vw`}
-                          style={{ objectFit: "cover" }}
-                          className={`transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
-                          loading="lazy"
-                        />
-                      </div>
-                    ) : (
-                      <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto">
-                        <Image
-                          src={convertHttpToHttps(item?.image[0])}
-                          alt={item?.basic_data?.name}
-                          width={0}
-                          height={0}
-                          sizes={`100vw`}
-                          style={{ objectFit: "cover" }}
-                          className={`transition-all duration-200 aspect-2/3 opacity-100 object-cover w-full `}
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-                  </>
+                  <Image
+                    src={convertHttpToHttps(item?.image[0])}
+                    alt={item?.basic_data?.name}
+                    width={0}
+                    height={0}
+                    sizes={`100vw`}
+                    style={{ objectFit: "cover" }}
+                    className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage group-hover:scale-110 `}
+                    loading="lazy"
+                  />
                 ) : (
                   <Image
                     src="/placeholder.jpg"
