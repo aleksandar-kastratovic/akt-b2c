@@ -24,14 +24,14 @@ const ProductItemTwo = ({ recommendedCategories2, indexBanner2 }) => {
           >
             {recommendedCategories2.basic_data.name}
           </h1>
-          <Link
+          <a
               href={`categories/${recommendedCategories2.id}`}
               className="hover:text-croonus-4"
             ><span className="text-base text-croonus-3 max-lg:bg-croonus-1 max-lg:py-1 max-lg:text-base">
             
               Pogledaj celu kolekciju
             
-          </span></Link>
+          </span></a>
         </div>
         <div className="col-span-2 mt-8 max-lg:col-span-3 max-lg:mt-3">
           <Image

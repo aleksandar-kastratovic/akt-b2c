@@ -27,7 +27,7 @@ const Filters = ({
     <>
       <div className={`relative ${!filtersOpen && "overflow-hidden"}`}>
         <div
-          className={`relative z-20 min-w-[125px] w-fit flex items-center gap-10 border px-3 py-2 cursor-pointer hover:border-black`}
+          className={`relative z-20 max-lg:hidden min-w-[125px] w-fit flex items-center gap-10 border px-3 py-2 cursor-pointer hover:border-black`}
           onClick={() => setFiltersOpen(!filtersOpen)}
         >
           <span className={`text-[0.9rem]`}>FILTERI</span>
@@ -135,8 +135,8 @@ const Filters = ({
         <div
           className={
             openModal
-              ? `fixed top-0 justify-between flex flex-col translate-x-0 transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
-              : `fixed top-0 justify-between flex flex-col -translate-x-full transition-all duration-[550ms] left-0 w-screen h-screen bg-white z-[200]`
+              ? `fixed top-0 justify-between flex flex-col translate-x-0 transition-all duration-[550ms] left-0 w-screen h-[100dvh] bg-white z-[200]`
+              : `fixed top-0 justify-between flex flex-col -translate-x-full transition-all duration-[550ms] left-0 w-screen h-[100dvh] bg-white z-[200]`
           }
         >
           <div className="flex flex-col h-full justify-between">

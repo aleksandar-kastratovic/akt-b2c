@@ -107,17 +107,17 @@ const ProductPage = async ({ params: { path } }) => {
           <div className="bg-[#f5f5f6] mt-3.5">
             <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
               <div className="flex items-center gap-[0.3rem] flex-wrap">
-                <Link
+                <a
                   href={`/`}
                   className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                 >
                   Početna
-                </Link>{" "}
+                </a>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
                 {breadcrumbs?.steps?.map((breadcrumb, index, arr) => {
                   return (
                     <div className="flex items-center gap-[0.1rem]">
-                      <Link
+                      <a
                         href={
                           index === arr.length - 1
                             ? `/kategorije/${breadcrumb?.slug}`
@@ -126,7 +126,7 @@ const ProductPage = async ({ params: { path } }) => {
                         className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                       >
                         {breadcrumb?.name}
-                      </Link>
+                      </a>
                       {index !== arr.length - 1 && (
                         <span className="text-[#191919] text-[0.85rem]">/</span>
                       )}
