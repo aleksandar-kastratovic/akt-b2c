@@ -159,14 +159,14 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-lg:hidden lg:w-[90%] mt-8 text-white text-base py-3 mx-auto bg-croonus-4 flex max-lg:flex-col justify-center items-center gap-10">
-        <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
-        <Link href="/uslovi">Uslovi korišćenja</Link>
-        <Link href="/kolacici">Politika o kolačićima</Link>
-        <Link href="/politika-privatnosti">Politika privatnosti</Link>
-        <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
-        <Link href="/o-nama">O nama</Link>
-        <Link href="/blog">Blog</Link>
-        <Link href="/kontakt">Kontakt</Link>
+        <a href="/pomoc-pri-kupovini">Pomoć pri kupovini</a>
+        <a href="/uslovi">Uslovi korišćenja</a>
+        <a href="/kolacici">Politika o kolačićima</a>
+        <a href="/politika-privatnosti">Politika privatnosti</a>
+        <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
+        <a href="/o-nama">O nama</a>
+        <a href="/blog">Blog</a>
+        <a href="/kontakt">Kontakt</a>
       </div>
       <div
         className="bg-croonus-1 py-5 justify-center text-white text-center font-normal flex items-center gap-5 lg:hidden mt-10"
@@ -177,14 +177,14 @@ const Footer = () => {
       </div>
       {open && (
         <div className="bg-[#2e2524] translate-y-0 transition-all max-md:text-xs justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden pt-3">
-          <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
-          <Link href="/uslovi">Uslovi korišćenja</Link>
-          <Link href="/kolacici">Politika o kolačićima</Link>
-          <Link href="/politika-privatnosti">Politika privatnosti</Link>
-          <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
-          <Link href="/o-nama">O nama</Link>
-          <Link href="/blog">Blog</Link>
-          <Link href="/kontakt">Kontakt</Link>
+          <a href="/pomoc-pri-kupovini">Pomoć pri kupovini</a>
+          <a href="/uslovi">Uslovi korišćenja</a>
+          <a href="/kolacici">Politika o kolačićima</a>
+          <a href="/politika-privatnosti">Politika privatnosti</a>
+          <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
+          <a href="/o-nama">O nama</a>
+          <a href="/blog">Blog</a>
+          <a href="/kontakt">Kontakt</a>
         </div>
       )}
 
@@ -236,7 +236,7 @@ const Footer = () => {
           />
         </div>
 
-        <Link
+        <a
           href="https://www.bancaintesa.rs"
           rel="noopener noreferrer"
           target="_blank"
@@ -250,8 +250,8 @@ const Footer = () => {
               className="object-scale-down"
             />
           </div>
-        </Link>
-        <Link
+        </a>
+        <a
           href="http://www.mastercard.com/rs/consumer/credit-cards.html"
           rel="noopener noreferrer"
           target="_blank"
@@ -265,8 +265,8 @@ const Footer = () => {
               className="object-scale-down max-sm:w-[100%]"
             />
           </div>
-        </Link>
-        <Link
+        </a>
+        <a
           href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html"
           rel="noopener noreferrer"
           target="_blank"
@@ -280,7 +280,7 @@ const Footer = () => {
               className="object-scale-down"
             />
           </div>
-        </Link>
+        </a>
       </div>
       <div className="w-[50%] mx-auto"></div>
       <div className="w-[95%] lg:w-[80%] mx-auto">

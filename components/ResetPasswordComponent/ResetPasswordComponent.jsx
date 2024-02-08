@@ -121,7 +121,7 @@ const ResetPasswordComponent = ({token}) => {
         <div className='mt-[3rem] mb-[6rem] mx-auto w-[90%] flex'>
           <ToastContainer />
             <div>
-                <Link href="/nalog">
+                <a href="/nalog">
                 <div className='bg-croonus-3 p-[0.4rem] mr-[4rem] ml-[1re] rounded-[50%] mt-[0.4rem] hover:translate-y-0.5 transition-all ease cursor-pointer text-white'>
                     <Image
                     src={back}
@@ -130,7 +130,7 @@ const ResetPasswordComponent = ({token}) => {
                     width={22}
                     height={22}/>
                 </div>
-                </Link>
+                </a>
             </div>
             <div></div>
         <div>

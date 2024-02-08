@@ -168,7 +168,7 @@ const ProductsSlider = ({ products, text }) => {
     >
       <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[30.563rem] relative flex justify-center hover">
       
-        <Link
+        <a
           href={`/proizvod/${item?.slug}`}
           className={`w-full`}
           onClick={() => {
@@ -215,7 +215,7 @@ const ProductsSlider = ({ products, text }) => {
             </div>
           </div>
           
-        </Link>
+        </a>
        
         <div className="absolute bg-white py-0.5 bottom-5 w-[70%] flex justify-center divide-x items-center  divide-black hovered">
           <div className="flex items-center justify-center w-full">
@@ -261,12 +261,12 @@ const ProductsSlider = ({ products, text }) => {
       </div>
       <p className="text-black clamp self-start font-sm text-lg mt-2 uppercase ">
         
-        <Link
+        <a
           className="font-normal text-[.9rem]"
           href={`/proizvod/${item?.slug}`}
         >
           {item?.basic_data?.name}
-        </Link>
+        </a>
       </p>
       {item?.price?.price?.original !== 0 ? (
         <>

@@ -173,11 +173,11 @@ const OrderSuccess = ({ order }) => {
                 informacije putem e-maila koji ste ostavili prilikom kreiranja
                 porudžbenice.
               </p>
-              <Link href="/">
+              <a href="/">
                 <button className="mt-10  bg-croonus-1 border py-2 px-3 text-white uppercase hover:bg-opacity-80">
                   Početna strana
                 </button>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="col-span-1 max-sm:row-start-1 place-self-center p-5">

@@ -9,7 +9,7 @@ import PlusMinusInputOne from "./PlusMinusInputOne";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import Link from "next/link";
 
-const CartProductItem = ({ item }) => {
+const CartProductItem = ({ item, refresh, setRefresh }) => {
   const [productAmount, setProductAmount] = useState(
     Number(item.cart.quantity)
   );
@@ -19,10 +19,11 @@ const CartProductItem = ({ item }) => {
   const addToCart = useGlobalAddToCart(true);
 
   useEffect(() => {
-    if (productAmount != item.cart.quantity) {
+    if (productAmount !== item.cart.quantity) {
       addToCart(item?.product?.id, productAmount, true);
+      setRefresh(!refresh);
     }
-  }, [productAmount, addToCart, item.cart.quantity, item?.product?.id]);
+  }, [productAmount, item?.product?.id]);
 
   const per_item = item?.product?.price?.per_item;
   const total = item?.product?.price?.cost;
@@ -32,7 +33,7 @@ const CartProductItem = ({ item }) => {
       <div className="col-span-2 grid grid-cols-3 gap-x-10 mt-1 relative">
         <div className="relative col-span-1 w-full flex items-center ">
           <div className="">
-            <Link href={`/proizvod/${item?.product?.slug}`}>
+            <a href={`/proizvod/${item?.product?.slug}`}>
               <Image
                 src={convertHttpToHttps(item?.product?.image[0])}
                 width={250}
@@ -40,19 +41,20 @@ const CartProductItem = ({ item }) => {
                 alt=""
                 className="object-cover h-full w-full"
               />
-            </Link>
+            </a>
           </div>
         </div>
         <div className="col-span-2 flex justify-evenly flex-col ">
-          <Link href={`/proizvod/${item?.product?.slug}`}>
+          <a href={`/proizvod/${item?.product?.slug}`}>
             <span className="text-base font-medium">
               {item?.product?.basic_data?.name}
             </span>
-          </Link>
+          </a>
           <span>Šifra: {item?.product?.basic_data?.sku}</span>
           <div className="flex items-center gap-3 max-md:hidden">
             <span>Količina</span>
             <PlusMinusInputOne
+              max={+item?.product?.inventory?.amount}
               amount={productAmount}
               setCount={setProductAmount}
             />

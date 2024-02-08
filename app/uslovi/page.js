@@ -55,12 +55,12 @@ const Uslovi = () => {
         Kontakt podaci – korisnički servis
       </h5>
       <span>Broj telefona: </span>
-      <Link
+      <a
         href={`tel:${process.env.TELEPHONE}`}
         className="underline font-semibold"
       >
         031 389 4222
-      </Link>
+      </a>
       <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
         Dostava robe i eventualna ograničenja
       </h5>
@@ -114,13 +114,13 @@ const Uslovi = () => {
       <p>
         Sve reklamacije na proizvode kupljene preko vebsajta Korisnik može
         izjaviti elektronski na e-mail adresu{" "}
-        <Link href="mailto:webshop@stefantekstil.rs" className="underline">
+        <a href="mailto:webshop@stefantekstil.rs" className="underline">
           webshop@stefantekstil.rs
-        </Link>{" "}
+        </a>{" "}
         ili uputiti na broj korisničkog servisa{" "}
-        <Link href="tel:0313894222" className="underline">
+        <a href="tel:0313894222" className="underline">
           031/3894-222
-        </Link>
+        </a>
         .
       </p>
       <p>
@@ -153,9 +153,9 @@ const Uslovi = () => {
         Ukoliko korisnik želi da odustane od ugovora o kupovini proizvoda koji
         je zaključen putem vebsajta, to može učiniti slanjem obrasca za
         odustanak od ugovora elektronski na mail adresu{" "}
-        <Link href="mailto:webshop@stefantekstil.rs" className="underline">
+        <a href="mailto:webshop@stefantekstil.rs" className="underline">
           webshop@stefantekstil.rs
-        </Link>{" "}
+        </a>{" "}
         ili na drugi nedvosmislen način.
       </p>
       <p>
