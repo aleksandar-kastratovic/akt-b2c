@@ -1,6 +1,6 @@
 "use client";
 import { get, list } from "@/app/api/api";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef} from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
 import Link from "next/link";
@@ -10,7 +10,8 @@ import Wishlist from "../../assets/Icons/favorite.png";
 import Cart from "../../assets/Icons/shopping-bag.png";
 import Burger from "../../assets/Icons/burger.png";
 import Search from "../../assets/Icons/search.png";
-
+import useDebounce from "@/hooks/useDebounce";
+import { currencyFormat } from "@/helpers/functions";
 
 const NavigationDesktop = () => {
 
@@ -26,6 +27,13 @@ const NavigationDesktop = () => {
   const [open, setOpen] = useState(false);
   const [subCategory, setSubcategory] = useState();
   const [loading, setLoading] = useState(false);
+  const [background, setBackground] = useState("transparent");
+  let category = false;
+  if (pathname === "/") {
+    category = false;
+  } else {
+    category = true;
+  }
   const getCartCount = useCallback(() => {
     get("/cart/badge-count")
       .then((response) => {
@@ -50,6 +58,28 @@ const NavigationDesktop = () => {
     getCartCount();
   }, [getCartCount, cart]);
 
+  useEffect(() => {
+    if (category) {
+      setBackground("white");
+    }
+
+    function handleScroll() {
+      if (category) {
+        setBackground("white");
+      } else {
+        if (window.scrollY > 0 && !category) {
+          setBackground("white");
+        } else {
+          setBackground("transparent");
+        }
+      }
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [category, background]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -83,7 +113,46 @@ const NavigationDesktop = () => {
       router?.refresh();
     }
   }, [pathname]);
+  const [searchData, setSearchData] = useState([]);
 
+
+  const debouncedSearch = useDebounce(searchTerm, 500);
+
+  useEffect(() => {
+    if (searchTerm?.length > 0) {
+      const getData = async (debouncedSearch) => {
+        await list(`/products/search/list`, {
+          search: debouncedSearch,
+        }).then((response) => {
+          setSearchData(response?.payload);
+          setLoading(false);
+         
+        });
+      };
+      getData(debouncedSearch);
+    }
+  }, [debouncedSearch]);
+
+  const searchRef = useRef(null);
+  const searchImgRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target) &&
+        !searchImgRef.current.contains(event.target)
+      ) {
+        setSearchTerm("");
+        setSearchData([]);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchRef]);
+  
+  console.log("konz", searchData)
   return (
     <>
     <div className="fixed-menu-container">
@@ -127,17 +196,25 @@ const NavigationDesktop = () => {
                 />
               </Link>
             </div>
-            <div className="flex items-center gap-24 ">
-              <form
-                className="flex items-center gap-4 relative"
+            <div className="flex items-center gap-[3rem] ">
+              {/* <form
+             
+                className={`${
+                  searchTerm?.length > 0 ? `w-[25rem]` : `w-60`
+              } transition-all duration-500 relative flex items-center gap-4 relative`}
                 onSubmit={handleSearch}
+                ref={searchImgRef}
               >
                 <input
                   type="text"
                   name="search"
                   placeholder="Unesite pojam za pretragu..."
+             
+                  onInput={(event) => {
+                    setSearchTerm(event.target.value);
+                    setLoading(true);
+                  }}
                   value={searchTerm}
-                  onChange={({ target }) => setSearchTerm(target.value)}
                   className="border-t-0 h-6 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 font-light"
                 ></input>
                 <Image
@@ -148,7 +225,128 @@ const NavigationDesktop = () => {
                   onClick={handleSearch}
                   alt="search"
                 />
+              </form> */}
+               <div className="flex items-center gap-5 relative">
+              
+              <form
+                  onSubmit={handleSearch}
+                  className={`${
+                      searchTerm?.length > 0 ? `w-[25rem]` : `w-60`
+                  } transition-all duration-500 relative`}
+              >
+                <input
+                    type="text"
+                    placeholder="PRETRAGA"
+                    className={`bg-transparent border-l-0 w-full border-t-0 border-r-0 border-b ${
+                        background === "white"
+                            ? "border-b-black text-black"
+                            : "border-b-white focus:border-b-white "
+                    }  focus:ring-0 placeholder:text-sm text-sm p-0 focus:border-b-black  focus:outline-none`}
+                    onInput={(event) => {
+                      setSearchTerm(event.target.value);
+                      setLoading(true);
+                    }}
+                    value={searchTerm}
+                />
+                  {searchTerm?.length < 3 && searchTerm?.length >= 1 && (
+                    <span className={`absolute text-sm top-1 right-2 text-red-500`}>
+                        Unesite bar 3 karaktera
+                    </span>
+                )}
+                
+                <div
+                    ref={searchRef}
+                    className={`${
+                    searchTerm?.length > 0
+                      ? `absolute flex flex-col h-[420px] hidescrollbar overflow-y-auto bg-white top-[30px] right-0 w-full border rounded-b-lg`
+                      : `hidden`
+                  } `}
+                >
+                  {searchData?.items?.length > 0 && searchTerm?.length > 0 && (
+                    <div className="w-[95%] mx-auto mt-5">
+                      <h1 className="text-[1rem] font-normal">
+                        Rezultati pretrage
+                      </h1>
+                      <div className="flex flex-col gap-5 mt-3 pb-5">
+                        {searchData?.items?.slice(0, 6)?.map((item) => {
+                          
+                          return (
+                            <Link
+                              href={`/proizvod/${item?.slug_path}`}
+                              onClick={(e) => {
+                                setSearchData([]);
+                                setSearchTerm("");
+                              }}
+                            >
+                              <div className="flex flex-row items-center gap-5">
+                                <div className="w-[60px] h-[60px] relative">
+                                  <Image
+                                    src={item?.image[0]}
+                                    alt={``}
+                                    fill
+                                    className={`object-cover rounded-full`}
+                                  />
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                  <h1 className="text-[0.9rem] font-normal">
+                                    {item?.basic_data?.name}
+                                  </h1>
+                                  <h1 className="text-[0.9rem] w-fit bg-[#f8ce5d] px-2 font-bold text-center">
+                                    {currencyFormat(
+                                      item?.price?.price?.discount ??
+                                        item?.price?.price?.original
+                                    )}
+                                  </h1>
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  {loading && (
+                    <div className={`w-[95%] mx-auto text-center mt-5`}>
+                      <i
+                        className={`fas fa-spinner fa-spin text-xl text-black`}
+                      ></i>
+                    </div>
+                  )}
+                  {!loading && (
+                    <div
+                      className={`sticky bottom-0 w-full bg-croonus-2 py-2 mt-auto text-center hover:bg-opacity-80`}
+                    >
+                      <button
+                        onClick={() => {
+                          handleSearch();
+                          setSearchData([]);
+                        }}
+                        className={` w-full h-full font-light text-center`}
+                      >
+                        Prikaži sve rezultate (
+                        {searchData?.pagination?.total_items > 10
+                          ? `još ${searchData?.pagination?.total_items - 10}`
+                          : `Pretraži`}
+                        )
+                      </button>
+                    </div>
+                  )}
+                </div>
               </form>
+              <Image
+                  ref={searchImgRef}
+                  src={Search}
+                  width={28}
+                  height={28}
+                  alt=""
+                  onClick={handleSearch}
+                  className={
+                    background === "white"
+                        ? "cursor-pointer "
+                        : "cursor-pointer"
+                  }
+              />
+            </div>
               <div className="flex items-center gap-5">
                 <div className="relative">
                   <Link href="/lista-zelja">
