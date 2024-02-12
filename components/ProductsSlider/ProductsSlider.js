@@ -160,14 +160,91 @@ const ProductsSlider = ({ products, text }) => {
         }
     }
   };
-  console.log("TETETETWTE", products);
+
+  const renderDiscountPercentage = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <div className="absolute top-2 right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            return null;
+            break;
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
+            );
+            break;
+          case false:
+            return null;
+            break;
+        }
+    }
+  };
+
   const product = products.map((item, index) => (
     <div
       key={item.id}
       className={` flex flex-col !relative items-center keen-slider__slide number-slide${index}`}
     >
       <div className="max-lg:h-[429px] w-full h-[360px] 3xl:h-[30.563rem] relative flex justify-center hover">
-      
         <a
           href={`/proizvod/${item?.slug}`}
           className={`w-full`}
@@ -206,17 +283,19 @@ const ProductsSlider = ({ products, text }) => {
               className="h-full !z-50 "
               alt="akt"
             />
-           <div className="relative h-full">
-            {item?.stickers[0]?.name ? (
-                    <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
-                      <p>{item?.stickers[0]?.name}</p>
-                    </div>
-                  ) : null}
+            {item?.price?.discount?.active && (
+              <>{renderDiscountPercentage(item)}</>
+            )}
+            <div className="relative h-full">
+              {item?.stickers[0]?.name ? (
+                <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
+                  <p>{item?.stickers[0]?.name}</p>
+                </div>
+              ) : null}
             </div>
           </div>
-          
         </a>
-       
+
         <div className="absolute bg-white py-0.5 bottom-5 w-[70%] flex justify-center divide-x items-center  divide-black hovered">
           <div className="flex items-center justify-center w-full">
             <Image
@@ -260,7 +339,6 @@ const ProductsSlider = ({ products, text }) => {
         </div>
       </div>
       <p className="text-black clamp self-start font-sm text-lg mt-2 uppercase ">
-        
         <a
           className="font-normal text-[.9rem]"
           href={`/proizvod/${item?.slug}`}
@@ -269,22 +347,17 @@ const ProductsSlider = ({ products, text }) => {
         </a>
       </p>
       {item?.price?.price?.original !== 0 ? (
-        <>
-         {renderPrices(item)}
-         </>) : (
-             <button
-             className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-             onClick={() => {
-    
-               router?.push(
-                    `/kontakt?slug=${item?.slug}`
-                  );
-            }}
-           >
-            <span className="text-[0.8rem]">Pošaljite upit</span>     
-           </button>
-          )}
-      
+        <>{renderPrices(item)}</>
+      ) : (
+        <button
+          className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+          onClick={() => {
+            router?.push(`/kontakt?slug=${item?.slug}`);
+          }}
+        >
+          <span className="text-[0.8rem]">Pošaljite upit</span>
+        </button>
+      )}
     </div>
   ));
 

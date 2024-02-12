@@ -21,7 +21,10 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
   useEffect(() => {
     if (productAmount !== item.cart.quantity) {
       addToCart(item?.product?.id, productAmount, true);
-      setRefresh(!refresh);
+      const timeout = setTimeout(() => {
+        setRefresh(!refresh);
+      }, 500);
+      return () => clearTimeout(timeout);
     }
   }, [productAmount, item?.product?.id]);
 
@@ -57,6 +60,7 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
               max={+item?.product?.inventory?.amount}
               amount={productAmount}
               setCount={setProductAmount}
+              onClick={() => setRefresh(!refresh)}
             />
           </div>
           <div className="flex items-center gap-3 md:hidden">
@@ -69,6 +73,7 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => {
             removeFromCart(item?.product?.id);
+            setRefresh(!refresh);
             if (process?.env?.GTM_ENABLED === "true") {
               window?.dataLayer?.push({
                 ecommerce: null,

@@ -27,6 +27,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     router.back();
   }
   const [refresh, setRefresh] = useState(false);
+  console.log(refresh)
   const [cart, mutateCart] = useCartContext();
   const [cartData, setCartData] = useState([]);
   const [secondAddress, setSecondAddress] = useState(false);

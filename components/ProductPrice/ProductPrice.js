@@ -417,7 +417,38 @@ const ProductInfo = ({ products, description, badge }) => {
           </div>
         ) : null}
         <div className="col-span-4 max-md:h-full self-stretch flex items-center gap-2">
-          {products?.data?.item?.price?.price?.original !== 0 ? (
+          {productVariant?.id ? (
+            productVariant.inventory?.inventory_defined &&
+            productVariant?.price?.price_defined ? (
+              <button
+                className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
+                onClick={() => addToCart()}
+              >
+                <Image
+                  className="invert"
+                  width={40}
+                  height={40}
+                  src={Cart}
+                  alt="cart"
+                />
+                Dodaj u korpu
+              </button>
+            ) : (
+              <button
+                className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
+                onClick={() => {
+                  productVariant
+                    ? router?.push(`/kontakt?slug=${productVariant?.slug}`)
+                    : router?.push(
+                        `/kontakt?slug=${products?.data?.item?.slug}`
+                      );
+                }}
+              >
+                <span className="py-2 px-4">Pošaljite upit</span>
+              </button>
+            )
+          ) : products?.data?.item?.inventory?.inventory_defined &&
+            products?.data?.item?.price?.price_defined ? (
             <button
               className="relative max-md:h-full hover:bg-opacity-80 flex items-center gap-2 max-[361px]:pr-5 min-[375px]:px-5 justify-center py-1 bg-croonus-1 text-white font-medium"
               onClick={() => addToCart()}
@@ -443,6 +474,7 @@ const ProductInfo = ({ products, description, badge }) => {
               <span className="py-2 px-4">Pošaljite upit</span>
             </button>
           )}
+
           <div className="lg:hover:bg-red-500 p-2 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
             <Image
               src={Wishlist}
