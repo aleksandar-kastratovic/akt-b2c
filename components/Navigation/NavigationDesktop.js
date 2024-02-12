@@ -16,24 +16,31 @@ import { currencyFormat } from "@/helpers/functions";
 const NavigationDesktop = () => {
 
   const pathname = usePathname();
-  const router = useRouter();
+
   const [categories, setCategories] = useState([]);
-  const [landingPagesList, setLandingPagesList] = useState([]);
+
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [cart, , wishList] = useCartContext();
   const [wishListCount, setWishListCount] = useState(0);
-  const [open, setOpen] = useState(false);
+
   const [subCategory, setSubcategory] = useState();
-  const [loading, setLoading] = useState(false);
-  const [background, setBackground] = useState("transparent");
+
   let category = false;
   if (pathname === "/") {
     category = false;
   } else {
     category = true;
   }
+  useEffect(() => {
+    const getCategories = async () => {
+      const data = await get("/categories/product/tree").then((response) =>
+        setCategories(response?.payload)
+      );
+    };
+    getCategories();
+  }, []);
   const getCartCount = useCallback(() => {
     get("/cart/badge-count")
       .then((response) => {
@@ -58,6 +65,34 @@ const NavigationDesktop = () => {
     getCartCount();
   }, [getCartCount, cart]);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    router.push(`/search?search=${searchTerm}`);
+    setSearchTerm("");
+  };
+  const [isActive, setIsActive] = useState(1);
+  const [activeCategory, setActiveCategory] = useState();
+  const [height, setHeight] = useState(0);
+
+
+  useEffect(() => {
+    const category = categories.filter((category) => category?.id === isActive);
+    setIsActive(category[0]?.id);
+  }, [isActive]);
+
+  useEffect(() => {
+    const slider = document.getElementById("slider");
+    const sliderHeight = slider?.offsetHeight;
+    setHeight(sliderHeight);
+  });
+  const [open, setOpen] = useState(false);
+  const [isActiveSubcategory, setIsActiveSubcategory] = useState({
+    id: undefined,
+    slug: undefined,
+  });
+  const [activeSubSubCategory, setActiveSubSubCategory] = useState();
+  const [background, setBackground] = useState("transparent");
+
   useEffect(() => {
     if (category) {
       setBackground("white");
@@ -74,6 +109,7 @@ const NavigationDesktop = () => {
         }
       }
     }
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -81,31 +117,36 @@ const NavigationDesktop = () => {
     };
   }, [category, background]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await get("/categories/product/tree").then((response) =>
-        setCategories(response?.payload)
-      );
-    };
-    fetchCategories();
-  }, []);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const getLandingPages = async () => {
-      const data = await list(`/landing-pages/list`).then((response) =>
-        setLandingPagesList(response?.payload)
-      );
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setVisible((scrollY === 0 && pathname === "/") || (open && scrollY > 0));
+      pathname?.includes("/kategorija" || "/proizvod") &&
+        setVisible(false) &&
+        setOpen(false);
     };
-    getLandingPages();
-  }, []);
 
+    window.addEventListener("scroll", handleScroll);
 
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [open, pathname]);
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    navigate(`/pretraga?query=${searchTerm}`);
-    setSearchTerm("");
-  };
+  useEffect(() => {
+    setVisible(true);
+  }, [open]);
+
+  useEffect(() => {
+    if (categories) {
+      setIsActive(categories[0]?.id);
+      setActiveCategory(categories[0]);
+    }
+  }, [categories]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (pathname?.includes("/korpa/")) {
@@ -113,20 +154,43 @@ const NavigationDesktop = () => {
       router?.refresh();
     }
   }, [pathname]);
-  const [searchData, setSearchData] = useState([]);
 
+  useEffect(() => {
+    const handleMouseOutsideOfBrowserViewport = (event) => {
+      if (event.clientY <= 0) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseOutsideOfBrowserViewport);
+    return () => {
+      window.removeEventListener(
+        "mousemove",
+        handleMouseOutsideOfBrowserViewport
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (pathname?.includes("/kategorija" || "/proizvod")) {
+      setOpen(false);
+      setVisible(false);
+    }
+  }, [pathname]);
+
+  const [searchData, setSearchData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    if (searchTerm?.length > 0) {
+    if (searchTerm?.length >= 3) {
       const getData = async (debouncedSearch) => {
         await list(`/products/search/list`, {
           search: debouncedSearch,
         }).then((response) => {
           setSearchData(response?.payload);
           setLoading(false);
-         
         });
       };
       getData(debouncedSearch);
@@ -135,6 +199,7 @@ const NavigationDesktop = () => {
 
   const searchRef = useRef(null);
   const searchImgRef = useRef(null);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -151,8 +216,19 @@ const NavigationDesktop = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [searchRef]);
-  
-  console.log("konz", searchData)
+
+  const [landingPagesList, setLandingPagesList] = useState([]);
+
+  useEffect(() => {
+    const getLandingPages = async () => {
+      const data = await list(`/landing-pages/list`).then((response) =>
+        setLandingPagesList(response?.payload)
+      );
+    };
+    getLandingPages();
+  }, []);
+
+
   return (
     <>
     <div className="fixed-menu-container">
@@ -226,7 +302,7 @@ const NavigationDesktop = () => {
                   alt="search"
                 />
               </form> */}
-               <div className="flex items-center gap-5 relative">
+               <div className="flex items-center gap-4 relative">
               
               <form
                   onSubmit={handleSearch}
@@ -236,15 +312,17 @@ const NavigationDesktop = () => {
               >
                 <input
                     type="text"
-                    placeholder="PRETRAGA"
+                    placeholder="Unesite pojam za pretragu..."
                     className={`bg-transparent border-l-0 w-full border-t-0 border-r-0 border-b ${
                         background === "white"
                             ? "border-b-black text-black"
-                            : "border-b-white focus:border-b-white "
+                            : "border-b-black "
                     }  focus:ring-0 placeholder:text-sm text-sm p-0 focus:border-b-black  focus:outline-none`}
                     onInput={(event) => {
                       setSearchTerm(event.target.value);
-                      setLoading(true);
+                      if (event.target.value.length >= 3) {
+                        setLoading(true);
+                      }
                     }}
                     value={searchTerm}
                 />
@@ -269,7 +347,7 @@ const NavigationDesktop = () => {
                       </h1>
                       <div className="flex flex-col gap-5 mt-3 pb-5">
                         {searchData?.items?.slice(0, 6)?.map((item) => {
-                          
+                          console.log(searchData, "dataaaa")
                           return (
                             <Link
                               href={`/proizvod/${item?.slug_path}`}
@@ -336,8 +414,8 @@ const NavigationDesktop = () => {
               <Image
                   ref={searchImgRef}
                   src={Search}
-                  width={28}
-                  height={28}
+                  width={26}
+                  height={26}
                   alt=""
                   onClick={handleSearch}
                   className={
