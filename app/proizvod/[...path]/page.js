@@ -151,7 +151,11 @@ const ProductPage = async ({ params: { path } }) => {
               <div className="col-span-2 md:hidden">
                 <MobileImageSlider images={productGallery} />
               </div>
-              <ProductInfo products={products} description={description} badge={badge}/>
+              <ProductInfo
+                products={products}
+                description={description}
+                badge={badge}
+              />
               <div
                 className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}
               >

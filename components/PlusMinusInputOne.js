@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-const PlusMinusInputOne = ({ className, amount, setCount, max }) => {
+const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
   // If minus is clicked
   const onMinusHandler = (e) => {
     e.preventDefault();
@@ -38,7 +38,10 @@ const PlusMinusInputOne = ({ className, amount, setCount, max }) => {
       <div className="flex items-center w-full">
         <span
           className="cursor-pointer text-lg select-none"
-          onClick={onMinusHandler}
+          onClick={(e) => {
+            onMinusHandler(e);
+            props.onClick();
+          }}
         >
           -
         </span>
@@ -47,12 +50,18 @@ const PlusMinusInputOne = ({ className, amount, setCount, max }) => {
           maxLength="2"
           type="number"
           value={amount}
-          onChange={onInputChange}
+          onChange={(e) => {
+            onInputChange(e);
+            props.onClick();
+          }}
           className="w-12 text-center bg-[#fbfbfb] focus:border-none focus:outline-none focus:ring-0 select-none font-bold border-none"
         ></input>
         <span
           className="cursor-pointer text-lg select-none"
-          onClick={onPlusHandler}
+          onClick={(e) => {
+            onPlusHandler(e);
+            props.onClick();
+          }}
         >
           +{" "}
         </span>

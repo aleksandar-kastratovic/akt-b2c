@@ -68,14 +68,10 @@ const NavigationDesktop = () => {
   }, []);
 
   const handleSearch = (event) => {
+    event.preventDefault();
     if (searchTerm?.length >= 3) {
-      event.preventDefault();
       navigate(`/pretraga?query=${searchTerm}`);
       setSearchTerm("");
-    } else {
-      toast.error("Unesite barem 3 karaktera", {
-        position: "top-center",
-      });
     }
   };
 
@@ -95,10 +91,7 @@ const NavigationDesktop = () => {
               <a href={`tel:0313894222`} className="text-white text-sm">
                 Call centar: 031 / 3894 - 222
               </a>
-              <a
-                href="/nalog"
-                className="text-white text-sm hover:underline"
-              >
+              <a href="/nalog" className="text-white text-sm hover:underline">
                 Moj profil
               </a>
             </div>
@@ -144,7 +137,14 @@ const NavigationDesktop = () => {
                     value={searchTerm}
                     onChange={({ target }) => setSearchTerm(target.value)}
                     className="border-t-0 h-6 border-l-0 border-r-0 border-b bg-transparent text-black placeholder:text-black text-sm border-b-black focus:border-b-black w-60 focus:border-l-0 focus:border-t-0 focus:border-r-0 focus:ring-0 focus:outline-none placeholder:absolute placeholder:bottom-0 placeholder:left-2 font-light"
-                  ></input>
+                  />
+                  {searchTerm?.length >= 1 && searchTerm?.length < 3 && (
+                    <div
+                      className={`absolute bottom-0 right-2 text-xs text-red-500`}
+                    >
+                      <span>Unesite barem 3 karaktera</span>
+                    </div>
+                  )}
                   <Image
                     src={Search}
                     width={25}

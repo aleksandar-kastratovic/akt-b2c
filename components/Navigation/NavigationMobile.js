@@ -46,7 +46,7 @@ const NavigationMobile = () => {
         }
       );
     };
-    fetchSearchData();
+    searchTerm?.length >= 3 && fetchSearchData();
   }, [search]);
   useEffect(() => {
     const disableBodyScroll = () => {
@@ -62,17 +62,13 @@ const NavigationMobile = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {
+    event.preventDefault();
     if (searchTerm?.length >= 3) {
-      event.preventDefault();
       navigate(`/pretraga?query=${searchTerm}`);
       setSearchTerm("");
       setSearchOpen(false);
       setOpen(false);
       setSearch("");
-    } else {
-      toast.error("Unesite barem 3 karaktera", {
-        position: "top-center",
-      });
     }
   };
 
@@ -155,6 +151,13 @@ const NavigationMobile = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onInput={(e) => setSearch(e.target.value)}
               />
+              {searchTerm?.length >= 1 && searchTerm?.length < 3 && (
+                <div
+                  className={`absolute top-[0.8rem] right-[2.25rem] text-xs text-red-500`}
+                >
+                  <span>Unesite barem 3 karaktera</span>
+                </div>
+              )}
               <i
                 onClick={handleSearch}
                 className="absolute right-2 cursor-pointer fa-solid fa-search text-gray-400"
@@ -169,7 +172,7 @@ const NavigationMobile = () => {
               }}
             ></i>
           </form>
-          {search.length > 0 ? (
+          {search.length >= 3 ? (
             <div className="absolute top-[3.5rem] w-full bg-white shadow-xl rounded-b-lg  ">
               <div className="flex flex-col gap-2 w-full relative">
                 <div className="max-h-[400px] overflow-y-auto customscroll2">
