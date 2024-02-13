@@ -219,13 +219,13 @@ const FilterWithinTree = ({ filter }) => {
             key={item.id}
             className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem]"
           >
-            <Link
+            <a
               className="text-[0.875rem] leading-[1.625rem]"
               htmlFor={"chbx-" + item.id}
               href={`/kategorije/${item?.slug}`}
             >
               {item.label}
-            </Link>
+            </a>
           </div>
         </>
       ))}

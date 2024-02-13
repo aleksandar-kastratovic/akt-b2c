@@ -14,6 +14,7 @@ const Products = ({ products = [] }) => {
   const globalAddToWishlist = useGlobalAddToWishList();
   const globalAddToCart = useGlobalAddToCart();
   const router = useRouter();
+
   const renderPrices = (item) => {
     switch (item?.product_type) {
       case "variant":
@@ -122,15 +123,91 @@ const Products = ({ products = [] }) => {
     }
   };
 
+  const renderDiscountPercentage = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <div className="absolute top-2 right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            return null;
+            break;
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
+            );
+            break;
+          case false:
+            return null;
+            break;
+        }
+    }
+  };
+
   let items = null;
   if (products.length) {
     items = products?.map((item, index) => (
-      <div
-        key={item.id}
-       
-      >
-        <div className="max-md:h-[407px] max-lg:h-[429px] h-[350px] 3xl:h-[470px] relative flex justify-center">
-          <Link
+      <div key={item.id} className={`col-span-1 group`}>
+        <div className="w-full relative flex justify-center">
+          <a
+            className={`w-full`}
             href={`/proizvod/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
@@ -156,71 +233,49 @@ const Products = ({ products = [] }) => {
               });
             }}
           >
-            <div className="relative h-[400px] w-[400px]">
-              <div className="relative">
-           
-              {item?.image[0] ? (
-              <>
-                {item?.image[1] ? (
-                  <div className="relative w-[380px] h-[350px] 3xl:h-[470px] max-md:h-[400px] max-md:w-[94%] mx-auto hoverThumbImage">
-                    <Image
-                      src={convertHttpToHttps(item?.image[0])}
-                      alt={item?.basic_data?.name}
-                      fill={true}
-                      style={{ objectFit: "cover" }}
-                      className={`object-scale-down transition-all duration-200 opacity-100 object-cover w-full h-full firstImage`}
-                      loading="lazy"
-                    />
-                    <Image
-                      src={convertHttpToHttps(item?.image[1])}
-                      alt={item?.basic_data?.name}
-                      fill={true}
-                      style={{ objectFit: "cover" }}
-                      className={`object-scale-down transition-all duration-200 opacity-0 object-cover w-full h-full secondImage`}
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative w-[380px] h-[350px] 3xl:h-[470px] max-md:h-[400px] max-md:w-[94%] mx-auto">
+            <div className="relative w-full">
+              <div className="relative w-full overflow-hidden">
+                {item?.image[0] ? (
                   <Image
                     src={convertHttpToHttps(item?.image[0])}
                     alt={item?.basic_data?.name}
-                    fill={true}
+                    width={0}
+                    height={0}
+                    sizes={`100vw`}
                     style={{ objectFit: "cover" }}
-                    className={`object-scale-down transition-all duration-200 opacity-100 object-cover w-full h-full`}
+                    className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage group-hover:scale-110 `}
                     loading="lazy"
                   />
-                  </div>
+                ) : (
+                  <Image
+                    src="/placeholder.jpg"
+                    width={500}
+                    height={500}
+                    className="h-full object-cover"
+                    priority={true}
+                    alt={`proizvod-${item?.basic_data?.name}`}
+                  />
                 )}
-              </>
-            ) : (
-          <Image
-            src="/placeholder.jpg"
-            width={500}
-            height={500}
-            className="h-full object-cover"
-            priority={true}
-            alt={`proizvod-${item?.basic_data?.name}`}
-          />
-        )}
-
-
-
-
-
-             </div>
-            {item?.stickers[0]?.name ? (
-                    <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
-                      <p>{item?.stickers[0]?.name}</p>
-                    </div>
-                  ) : null}
-          
+              </div>
+              {item?.stickers[0]?.name ? (
+                <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
+                  <p>{item?.stickers[0]?.name}</p>
+                </div>
+              ) : null}
+              {item?.price?.discount?.active && (
+                <div
+                  className={`absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[0.8rem] z-[10] rounded-lg z-100`}
+                >
+                  <p className={`text-black`}>
+                    {renderDiscountPercentage(item)}
+                  </p>
+                </div>
+              )}
             </div>
-          </Link>
-         
+          </a>
         </div>
         <div className="text-start w-full pt-1">
-        <div className=" py-[3px] w-[70%] flex justify-center items-center divide-x-2 divide-black w-full border-b-2 border-black">
+          <div className=" py-[3px] w-[70%] flex justify-center items-center divide-x-2 divide-black w-full border-b-2 border-black">
             <div className="flex items-center justify-center w-full">
               <Image
                 src={Wishlist}
@@ -279,7 +334,7 @@ const Products = ({ products = [] }) => {
             </div>
           </div>
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-            <Link
+            <a
               className="font-normal text-sm clamp"
               href={`/proizvod/${item?.slug_path}`}
               onClick={() => {
@@ -307,25 +362,21 @@ const Products = ({ products = [] }) => {
               }}
             >
               {item?.basic_data?.name}
-            </Link>
+            </a>
           </p>
           {item?.price?.price?.original !== 0 ? (
-          <>
-          {renderPrices(item)}
-          </>) : (
-              <button
+            <>{renderPrices(item)}</>
+          ) : (
+            <button
               className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
               onClick={() => {
-      
-                router?.push(
-                      `/kontakt?slug=${item?.slug}`
-                    );
+                router?.push(`/kontakt?slug=${item?.slug}`);
               }}
             >
-              <span className="text-[0.8rem]">Pošaljite upit</span>     
+              <span className="text-[0.8rem]">Pošaljite upit</span>
             </button>
-            )}
-          </div>
+          )}
+        </div>
       </div>
     ));
   } else {

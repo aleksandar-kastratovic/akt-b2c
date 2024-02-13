@@ -10,10 +10,7 @@ import { queryKeys, sortKeys } from "@/helpers/const";
 import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
 import Link from "next/link";
-import {ToastContainer} from "react-toastify";
-
-
-
+import { ToastContainer } from "react-toastify";
 
 const CategoriesPageDisplay = ({
   filtersMap,
@@ -22,8 +19,8 @@ const CategoriesPageDisplay = ({
   query,
   newProducts,
   categoryDataa,
-  productsDataResponse, 
-  categories
+  productsDataResponse,
+  categories,
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
@@ -32,7 +29,7 @@ const CategoriesPageDisplay = ({
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
   };
-console.log("kat:", categories)
+  console.log("kat:", categories);
   const router = useRouter();
 
   const [productNum, setProductNum] = useState(6);
@@ -295,7 +292,7 @@ console.log("kat:", categories)
   const uniqueBreadcrumbs = [
     ...new Set(breadcrumbs?.map((breadcrumb) => breadcrumb?.slug)),
   ];
-  
+
   return (
     <>
       <div className="w-full bg-croonus-5">
@@ -304,12 +301,12 @@ console.log("kat:", categories)
             <div className="text-[0.875rem] max-lg:hidden font-light">
               {breadcrumbs?.length > 0 && (
                 <div className="flex items-center gap-1 py-2flex-wrap">
-                  <Link
+                  <a
                     href={`/`}
                     className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                   >
                     Početna
-                  </Link>{" "}
+                  </a>{" "}
                   <span className="text-[#191919] text-[0.85rem]">/</span>
                   {uniqueBreadcrumbs.map((slug, index) => {
                     const breadcrumb = breadcrumbs.find(
@@ -317,12 +314,12 @@ console.log("kat:", categories)
                     );
                     return (
                       <div key={index} className="flex items-center gap-1">
-                        <Link
+                        <a
                           href={`/kategorije/${slug}`}
                           className="text-[#191919] text-[0.851rem] font-normal hover:text-black"
                         >
                           {breadcrumb?.name}
-                        </Link>
+                        </a>
                         {index !== uniqueBreadcrumbs.length - 1 && (
                           <span className="text-[#191919] text-[0.85rem]">
                             /
@@ -375,26 +372,24 @@ console.log("kat:", categories)
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
         </h1>{" "}
-       
         {router?.asPath?.includes("search") ? null : (
           <>
-           <h5 className="font-medium max-lg:text-center mt-3 uppercase text-[#a6a6a6]">
-           {categoryDataa?.basic_data?.short_description}
-           </h5>
-          <p
-            className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1.4rem] font-light w-[95%] lg:w-[80%] max-lg:text-left"
-            dangerouslySetInnerHTML={{
-              __html: categoryDataa.basic_data.description,
-            }}
-          ></p>
+            <h5 className="font-medium max-lg:text-center mt-3 uppercase text-[#a6a6a6]">
+              {categoryDataa?.basic_data?.short_description}
+            </h5>
+            <p
+              className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1.4rem] font-light w-[95%] lg:w-[80%] max-lg:text-left"
+              dangerouslySetInnerHTML={{
+                __html: categoryDataa.basic_data.description,
+              }}
+            ></p>
           </>
         )}
-
-                <div className="mt-[2rem] pl-2 flex max-md:flex-wrap ">
-                {/* {categories?.parents && 
+        <div className="mt-[2rem] pl-2 flex max-md:flex-wrap ">
+          {/* {categories?.parents && 
                     categories.parents.map((parent) => (
                       <div className="col-span-1 flex flex-col" key={parent?.id}>
-                        <Link
+                        <a
                           href={`/kategorije/${parent?.slug_path}`}
                           key={parent?.id}
                           onClick={() => setOpen(false)}
@@ -402,79 +397,79 @@ console.log("kat:", categories)
                           <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
                             <p className="">{parent?.name}</p>
                           </div>
-                        </Link>
+                        </a>
                       </div>
                     ))
                   } */}
-           
-                  {categories?.childrens && 
-                    categories.childrens.map((child) => (
-                      <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
-                        <Link
-                          href={`/kategorije/${child?.slug_path}`}
-                          key={child?.id}
-                          onClick={() => setOpen(false)}
-                        >
-                           <div className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug ? 'bg-croonus-1 text-white' : 'bg-white text-black'}`}>
-                            <p className="">{child?.basic_data?.name}</p>
-                          </div>
-                        </Link>
-                      </div>
-                    ))
-                  }
-           
-            </div>
-    
-       
-  
-      <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
-        <Filters
-          filters={availableFilters}
-          filtersMap={filtersMap}
-          selectedFilters={selectedFilters}
-          setSelectedFilters={setSelectedFilters}
-          changeFilters={changeFilters}
-          setChangeFilters={setChangeFilters}
-          showSearch={showSearch}
-          setShowSearch={setShowSearch}
-          searchProducts={searchProducts}
-          onSortChange={onSortChange}
-          sort={sort}
-          sortKeys={sortKeys}
-          onLimitChange={onLimitChange}
-          limit={limit}
-        />
-      </div>
-      {products?.length === 0 ? (
-        <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
-          Za ovu kategoriju trenutno nemamo proizvoda
-        </div>
-      ) : (
-        <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-          <Products products={products} />
-        </div>
-      )}
 
-      {loading ? (
-        <div className="w-full flex items-center justify-center mt-10">
-          <i className="fa-solid fa-spinner animate-spin text-3xl "></i>
+          {categories?.childrens &&
+            categories.childrens.map((child) => (
+              <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
+                <a
+                  href={`/kategorije/${child?.slug_path}`}
+                  key={child?.id}
+                  onClick={() => setOpen(false)}
+                >
+                  <div
+                    className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
+                      currentSlug === child?.slug
+                        ? "bg-croonus-1 text-white"
+                        : "bg-white text-black"
+                    }`}
+                  >
+                    <p className="">{child?.basic_data?.name}</p>
+                  </div>
+                </a>
+              </div>
+            ))}
         </div>
-      ) : (
-        pagination?.selected_page < pagination?.total_pages && (
-          <div className="w-full flex justify-center items-center uppercase font-medium mt-10 lg:col-span-4 2xl:col-span-3 3xl:col-span-4">
-            <button
-              onClick={() => {
-                onPageChange(pagination?.selected_page + 1);
-              }}
-              className="uppercase"
-            >
-              Prikaži još proizvoda
-            </button>
+        <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
+          <Filters
+            filters={availableFilters}
+            filtersMap={filtersMap}
+            selectedFilters={selectedFilters}
+            setSelectedFilters={setSelectedFilters}
+            changeFilters={changeFilters}
+            setChangeFilters={setChangeFilters}
+            showSearch={showSearch}
+            setShowSearch={setShowSearch}
+            searchProducts={searchProducts}
+            onSortChange={onSortChange}
+            sort={sort}
+            sortKeys={sortKeys}
+            onLimitChange={onLimitChange}
+            limit={limit}
+          />
+        </div>
+        {products?.length === 0 ? (
+          <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
+            Za ovu kategoriju trenutno nemamo proizvoda
           </div>
-        )
-      )}
-      <ToastContainer />
-    </div>
+        ) : (
+          <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
+            <Products products={products} />
+          </div>
+        )}
+        {loading ? (
+          <div className="w-full flex items-center justify-center mt-10">
+            <i className="fa-solid fa-spinner animate-spin text-3xl "></i>
+          </div>
+        ) : (
+          pagination?.selected_page < pagination?.total_pages && (
+            <div className="w-full flex justify-center items-center uppercase font-medium mt-10 lg:col-span-4 2xl:col-span-3 3xl:col-span-4">
+              <button
+                onClick={() => {
+                  onPageChange(pagination?.selected_page + 1);
+                }}
+                className="uppercase"
+              >
+                Prikaži još proizvoda
+              </button>
+            </div>
+          )
+        )}
+        <ToastContainer />
+      </div>
     </>
     // <div className="py-12">
     //   <div className="relative z-10 flex flex-col items-center justify-between max-lg:gap-3 lg:flex-row">

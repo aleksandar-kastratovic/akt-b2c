@@ -26,6 +26,8 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   function handleClick() {
     router.back();
   }
+  const [refresh, setRefresh] = useState(false);
+  console.log(refresh)
   const [cart, mutateCart] = useCartContext();
   const [cartData, setCartData] = useState([]);
   const [secondAddress, setSecondAddress] = useState(false);
@@ -118,9 +120,10 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
       })
       .catch((error) => console.warn(error));
   }, []);
+
   useEffect(() => {
     getCart();
-  }, []);
+  }, [refresh]);
 
   const cartItems = cartData.items ?? [];
   const cartCost = cartData.summary?.total ?? 0;
@@ -372,7 +375,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("first_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -392,7 +395,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("last_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -417,7 +420,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="email"
                         value={formData.email}
                         onChange={formChangeHandler}
-                        className={`ml-2 h-[37px] max-sm:text-sm rounded-md ${
+                        className={`ml-2 h-[37px] max-sm:text-[16px] rounded-md ${
                           errors.includes("email")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -438,7 +441,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="phone"
                         value={formData.phone}
                         onChange={formChangeHandler}
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("phone")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -458,7 +461,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="address"
                           value={formData.address}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("address")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -477,7 +480,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="object_number"
                           value={formData.object_number}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("object_number")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -498,7 +501,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="zip_code"
                           value={formData.zip_code}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("zip_code")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -517,7 +520,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="town"
                           value={formData.town}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("town")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -537,7 +540,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="note"
                         value={formData.note}
                         onChange={formChangeHandler}
-                        className="ml-2 max-sm:text-sm rounded-md border-none focus:border-none focus:ring-0 bg-croonus-5 max-xl:mx-3"
+                        className="ml-2 max-sm:text-[16px] rounded-md border-none focus:border-none focus:ring-0 bg-croonus-5 max-xl:mx-3"
                         placeholder="Napomena"
                       />
                     </div>
@@ -558,7 +561,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="company_name"
                         value={formData.company_name}
                         onChange={formChangeHandler}
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("company_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -572,7 +575,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("pib")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -591,7 +594,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("maticni_broj")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -610,7 +613,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("first_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -630,7 +633,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         <span className="snap-mandatory text-red-500">*</span>
                       </label>
                       <input
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("last_name")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -656,7 +659,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="email"
                         value={formData.email}
                         onChange={formChangeHandler}
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("email")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -675,7 +678,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="phone"
                         value={formData.phone}
                         onChange={formChangeHandler}
-                        className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                        className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                           errors.includes("phone")
                             ? "border-red-500 focus:border-red-500"
                             : "border-none focus:border-none"
@@ -695,7 +698,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="address"
                           value={formData.address}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("address")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -714,7 +717,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="object_number"
                           value={formData.object_number}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("object_number")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -735,7 +738,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="zip_code"
                           value={formData.zip_code}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("zip_code")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -754,7 +757,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                           id="town"
                           value={formData.town}
                           onChange={formChangeHandler}
-                          className={`ml-2 max-sm:text-sm h-[37px] rounded-md ${
+                          className={`ml-2 max-sm:text-[16px] h-[37px] rounded-md ${
                             errors.includes("town")
                               ? "border-red-500 focus:border-red-500"
                               : "border-none focus:border-none"
@@ -774,7 +777,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                         id="note"
                         value={formData.note}
                         onChange={formChangeHandler}
-                        className="ml-2 max-sm:text-sm rounded-md border-none focus:border-none focus:ring-none bg-croonus-5 max-xl:mx-3"
+                        className="ml-2 max-sm:text-[16px] rounded-md border-none focus:border-none focus:ring-none bg-croonus-5 max-xl:mx-3"
                         placeholder="Napomena"
                       />
                     </div>
@@ -875,7 +878,11 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               <span className="font-bold uppercase underline text-xl">
                 Korpa
               </span>
-              <CartProductBox cartItems={cartItems} />
+              <CartProductBox
+                cartItems={cartItems}
+                refresh={refresh}
+                setRefresh={setRefresh}
+              />
             </div>{" "}
             <div className="flex flex-col max-md:mt-5 col-span-2 max-xl:row-start-4 max-xl:row-end-5 row-start-2 max-xl:col-span-5 row-end-3 col-start-4 gap-4 bg-croonus-5 px-3 mt-0 pt-7 pb-5">
               {" "}
@@ -941,9 +948,9 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   />
                   <label htmlFor="agreed">
                     Saglasan sam sa{" "}
-                    <Link href="/uslovi" className="underline" target="_blank">
+                    <a href="/uslovi" className="underline" target="_blank">
                       Opštim uslovima korišćenja
-                    </Link>{" "}
+                    </a>{" "}
                     AKT ONLINE SHOP-a.
                   </label>
                   {errors.includes("agreed") && (

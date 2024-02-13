@@ -22,6 +22,9 @@ module.exports = {
         "3xl": "1680px",
         "4xl": "1920px",
       },
+      aspectRatio: {
+        "2/3": "2/3",
+      },
       gridTemplateRows: {
         7: "repeat(7, minmax(0, 1fr))",
         8: "repeat(8, minmax(0, 1fr))",

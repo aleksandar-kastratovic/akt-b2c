@@ -12,6 +12,7 @@ import User from "../../assets/Icons/user.png";
 import { useRouter } from "next/navigation";
 import Burger from "../../assets/Icons/burger.png";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import { toast } from "react-toastify";
 const NavigationMobile = () => {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
@@ -45,7 +46,7 @@ const NavigationMobile = () => {
         }
       );
     };
-    fetchSearchData();
+    searchTerm?.length >= 3 && fetchSearchData();
   }, [search]);
   useEffect(() => {
     const disableBodyScroll = () => {
@@ -59,14 +60,18 @@ const NavigationMobile = () => {
   }, [open]);
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
+
   const handleSearch = (event) => {
     event.preventDefault();
-    navigate(`/pretraga?query=${searchTerm}`);
-    setSearchTerm("");
-    setSearchOpen(false);
-    setOpen(false);
-    setSearch("");
+    if (searchTerm?.length >= 3) {
+      navigate(`/pretraga?query=${searchTerm}`);
+      setSearchTerm("");
+      setSearchOpen(false);
+      setOpen(false);
+      setSearch("");
+    }
   };
+
   const getCartCount = useCallback(() => {
     get("/cart/badge-count")
       .then((response) => {
@@ -104,9 +109,9 @@ const NavigationMobile = () => {
             />
           </div>
           <div className="pl-10 pb-2">
-            <Link href="/">
+            <a href="/">
               <Image src={Logo} width={150} height={150} />
-            </Link>
+            </a>
           </div>
           <div className="flex items-center gap-5 relative">
             <Image
@@ -116,9 +121,9 @@ const NavigationMobile = () => {
               onClick={() => setSearchOpen(!searchOpen)}
               alt="search"
             />
-            <Link href="/korpa">
-              <Image src={Cart} width={35} height={35} alt="cart"/>
-            </Link>
+            <a href="/korpa">
+              <Image src={Cart} width={35} height={35} alt="cart" />
+            </a>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
                 {cartCount}
@@ -146,6 +151,13 @@ const NavigationMobile = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onInput={(e) => setSearch(e.target.value)}
               />
+              {searchTerm?.length >= 1 && searchTerm?.length < 3 && (
+                <div
+                  className={`absolute top-[0.8rem] right-[2.25rem] text-xs text-red-500`}
+                >
+                  <span>Unesite barem 3 karaktera</span>
+                </div>
+              )}
               <i
                 onClick={handleSearch}
                 className="absolute right-2 cursor-pointer fa-solid fa-search text-gray-400"
@@ -160,13 +172,13 @@ const NavigationMobile = () => {
               }}
             ></i>
           </form>
-          {search.length > 0 ? (
+          {search.length >= 3 ? (
             <div className="absolute top-[3.5rem] w-full bg-white shadow-xl rounded-b-lg  ">
               <div className="flex flex-col gap-2 w-full relative">
                 <div className="max-h-[400px] overflow-y-auto customscroll2">
                   {searchData?.length > 0
                     ? searchData.slice(0, 6).map((item) => (
-                        <Link
+                        <a
                           key={item?.id}
                           href={`/proizvod/${item?.categories[0]?.slug}/${item.slug}`}
                           className="h-[83px]"
@@ -191,7 +203,7 @@ const NavigationMobile = () => {
                               <p className="text-sm">{item.basic_data.name}</p>
                             </div>
                           </div>
-                        </Link>
+                        </a>
                       ))
                     : null}
                 </div>
@@ -230,10 +242,10 @@ const NavigationMobile = () => {
               }}
             ></i>
             <div className="flex items-center relative gap-5 mr-5">
-              <Link href="/lista-zelja">
+              <a href="/lista-zelja">
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
-              </Link>
+              </a>
               <Image src={User} width={35} height={35} />
               {wishListCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
@@ -244,7 +256,7 @@ const NavigationMobile = () => {
           </div>
           <div className=" bg-[#f8f8fa] py-3">
             <div className="w-[90%] mx-auto flex flex-col gap-[20px]">
-              <Link
+              <a
                 href="/novo"
                 className="text-base font-medium uppercase"
                 onClick={() => {
@@ -253,8 +265,8 @@ const NavigationMobile = () => {
                 }}
               >
                 Novo
-              </Link>
-              <Link
+              </a>
+              <a
                 href="/akcija"
                 className="text-base font-medium uppercase"
                 onClick={() => {
@@ -263,7 +275,7 @@ const NavigationMobile = () => {
                 }}
               >
                 Akcija
-              </Link>
+              </a>
             </div>
           </div>
           <form
@@ -351,7 +363,7 @@ const NavigationMobile = () => {
                                 return (
                                   <div className="w-full py-2 bg-white">
                                     <div className="w-[90%] mx-auto pl-4">
-                                      <Link
+                                      <a
                                         className="text-xs font-medium"
                                         href={`/kategorije/${item2?.slug_path}`}
                                         onClick={() => {
@@ -360,7 +372,7 @@ const NavigationMobile = () => {
                                         }}
                                       >
                                         {item2?.name}
-                                      </Link>
+                                      </a>
                                     </div>
                                   </div>
                                 );
@@ -369,7 +381,7 @@ const NavigationMobile = () => {
                         ) : (
                           <div className="w-full py-2">
                             <div className="w-[90%] mx-auto pl-2">
-                              <Link
+                              <a
                                 className="text-sm font-medium"
                                 href={`/kategorije/${item?.slug_path}`}
                                 onClick={() => {
@@ -378,7 +390,7 @@ const NavigationMobile = () => {
                                 }}
                               >
                                 {item?.name}
-                              </Link>
+                              </a>
                             </div>
                           </div>
                         );
@@ -386,7 +398,7 @@ const NavigationMobile = () => {
                   </div>
                 </>
               ) : (
-                <Link
+                <a
                   className="text-base  font-medium uppercase"
                   href={`/kategorije/${item?.slug_path}`}
                   onClick={() => {
@@ -398,7 +410,7 @@ const NavigationMobile = () => {
                   <div className="w-full py-2">
                     <div className="w-[90%] mx-auto">{item?.name}</div>
                   </div>
-                </Link>
+                </a>
               );
             })}
           </div>

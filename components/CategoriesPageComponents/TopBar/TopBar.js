@@ -17,7 +17,7 @@ const TopBarCategories = ({ asPath, categoryData }) => {
                 className="text-xs text-croonus-3"
               /></div>
               <span className="text-base text-croonus-3">
-                <Link href="/">Početna</Link>
+                <a href="/">Početna</a>
               </span>
             </div>
             <h1 className="text-3xl font-bold text-croonus-3">{categoryData.basic_data.name}</h1>
