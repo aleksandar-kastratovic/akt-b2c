@@ -159,7 +159,7 @@ const ContactPage = () => {
                       type="text"
                       value={formData.customer_name}
                       name="customer_name"
-                      className="infoForm col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
+                      className="infoForm col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  md:placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
                       placeholder="Ime i prezime*"
                       onChange={formChangeHandler}
                     />
@@ -167,7 +167,7 @@ const ContactPage = () => {
                       type="text"
                       value={formData.email}
                       name="email"
-                      className="placeholder:top-0 col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  placeholder:absolute placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
+                      className="placeholder:top-0 col-span-1 h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0  md:placeholder:absolute placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
                       placeholder="E-mail*"
                       onChange={formChangeHandler}
                     />
@@ -175,7 +175,7 @@ const ContactPage = () => {
                       type="text"
                       value={formData.phone}
                       name="phone"
-                      className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
+                      className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1 md:placeholder:absolute  placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
                       placeholder="Broj telefona*"
                       onChange={formChangeHandler}
                     />
@@ -183,7 +183,7 @@ const ContactPage = () => {
                       type="text"
                       value={formData.subject}
                       name="subject"
-                      className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
+                      className="h-12 border-b border-b-black   border-l-0 border-t-0 border-r-0 col-span-1  md:placeholder:absolute  placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0"
                       placeholder="Naslov poruke*"
                       onChange={formChangeHandler}
                     />
@@ -191,7 +191,7 @@ const ContactPage = () => {
                       type="text"
                       value={formData.message}
                       name="message"
-                      className="messageForm  col-span-2  placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0 max-lg:w-full  border-b border-b-black border-l-0 border-t-0 border-r-0"
+                      className="messageForm  col-span-2  md:placeholder:absolute placeholder:top-0 placeholder:left-2 placeholder:text-sm placeholder:font-medium placeholder:text-black focus:outline-none focus:ring-0 max-lg:w-full  border-b border-b-black border-l-0 border-t-0 border-r-0"
                       placeholder="Poruka*"
                       rows={"4"}
                       onChange={formChangeHandler}
