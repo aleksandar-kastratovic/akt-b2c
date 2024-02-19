@@ -29,15 +29,11 @@ const CategoriesPageDisplay = ({
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
   };
-  console.log("kat:", categories);
+ 
   const router = useRouter();
 
-  const [productNum, setProductNum] = useState(6);
-  function handleClick() {
-    setLoading(true);
-    setProductNum((prevProductNum) => prevProductNum + 6);
-    setLoading(false);
-  }
+
+
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const categoryData = { id: id };
@@ -238,7 +234,7 @@ const CategoriesPageDisplay = ({
   const products = productsData?.items;
   const pagination = productsData?.pagination;
   const [newProductsArray, setNewProductsArray] = useState(products);
-  console.log("proizvodi", products);
+  const [productNum, setProductNum] = useState(newProductsArray?.length);
 
   useEffect(() => {
     setNewProductsArray(products);
@@ -374,55 +370,42 @@ const CategoriesPageDisplay = ({
         </h1>{" "}
         {router?.asPath?.includes("search") ? null : (
           <>
-            <h5 className="font-medium max-lg:text-center mt-3 uppercase text-[#a6a6a6]">
+            <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
               {categoryDataa?.basic_data?.short_description}
             </h5>
             <p
-              className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1.4rem] font-light w-[95%] lg:w-[80%] max-lg:text-left"
+              className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-1 font-light w-[95%] lg:w-[80%] max-lg:text-left"
               dangerouslySetInnerHTML={{
                 __html: categoryDataa.basic_data.description,
               }}
             ></p>
           </>
         )}
-        <div className="mt-[2rem] pl-2 flex max-md:flex-wrap ">
-          {/* {categories?.parents && 
-                    categories.parents.map((parent) => (
-                      <div className="col-span-1 flex flex-col" key={parent?.id}>
-                        <a
-                          href={`/kategorije/${parent?.slug_path}`}
-                          key={parent?.id}
-                          onClick={() => setOpen(false)}
-                        >
-                          <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
-                            <p className="">{parent?.name}</p>
-                          </div>
-                        </a>
-                      </div>
-                    ))
-                  } */}
-
-          {categories?.childrens &&
-            categories.childrens.map((child) => (
-              <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
-                <a
-                  href={`/kategorije/${child?.slug_path}`}
-                  key={child?.id}
-                  onClick={() => setOpen(false)}
-                >
-                  <div
-                    className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
-                      currentSlug === child?.slug
-                        ? "bg-croonus-1 text-white"
-                        : "bg-white text-black"
-                    }`}
-                  >
-                    <p className="">{child?.basic_data?.name}</p>
-                  </div>
-                </a>
-              </div>
-            ))}
-        </div>
+        {categoryDataa?.basic_data?.name !== "Akcija" ? (
+           <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
+           {categories?.childrens &&
+             categories.childrens.map((child) => (
+               <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
+                 <a
+                   href={`/kategorije/${child?.slug_path}`}
+                   key={child?.id}
+                   onClick={() => setOpen(false)}
+                 >
+                   <div
+                     className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
+                       currentSlug === child?.slug
+                         ? "bg-croonus-1 text-white"
+                         : "bg-white text-black"
+                     }`}
+                   >
+                     <p className="">{child?.basic_data?.name}</p>
+                   </div>
+                 </a>
+               </div>
+             ))}
+         </div>
+        ) : null}
+       
         <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
           <Filters
             filters={availableFilters}
@@ -450,156 +433,12 @@ const CategoriesPageDisplay = ({
             <Products products={products} />
           </div>
         )}
-        {loading ? (
-          <div className="w-full flex items-center justify-center mt-10">
-            <i className="fa-solid fa-spinner animate-spin text-3xl "></i>
-          </div>
-        ) : (
-          pagination?.selected_page < pagination?.total_pages && (
-            <div className="w-full flex justify-center items-center uppercase font-medium mt-10 lg:col-span-4 2xl:col-span-3 3xl:col-span-4">
-              <button
-                onClick={() => {
-                  onPageChange(pagination?.selected_page + 1);
-                }}
-                className="uppercase"
-              >
-                Prikaži još proizvoda
-              </button>
-            </div>
-          )
-        )}
+        
+       
         <ToastContainer />
       </div>
     </>
-    // <div className="py-12">
-    //   <div className="relative z-10 flex flex-col items-center justify-between max-lg:gap-3 lg:flex-row">
-    //     <form className="max-lg:hidden" onSubmit={handleSearch}>
-    //       <input
-    //         type="text"
-    //         placeholder="Pretraži proizvode"
-    //         className="border  border-croonus-2 bg-croonus-1 focus:border-croonus-4 focus:outline-0 focus:ring-0"
-    //         value={searchTerm}
-    //         onChange={({ target }) => setSearchTerm(target.value)}
-    //       />
-    //     </form>
-    //     <div className="flex flex-row w-full items-center justify-between max-lg:gap-3 lg:w-1/2">
-    //       <div className="flex flex-row items-center justify-between rounded-md border-[1px] border-croonus-1 px-2">
-    //         <div className="flex items-center">
-    //           <span>Prikaži:</span>
-    //           <div className="flex flex-row gap-2">
-    //             <select
-    //               name="limit"
-    //               id="limit"
-    //               className="h-10 cursor-pointer border-none focus:ring-[1px] focus:ring-croonus-4"
-    //               onChange={onLimitChange}
-    //               value={limit}
-    //             >
-    //               <option value={6} key="6">
-    //                 6
-    //               </option>
-    //               <option value={9} key="9">
-    //                 9
-    //               </option>
-    //               <option value={12} key="12">
-    //                 12
-    //               </option>
-    //               <option value={15} key="15">
-    //                 15
-    //               </option>
-    //             </select>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div className="flex items-center">
-    //         <span className="h-full">
-    // <select
-    //   name="sort"
-    //   id="sort"
-    //   className="h-full w-full cursor-pointer self-stretch rounded-md border-[1px] border-croonus-1 bg-white text-base text-croonus-3 focus:border-[1px] focus:border-croonus-4 focus:outline-none focus:ring-0 max-lg:w-full"
-    //   onChange={onSortChange}
-    //   value={sort ? sort.field + "_" + sort.direction : "none"}
-    // >
-    //   <option value="none">Sortirajte</option>
-    //   {Object.entries(sortKeys).map((item) => (
-    //     <option value={item[0]} key={item[0]}>
-    //       {item[1].label}
-    //     </option>
-    //   ))}
-    // </select>
-    //         </span>
-    //       </div>
-    //     </div>
-    //     <div
-    //       onClick={() => setFiltersOpen(!filtersOpen)}
-    //       className="w-full rounded-md border border-croonus-1 bg-croonus-3 py-1.5 text-center text-white lg:hidden"
-    //     >
-    //       FILTERI
-    //     </div>
-    //     <div
-    //       className={
-    //         filtersOpen
-    //           ? `block w-full rounded-md bg-white lg:hidden`
-    //           : `hidden lg:hidden`
-    //       }
-    //     >
-    //       <Filters
-    //         filters={availableFilters}
-    //         filtersMap={filtersMap}
-    //         selectedFilters={selectedFilters}
-    //         setSelectedFilters={setSelectedFilters}
-    //         changeFilters={changeFilters}
-    //         setChangeFilters={setChangeFilters}
-    //         showSearch={showSearch}
-    //         setShowSearch={setShowSearch}
-    //         searchProducts={searchProducts}
-    //       />
-    //     </div>
-    //   </div>
-    //   <div className="grid grid-cols-2 gap-x-4 gap-y-5 bg-white pt-12 lg:grid-cols-4 2xl:grid-cols-4 4xl:grid-cols-5 ">
-    //     <div className="row-span-6 max-lg:hidden">
-    //       <Filters
-    //         filters={availableFilters}
-    //         filtersMap={filtersMap}
-    //         selectedFilters={selectedFilters}
-    //         setSelectedFilters={setSelectedFilters}
-    //         changeFilters={changeFilters}
-    //         setChangeFilters={setChangeFilters}
-    //         showSearch={showSearch}
-    //         setShowSearch={setShowSearch}
-    //         searchProducts={searchProducts}
-    //       />
-    //     </div>
-    //     <Products products={products} />
-    //     <div className="col-span-2 flex flex-row justify-end gap-2 2xl:col-span-4 4xl:col-span-5">
-    //       {pagination?.selected_page && (
-    //         <div>
-    //           {Array.from(
-    //             {
-    //               length: Math.min(
-    //                 5,
-    //                 pagination?.total_pages - pagination?.selected_page + 3,
-    //                 pagination?.total_pages
-    //               ),
-    //             },
-    //             (x, i) => i + Math.max(pagination?.selected_page - 2, 1)
-    //           ).map((num) => (
-    //             <span
-    //               key={num}
-    //               className={`${
-    //                 num === pagination?.selected_page
-    //                   ? "cursor-pointer select-none bg-croonus-1 py-1 px-2 text-croonus-3"
-    //                   : "cursor-pointer select-none py-1 px-2"
-    //               }`}
-    //               onClick={() => onPageChange(num)}
-    //             >
-    //               {num}
-    //             </span>
-    //           ))}
-    //         </div>
-    //       )}
-    //     </div>
-    //   </div>
-    // </div>
+   
   );
 };
 

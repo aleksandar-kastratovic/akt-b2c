@@ -477,7 +477,7 @@ const NavigationDesktop = () => {
         <div
           className={
             open
-              ? `translate-x-0 z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
+              ? `translate-x-0 z-[99] flex h-screen w-fit transition-all duration-[600ms] fixed top-0 left-0 bg-white`
               : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
           }
         >
@@ -517,7 +517,7 @@ const NavigationDesktop = () => {
             {subCategory?.some(
               (item) => item?.children && item?.children.length > 0
             ) ? (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 ">
+              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col" key={item.id}>
                     <a

@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Cart from "../../assets/Icons/shopping-bag.png";
-import Wishlist from "../../assets/Icons/bookmark.png";
+import Wishlist from "../../assets/Icons/favorite.png";
 import Variants from "../Variants/Variants";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -475,12 +475,12 @@ const ProductInfo = ({ products, description, badge }) => {
             </button>
           )}
 
-          <div className="lg:hover:bg-red-500 p-2 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
+          <div className="lg:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
             <Image
               src={Wishlist}
               alt="wishlist"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               onClick={() => addToWishlist()}
               className="cursor-pointer lg:hover:invert"
             />

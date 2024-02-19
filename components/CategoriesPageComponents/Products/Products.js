@@ -275,14 +275,15 @@ const Products = ({ products = [] }) => {
           </a>
         </div>
         <div className="text-start w-full pt-1">
-          <div className=" py-[3px] w-[70%] flex justify-center items-center divide-x-2 divide-black w-full border-b-2 border-black">
-            <div className="flex items-center justify-center w-full">
+          <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
+            
+            <div className="flex items-center justify-end w-full">
               <Image
                 src={Wishlist}
-                width={40}
-                height={40}
+                width={32}
+                height={32}
                 alt="favorite"
-                className="cursor-pointer hover:scale-110 transition-all duration-200"
+                className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
                 onClick={() => {
                   globalAddToWishlist(item?.basic_data?.id_product);
                   toast.success("Proizvod je dodat u listu želja!", {
@@ -291,13 +292,14 @@ const Products = ({ products = [] }) => {
                 }}
               />
             </div>
-            <div className="flex items-center justify-center w-full">
+            <div className="w-[2px] h-[26px] bg-[#000]"></div>
+            <div className="flex items-center justify-start w-full">
               <Image
                 src={Cart}
-                width={46}
-                height={46}
+                width={38}
+                height={38}
                 alt="cart"
-                className="cursor-pointer hover:scale-110 transition-all duration-200"
+                className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
                 onClick={() => {
                   if (item?.product_type === "single") {
                     globalAddToCart(item?.basic_data?.id_product, 1, false);
