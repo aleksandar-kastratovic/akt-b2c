@@ -481,10 +481,10 @@ const NavigationDesktop = () => {
               : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
           }
         >
-          <div className="w-[94%] h-[70%] my-auto mx-auto flex justify-start items-start">
-            <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll border-r-4 border-[#f9f9f9] h-full pr-4">
+          <div className="w-full h-[70%] my-auto mx-auto flex justify-start items-start">
+            <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll  h-full">
               <div className="flex flex-col">
-                <div className="flex flex-col mt-10">
+                <div className="flex flex-col mt-10 border-r-4 border-[#f9f9f9] pr-4">
                   {categories.map((item) => {
                     return item?.children ? (
                       <a
@@ -514,10 +514,12 @@ const NavigationDesktop = () => {
                 </div>
               </div>
             </div>
-            {subCategory?.some(
+            {subCategory ? (
+              <>
+               {subCategory?.some(
               (item) => item?.children && item?.children.length > 0
             ) ? (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white">
+              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px]">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col" key={item.id}>
                     <a
@@ -547,7 +549,7 @@ const NavigationDesktop = () => {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[2rem] 2xl:gap-x-20 self-start xl:ml-[22px] 3xl:ml-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150 w-full">
+              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[2rem] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col h-fit" key={item.id}>
                     <a
@@ -576,17 +578,19 @@ const NavigationDesktop = () => {
                   </div>
                 ))}
               </div>
-            )}
+            )}</>
+            ) : null}
+           
           </div>
           <div className="fixed bottom-0 bg-croonus-1 text-white w-full py-1">
-            <div className="w-[85%] mx-auto flex">
+            <div className="px-1 mx-auto flex">
               {landingPagesList?.items?.map((item, index) => {
                 return (
                   <div key={index}>
                     <a
                       href={`/promo/${item?.slug}`}
                       key={item?.id}
-                      className="font-medium uppercase px-3 text-2xl py-1"
+                      className="font-medium uppercase px-3 text-xl py-1"
                       onClick={() => setOpen(false)}
                     >
                       {item?.name}
