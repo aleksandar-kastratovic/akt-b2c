@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import React from "react";
-const Products = ({ products = [] }) => {
+const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => {
   const globalAddToWishlist = useGlobalAddToWishList();
   const globalAddToCart = useGlobalAddToCart();
   const router = useRouter();
@@ -204,7 +204,7 @@ const Products = ({ products = [] }) => {
   let items = null;
   if (products.length) {
     items = products?.map((item, index) => (
-      <div key={item.id} className={`col-span-1 group`}>
+      <div ref={ index === indexOfElementRef ? elementRef : null} key={item.id} className={`col-span-1 group`}>
         <div className="w-full relative flex justify-center">
           <a
             className={`w-full`}

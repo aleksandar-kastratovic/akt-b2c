@@ -1,6 +1,6 @@
 "use client";
 import Products from "../Products/Products";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Filters from "../../Filters/Filters";
 import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
 import { useRouter } from "next/navigation";
@@ -29,10 +29,8 @@ const CategoriesPageDisplay = ({
   const updateFilterState = (newState) => {
     setFiltersOpen(newState);
   };
- 
+
   const router = useRouter();
-
-
 
 
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -49,6 +47,36 @@ const CategoriesPageDisplay = ({
   // );
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState(productsDataResponse);
+  const [hasMore, setHasMore] = useState(true)
+  const [page, setPage] = useState(0)
+  const elementRef = useRef(null)
+
+
+  function onIntersection(entries) {
+    const firstEntry = entries[0]
+    if (firstEntry.isIntersecting && hasMore) {
+      const { pagination } = productsData;
+      const { total_pages } = pagination;
+      if (page !== total_pages) {
+        setPage(page + 1);
+      }
+    }
+  }
+
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(onIntersection)
+
+    if (observer && elementRef.current) {
+      observer.observe(elementRef.current)
+    }
+    return () => {
+      if (observer) {
+        observer.disconnect()
+      }
+    }
+  }, [productsData])
+
 
   const [limit, setLimit] = useState(16);
 
@@ -60,10 +88,6 @@ const CategoriesPageDisplay = ({
     field: "price",
     direction: "asc",
   });
-
-  const [page, setPage] = useState(
-    query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1
-  );
 
   const newSelected = [];
   // for (const item in query) {
@@ -157,12 +181,12 @@ const CategoriesPageDisplay = ({
                   prevData?.items?.length === 0
                     ? response?.payload?.items
                     : [
-                        ...prevData?.items,
-                        ...response?.payload?.items.filter(
-                          (item) =>
-                            !prevData?.items?.some((i) => i.id === item.id)
-                        ),
-                      ],
+                      ...prevData?.items,
+                      ...response?.payload?.items.filter(
+                        (item) =>
+                          !prevData?.items?.some((i) => i.id === item.id)
+                      ),
+                    ],
                 pagination: response?.payload?.pagination,
               }));
             } else {
@@ -248,7 +272,7 @@ const CategoriesPageDisplay = ({
       ecommerce: {
         currencyCode: "RSD",
         impressions: [
-          products?.map((item) => {
+          products?.map((item, index) => {
             return {
               id: item?.basic_data?.id_product,
               name: item?.basic_data?.name,
@@ -382,30 +406,29 @@ const CategoriesPageDisplay = ({
           </>
         )}
         {categoryDataa?.basic_data?.name !== "Akcija" ? (
-           <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
-           {categories?.childrens &&
-             categories.childrens.map((child) => (
-               <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
-                 <a
-                   href={`/kategorije/${child?.slug_path}`}
-                   key={child?.id}
-                   onClick={() => setOpen(false)}
-                 >
-                   <div
-                     className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
-                       currentSlug === child?.slug
-                         ? "bg-croonus-1 text-white"
-                         : "bg-white text-black"
-                     }`}
-                   >
-                     <p className="">{child?.basic_data?.name}</p>
-                   </div>
-                 </a>
-               </div>
-             ))}
-         </div>
+          <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
+            {categories?.childrens &&
+              categories.childrens.map((child) => (
+                <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
+                  <a
+                    href={`/kategorije/${child?.slug_path}`}
+                    key={child?.id}
+                    onClick={() => setOpen(false)}
+                  >
+                    <div
+                      className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug
+                          ? "bg-croonus-1 text-white"
+                          : "bg-white text-black"
+                        }`}
+                    >
+                      <p className="">{child?.basic_data?.name}</p>
+                    </div>
+                  </a>
+                </div>
+              ))}
+          </div>
         ) : null}
-       
+
         <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
           <Filters
             filters={availableFilters}
@@ -430,15 +453,14 @@ const CategoriesPageDisplay = ({
           </div>
         ) : (
           <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-            <Products products={products} />
+            <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14} />
           </div>
         )}
-        
-       
+
         <ToastContainer />
       </div>
     </>
-   
+
   );
 };
 
