@@ -13,7 +13,7 @@ import Search from "../../assets/Icons/search.png";
 import { toast } from "react-toastify";
 import useDebounce from "@/hooks/useDebounce";
 import { currencyFormat } from "@/helpers/functions";
-
+import { useSearch } from "@/hooks/akt.hooks";
 
 const NavigationDesktop = () => {
   const pathname = usePathname();
@@ -226,6 +226,11 @@ const NavigationDesktop = () => {
   const debouncedSearch = useDebounce(searchTerm, 500);
 
 
+  const { data, isFetching } = useSearch({
+    searchTerm: debouncedSearch,
+    isSearchPage: false,
+  });
+
   useEffect(() => {
     if (searchTerm?.length > 0) {
       const getData = async (debouncedSearch) => {
@@ -327,13 +332,13 @@ const NavigationDesktop = () => {
               <div className="flex items-center gap-5 relative ">
                 <form
                  
-                  onSubmit={handleSearch}
+                 onSubmit={(e) => handleSearch(e)}
                   className={`${
                     searchTerm?.length > 0 ? `w-[25rem]` : `w-60`
                 } transition-all duration-500 relative`}
 
                 >
-                                <input
+                  <input
                     type="text"
                     placeholder="Unesite pojam za pretragu"
                     className={`bg-transparent border-l-0 w-full border-t-0 border-r-0 border-b ${
@@ -343,7 +348,9 @@ const NavigationDesktop = () => {
                     }  focus:ring-0 placeholder:text-sm text-sm p-0 focus:border-b-black  focus:outline-none`}
                     onInput={(event) => {
                       setSearchTerm(event.target.value);
-                      setLoading(true);
+                      if (event.target.value.length >= 3) {
+                        setLoading(true);
+                      }
                     }}
                     value={searchTerm}
                 />
@@ -356,7 +363,7 @@ const NavigationDesktop = () => {
                 <div
                     ref={searchRef}
                     className={`${
-                    searchTerm?.length > 0
+                    searchTerm?.length >= 3
                       ? `absolute flex flex-col h-[420px] hidescrollbar overflow-y-auto bg-white top-[30px] right-0 w-full border rounded-b-lg`
                       : `hidden`
                   } `}
