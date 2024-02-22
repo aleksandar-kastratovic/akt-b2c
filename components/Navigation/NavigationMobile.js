@@ -254,7 +254,7 @@ const NavigationMobile = () => {
               )}
             </div>
           </div>
-          <div className=" bg-[#f8f8fa] py-3">
+          {/* <div className=" bg-[#f8f8fa] py-3">
             <div className="w-[90%] mx-auto flex flex-col gap-[20px]">
               <a
                 href="/novo"
@@ -277,7 +277,7 @@ const NavigationMobile = () => {
                 Akcija
               </a>
             </div>
-          </div>
+          </div> */}
           <form
             className="w-[90%] mx-auto mt-10 relative"
             onSubmit={handleSearch}

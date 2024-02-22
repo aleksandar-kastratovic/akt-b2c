@@ -85,8 +85,8 @@ const CategoriesPageDisplay = ({
   );
 
   const [sort, setSort] = useState({
-    field: "price",
-    direction: "asc",
+    field: "",
+    direction: "",
   });
 
   const newSelected = [];

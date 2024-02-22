@@ -22,7 +22,7 @@ const Filters = ({
   }, [selectedFilters]);
 
   const [filtersOpen, setFiltersOpen] = useState(false);
-
+console.log(sort, "sort:::")
   return (
     <>
       <div className={`relative ${!filtersOpen && "overflow-hidden"}`}>
@@ -101,8 +101,9 @@ const Filters = ({
             id="sort"
             className="border-[#f2f2f2] py-3 uppercase text-xs select-none focus:ring-0 focus:border-croonus-1 focus:outline-none"
             onChange={onSortChange}
-            value={sort ? sort.field + "_" + sort.direction : "none"}
+            value={sort ? `${sort.field}_${sort.direction}` : "none"}
           >
+            <option value="none">Sortiraj</option>
             {Object.entries(sortKeys).map((item) => (
               <option className="text-xs" value={item[0]} key={item[0]}>
                 {item[1].label}
@@ -123,7 +124,7 @@ const Filters = ({
           id="sort"
           className="col-span-1 uppercase focus:ring-0 lg:hidden text-center text-white bg-croonus-1 relative focus:border-croonus-1 focus:outline-none max-md:text-xs"
           onChange={onSortChange}
-          value={sort ? sort.field + "_" + sort.direction : "none"}
+          value={(sort && `${sort.field}_${sort.direction}`) || "none"}
         >
           <option value="none">Sortiraj</option>
           {Object.entries(sortKeys).map((item) => (
