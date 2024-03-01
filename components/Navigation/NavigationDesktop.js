@@ -375,7 +375,7 @@ const NavigationDesktop = () => {
                       </h1>
                       <div className="flex flex-col gap-5 mt-3 pb-5">
                         {searchData?.items?.slice(0, 6)?.map((item) => {
-                          console.log(item, "item:::")
+                        
                           return (
                             <Link
                               href={`/proizvod/${item?.slug_path}`}
@@ -501,9 +501,10 @@ const NavigationDesktop = () => {
                         className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => {
-                          setTimeout(() => {
+                          const timeout = setTimeout(() => {
                             setSubcategory(item?.children);
                           }, 200);
+                          return() => {clearTimeout(timeout)}
                         }}
                       >
                         {item?.name}
@@ -532,11 +533,13 @@ const NavigationDesktop = () => {
                   <div className="col-span-1 flex flex-col" key={item.id}>
                     <a
                       href={`/kategorije/${item?.slug_path}`}
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false)
+                        setSubcategory([])}}
                     >
-                      <h2 className="text-xl font-light hover:underline">
+                      <h1 className="text-xl font-light hover:underline">
                         {item?.name}
-                      </h2>
+                      </h1>
                     </a>
                     <div className="mt-5 pl-2 ">
                       {item?.children
@@ -544,7 +547,9 @@ const NavigationDesktop = () => {
                             <a
                               href={`/kategorije/${child?.slug_path}`}
                               key={child?.id}
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                setOpen(false)
+                              setSubcategory([])}}
                             >
                               <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
                                 <p className="">{child?.name}</p>
@@ -564,9 +569,9 @@ const NavigationDesktop = () => {
                       href={`/kategorije/${item?.slug_path}`}
                       onClick={() => setOpen(false)}
                     >
-                      <h3 className="text-xl font-light hover:underline">
+                      <h1 className="text-xl font-light hover:underline">
                         {item?.name}
-                      </h3>
+                      </h1>
                     </a>
                     <div className="mt-2 pl-2 ">
                       {item?.children

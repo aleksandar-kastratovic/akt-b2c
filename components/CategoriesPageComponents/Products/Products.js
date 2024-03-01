@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-
-import wishlist from "../../../assets/Icons/favorite.png";
+import { deleteMethod, get, list, post } from "@/app/api/api";
+import Wishlist from "../../../assets/Icons/favorite.png";
 import wishlistactive from "../../../assets/Icons/favorite-active.png";
 import { useGlobalAddToWishList } from "../../../app/api/globals";
 import { currencyFormat } from "../../../helpers/functions";
@@ -16,19 +16,28 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 
-const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) => {
+const Products = ({
+  products = [],
+  elementRef = {},
+  indexOfElementRef = 0,
+  wishlistId,
+  setWishlistId = () => {},
+  isInWishlist = false, }) => {
 
-  const [, , , mutateWishList] = useCartContext();
   const addToWishlist = useGlobalAddToWishList();
   const [loadingWishlist, setLoadingWishlist] = useState();
   const [wishlistImages, setWishlistImages] = useState({});
   const router = useRouter();
   const pathname = usePathname();
-
-  const handleWishlist = (id) => {
-    setLoadingWishlist(id);
-  }
-
+  const [, , , mutateWishList] = useCartContext();
+console.log(products, "pro::")
+  const { data: wishlist, refetch } = useQuery({
+    queryKey: ["wishlist"],
+    queryFn: async () => {
+      return await list(`/wishlist`).then((res) => res?.payload?.items);
+    },
+    refetchOnWindowFocus: false,
+  });
   const renderPrices = (item) => {
    
     switch (item?.product_type) {
@@ -220,7 +229,9 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) =>
   if (products.length) {
 
     items = products?.map((item, index) => {
-      const addToWishList = loadingWishlist === item.id;
+       const isProductInWishlist = wishlist?.find(
+        (product) => product?.product?.id === item?.basic_data?.id_product,
+      );
       return(
       <div ref={ index === indexOfElementRef ? elementRef : null} key={item.id} className={`col-span-1 group`}>
         <div className="w-full relative flex justify-center">
@@ -326,32 +337,85 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) =>
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             
             <div className="flex items-center justify-end w-full">
-            <div onClick={() => handleWishlist(item.id)} className="mr-[20%]">
-            {addToWishList ? (
-              <Image src={"/icons/loading-buffering.gif"} alt="Loading" width={29} height={30} />
-              ) : (
-            <Image
-              src={wishlistImages[item?.id] ? wishlistactive : wishlist}
-              height={28}
-              width={28}
-              className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-              alt="Akt"
-              onClick={() => {
-                setWishlistImages((prevImages) => {
-                  const updatedImages = { ...prevImages, [item.id]: !prevImages[item?.id] };
-                  return updatedImages;
-
-                });
-                addToWishlist(item?.id);
-                toast.success("Proizvod dodat u listu želja!", {
-                  position: toast.POSITION.TOP_CENTER,
-                });
-                setTimeout(() => {
-                  setLoadingWishlist(false);
-                }, 1000);
-              }}
-            />)}
-            </div>
+             <div
+                onMouseEnter={() => {
+                  setWishlistId(item?.basic_data?.id_product);
+                }}
+                onClick={async () => {
+                  if (!isInWishlist) {
+                    await post("/wishlist", {
+                      id: null,
+                      id_product: item?.basic_data?.id_product,
+                      quantity: 1,
+                      id_product_parent: null,
+                      description: null,
+                      status: null,
+                    }).then((res) => {
+                      if (res?.code === 200) {
+                        toast.success("Uspešno dodato u želje.", {
+                          autoClose: 2000,
+                          position: "top-center",
+                        });
+                        mutateWishList();
+                      } else {
+                        toast.warn("Proizvod je već u željama.", {
+                          autoClose: 2000,
+                          position: "top-center",
+                        });
+                      }
+                    });
+                    refetch();
+                  } else {
+                    setTimeout(async () => {
+                      await deleteMethod(`/wishlist/${wishlistId}`).then(
+                        (res) => {
+                          if (res?.code === 200) {
+                            toast.success("Uspešno uklonjeno iz želja.", {
+                              autoClose: 2000,
+                              position: "top-center",
+                            });
+                            mutateWishList();
+                          } else {
+                            toast.error("Došlo je do greške.", {
+                              autoClose: 2000,
+                              position: "top-center",
+                            });
+                          }
+                        },
+                      );
+                    }, 500);
+                  }
+                }}
+                className={`flex min-w-[25px] mr-[20%] items-center justify-center ${
+                  pathname !== "/zelje" && "hover:bg-[#f3f3f3]"
+                } transition-all duration-300`}
+              >
+                {isInWishlist ? (
+                  <i
+                    className={`fa fa-solid fa-times cursor-pointer text-xl hover:text-red-500`}
+                  ></i>
+                ) : isProductInWishlist ? (
+                  <Image
+                    alt="wishlist"
+                    src={wishlistactive}
+                    height={28}
+                    width={28}
+                    className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+            
+                  />
+                ) : (
+                  <Image
+                    src={Wishlist}
+                    alt="wishlist"
+                    height={28}
+                    width={28}
+                    className={`cursor-pointer transition-all duration-500 hover:scale-110 ${
+                      isProductInWishlist && "hidden"
+                    }`}
+                  />
+                )}
+              </div>
+         
           </div>
 
             <div className="w-[2px] h-[26px] bg-[#000]"></div>
@@ -428,9 +492,8 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) =>
               {item?.basic_data?.name}
             </a>
           </p>
-          {item?.price?.price?.original !== 0 ? (
-            <>{renderPrices(item)}</>
-          ) : (
+          {item?.price?.price?.original == 0 || item?.price?.price?.original == null ? (
+            
             <button
               className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
               onClick={() => {
@@ -439,6 +502,8 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) =>
             >
               <span className="text-[0.8rem]">Pošaljite upit</span>
             </button>
+          ) : (
+            <>{renderPrices(item)}</>
           )}
         </div>
       </div>)

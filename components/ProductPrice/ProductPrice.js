@@ -6,10 +6,14 @@ import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import { useCartContext } from "@/app/api/cartContext";
 import Cart from "../../assets/Icons/shopping-bag.png";
-import Wishlist from "../../assets/Icons/favorite.png";
+import wishlist from "@/assets/Icons/favorite.png";
+import wishlistactive from "../../assets/Icons/favorite-active.png";
 import Variants from "../Variants/Variants";
 import { usePathname, useRouter } from "next/navigation";
+import { get, deleteMethod, post } from "@/app/api/api";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
 const ProductInfo = ({ products, description, badge }) => {
   const router = useRouter();
@@ -19,13 +23,89 @@ const ProductInfo = ({ products, description, badge }) => {
   const [productVariant, setProductVariant] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [newURL, setNewURL] = useState(null);
-  console.log(products, "produkt");
+  const [, , , mutateWishList] = useCartContext();
+  const [loadingWishlist, setLoadingWishlist] = useState(false);
+  const slug = products?.data?.item?.slug
+
+  const { data } = useSuspenseQuery({
+    queryKey: ["slug", slug],
+    queryFn: async () => {
+      return await get(`/product-details/basic-data/${slug}`).then(
+        (res) => res?.payload,
+      );
+    },
+    refetchOnWindowFocus: false,
+  });
 
   useEffect(() => {
     if (newURL) {
       window.history.replaceState(null, null, `/proizvod/${newURL}`);
     }
   }, [newURL]);
+
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [wishlistId, setWishlistId] = useState(null);
+
+  const addToWishlist = async (id) => {
+    if (isInWishlist) {
+      await deleteMethod(`/wishlist/${wishlistId}`).then((res) => {
+        if (res?.code === 200) {
+          toast.success("Proizvod obrisan iz želja.", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+          mutateWishList();
+
+          setLoadingWishlist(false);
+          setIsInWishlist(false);
+        } else {
+          toast.error("Došlo je do nepoznate greške!", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+          setLoadingWishlist(false);
+          setIsInWishlist(false);
+        }
+      });
+    } else {
+      await post("/wishlist", {
+        id: null,
+        id_product: id,
+        quantity: 1,
+        id_product_parent: null,
+        description: null,
+        status: null,
+      }).then((res) => {
+        if (res?.code === 200) {
+          toast.success("Proizvod je dodat u želje.", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+          mutateWishList();
+          setLoadingWishlist(false);
+        } else {
+          toast.error("Došlo je do nepoznate greške!", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+          setLoadingWishlist(false);
+        }
+      });
+    }
+  };
+  useEffect(() => {
+    const checkWishlist = async () => {
+      return await get(
+        `/wishlist/product-in-wishlist/${data?.data?.item?.basic_data?.id_product}`,
+      ).then((res) => {
+        if (res?.payload?.exist) {
+          setIsInWishlist(true);
+          setWishlistId(res?.payload?.wishlist_item_id);
+        }
+      });
+    };
+    checkWishlist();
+  }, [addToWishlist]);
 
   const updateProductVariant = (newProduct) => {
     setProductVariant(newProduct);
@@ -40,15 +120,7 @@ const ProductInfo = ({ products, description, badge }) => {
   const globalAddToCart = useGlobalAddToCart();
   const globalAddToWishList = useGlobalAddToWishList();
 
-  const addToWishlist = (e) => {
 
-      globalAddToWishList(products.data.item.basic_data?.id_product);
-      toast.success("Proizvod dodat u listu želja!", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-   
-    
-  };
   const addToCart = (e) => {
     if (products.product_type === "single") {
       globalAddToCart(products.data.item.basic_data.id_product, productAmount);
@@ -312,7 +384,7 @@ const ProductInfo = ({ products, description, badge }) => {
         {/*    </>*/}
         {/*  )}*/}
         {/*</p>*/}
-        {products?.data?.item?.price?.price?.original !== 0 ? (
+        {products?.data?.item?.price?.price?.original !== 0 && products?.data?.item?.price?.price?.original !== null ? (
           <>{renderPrices(products?.data?.item)}</>
         ) : null}
       </div>
@@ -336,7 +408,7 @@ const ProductInfo = ({ products, description, badge }) => {
           />
         </div>
       )}
-      {products?.data?.item?.price?.price?.original !== 0 ? (
+      {products?.data?.item?.price?.price?.original !== 0 && products?.data?.item?.price?.price?.original !== null ? (
         <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
           {products?.data?.item?.price?.discount?.active ? (
             <>
@@ -356,7 +428,7 @@ const ProductInfo = ({ products, description, badge }) => {
                     products?.data?.item?.price?.max?.price?.discount
                   )}
                 </>
-              )}
+              ) }
             </>
           ) : (
             <>
@@ -465,17 +537,44 @@ const ProductInfo = ({ products, description, badge }) => {
             </button>
           )}
 
-          <div className="lg:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb] lg:rounded-full">
-            <Image
-              src={Wishlist}
-              alt="wishlist"
-              width={40}
-              height={40}
-              onClick={() => addToWishlist()}
-              className="cursor-pointer lg:hover:invert"
-            />
-            <ToastContainer />
-          </div>
+
+          <ToastContainer />
+          <div
+              className={`self-stretch`}
+              onClick={() => {
+                setLoadingWishlist(true);
+                addToWishlist(data?.data?.item?.basic_data?.id_product);
+              }}
+            >
+              <button
+                disabled={loadingWishlist}
+                className={`w-full flex items-center justify-center bg-${
+                  isInWishlist ? `[#f3f3f3]` : ``
+                } g:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb]`}
+              >
+                {loadingWishlist ? (
+                  <i
+                    className={`fa fa-solid fa-spinner fa-spin text-white text-xl`}
+                  ></i>
+                ) : isInWishlist ? (
+                  <Image
+                    src={wishlistactive}
+                    alt={`AKT`}
+                    width={40}
+                    height={40}
+                    className={`cursor-pointer`}
+                  />
+                ) : (
+                  <Image
+                    src={wishlist}
+                    alt={`AKT`}
+                    width={40}
+                    height={40}
+                    className={``}
+                  />
+                )}
+              </button>
+            </div>
         </div>
       </div>
     </div>
