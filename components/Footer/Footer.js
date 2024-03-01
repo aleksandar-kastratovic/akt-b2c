@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { post } from "@/app/api/api";
+import { format } from 'date-fns';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../assets/logo.png";
@@ -17,8 +18,10 @@ import Image7 from "../../assets/Icons/img3.png";
 import Image8 from "../../assets/Icons/img4.png";
 
 const Footer = () => {
+
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const currentYear = format(new Date(), 'yyyy');
   const {
     register,
     handleSubmit,
@@ -295,7 +298,7 @@ const Footer = () => {
           po ceni lokalnog poziva.
         </p>
         <div className="text-sm text-center mt-6">
-          2023 AKT DOO | Sva prava zadržana. Powered by{" "}
+          &copy; {currentYear} AKT DOO | Sva prava zadržana. Powered by{" "}
           <a className="underline font-medium" href="https://croonus.com">
             Croonus Technologies
           </a>

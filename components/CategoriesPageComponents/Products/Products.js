@@ -1,21 +1,45 @@
 import Link from "next/link";
 import Image from "next/image";
+import { deleteMethod, get, list, post } from "@/app/api/api";
 import Wishlist from "../../../assets/Icons/favorite.png";
+import wishlistactive from "../../../assets/Icons/favorite-active.png";
 import { useGlobalAddToWishList } from "../../../app/api/globals";
 import { currencyFormat } from "../../../helpers/functions";
 import { useGlobalAddToCart } from "../../../app/api/globals";
+import { useCartContext } from "@/app/api/cartContext";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import Cart from "../../../assets/Icons/shopping-bag.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import React from "react";
-const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => {
-  const globalAddToWishlist = useGlobalAddToWishList();
-  const globalAddToCart = useGlobalAddToCart();
-  const router = useRouter();
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 
+const Products = ({
+  products = [],
+  elementRef = {},
+  indexOfElementRef = 0,
+  wishlistId,
+  setWishlistId = () => {},
+  isInWishlist = false, }) => {
+
+  const addToWishlist = useGlobalAddToWishList();
+  const [loadingWishlist, setLoadingWishlist] = useState();
+  const [wishlistImages, setWishlistImages] = useState({});
+  const router = useRouter();
+  const pathname = usePathname();
+  const [, , , mutateWishList] = useCartContext();
+console.log(products, "pro::")
+  const { data: wishlist, refetch } = useQuery({
+    queryKey: ["wishlist"],
+    queryFn: async () => {
+      return await list(`/wishlist`).then((res) => res?.payload?.items);
+    },
+    refetchOnWindowFocus: false,
+  });
   const renderPrices = (item) => {
+   
     switch (item?.product_type) {
       case "variant":
         switch (item?.price?.discount?.active) {
@@ -203,7 +227,12 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
 
   let items = null;
   if (products.length) {
-    items = products?.map((item, index) => (
+
+    items = products?.map((item, index) => {
+       const isProductInWishlist = wishlist?.find(
+        (product) => product?.product?.id === item?.basic_data?.id_product,
+      );
+      return(
       <div ref={ index === indexOfElementRef ? elementRef : null} key={item.id} className={`col-span-1 group`}>
         <div className="w-full relative flex justify-center">
           <a
@@ -234,26 +263,56 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
             }}
           >
             <div className="relative w-full">
-              <div className="relative w-full overflow-hidden">
+              <div className="relative w-full">
                 {item?.image[0] ? (
-                  <Image
-                    src={convertHttpToHttps(item?.image[0])}
-                    alt={item?.basic_data?.name}
-                    width={0}
-                    height={0}
-                    sizes={`100vw`}
-                    style={{ objectFit: "cover" }}
-                    className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage group-hover:scale-110 `}
-                    loading="lazy"
-                  />
+                  <>
+                  {item?.image[1] ? (
+                    <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                        <Image
+                          src={convertHttpToHttps(item?.image[0])}
+                          alt={item?.basic_data?.name}
+                          width={0}
+                          height={0}
+                          sizes={`100vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                          loading="lazy"
+                        />
+                        <Image
+                          src={convertHttpToHttps(item?.image[1])}
+                          alt={item?.basic_data?.name}
+                          width={0}
+                          height={0}
+                          sizes={`100vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                          loading="lazy"
+                        />
+                      </div>
+                  ) : (
+                    <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                    <Image
+                      src={convertHttpToHttps(item?.image[0])}
+                      alt={item?.basic_data?.name}
+                      width={0}
+                      height={0}
+                      sizes={`100vw`}
+                      style={{ objectFit: "cover" }}
+                      className={`aspect-2/3 opacity-100 object-cover w-full `}
+                      loading="lazy"
+                    />
+                  </div>
+                  )}
+                  </>
                 ) : (
                   <Image
-                    src="/placeholder.jpg"
-                    width={500}
-                    height={500}
-                    className="h-full object-cover"
-                    priority={true}
-                    alt={`proizvod-${item?.basic_data?.name}`}
+                  src="/placeholder.jpg"
+                  width={500}
+                  height={500}
+                  className="h-full object-cover"
+                  priority={true}
+                  alt={`proizvod-${item?.basic_data?.name}`}
+
                   />
                 )}
               </div>
@@ -278,62 +337,129 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             
             <div className="flex items-center justify-end w-full">
-              <Image
-                src={Wishlist}
-                width={32}
-                height={32}
-                alt="favorite"
-                className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                onClick={() => {
-                  globalAddToWishlist(item?.basic_data?.id_product);
-                  toast.success("Proizvod je dodat u listu želja!", {
-                    position: "top-center",
-                  });
+             <div
+                onMouseEnter={() => {
+                  setWishlistId(item?.basic_data?.id_product);
                 }}
-              />
-            </div>
-            <div className="w-[2px] h-[26px] bg-[#000]"></div>
-            <div className="flex items-center justify-start w-full">
-              <Image
-                src={Cart}
-                width={38}
-                height={38}
-                alt="cart"
-                className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
-                onClick={() => {
-                  if (item?.product_type === "single") {
-                    globalAddToCart(item?.basic_data?.id_product, 1, false);
-                    toast.success("Proizvod je dodat u korpu!", {
-                      position: "top-center",
+                onClick={async () => {
+                  if (!isInWishlist) {
+                    await post("/wishlist", {
+                      id: null,
+                      id_product: item?.basic_data?.id_product,
+                      quantity: 1,
+                      id_product_parent: null,
+                      description: null,
+                      status: null,
+                    }).then((res) => {
+                      if (res?.code === 200) {
+                        toast.success("Uspešno dodato u želje.", {
+                          autoClose: 2000,
+                          position: "top-center",
+                        });
+                        mutateWishList();
+                      } else {
+                        toast.warn("Proizvod je već u željama.", {
+                          autoClose: 2000,
+                          position: "top-center",
+                        });
+                      }
                     });
-                    if (process?.env?.GTM_ENABLED === "true") {
-                      window?.dataLayer?.push({ ecommerce: null });
-                      window?.dataLayer?.push({
-                        event: "addToCart",
-                        ecommerce: {
-                          currencyCode: "RSD",
-                          add: {
-                            products: [
-                              {
-                                name: item?.basic_data?.name,
-                                id: item?.basic_data?.id_product,
-                                price: item?.price?.price?.original,
-                                brand: item?.basic_data?.brand,
-                                category: item?.categories[0]?.name,
-                                variant: null,
-                                quantity: 1,
-                              },
-                            ],
-                          },
-                        },
-                      });
-                    }
+                    refetch();
                   } else {
-                    router.push(`/proizvod/${item?.slug_path}`);
+                    setTimeout(async () => {
+                      await deleteMethod(`/wishlist/${wishlistId}`).then(
+                        (res) => {
+                          if (res?.code === 200) {
+                            toast.success("Uspešno uklonjeno iz želja.", {
+                              autoClose: 2000,
+                              position: "top-center",
+                            });
+                            mutateWishList();
+                          } else {
+                            toast.error("Došlo je do greške.", {
+                              autoClose: 2000,
+                              position: "top-center",
+                            });
+                          }
+                        },
+                      );
+                    }, 500);
                   }
                 }}
-              />
-            </div>
+                className={`flex min-w-[25px] mr-[20%] items-center justify-center ${
+                  pathname !== "/zelje" && "hover:bg-[#f3f3f3]"
+                } transition-all duration-300`}
+              >
+                {isInWishlist ? (
+                  <i
+                    className={`fa fa-solid fa-times cursor-pointer text-xl hover:text-red-500`}
+                  ></i>
+                ) : isProductInWishlist ? (
+                  <Image
+                    alt="wishlist"
+                    src={wishlistactive}
+                    height={28}
+                    width={28}
+                    className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+            
+                  />
+                ) : (
+                  <Image
+                    src={Wishlist}
+                    alt="wishlist"
+                    height={28}
+                    width={28}
+                    className={`cursor-pointer transition-all duration-500 hover:scale-110 ${
+                      isProductInWishlist && "hidden"
+                    }`}
+                  />
+                )}
+              </div>
+         
+          </div>
+
+            <div className="w-[2px] h-[26px] bg-[#000]"></div>
+              <div className="flex items-center justify-start w-full">
+                <Image
+                  src={Cart}
+                  width={36}
+                  height={36}
+                  alt="cart"
+                  className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
+                  onClick={() => {
+                    if (item?.product_type === "single") {
+                      globalAddToCart(item?.basic_data?.id_product, 1, false);
+                      toast.success("Proizvod je dodat u korpu!", {
+                        position: "top-center",
+                      });
+                      if (process?.env?.GTM_ENABLED === "true") {
+                        window?.dataLayer?.push({ ecommerce: null });
+                        window?.dataLayer?.push({
+                          event: "addToCart",
+                          ecommerce: {
+                            currencyCode: "RSD",
+                            add: {
+                              products: [
+                                {
+                                  name: item?.basic_data?.name,
+                                  id: item?.basic_data?.id_product,
+                                  price: item?.price?.price?.original,
+                                  brand: item?.basic_data?.brand,
+                                  category: item?.categories[0]?.name,
+                                  variant: null,
+                                  quantity: 1,
+                                },
+                              ],
+                            },
+                          },
+                        });
+                      }
+                    } else {
+                      router.push(`/proizvod/${item?.slug_path}`);
+                    }
+                  }}
+                />
+              </div>
           </div>
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
             <a
@@ -366,9 +492,8 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
               {item?.basic_data?.name}
             </a>
           </p>
-          {item?.price?.price?.original !== 0 ? (
-            <>{renderPrices(item)}</>
-          ) : (
+          {item?.price?.price?.original == 0 || item?.price?.price?.original == null ? (
+            
             <button
               className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
               onClick={() => {
@@ -377,10 +502,12 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
             >
               <span className="text-[0.8rem]">Pošaljite upit</span>
             </button>
+          ) : (
+            <>{renderPrices(item)}</>
           )}
         </div>
-      </div>
-    ));
+      </div>)
+  });
   } else {
     if (products?.length === 0) {
       <div>Nema proizvoda za prikaz.</div>;

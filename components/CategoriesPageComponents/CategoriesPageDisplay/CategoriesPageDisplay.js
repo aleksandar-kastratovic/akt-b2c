@@ -85,8 +85,8 @@ const CategoriesPageDisplay = ({
   );
 
   const [sort, setSort] = useState({
-    field: "price",
-    direction: "asc",
+    field: "",
+    direction: "",
   });
 
   const newSelected = [];
@@ -405,7 +405,7 @@ const CategoriesPageDisplay = ({
             ></p>
           </>
         )}
-        {categoryDataa?.basic_data?.name !== "Akcija" ? (
+        {categoryDataa?.basic_data?.name !== "Akcija" && categoryDataa?.basic_data?.name !== "Novo" && categoryDataa?.basic_data?.name !== "OUTLET" && categoryDataa?.basic_data?.name !== "Hotelski program" ? (
           <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
             {categories?.childrens &&
               categories.childrens.map((child) => (
