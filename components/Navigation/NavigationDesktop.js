@@ -375,7 +375,7 @@ const NavigationDesktop = () => {
                       </h1>
                       <div className="flex flex-col gap-5 mt-3 pb-5">
                         {searchData?.items?.slice(0, 6)?.map((item) => {
-                          
+                          console.log(item, "item:::")
                           return (
                             <Link
                               href={`/proizvod/${item?.slug_path}`}
@@ -385,11 +385,12 @@ const NavigationDesktop = () => {
                               }}
                             >
                              <div className="flex flex-row items-center gap-5">
-                                <div className="w-[60px] h-[60px] relative">
+                                <div className=" relative">
                                   <Image
                                     src={item?.image[0]}
                                     alt={``}
-                                    fill
+                                    width={60}
+                                    height={60}
                                     className={`object-cover rounded-full`}
                                   />
                                 </div>
@@ -533,9 +534,9 @@ const NavigationDesktop = () => {
                       href={`/kategorije/${item?.slug_path}`}
                       onClick={() => setOpen(false)}
                     >
-                      <h1 className="text-xl font-light hover:underline">
+                      <h2 className="text-xl font-light hover:underline">
                         {item?.name}
-                      </h1>
+                      </h2>
                     </a>
                     <div className="mt-5 pl-2 ">
                       {item?.children
@@ -563,9 +564,9 @@ const NavigationDesktop = () => {
                       href={`/kategorije/${item?.slug_path}`}
                       onClick={() => setOpen(false)}
                     >
-                      <h1 className="text-xl font-light hover:underline">
+                      <h3 className="text-xl font-light hover:underline">
                         {item?.name}
-                      </h1>
+                      </h3>
                     </a>
                     <div className="mt-2 pl-2 ">
                       {item?.children

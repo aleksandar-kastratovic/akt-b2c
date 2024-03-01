@@ -1,21 +1,36 @@
 import Link from "next/link";
 import Image from "next/image";
-import Wishlist from "../../../assets/Icons/favorite.png";
+
+import wishlist from "../../../assets/Icons/favorite.png";
+import wishlistactive from "../../../assets/Icons/favorite-active.png";
 import { useGlobalAddToWishList } from "../../../app/api/globals";
 import { currencyFormat } from "../../../helpers/functions";
 import { useGlobalAddToCart } from "../../../app/api/globals";
+import { useCartContext } from "@/app/api/cartContext";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import Cart from "../../../assets/Icons/shopping-bag.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import React from "react";
-const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => {
-  const globalAddToWishlist = useGlobalAddToWishList();
-  const globalAddToCart = useGlobalAddToCart();
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+
+const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0, }) => {
+
+  const [, , , mutateWishList] = useCartContext();
+  const addToWishlist = useGlobalAddToWishList();
+  const [loadingWishlist, setLoadingWishlist] = useState();
+  const [wishlistImages, setWishlistImages] = useState({});
   const router = useRouter();
+  const pathname = usePathname();
+
+  const handleWishlist = (id) => {
+    setLoadingWishlist(id);
+  }
 
   const renderPrices = (item) => {
+   
     switch (item?.product_type) {
       case "variant":
         switch (item?.price?.discount?.active) {
@@ -203,7 +218,10 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
 
   let items = null;
   if (products.length) {
-    items = products?.map((item, index) => (
+
+    items = products?.map((item, index) => {
+      const addToWishList = loadingWishlist === item.id;
+      return(
       <div ref={ index === indexOfElementRef ? elementRef : null} key={item.id} className={`col-span-1 group`}>
         <div className="w-full relative flex justify-center">
           <a
@@ -234,26 +252,56 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
             }}
           >
             <div className="relative w-full">
-              <div className="relative w-full overflow-hidden">
+              <div className="relative w-full">
                 {item?.image[0] ? (
-                  <Image
-                    src={convertHttpToHttps(item?.image[0])}
-                    alt={item?.basic_data?.name}
-                    width={0}
-                    height={0}
-                    sizes={`100vw`}
-                    style={{ objectFit: "cover" }}
-                    className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage group-hover:scale-110 `}
-                    loading="lazy"
-                  />
+                  <>
+                  {item?.image[1] ? (
+                    <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                        <Image
+                          src={convertHttpToHttps(item?.image[0])}
+                          alt={item?.basic_data?.name}
+                          width={0}
+                          height={0}
+                          sizes={`100vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                          loading="lazy"
+                        />
+                        <Image
+                          src={convertHttpToHttps(item?.image[1])}
+                          alt={item?.basic_data?.name}
+                          width={0}
+                          height={0}
+                          sizes={`100vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                          loading="lazy"
+                        />
+                      </div>
+                  ) : (
+                    <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                    <Image
+                      src={convertHttpToHttps(item?.image[0])}
+                      alt={item?.basic_data?.name}
+                      width={0}
+                      height={0}
+                      sizes={`100vw`}
+                      style={{ objectFit: "cover" }}
+                      className={`aspect-2/3 opacity-100 object-cover w-full `}
+                      loading="lazy"
+                    />
+                  </div>
+                  )}
+                  </>
                 ) : (
                   <Image
-                    src="/placeholder.jpg"
-                    width={500}
-                    height={500}
-                    className="h-full object-cover"
-                    priority={true}
-                    alt={`proizvod-${item?.basic_data?.name}`}
+                  src="/placeholder.jpg"
+                  width={500}
+                  height={500}
+                  className="h-full object-cover"
+                  priority={true}
+                  alt={`proizvod-${item?.basic_data?.name}`}
+
                   />
                 )}
               </div>
@@ -278,62 +326,76 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             
             <div className="flex items-center justify-end w-full">
-              <Image
-                src={Wishlist}
-                width={32}
-                height={32}
-                alt="favorite"
-                className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                onClick={() => {
-                  globalAddToWishlist(item?.basic_data?.id_product);
-                  toast.success("Proizvod je dodat u listu želja!", {
-                    position: "top-center",
-                  });
-                }}
-              />
+            <div onClick={() => handleWishlist(item.id)} className="mr-[20%]">
+            {addToWishList ? (
+              <Image src={"/icons/loading-buffering.gif"} alt="Loading" width={29} height={30} />
+              ) : (
+            <Image
+              src={wishlistImages[item?.id] ? wishlistactive : wishlist}
+              height={28}
+              width={28}
+              className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+              alt="Akt"
+              onClick={() => {
+                setWishlistImages((prevImages) => {
+                  const updatedImages = { ...prevImages, [item.id]: !prevImages[item?.id] };
+                  return updatedImages;
+
+                });
+                addToWishlist(item?.id);
+                toast.success("Proizvod dodat u listu želja!", {
+                  position: toast.POSITION.TOP_CENTER,
+                });
+                setTimeout(() => {
+                  setLoadingWishlist(false);
+                }, 1000);
+              }}
+            />)}
             </div>
+          </div>
+
             <div className="w-[2px] h-[26px] bg-[#000]"></div>
-            <div className="flex items-center justify-start w-full">
-              <Image
-                src={Cart}
-                width={38}
-                height={38}
-                alt="cart"
-                className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
-                onClick={() => {
-                  if (item?.product_type === "single") {
-                    globalAddToCart(item?.basic_data?.id_product, 1, false);
-                    toast.success("Proizvod je dodat u korpu!", {
-                      position: "top-center",
-                    });
-                    if (process?.env?.GTM_ENABLED === "true") {
-                      window?.dataLayer?.push({ ecommerce: null });
-                      window?.dataLayer?.push({
-                        event: "addToCart",
-                        ecommerce: {
-                          currencyCode: "RSD",
-                          add: {
-                            products: [
-                              {
-                                name: item?.basic_data?.name,
-                                id: item?.basic_data?.id_product,
-                                price: item?.price?.price?.original,
-                                brand: item?.basic_data?.brand,
-                                category: item?.categories[0]?.name,
-                                variant: null,
-                                quantity: 1,
-                              },
-                            ],
-                          },
-                        },
+              <div className="flex items-center justify-start w-full">
+                <Image
+                  src={Cart}
+                  width={36}
+                  height={36}
+                  alt="cart"
+                  className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
+                  onClick={() => {
+                    if (item?.product_type === "single") {
+                      globalAddToCart(item?.basic_data?.id_product, 1, false);
+                      toast.success("Proizvod je dodat u korpu!", {
+                        position: "top-center",
                       });
+                      if (process?.env?.GTM_ENABLED === "true") {
+                        window?.dataLayer?.push({ ecommerce: null });
+                        window?.dataLayer?.push({
+                          event: "addToCart",
+                          ecommerce: {
+                            currencyCode: "RSD",
+                            add: {
+                              products: [
+                                {
+                                  name: item?.basic_data?.name,
+                                  id: item?.basic_data?.id_product,
+                                  price: item?.price?.price?.original,
+                                  brand: item?.basic_data?.brand,
+                                  category: item?.categories[0]?.name,
+                                  variant: null,
+                                  quantity: 1,
+                                },
+                              ],
+                            },
+                          },
+                        });
+                      }
+                    } else {
+                      router.push(`/proizvod/${item?.slug_path}`);
                     }
-                  } else {
-                    router.push(`/proizvod/${item?.slug_path}`);
-                  }
-                }}
-              />
-            </div>
+                  }}
+                />
+              </div>
           </div>
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
             <a
@@ -379,8 +441,8 @@ const Products = ({ products = [], elementRef = {}, indexOfElementRef = 0 }) => 
             </button>
           )}
         </div>
-      </div>
-    ));
+      </div>)
+  });
   } else {
     if (products?.length === 0) {
       <div>Nema proizvoda za prikaz.</div>;

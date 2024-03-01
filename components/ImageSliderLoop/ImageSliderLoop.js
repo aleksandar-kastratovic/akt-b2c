@@ -78,13 +78,15 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
         key={index}
         className={`w-full relative flex items-center flex-col keen-slider__slide number-slide${index}`}
       >
-        <Image
-          fill
-          className="relative object-cover h-full w-full"
-          src={convertHttpToHttps(item?.image)}
-          alt={item?.name}
-          priority={true}
-        />
+        <Link href={item?.url ?? "/"}>
+          <Image
+            fill
+            className="relative object-cover h-full w-full"
+            src={convertHttpToHttps(item?.image)}
+            alt={item?.name}
+            priority={true}
+          />
+        </Link>
         <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
           <h1 className="text-3xl text-croonus-1">{item?.title}</h1>
           <div className={`w-[80%] mx-auto`}>
@@ -139,14 +141,16 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
   } else {
     const images = bannerimages?.map((item, index) => (
       <div key={index} className={`keen-slider__slide number-slide${index}`}>
-        <Image
-          width={1222}
-          height={1222}
-          className="relative z-50 h-auto w-full max-lg:h-[10%] max-lg:w-full"
-          src={item?.image}
-          alt={item.id}
-          priority
-        />
+        <Link href={item?.url ?? "/"}>
+          <Image
+            width={1222}
+            height={1222}
+            className="relative z-50 h-auto w-full max-lg:h-[10%] max-lg:w-full"
+            src={item?.image}
+            alt={item.id}
+            priority
+          />
+        </Link>
       </div>
     ));
 

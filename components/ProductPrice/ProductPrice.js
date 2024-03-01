@@ -41,23 +41,13 @@ const ProductInfo = ({ products, description, badge }) => {
   const globalAddToWishList = useGlobalAddToWishList();
 
   const addToWishlist = (e) => {
-    if (products.product_type === "single") {
+
       globalAddToWishList(products.data.item.basic_data?.id_product);
       toast.success("Proizvod dodat u listu želja!", {
         position: toast.POSITION.TOP_CENTER,
       });
-    } else {
-      if (!productVariant) {
-        toast.warn("Morate izabrati varijantu proizvoda!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      } else {
-        globalAddToWishList(productVariant?.basic_data?.id_product);
-        toast.success("Proizvod dodat u listu želja!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      }
-    }
+   
+    
   };
   const addToCart = (e) => {
     if (products.product_type === "single") {
