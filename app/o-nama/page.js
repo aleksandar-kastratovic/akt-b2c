@@ -2,7 +2,7 @@
 const AboutUs = () => {
   return (
     <div className="w-[85%] mx-auto max-lg:w-[95%] ">
-      <div className="text-xl font-normal text-white bg-croonus-1 w-1/4 pl-5 py-1 mt-4">
+      <div className="text-xl font-normal text-white bg-croonus-1 md:w-1/4 pl-5 py-1 mt-4">
         <h1 className="">O nama</h1>
       </div>
       <div className={`flex flex-col gap-5 mt-10 items-start`}>

@@ -49,7 +49,7 @@ const Index = async () => {
       <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
       <ProductsSlider products={topSellers} text="Najpopularnije" />
       <BannerSlider banners={homeBanners} />
-      <Instagram />
+      {/* <Instagram /> */}
     </>
   );
 };

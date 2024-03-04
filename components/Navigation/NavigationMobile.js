@@ -246,7 +246,10 @@ const NavigationMobile = () => {
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
               </a>
+              <a href="/nalog">
               <Image src={User} width={35} height={35} />
+              </a>
+              
               {wishListCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
                   {wishListCount}

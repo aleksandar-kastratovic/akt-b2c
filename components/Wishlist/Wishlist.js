@@ -6,7 +6,7 @@ import { useCartContext } from "@/app/api/cartContext";
 import Link from "next/link";
 import Loader from "@/components/Loader";
 
-const Wishlist = () => {
+const Wishlist = ({isLoading}) => {
   const [wishListData, setWishListData] = useState();
   const [, , wishlist] = useCartContext();
 
@@ -21,19 +21,39 @@ const Wishlist = () => {
     <div className="mx-auto 4xl:container">
       <div className="w-[95%] lg:w-[85%] mx-auto">
       
-      {wishListData && wishListData.items && wishListData.items.length > 0 ? (
-        <Suspense fallback={<Loader />}>
+      {wishListProducts.length > 0 ? (
+      
           <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-4">
-            {wishListProducts.map((item) => (
+            {wishListProducts.map((item, index) => (
+              <Suspense
+              key={index}
+              fallback={
+                <div
+                  className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
+                />
+              }
+            >
               <div key={item?.wishlist?.id}>
                 <WishlistItems
                   items={item?.wishlist?.id}
                   product={item?.product}
                 />
               </div>
+              </Suspense>
             ))}
           </div>
-          </Suspense>
+   
+        ) : isLoading ? (
+          <div
+            className={`mt-[4.625rem] grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5`}
+          >
+            {[...Array(data?.length ?? 10)].map((_, i) => (
+              <div
+                key={i}
+                className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
+              />
+            ))}
+          </div>
         ) : (
           <div className="mt-10 flex flex-col items-center justify-center  py-5 text-center">
             <div className=" border p-10">

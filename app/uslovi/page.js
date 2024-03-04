@@ -3,7 +3,7 @@ import Link from "next/link";
 const Uslovi = () => {
   return (
     <div className="w-[85%] mx-auto max-lg:w-[95%] ">
-      <div className="text-xl font-normal text-white bg-croonus-1 w-1/4 pl-5 py-1 mt-4">
+      <div className="text-xl font-normal text-white bg-croonus-1 md:w-1/4 pl-5 py-1 mt-4">
         <h1 className="">Uslovi korišćenja - AKT DOO Arilje</h1>
       </div>
       <h5 className="font-semibold text-lg mt-[3rem]">

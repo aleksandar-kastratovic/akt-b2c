@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState } from "react";
+import React, {useEffect, useState, Suspense } from "react";
 import {
   useGlobalRemoveFromWishlist,
   useGlobalAddToCart,
@@ -24,7 +24,7 @@ import {
 const Wishlistproducts = ({ items, product, refetch_wishlist = () => {}, }) => {
   const removeFromWishList = useGlobalRemoveFromWishlist();
   const globalAddToCart = useGlobalAddToCart();
-  
+
 const id_product = product?.basic_data?.id_product
   const { data: wishlist_data, refetch } = useIsInWishlist({ id: id_product });
   const { mutate: addToWishlist, isSuccess: isAddedToWishlist } =
