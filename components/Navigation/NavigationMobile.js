@@ -415,19 +415,23 @@ const NavigationMobile = () => {
             })}
           </div>
           <div className="w-full mt-auto bg-croonus-4 py-2 grid grid-cols-2 divide-x">
+            <Link href={`tel:+381313894222`}>
             <div className="flex items-center justify-center gap-3 py-2 w-full">
               <i className="fa-solid text-white fa-phone text-lg"></i>
               <p className="uppercase font-normal text-xs text-white">
                 Pozovite nas
               </p>
             </div>
-            <div className="flex items-center justify-center gap-3 py-2 w-full">
-              <i className="fa-solid text-white fa-envelope text-lg"></i>
-              <p className="uppercase font-normal text-xs text-white text-center">
-                Pišite nam
-              </p>
+            </Link>
+            <Link href={`mailto:prodaja@stefantekstil.rs`} className="text-black">
+              <div className="flex items-center justify-center gap-3 py-2 w-full">
+                <i className="fa-solid text-white fa-envelope text-lg"></i>
+                <p className="uppercase font-normal text-xs text-white text-center">
+                  Pišite nam
+                </p>
+              </div>
+            </Link>
             </div>
-          </div>
         </div>
       </div>
 

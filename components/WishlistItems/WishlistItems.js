@@ -316,7 +316,7 @@ const id_product = product?.basic_data?.id_product
           )}
         </div>
       </div>
-     <ToastContainer/>
+   
     </div>
   );
 };

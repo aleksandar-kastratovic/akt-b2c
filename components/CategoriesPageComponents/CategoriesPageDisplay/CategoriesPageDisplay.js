@@ -379,7 +379,7 @@ const CategoriesPageDisplay = ({
           ) : null}
         </div>
       )}
-
+  
       <div className="w-full flex-col flex items-center justify-center mt-10">
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
           {router?.pathname?.includes("search") ? (
