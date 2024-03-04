@@ -22,7 +22,7 @@ const Filters = ({
   }, [selectedFilters]);
 
   const [filtersOpen, setFiltersOpen] = useState(false);
-console.log(sort, "sort:::")
+console.log(sort, "sort:")
   return (
     <>
       <div className={`relative ${!filtersOpen && "overflow-hidden"}`}>
@@ -103,7 +103,7 @@ console.log(sort, "sort:::")
             onChange={onSortChange}
             value={sort ? `${sort.field}_${sort.direction}` : "none"}
           >
-            <option value="none">Sortiraj</option>
+            <option value="null">Izaberite</option>
             {Object.entries(sortKeys).map((item) => (
               <option className="text-xs" value={item[0]} key={item[0]}>
                 {item[1].label}

@@ -168,7 +168,7 @@ const Footer = () => {
         <a href="/politika-privatnosti">Politika privatnosti</a>
         <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
         <a href="/o-nama">O nama</a>
-        <a href="/blog">Blog</a>
+        {/* <a href="/blog">Blog</a> */}
         <a href="/kontakt">Kontakt</a>
       </div>
       <div
@@ -186,7 +186,7 @@ const Footer = () => {
           <a href="/politika-privatnosti">Politika privatnosti</a>
           <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
           <a href="/o-nama">O nama</a>
-          <a href="/blog">Blog</a>
+          {/* <a href="/blog">Blog</a> */}
           <a href="/kontakt">Kontakt</a>
         </div>
       )}

@@ -47,7 +47,10 @@ const BannerSlider = ({ banners }) => {
       key={index}
       className={`grid grid-cols-2 keen-slider__slide number-slide${index} `}
     >
+     
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
+      <h1 className="text-[1.661rem] text-black font-semibold pb-5 max-md:text-[1.1rem] absolute top-0 z-[20]">
+      {item?.title}</h1>
         <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-full max-md:px-2 max-lg:pr-5 w-[80%] mx-auto px-0 md:px-5">
           <h1 className="text-[1.661rem] max-md:text-[1.1rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
             {item?.title}
@@ -64,7 +67,7 @@ const BannerSlider = ({ banners }) => {
         <Image
           src={convertHttpToHttps(item?.image)}
           fill
-          className="object-cover"
+          className="object-cover max-md:pt-[3rem]"
         />
       </div>
     </div>
@@ -73,9 +76,9 @@ const BannerSlider = ({ banners }) => {
   return (
     <>
       <div className="mt-24 max-lg:mt-16 navigation-wrapper w-[95%] lg:w-[65%] mx-auto ">
-        <h1 className="text-[1.661rem] font-semibold lg:hidden pb-5 max-md:text-[1.1rem]">
+        {/* <h1 className="text-[1.661rem] font-semibold lg:hidden pb-5 max-md:text-[1.1rem]">
           Kakve su naše posteljine?
-        </h1>
+        </h1> */}
         <div ref={sliderRef} className="keen-slider">
           {items}
         </div>

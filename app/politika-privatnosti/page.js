@@ -1,7 +1,7 @@
 const PolitikaPrivatnosti = () => {
   return (
     <div className="w-[85%] mx-auto max-lg:w-[95%] ">
-      <div className="text-xl font-normal text-white bg-croonus-1 w-1/4 pl-5 py-1 mt-4">
+      <div className="text-xl font-normal text-white bg-croonus-1 md:w-1/4 pl-5 py-1 mt-4">
         <h1 className="">Politika privatnosti</h1>
       </div>
       <p className="mt-8">OBAVEŠTENJE O OBRADI PODATAKA O LIČNOSTI</p>

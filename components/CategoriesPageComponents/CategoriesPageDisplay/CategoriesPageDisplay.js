@@ -381,7 +381,7 @@ const CategoriesPageDisplay = ({
       )}
   
       <div className="w-full flex-col flex items-center justify-center mt-10">
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
+        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center max-md:hidden">
           {router?.pathname?.includes("search") ? (
             <>Pretražili ste: {search}</>
           ) : (
@@ -392,6 +392,18 @@ const CategoriesPageDisplay = ({
             &nbsp;({pagination?.total_items} proizvoda)
           </span>
         </h1>{" "}
+        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center md:hidden">
+          {router?.pathname?.includes("search") ? (
+            <>Pretražili ste: {search}</>
+          ) : (
+            <>{categoryDataa?.basic_data?.name}</>
+          )}
+
+          
+        </h1>{" "}
+        <span className="text-lg lowercase max-md:text-[11px] md:hidden">
+            &nbsp;({pagination?.total_items} proizvoda)
+          </span>
         {router?.asPath?.includes("search") ? null : (
           <>
             <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
