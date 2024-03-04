@@ -67,7 +67,7 @@ const Blog = () => {
           </div>
         </div>
         {allPostsLoaded ? (
-          <button className="flex mx-auto px-4 py-2 border border-croonus-1">Nema više</button>
+          <button className="flex mx-auto px-4 py-2 text-[#c3c3c3]">Nema više</button>
         ) : (
           <button onClick={handleClick} className="flex mx-auto px-4 py-2 border border-croonus-1">
             Učitaj još

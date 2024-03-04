@@ -12,6 +12,8 @@ import Script from "next/script";
 import { Suspense } from "react";
 import { UserProvider } from "@/context/userContext";
 import { QueryProvider } from "@/components/QueryProvider";
+import { ToastContainer } from "react-toastify";
+import Loader from "@/components/Loader"
 
 export const metadata = {
   title: `${process.env.COMPANY} Web prodavnica`,
@@ -38,10 +40,14 @@ export default function RootLayout({ children }) {
               <CookieAlert />
               <NavigationDesktop />
               <NavigationMobile />
+              <Suspense>
               {children}
+              </Suspense>
+              <ToastContainer/>
               <Footer />
             </body>
           </html>
+      
         </CartContextProvider>
       </UserProvider>
     </QueryProvider>

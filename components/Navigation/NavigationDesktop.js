@@ -26,7 +26,7 @@ const NavigationDesktop = () => {
   const [cart, , wishList] = useCartContext();
   const [wishListCount, setWishListCount] = useState(0);
   const [background, setBackground] = useState("transparent");
-  const [subCategory, setSubcategory] = useState();
+  const [subCategory, setSubcategory] = useState(false);
 
   let category = false;
   if (pathname === "/") {
@@ -170,6 +170,7 @@ const NavigationDesktop = () => {
       pathname?.includes("/kategorija" || "/proizvod") &&
         setVisible(false) &&
         setOpen(false);
+        setSubcategory(false)
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -201,6 +202,7 @@ const NavigationDesktop = () => {
     const handleMouseOutsideOfBrowserViewport = (event) => {
       if (event.clientY <= 0) {
         setOpen(false);
+        setSubcategory(false)
       }
     };
 
@@ -217,6 +219,7 @@ const NavigationDesktop = () => {
     if (pathname?.includes("/kategorija" || "/proizvod")) {
       setOpen(false);
       setVisible(false);
+      setSubcategory(false)
     }
   }, [pathname]);
 
@@ -306,7 +309,9 @@ const NavigationDesktop = () => {
                 {open ? (
                   <i
                     className="fa-solid fa-xmark text-4xl"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false)
+                      setSubcategory(false)}}
                   />
                 ) : (
                   <Image
@@ -324,7 +329,9 @@ const NavigationDesktop = () => {
                     src={Logo}
                     width={220}
                     height={220}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false)
+                      setSubcategory(false)}}
                     alt="logo"
                   />
                 </a>
@@ -391,14 +398,14 @@ const NavigationDesktop = () => {
                                     alt={``}
                                     width={60}
                                     height={60}
-                                    className={`object-cover rounded-full`}
+                                    className={`object-cover rounded-full h-[60px]`}
                                   />
                                 </div>
                                 <div className="flex flex-col gap-1">
                                   <h1 className="text-[0.9rem] font-normal">
                                     {item?.basic_data?.name}
                                   </h1>
-                                  <h1 className="text-[0.9rem] w-fit bg-[#f8ce5d] px-2 font-bold text-center">
+                                  <h1 className="text-[0.9rem] w-fit font-bold text-center">
                                     {currencyFormat(
                                       item?.price?.price?.discount ??
                                         item?.price?.price?.original
@@ -567,7 +574,9 @@ const NavigationDesktop = () => {
                   <div className="col-span-1 flex flex-col h-fit" key={item.id}>
                     <a
                       href={`/kategorije/${item?.slug_path}`}
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false)
+                        setSubcategory([]) }}
                     >
                       <h1 className="text-xl font-light hover:underline">
                         {item?.name}
@@ -579,7 +588,9 @@ const NavigationDesktop = () => {
                             <a
                               href={`/kategorije/${child?.slug_path}`}
                               key={child?.id}
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                setOpen(false)
+                                setSubcategory([])} }
                             >
                               <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
                                 <p className="">{child?.name}</p>
@@ -604,7 +615,9 @@ const NavigationDesktop = () => {
                       href={`/promo/${item?.slug}`}
                       key={item?.id}
                       className="font-medium uppercase px-3 text-xl py-1"
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        setOpen(false)
+                        setSubcategory([])}}
                     >
                       {item?.name}
                     </a>
