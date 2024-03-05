@@ -281,7 +281,7 @@ export const useIsInWishlist = ({ id }) => {
 
 //hook za dobijanje svih proizvoda u listi zelja
 export const useWishlist = ({render = true}) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["wishlist_items"],
     queryFn: async () => {
       return await LIST(`/wishlist`,{

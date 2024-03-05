@@ -17,7 +17,7 @@ const Wishlist = () => {
     <div className="mx-auto 4xl:container">
       <div className="w-[95%] lg:w-[85%] mx-auto">
       
-      {data.length > 0 ? (
+      {data?.length > 0 ? (
       
           <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-4">
             {data?.map((item,index) => {
@@ -39,7 +39,7 @@ const Wishlist = () => {
           <div
             className={`mt-[4.625rem] grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5`}
           >
-            {[...Array(wishListProducts?.length ?? 10)].map((_, i) => (
+            {[...Array(data?.length ?? 10)].map((_, i) => (
               <div
                 key={i}
                 className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
