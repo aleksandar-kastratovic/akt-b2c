@@ -569,7 +569,7 @@ const NavigationDesktop = () => {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[2rem] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
+              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[18px] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col h-fit" key={item.id}>
                     <a
