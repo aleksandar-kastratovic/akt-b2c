@@ -1,6 +1,6 @@
 "use client";
 import Products from "../Products/Products";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import Filters from "../../Filters/Filters";
 import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
 import { useRouter } from "next/navigation";
@@ -465,7 +465,14 @@ const CategoriesPageDisplay = ({
           </div>
         ) : (
           <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-            <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14} />
+             { products?.map(({ id }) => {
+              return(
+                <Suspense key={id} fallback={<div
+                  className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
+                />}>
+                  <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14} id={id}/>
+               </Suspense>
+               )})}
           </div>
         )}
 

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { get, list, post } from "@/app/api/api";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
@@ -93,15 +94,17 @@ const CategoryPage = async ({ params: { path } }) => {
   return (
     <>
       {categoryDataa ? (
-        <CategoriesPageDisplay
-          filtersMap={filters}
-          categoryDataa={categoryDataa}
-          query={path[path?.length - 1]}
-          id={path[path?.length - 1]}
-          newProducts={newProducts}
-          productsDataResponse={products}
-          categories={categories}
-        />
+        <Suspense>
+          <CategoriesPageDisplay
+            filtersMap={filters}
+            categoryDataa={categoryDataa}
+            query={path[path?.length - 1]}
+            id={path[path?.length - 1]}
+            newProducts={newProducts}
+            productsDataResponse={products}
+            categories={categories}
+          />
+        </Suspense>
       ) : (
         notFound()
       )}

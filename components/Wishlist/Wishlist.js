@@ -5,49 +5,41 @@ import { useEffect, useState, Suspense } from "react";
 import { useCartContext } from "@/app/api/cartContext";
 import Link from "next/link";
 import Loader from "@/components/Loader";
+import Thumb from "@/shared/Thumb/Thumb";
+import { useWishlist } from "@/hooks/akt.hooks";
+import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 
-const Wishlist = ({isLoading}) => {
-  const [wishListData, setWishListData] = useState();
-  const [, , wishlist] = useCartContext();
+const Wishlist = () => {
+  const { data, isLoading, refetch: refreshWishlist } = useWishlist({render:false});
 
-  useEffect(() => {
-    list("/wishlist")
-      .then((response) => setWishListData(response?.payload))
-      .catch((error) => console.warn(error));
-  }, [wishlist]);
 
-  const wishListProducts = wishListData?.items ?? [];
   return (
     <div className="mx-auto 4xl:container">
       <div className="w-[95%] lg:w-[85%] mx-auto">
       
-      {wishListProducts.length > 0 ? (
+      {data.length > 0 ? (
       
           <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-4">
-            {wishListProducts.map((item, index) => (
-              <Suspense
-              key={index}
-              fallback={
-                <div
-                  className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
-                />
-              }
-            >
-              <div key={item?.wishlist?.id}>
-                <WishlistItems
-                  items={item?.wishlist?.id}
-                  product={item?.product}
-                />
-              </div>
-              </Suspense>
-            ))}
+            {data?.map((item,index) => {
+              return (<Suspense
+                key={index}
+                fallback={
+                  <div
+                    className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
+                  />
+                }
+              >
+                
+                  <ThumbSuspense id={item?.id_product} refreshWishlist={refreshWishlist} thumbKey={item?.id_product} />
+                </Suspense>)
+            })}
           </div>
    
         ) : isLoading ? (
           <div
             className={`mt-[4.625rem] grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5`}
           >
-            {[...Array(data?.length ?? 10)].map((_, i) => (
+            {[...Array(wishListProducts?.length ?? 10)].map((_, i) => (
               <div
                 key={i}
                 className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}

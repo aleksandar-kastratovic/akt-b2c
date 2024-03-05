@@ -280,11 +280,13 @@ export const useIsInWishlist = ({ id }) => {
 };
 
 //hook za dobijanje svih proizvoda u listi zelja
-export const useWishlist = () => {
+export const useWishlist = ({render = true}) => {
   return useSuspenseQuery({
     queryKey: ["wishlist_items"],
     queryFn: async () => {
-      return await LIST(`/wishlist`).then((res) => res?.payload?.items ?? []);
+      return await LIST(`/wishlist`,{
+        render:render
+      }).then((res) => res?.payload?.items ?? []);
     },
     refetchOnWindowFocus: false,
   });
@@ -501,6 +503,18 @@ export const useProductThumb = ({ slug, id }) => {
     queryFn: async () => {
       return await GET(`/product-details/thumb/${slug}`).then((res) => {
         return res?.payload;
+      });
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useProductSticker = ({ slug, id }) => {
+  return useSuspenseQuery({
+    queryKey: ["productThumb", id ? id : null],
+    queryFn: async () => {
+      return await GET(`/product-details/gallery/${slug}`).then((res) => {
+        return res?.payload?.stickers;
       });
     },
     refetchOnWindowFocus: false,
