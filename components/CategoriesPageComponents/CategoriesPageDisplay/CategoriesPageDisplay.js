@@ -254,6 +254,7 @@ const CategoriesPageDisplay = ({
   const onPageChange = (num) => {
     setPage(num);
   };
+console.log(productsData, "data::")
   const currentSlug = categories?.slug;
   const products = productsData?.items;
   const pagination = productsData?.pagination;
@@ -263,8 +264,10 @@ const CategoriesPageDisplay = ({
   useEffect(() => {
     setNewProductsArray(products);
   }, [products]);
+
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
+
   useEffect(() => {
     process?.env?.GTM_ENABLED === "true" &&
       window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
@@ -465,14 +468,7 @@ const CategoriesPageDisplay = ({
           </div>
         ) : (
           <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-             { products?.map(({ id }) => {
-              return(
-                <Suspense key={id} fallback={<div
-                  className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
-                />}>
-                  <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14} id={id}/>
-               </Suspense>
-               )})}
+                        <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14} />
           </div>
         )}
 

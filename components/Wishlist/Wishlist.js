@@ -29,7 +29,6 @@ const Wishlist = () => {
                   />
                 }
               >
-                
                   <ThumbSuspense id={item?.id_product} refreshWishlist={refreshWishlist} thumbKey={item?.id_product} />
                 </Suspense>)
             })}

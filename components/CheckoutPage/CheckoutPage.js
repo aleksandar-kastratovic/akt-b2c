@@ -34,9 +34,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const [token, setToken] = useState();
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState(true);
+
   const verifyCaptcha = useCallback((token) => {
     setToken(token);
   }, []);
+
   const [formData, setFormData] = useState({
     type: "personal",
     first_name: "",
@@ -117,6 +120,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     list("/cart")
       .then((response) => {
         setCartData(response?.payload);
+        setCartLoading(false);
       })
       .catch((error) => console.warn(error));
   }, []);
@@ -320,7 +324,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         refreshReCaptcha={refreshReCaptcha}
       />
       <ToastContainer />
-      <div className="mx-auto text-sm 4xl:container">
+      <div className="mx-auto text-sm 4xl:container min-h-[600px] md:min-h-[800px]">
         <div className="bg-[#f5f5f6] mt-3.5">
           <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
             <GenerateBreadCrumbsServer />{" "}
@@ -333,7 +337,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         </div>
         <div className="mt-5 max-xl:w-[95%] mx-auto"></div>
         <div className="md:hidden w-[85%] mx-auto uppercase font-semibold"></div>
-        {cartItems.length > 0 ? (
+        {cartItems.length > 0 && !cartLoading ? (
           <div className="mx-auto grid grid-cols-5 gap-y-3 gap-x-3 w-[95%] xl:w-[85%] ">
             <div className="col-span-5 bg-white p-1 xl:col-span-3 max-xl:row-start-1">
               {" "}
@@ -972,6 +976,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             </div>
           </div>
         ) : (
+          !cartLoading && (
           <>
             <div className="nocontent-holder m-6">
               <div className="text-center">
@@ -997,7 +1002,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                 </ul>
               </div>
             </div>
-          </>
+          </>)
         )}
         {(loading || loadingCreditCard) && (
           <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">

@@ -11,14 +11,14 @@ const HomepageBanners = ({ banners, mobileBanners }) => {
 
   return (
     <div className="line mx-auto max-md:mt-1 mt-[1.313rem] line2 relative">
-      <div className={`max-sm:hidden`}>
+      <div className={`max-md:hidden`}>
         <ImageSliderLoop
           bannerimages={banners}
           updateImage={selectedImage}
           key={Math?.random()}
         />
       </div>
-      <div className={`sm:hidden`}>
+      <div className={`md:hidden`}>
         <ImageSliderLoop
           bannerimages={mobileBanners}
           updateImage={selectedImage}

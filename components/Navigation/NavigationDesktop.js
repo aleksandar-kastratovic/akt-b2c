@@ -38,7 +38,7 @@ const NavigationDesktop = () => {
   const getCartCount = useCallback(() => {
     get("/cart/badge-count")
       .then((response) => {
-        setCartCount(response?.payload?.summary?.items_count ?? 0);
+        setCartCount(response?.payload?.summary?.total_quantity ?? 0);
       })
       .catch((error) => console.warn(error));
   }, []);
@@ -58,6 +58,10 @@ const NavigationDesktop = () => {
   useEffect(() => {
     getCartCount();
   }, [getCartCount, cart]);
+
+  useEffect(() => {
+    setCartCount(Math.round(cartCount));
+  }, [cartCount]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -269,7 +273,6 @@ const NavigationDesktop = () => {
     };
   }, [searchRef]);
   
-  console.log("konz", searchData)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
