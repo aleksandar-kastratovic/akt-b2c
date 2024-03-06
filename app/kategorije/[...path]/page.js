@@ -94,7 +94,7 @@ const CategoryPage = async ({ params: { path } }) => {
   return (
     <>
       {categoryDataa ? (
-        <Suspense>
+
           <CategoriesPageDisplay
             filtersMap={filters}
             categoryDataa={categoryDataa}
@@ -104,7 +104,7 @@ const CategoryPage = async ({ params: { path } }) => {
             productsDataResponse={products}
             categories={categories}
           />
-        </Suspense>
+   
       ) : (
         notFound()
       )}

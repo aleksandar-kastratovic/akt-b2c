@@ -324,7 +324,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         refreshReCaptcha={refreshReCaptcha}
       />
       <ToastContainer />
-      <div className="mx-auto text-sm 4xl:container">
+      <div className="mx-auto text-sm 4xl:container min-h-[600px] md:min-h-[800px]">
         <div className="bg-[#f5f5f6] mt-3.5">
           <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
             <GenerateBreadCrumbsServer />{" "}

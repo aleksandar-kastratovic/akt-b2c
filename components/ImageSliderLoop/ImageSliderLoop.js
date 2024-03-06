@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const ImageSliderLoop = ({ bannerimages, updateImage }) => {
   const [newArray, setNewArray] = useState(bannerimages);
-
+console.log(bannerimages, "mobile::")
   useEffect(() => {
     if (updateImage) {
       setNewArray((prevArray) => {
@@ -88,11 +88,11 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
           />
         </Link>
         <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
-          <h1 className="text-3xl text-croonus-1">{item?.title}</h1>
+          <h2 className="text-3xl text-croonus-1">{item?.title}</h2>
           <div className={`w-[80%] mx-auto`}>
-            <h1 className="text-base text-center text-croonus-1">
+            <p className="text-base text-center text-croonus-1">
               {item?.text}
-            </h1>
+            </p>
           </div>
           {item?.button && (
             <a href={`${item?.url}`}>

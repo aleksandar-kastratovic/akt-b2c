@@ -40,10 +40,9 @@ export default function RootLayout({ children }) {
               <CookieAlert />
               <NavigationDesktop />
               <NavigationMobile />
-              <div className="min-h-[600px] md:min-h-[800px]">
-              <Suspense fallback={<Loader />}>
+
               {children}
-              </Suspense></div>
+           
               <ToastContainer/>
               <Footer />
             </body>
