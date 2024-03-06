@@ -40,9 +40,9 @@ export default function RootLayout({ children }) {
               <CookieAlert />
               <NavigationDesktop />
               <NavigationMobile />
-
+              <div className="min-h-[600px] md:min-h-[800px]">
               {children}
-           
+              </div>
               <ToastContainer/>
               <Footer />
             </body>

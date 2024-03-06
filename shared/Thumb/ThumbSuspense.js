@@ -58,6 +58,7 @@ const ThumbSuspense = ({
   const {
     data:sticker,
   } = useProductSticker({ slug:id });
+  
   useEffect(() => {
     if (isAdded || isRemoved) {
       refetch();
