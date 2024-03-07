@@ -87,8 +87,8 @@ console.log(bannerimages, "mobile::")
             priority={true}
           />
         </Link>
-        <div className="absolute flex flex-col gap-3 items-center top-[50%] ">
-          <h2 className="text-3xl text-croonus-1">{item?.title}</h2>
+        <div className="absolute flex flex-col gap-3 items-center top-[60%] ">
+          <h2 className="text-3xl text-croonus-1 text-center text-white">{item?.title}</h2>
           <div className={`w-[80%] mx-auto`}>
             <p className="text-base text-center text-croonus-1">
               {item?.text}

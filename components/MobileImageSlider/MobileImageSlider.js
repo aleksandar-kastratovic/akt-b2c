@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+
+
 const MobileImageSlider = ({ images }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -21,7 +23,7 @@ const MobileImageSlider = ({ images }) => {
       setLoaded(true);
     },
   });
-
+console.log(images, "img:")
   const items = images?.map((item, index) => (
     <div className={`keen-slider__slide number-slide${index + 1}`}>
       <Image
@@ -42,14 +44,19 @@ const MobileImageSlider = ({ images }) => {
         >
           {items}
         </div>
-        <div
-          className="absolute max-[370px]:bottom-[0.3rem] max-[390px]:-bottom-[0.6rem] w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-6 bg-white border border-[#939393]"
-          onClick={() => {
-            instanceRef.current?.next();
-          }}
-        >
-          <i className="fa-solid fa-play fa-rotate-90 text-croonus-1 text-lg"></i>
-        </div>
+      
+            {images?.length >= 2 ? (
+              <div
+                className="absolute max-[370px]:bottom-[0.3rem] max-[390px]:-bottom-[0.6rem] w-[150px] py-2 flex items-center justify-center left-[30%] -bottom-6 bg-white border border-[#939393]"
+                onClick={() => {
+                  instanceRef.current?.next();
+                }}
+              >
+                <i className="fa-solid fa-play fa-rotate-90 text-croonus-1 text-lg"></i>
+              </div>
+            ) : null}
+         
+      
       </div>
       {loaded && instanceRef?.current && (
         <div className="dots5 mt-3">

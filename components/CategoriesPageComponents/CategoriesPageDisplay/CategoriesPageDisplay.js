@@ -460,7 +460,7 @@ const CategoriesPageDisplay = ({
           />
         </div>
         {products?.length === 0 ? (
-          <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center">
+          <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center max-md:text-center max-md:px-4">
             Za ovu kategoriju trenutno nemamo proizvoda
           </div>
         ) : (

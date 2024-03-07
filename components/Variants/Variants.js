@@ -291,7 +291,7 @@ export default function Variants({
           <div className="flex flex-row items-center gap-7">
             <label
               htmlFor={item.id}
-              className="max-lg:text-left text-[1.125rem] font-bold max-md:font-normal min-w-[5.619rem]"
+              className="max-lg:text-left text-[1.125rem] font-bold max-md:font-normal min-w-[5.619rem] "
             >
               {item.attribute.name}:
             </label>
@@ -299,7 +299,7 @@ export default function Variants({
               key={item.id}
               id={item.id}
               name={item.attribute.key}
-              className="px-16 max-md:px-0 2xl:min-w-[12.625rem] flex flex-row items-center gap-4 text-[0.875rem]"
+              className=" md:px-16 max-md:px-0 2xl:min-w-[12.625rem] flex flex-row items-center gap-4 text-[0.875rem] max-md:w-full"
             >
               {item?.attribute?.name === "Boja" ? (
                 item.values.map((value) => {
@@ -362,7 +362,7 @@ export default function Variants({
                   key={item.id}
                   id={item.id}
                   name={item.attribute.key}
-                  className="px-16 border 2xl:min-w-[12.625rem] max-md:border-[#919191] border-[#eaeaea] focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
+                  className="max-md:px-5 max-md:w-full md:px-16 border min-w-[4rem] 2xl:min-w-[12.625rem] max-md:border-[#919191] border-[#eaeaea] focus:border-croonus-3 focus:ring-0 text-[0.875rem]"
                   onChange={(e) => {
                     if (e.target.value === "none") {
                     } else {
