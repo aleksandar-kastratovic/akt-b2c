@@ -17,6 +17,7 @@ import { config } from "@/lib/akt.config";
 import Cart from "@/assets/Icons/shopping-bag.png";
 import { currencyFormat } from "@/helpers/functions";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import { useRouter } from "next/navigation";
 
 const ThumbSuspense = ({
   className,
@@ -34,7 +35,7 @@ const ThumbSuspense = ({
   const { mutate: removeFromWishlist, isSuccess: isRemoved } =
     useRemoveFromWishlist();
   const { base64_placeholder } = config;
-
+  const router = useRouter();
   const isInWishlist = data?.exist;
   const wishlist_id = data?.wishlist_item_id;
 
@@ -257,7 +258,7 @@ const ThumbSuspense = ({
         }
     }
   };
-
+console.log(product, "pro:::")
   return (
     <div key={thumbKey || id_product}>
    
@@ -315,9 +316,15 @@ const ThumbSuspense = ({
 
                   />
                 )}
+                 {product?.stickers[0]?.name ? (
+                <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[20] rounded-lg">
+                  <p>{product?.stickers[0]?.name}</p>
+                </div>
+              ) : null}
           </div>
-          
+         
         </a>
+           
         <div className="text-start w-full pt-1">
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             

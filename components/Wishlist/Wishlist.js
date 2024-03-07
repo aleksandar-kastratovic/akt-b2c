@@ -19,7 +19,7 @@ const Wishlist = () => {
       
       {data?.length > 0 ? (
       
-          <div className="mt-10 grid grid-cols-2 gap-x-5 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-2 gap-x-5 max-md:gap-y-2 md:gap-y-[2rem] lg:grid-cols-4">
             {data?.map((item,index) => {
               return (<Suspense
                 key={index}
