@@ -898,7 +898,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   <span className="text-sm  font-medium max-xl:text-sm">
                     Ukupna vrednost korpe bez popusta:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
+                  <span className="max-md:ml-3 max-md:text-end md:mr-3 text-sm font-medium max-xl:text-sm">
                     {currencyFormat(checkoutSummary?.summary?.totals?.with_vat)}
                   </span>
                 </div>
@@ -906,7 +906,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   <span className="text-sm font-medium max-xl:text-sm">
                     Iznos popusta u korpi:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
+                  <span className="max-md:ml-3 max-md:text-end md:mr-3  text-sm font-medium max-xl:text-sm">
                     {currencyFormat(
                       checkoutSummary?.summary?.totals?.items_discount_amount +
                         checkoutSummary?.summary?.totals?.cart_discount_amount
@@ -917,7 +917,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   <span className="text-sm font-medium max-xl:text-sm">
                     Ukupna vrednost korpe sa popustom:
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
+                  <span className="max-md:ml-3 max-md:text-end md:mr-3  text-sm font-medium max-xl:text-sm">
                     {currencyFormat(
                       checkoutSummary?.summary?.totals?.cart_discount
                     )}
@@ -927,7 +927,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   <span className="text-sm font-medium max-xl:text-sm">
                     Iznos koštanja transporta:{" "}
                   </span>
-                  <span className="mr-3 text-sm font-medium max-xl:text-sm">
+                  <span className="max-md:ml-3 max-md:text-end md:mr-3  text-sm font-medium max-xl:text-sm">
                     {currencyFormat(
                       checkoutSummary?.summary?.totals?.delivery_amount
                     )}
@@ -937,7 +937,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   <span className="text-sm font-medium max-xl:text-sm">
                     Ukupno za plaćanje:
                   </span>
-                  <span className="mr-3 text-xl font-medium max-xl:text-sm">
+                  <span className="max-md:ml-3 max-md:text-end md:mr-3  text-xl font-medium max-xl:text-sm">
                     {currencyFormat(checkoutSummary?.summary?.totals?.total)}
                   </span>
                 </div>

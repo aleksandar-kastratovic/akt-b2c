@@ -43,9 +43,9 @@ const SearchAppPage = () => {
           </h1>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
+       
          
-        </div>
+        
         {loading ? (
             <>
               {Array.from({ length: 12 }, (x, i) => (
@@ -56,7 +56,11 @@ const SearchAppPage = () => {
               ))}
             </>
           ) : newProductsArray?.length > 0 ? (
+            <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
+      
             <Products products={newProductsArray} />
+      
+            </div>
           ) : (
             <div
               className={`col-span-2 md:col-span-2 lg:col-span-3 2xl:col-span-4 text-left`}
