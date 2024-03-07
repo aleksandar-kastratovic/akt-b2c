@@ -53,7 +53,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="max-lg:mt-0 mt-40 w-[95%] lg:w-[60%] mx-auto border-t border-t-black max-lg:border-t-0 text-croonus-1">
+      <div className="max-lg:mt-0 mt-[5rem] w-[95%] lg:w-[60%] mx-auto border-t border-t-black max-lg:border-t-0 text-croonus-1">
         <div className="grid grid-cols-2 gap-x-20 items-center justify-center lg:justify-around max-lg:mt-0 mt-10 ">
           <div className="flex flex-col col-span-2 lg:col-span-1 max-lg:items-center gap-5 border-r-black border-r max-lg:border-r-0 max-lg:pr-0 pr-20 3xl:pr-32">
             <div className="max-lg:mt-10">

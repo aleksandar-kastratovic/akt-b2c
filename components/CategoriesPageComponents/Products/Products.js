@@ -30,7 +30,6 @@ const Products = ({
   const router = useRouter();
   const pathname = usePathname();
   const [, , , mutateWishList] = useCartContext();
-
   const { data: wishlist, refetch } = useQuery({
     queryKey: ["wishlist"],
     queryFn: async () => {

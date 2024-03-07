@@ -241,17 +241,19 @@ const NavigationMobile = () => {
                 setCategory({ id: null, data: [] });
               }}
             ></i>
+
             <div className="flex items-center relative gap-5 mr-5">
+            <a href="/nalog">
+              <Image src={User} width={35} height={35} />
+              </a>
               <a href="/lista-zelja">
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
               </a>
-              <a href="/nalog">
-              <Image src={User} width={35} height={35} />
-              </a>
+             
               
               {wishListCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
+                <span className="absolute -top-1 -right-2 bg-croonus-3 rounded-full px-1.5 text-sm">
                   {wishListCount}
                 </span>
               )}
@@ -287,7 +289,7 @@ const NavigationMobile = () => {
           >
             <input
               type="text"
-              className="w-full p-3 border placeholder:text-xs text-xs focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"
+              className="w-full p-3 border placeholder:text-xs text-[16px] focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"
               placeholder="Pretražite kategoriju"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
