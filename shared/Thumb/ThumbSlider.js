@@ -69,7 +69,7 @@ const ThumbSlider = ({
   return (
     <div key={id} className={`group relative`}>
       <div className={`imageHolder relative overflow-hidden`}>
-        <Link href={`/proizvod/${slug_path}`}>
+        <Link href={`/${slug_path}`}>
           <Image
             src={images[0] ?? "/maximon.png"}
             width={500}
@@ -99,7 +99,7 @@ const ThumbSlider = ({
         >
            {variantOptions.length > 0 ? (
                 <Link
-                href={`/proizvod/${slug_path}`}
+                href={`/${slug_path}`}
                 className={`cartButton cursor-pointer`}
               >
                 <Image
@@ -185,7 +185,7 @@ const ThumbSlider = ({
         className={`mt-3 flex flex-col items-center justify-center text-center`}
       >
         <Link
-          href={`/proizvod/${slug_path}`}
+          href={`/${slug_path}`}
           className={`text-base !font-light uppercase ${className} line-clamp-1 group-hover:underline`}
         >
           {name}

@@ -28,6 +28,7 @@ const nextConfig = {
       "api.akt.croonus.com",
       "scontent.cdninstagram.com",
       "video.cdninstagram.com",
+      "api.staging.croonus.com",
       "scontent-frx5-1.cdninstagram.com",
       "scontent-frt3-2.cdninstagram.com",
       "scontent-frt3-1.cdninstagram.com",
@@ -47,6 +48,31 @@ const nextConfig = {
         hostname: "scontent.cdninstagram.com",
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/spavaca-soba/posteljine/sifon",
+        destination:
+          "/spavaca-soba/posteljine-uz-koje-koza-dise/posteljine-od-pamucnog-sifona",
+        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: "/spavaca-soba/posteljine/pamucni-krep",
+        destination:
+          "/spavaca-soba/posteljine-uz-koje-koza-dise/krep-posteljina-od-cistog-pamuka-mekoca-bez-peglanja",
+        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: "/spavaca-soba/posteljine/pamucni-saten",
+        destination:
+          "/spavaca-soba/posteljine-uz-koje-koza-dise/satenska-posteljina",
+        permanent: true,
+        statusCode: 301,
+      },
+    ];
   },
 };
 

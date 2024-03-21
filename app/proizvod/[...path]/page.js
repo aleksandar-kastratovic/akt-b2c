@@ -120,8 +120,8 @@ const ProductPage = async ({ params: { path } }) => {
                       <a
                         href={
                           index === arr.length - 1
-                            ? `/kategorije/${breadcrumb?.slug}`
-                            : `/kategorije/${breadcrumb?.slug}`
+                            ? `/${breadcrumb?.slug}`
+                            : `/${breadcrumb?.slug}`
                         }
                         className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                       >

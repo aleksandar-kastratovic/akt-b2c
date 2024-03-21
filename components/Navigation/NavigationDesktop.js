@@ -171,7 +171,7 @@ const NavigationDesktop = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setVisible((scrollY === 0 && pathname === "/") || (open && scrollY > 0));
-      pathname?.includes("/kategorija" || "/proizvod") &&
+      pathname?.includes("/kategorija" || "") &&
         setVisible(false) &&
         setOpen(false);
         setSubcategory(false)
@@ -220,7 +220,7 @@ const NavigationDesktop = () => {
   }, []);
 
   useEffect(() => {
-    if (pathname?.includes("/kategorija" || "/proizvod")) {
+    if (pathname?.includes("/kategorija" || "")) {
       setOpen(false);
       setVisible(false);
       setSubcategory(false)
@@ -388,7 +388,7 @@ const NavigationDesktop = () => {
                         
                           return (
                             <Link
-                              href={`/proizvod/${item?.slug_path}`}
+                              href={`/${item?.slug_path}`}
                               onClick={(e) => {
                                 setSearchData([]);
                                 setSearchTerm("");
@@ -507,7 +507,7 @@ const NavigationDesktop = () => {
                     return item?.children ? (
                       <a
                         key={item.id}
-                        href={`/kategorije/${item?.slug_path}`}
+                        href={`/${item?.slug_path}`}
                         className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => {
@@ -521,7 +521,7 @@ const NavigationDesktop = () => {
                       </a>
                     ) : (
                       <a
-                        href={`/kategorije/${item?.slug_path}`}
+                        href={`/${item?.slug_path}`}
                         key={item?.id}
                         className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
                         onClick={() => setOpen(false)}
@@ -542,7 +542,7 @@ const NavigationDesktop = () => {
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col" key={item.id}>
                     <a
-                      href={`/kategorije/${item?.slug_path}`}
+                      href={`/${item?.slug_path}`}
                       onClick={() => {
                         setOpen(false)
                         setSubcategory([])}}
@@ -555,7 +555,7 @@ const NavigationDesktop = () => {
                       {item?.children
                         ? item?.children?.map((child) => (
                             <a
-                              href={`/kategorije/${child?.slug_path}`}
+                              href={`/${child?.slug_path}`}
                               key={child?.id}
                               onClick={() => {
                                 setOpen(false)
@@ -576,7 +576,7 @@ const NavigationDesktop = () => {
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col h-fit" key={item.id}>
                     <a
-                      href={`/kategorije/${item?.slug_path}`}
+                      href={`/${item?.slug_path}`}
                       onClick={() => {
                         setOpen(false)
                         setSubcategory([]) }}
@@ -589,7 +589,7 @@ const NavigationDesktop = () => {
                       {item?.children
                         ? item?.children?.map((child) => (
                             <a
-                              href={`/kategorije/${child?.slug_path}`}
+                              href={`/${child?.slug_path}`}
                               key={child?.id}
                               onClick={() => {
                                 setOpen(false)
