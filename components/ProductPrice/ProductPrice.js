@@ -15,7 +15,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { get, deleteMethod, post } from "@/app/api/api";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
-const ProductInfo = ({ products, description, badge }) => {
+const ProductInfo = ({
+  products,
+  description,
+  badge,
+  categoryId = null,
+  breadcrumbs,
+}) => {
+
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
@@ -25,23 +32,22 @@ const ProductInfo = ({ products, description, badge }) => {
   const [newURL, setNewURL] = useState(null);
   const [, , , mutateWishList] = useCartContext();
   const [loadingWishlist, setLoadingWishlist] = useState(false);
-  const slug = products?.data?.item?.slug
-
+  const slug = products?.data?.item?.slug;
   const { data } = useSuspenseQuery({
     queryKey: ["slug", slug],
     queryFn: async () => {
-      return await get(`/product-details/basic-data/${slug}`).then(
-        (res) => res?.payload,
-      );
+      return await get(
+        `/product-details/basic-data/${slug}?categoryId=${categoryId}`
+      ).then((res) => res?.payload);
     },
     refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
-    if (newURL) {
+    if (newURL && productVariant?.id) {
       window.history.replaceState(null, null, `/${newURL}`);
     }
-  }, [newURL]);
+  }, [newURL, productVariant]);
 
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [wishlistId, setWishlistId] = useState(null);
@@ -96,7 +102,7 @@ const ProductInfo = ({ products, description, badge }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       return await get(
-        `/wishlist/product-in-wishlist/${data?.data?.item?.basic_data?.id_product}`,
+        `/wishlist/product-in-wishlist/${data?.data?.item?.basic_data?.id_product}`
       ).then((res) => {
         if (res?.payload?.exist) {
           setIsInWishlist(true);
@@ -119,7 +125,6 @@ const ProductInfo = ({ products, description, badge }) => {
   const [productAmount, setProductAmount] = useState(1);
   const globalAddToCart = useGlobalAddToCart();
   const globalAddToWishList = useGlobalAddToWishList();
-
 
   const addToCart = (e) => {
     if (products.product_type === "single") {
@@ -384,7 +389,8 @@ const ProductInfo = ({ products, description, badge }) => {
         {/*    </>*/}
         {/*  )}*/}
         {/*</p>*/}
-        {products?.data?.item?.price?.price?.original !== 0 && products?.data?.item?.price?.price?.original !== null ? (
+        {products?.data?.item?.price?.price?.original !== 0 &&
+        products?.data?.item?.price?.price?.original !== null ? (
           <>{renderPrices(products?.data?.item)}</>
         ) : null}
       </div>
@@ -403,12 +409,14 @@ const ProductInfo = ({ products, description, badge }) => {
             product={products}
             productSlug={productSlug}
             handleURLChange={handleURLChange}
+            productVariant={productVariant}
             updateProductVariant={updateProductVariant}
             updateProductPrice={updateProductPrice}
           />
         </div>
       )}
-      {products?.data?.item?.price?.price?.original !== 0 && products?.data?.item?.price?.price?.original !== null ? (
+      {products?.data?.item?.price?.price?.original !== 0 &&
+      products?.data?.item?.price?.price?.original !== null ? (
         <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
           {products?.data?.item?.price?.discount?.active ? (
             <>
@@ -428,7 +436,7 @@ const ProductInfo = ({ products, description, badge }) => {
                     products?.data?.item?.price?.max?.price?.discount
                   )}
                 </>
-              ) }
+              )}
             </>
           ) : (
             <>
@@ -537,44 +545,43 @@ const ProductInfo = ({ products, description, badge }) => {
             </button>
           )}
 
-
           <ToastContainer />
           <div
-              className={`self-stretch`}
-              onClick={() => {
-                setLoadingWishlist(true);
-                addToWishlist(data?.data?.item?.basic_data?.id_product);
-              }}
+            className={`self-stretch`}
+            onClick={() => {
+              setLoadingWishlist(true);
+              addToWishlist(data?.data?.item?.basic_data?.id_product);
+            }}
+          >
+            <button
+              disabled={loadingWishlist}
+              className={`w-full flex items-center justify-center bg-${
+                isInWishlist ? `[#f3f3f3]` : ``
+              } g:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb]`}
             >
-              <button
-                disabled={loadingWishlist}
-                className={`w-full flex items-center justify-center bg-${
-                  isInWishlist ? `[#f3f3f3]` : ``
-                } g:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb]`}
-              >
-                {loadingWishlist ? (
-                  <i
-                    className={`fa fa-solid fa-spinner fa-spin text-white text-xl`}
-                  ></i>
-                ) : isInWishlist ? (
-                  <Image
-                    src={wishlistactive}
-                    alt={`AKT`}
-                    width={40}
-                    height={40}
-                    className={`cursor-pointer`}
-                  />
-                ) : (
-                  <Image
-                    src={wishlist}
-                    alt={`AKT`}
-                    width={40}
-                    height={40}
-                    className={``}
-                  />
-                )}
-              </button>
-            </div>
+              {loadingWishlist ? (
+                <i
+                  className={`fa fa-solid fa-spinner fa-spin text-white text-xl`}
+                ></i>
+              ) : isInWishlist ? (
+                <Image
+                  src={wishlistactive}
+                  alt={`AKT`}
+                  width={40}
+                  height={40}
+                  className={`cursor-pointer`}
+                />
+              ) : (
+                <Image
+                  src={wishlist}
+                  alt={`AKT`}
+                  width={40}
+                  height={40}
+                  className={``}
+                />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

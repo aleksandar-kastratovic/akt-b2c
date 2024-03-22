@@ -22,7 +22,6 @@ const Filters = ({
   }, [selectedFilters]);
 
   const [filtersOpen, setFiltersOpen] = useState(false);
-console.log(sort, "sort:")
   return (
     <>
       <div className={`relative ${!filtersOpen && "overflow-hidden"}`}>

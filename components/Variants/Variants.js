@@ -9,6 +9,7 @@ export default function Variants({
   productSlug,
   handleURLChange,
   firstVariantOption,
+  productVariant,
 }) {
   let variant_options = product?.data?.variant_options; // niz svih variant_options
   let variant_items = product?.data?.variant_items; // niz svih varijanti proizvoda
@@ -62,8 +63,8 @@ export default function Variants({
 
   //menja URL na osnovu selektovanih variant_options
   useEffect(() => {
-    handleURLChange(product_slug);
-  }, [product_slug]);
+    handleURLChange(productVariant?.slug_path);
+  }, [product_slug, productVariant]);
 
   // ako nema slug-a u URL-u, uzima prvi item iz variant_items i setuje ga kao selected
   useEffect(() => {
@@ -284,6 +285,7 @@ export default function Variants({
 
     setSelected(temp_selected);
   };
+
   return (
     <div className="flex flex-col  gap-3 max-lg:w-full  ">
       {variantOptions?.map((item) => {
@@ -320,7 +322,7 @@ export default function Variants({
                             updateProductPrice(
                               variantProduct?.price?.price?.original
                             );
-                            handleURLChange(variantProduct?.slug);
+
                             product_slug = variantProduct?.slug;
                           }
                         }}
@@ -374,7 +376,6 @@ export default function Variants({
                         updateProductPrice(
                           variantProduct?.price?.price?.original
                         );
-                        handleURLChange(variantProduct?.slug);
                         product_slug = variantProduct?.slug;
                       } else {
                         updateProductVariant(null);

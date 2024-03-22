@@ -35,8 +35,7 @@ const Order = () => {
         fetchPreviousOrders();
         },[])
     
-       console.log("nja", previousOrders) 
-  
+
   
     return (
         <>
