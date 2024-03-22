@@ -55,7 +55,9 @@ const getProductSEO = async (id) => {
 
 const getBreadcrumbs = async (slug, categoryId) => {
   return await get(
-    `/product-details/breadcrumbs/${slug}?categoryId=${categoryId}`
+    categoryId
+      ? `/product-details/breadcrumbs/${slug}?categoryId=${categoryId}`
+      : `/product-details/breadcrumbs/${slug}`
   ).then((res) => res?.payload);
 };
 

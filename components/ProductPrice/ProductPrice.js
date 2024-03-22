@@ -22,7 +22,7 @@ const ProductInfo = ({
   categoryId = null,
   breadcrumbs,
 }) => {
-
+  console.log(breadcrumbs)
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
