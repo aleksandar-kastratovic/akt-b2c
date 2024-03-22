@@ -169,7 +169,7 @@ export const useAddToWishlist = () => {
         switch (res?.code) {
           case 200:
             mutateWishList();
-            toast.success(`Proizvod ${name} uspešno dodat u listu želja.`, {
+            toast.success(`Proizvod uspešno dodat u listu želja.`, {
               position: "top-center",
               autoClose: 2000,
               hideProgressBar: true,

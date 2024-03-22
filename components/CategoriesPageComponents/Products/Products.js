@@ -37,6 +37,7 @@ const Products = ({
     },
     refetchOnWindowFocus: false,
   });
+  
   const renderPrices = (item) => {
     switch (item?.product_type) {
       case "variant":
