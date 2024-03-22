@@ -497,7 +497,7 @@ export const useProduct = ({ slug, id }) => {
   });
 };
 
-export const useProductThumb = ({ slug, id, categoryId = null }) => {
+export const useProductThumb = ({ slug, id, categoryId = "*" }) => {
   return useSuspenseQuery({
     queryKey: ["productThumb", id ? id : null],
     queryFn: async () => {

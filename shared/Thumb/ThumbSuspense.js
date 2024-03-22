@@ -28,13 +28,12 @@ const ThumbSuspense = ({
   refreshWishlist = () => {},
   categoryId,
 }) => {
-
   const {
     isPending: isWishlistPending,
     mutate: addToWishlist,
     isSuccess: isAdded,
   } = useAddToWishlist();
-  
+
   const { data, refetch } = useIsInWishlist({ id });
   const { mutate: removeFromWishlist, isSuccess: isRemoved } =
     useRemoveFromWishlist();
@@ -53,7 +52,7 @@ const ThumbSuspense = ({
       image,
       basic_data: { name, id_product },
     },
-  } = useProductThumb({ id: id, slug: id, categoryId: categoryId });
+  } = useProductThumb({ id: id, slug: id, categoryId: categoryId ?? "*" });
 
   const slug = slug_path;
 
@@ -322,69 +321,72 @@ const ThumbSuspense = ({
 
         <div className="text-start w-full pt-1">
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
-          <div className="flex items-center justify-end w-full">
-            {isInWishlist ? (
-              <div
-                onClick={() => removeFromWishlist({ id: wishlist_id })}
-                className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-              >
-                <Image
-                      alt="wishlist"
-                      src={wishlistactive}
-                      height={28}
-                      width={28}
-                      className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                    />
-              </div>
-            ) : (
-              <div
-                onClick={() => addToWishlist({ id })}
-                className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-              >
-               <Image
-                      src={Wishlist}
-                      alt="wishlist"
-                      height={28}
-                      width={28}
-                      className={`cursor-pointer transition-all duration-500 hover:scale-110`}/>
-              </div>
-            )}
-          </div>
+            <div className="flex items-center justify-end w-full">
+              {isInWishlist ? (
+                <div
+                  onClick={() => removeFromWishlist({ id: wishlist_id })}
+                  className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                >
+                  <Image
+                    alt="wishlist"
+                    src={wishlistactive}
+                    height={28}
+                    width={28}
+                    className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+                  />
+                </div>
+              ) : (
+                <div
+                  onClick={() => addToWishlist({ id })}
+                  className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                >
+                  <Image
+                    src={Wishlist}
+                    alt="wishlist"
+                    height={28}
+                    width={28}
+                    className={`cursor-pointer transition-all duration-500 hover:scale-110`}
+                  />
+                </div>
+              )}
+            </div>
 
             <div className="w-[2px] h-[26px] bg-[#000]"></div>
             <div className="flex items-center justify-start w-full">
-              <a  href={`/${product?.slug_path}`}
-              onClick={() => {
-                process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({ ecommerce: null });
-                window?.dataLayer?.push({
-                  event: "productClick",
-                  ecommerce: {
-                    click: {
-                      products: [
-                        {
-                          name: product?.basic_data?.name,
-                          id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          brand: product?.basic_data?.brand,
-                          category: product?.basic_data?.category,
-                          variant: product?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
+              <a
+                href={`/${product?.slug_path}`}
+                onClick={() => {
+                  process?.env?.GTM_ENABLED === "true" &&
+                    window?.dataLayer?.push({ ecommerce: null });
+                  window?.dataLayer?.push({
+                    event: "productClick",
+                    ecommerce: {
+                      click: {
+                        products: [
+                          {
+                            name: product?.basic_data?.name,
+                            id: product?.basic_data?.id_product,
+                            price: product?.price?.price?.original,
+                            brand: product?.basic_data?.brand,
+                            category: product?.basic_data?.category,
+                            variant: product?.basic_data?.variant,
+                            list: "Search Results",
+                            position: index + 1,
+                          },
+                        ],
+                      },
                     },
-                  },
-                });
-              }} className="ml-[20%] block">
-              <Image
-                src={Cart}
-                width={36}
-                height={36}
-                alt="cart"
-                className="cursor-pointer hover:scale-110 transition-all duration-200 "
-               
-              />
+                  });
+                }}
+                className="ml-[20%] block"
+              >
+                <Image
+                  src={Cart}
+                  width={36}
+                  height={36}
+                  alt="cart"
+                  className="cursor-pointer hover:scale-110 transition-all duration-200 "
+                />
               </a>
             </div>
           </div>

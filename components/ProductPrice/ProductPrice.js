@@ -15,14 +15,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { get, deleteMethod, post } from "@/app/api/api";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
-const ProductInfo = ({
-  products,
-  description,
-  badge,
-  categoryId = null,
-  breadcrumbs,
-}) => {
-  console.log(breadcrumbs)
+const ProductInfo = ({ products, description, badge, categoryId = null }) => {
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
@@ -37,7 +30,7 @@ const ProductInfo = ({
     queryKey: ["slug", slug],
     queryFn: async () => {
       return await get(
-        `/product-details/basic-data/${slug}?categoryId=${categoryId}`
+        `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
       ).then((res) => res?.payload);
     },
     refetchOnWindowFocus: false,
