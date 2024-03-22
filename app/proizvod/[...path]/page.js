@@ -7,11 +7,14 @@ import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider"
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-const fetchProduct = async (id) => {
+const fetchProduct = async (id, categoryId) => {
   fetch = get;
-  const response = await fetch(`/product-details/basic-data/${id}`, {
-    cache: "force-cache",
-  }).then((response) => response?.payload);
+  const response = await fetch(
+    `/product-details/basic-data/${id}?categoryId=${categoryId}`,
+    {
+      cache: "force-cache",
+    }
+  ).then((response) => response?.payload);
   return response;
 };
 const getBadge = async (id) => {
@@ -50,10 +53,13 @@ const getProductSEO = async (id) => {
   return getProductSEO;
 };
 
-const getBreadcrumbs = async (slug) => {
-  return await get(`/product-details/breadcrumbs/${slug}`).then(
-    (res) => res?.payload
-  );
+const getBreadcrumbs = async (slug, categoryId) => {
+  console.log("slug", slug);
+  console.log("categoryId", categoryId);
+
+  return await get(
+    `/product-details/breadcrumbs/${slug}?categoryId=${categoryId}`
+  ).then((res) => res?.payload);
 };
 
 export async function generateMetadata({ params: { path } }) {
@@ -93,11 +99,17 @@ const crosssellProductsList = async (id) => {
 };
 
 const ProductPage = async ({ params: { path } }) => {
-  const products = await fetchProduct(path[path?.length - 1]);
+  const products = await fetchProduct(
+    path[path?.length - 1],
+    path[path?.length - 2] ?? null
+  );
   const productGallery = await fetchProductGallery(path[path?.length - 1]);
   // const relatedProducts = await fetchRelated();
   const description = await fetchDescription(path[path?.length - 1]);
-  const breadcrumbs = await getBreadcrumbs(path[path?.length - 1]);
+  const breadcrumbs = await getBreadcrumbs(
+    path[path?.length - 1],
+    path[path?.length - 2] ?? null
+  );
   const recommended = await crosssellProductsList(path[path?.length - 1]);
   const badge = await getBadge(path[path?.length - 1]);
   return (
@@ -120,8 +132,8 @@ const ProductPage = async ({ params: { path } }) => {
                       <a
                         href={
                           index === arr.length - 1
-                            ? `/${breadcrumb?.slug}`
-                            : `/${breadcrumb?.slug}`
+                            ? `/${breadcrumb?.slug_path}`
+                            : `/${breadcrumb?.slug_path}`
                         }
                         className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                       >
@@ -155,6 +167,8 @@ const ProductPage = async ({ params: { path } }) => {
                 products={products}
                 description={description}
                 badge={badge}
+                categoryId={path[path?.length - 2]}
+                breadcrumbs={breadcrumbs}
               />
               <div
                 className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}

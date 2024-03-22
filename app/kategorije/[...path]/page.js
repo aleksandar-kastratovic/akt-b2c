@@ -106,7 +106,6 @@ const CategoryPage = async ({ params: { path } }) => {
   const products = await fetchProducts(path[path?.length - 1]);
   const gridProducts = await fetchGridProducts(path[path?.length - 1]);
   const categories = await fetchCategoryChildren(path[path?.length - 1]);
-  console.log(gridProducts, "grid");
   return (
     <>
       {categoryDataa ? (

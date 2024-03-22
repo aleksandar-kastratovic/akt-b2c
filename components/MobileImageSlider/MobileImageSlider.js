@@ -23,7 +23,6 @@ const MobileImageSlider = ({ images }) => {
       setLoaded(true);
     },
   });
-console.log(images, "img:")
   const items = images?.map((item, index) => (
     <div className={`keen-slider__slide number-slide${index + 1}`}>
       <Image

@@ -9,7 +9,6 @@ import { useState } from "react";
 
 const ImageSliderLoop = ({ bannerimages, updateImage }) => {
   const [newArray, setNewArray] = useState(bannerimages);
-console.log(bannerimages, "mobile::")
   useEffect(() => {
     if (updateImage) {
       setNewArray((prevArray) => {

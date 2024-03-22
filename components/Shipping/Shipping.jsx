@@ -112,7 +112,6 @@ const Shipping = () => {
         note: data?.note,
         set_default: data?.set_default
           }
-          console.log("ret", ret)
           post("/customers/shipping-address", ret)
             .then((response) => {
               setDisabled(true)
