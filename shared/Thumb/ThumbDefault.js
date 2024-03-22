@@ -40,7 +40,7 @@ const ThumbDefault = ({
   return (
     <div key={id} className={`group relative`}>
       <div className={`imageHolder relative overflow-hidden`}>
-        <Link href={`/proizvod/${slug_path}`}>
+        <Link href={`/${slug_path}`}>
           <Image
             src={images[0] ?? "/maximon.png"}
             width={0}
@@ -72,7 +72,7 @@ const ThumbDefault = ({
           className={`bottom-2 left-0 right-0 z-[5] mx-auto md:hidden w-[90%] items-center justify-center gap-5 bg-white py-2 group-hover:absolute group-hover:flex max-sm:flex max-sm:hover:!flex`}
         >
           <Link
-            href={`/proizvod/${slug_path}`}
+            href={`/${slug_path}`}
             className={`cartButton cursor-pointer`}
           >
             <Image
@@ -148,7 +148,7 @@ const ThumbDefault = ({
         className={`mt-3 flex flex-col items-center justify-center text-center`}
       >
         <Link
-          href={`/proizvod/${slug_path}`}
+          href={`/${slug_path}`}
           className={`text-base !font-light uppercase ${className} line-clamp-1 group-hover:underline`}
         >
           {name}

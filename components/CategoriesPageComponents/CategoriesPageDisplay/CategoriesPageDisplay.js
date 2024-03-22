@@ -1,6 +1,12 @@
 "use client";
 import Products from "../Products/Products";
-import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  Suspense,
+} from "react";
 import Filters from "../../Filters/Filters";
 import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
 import { useRouter } from "next/navigation";
@@ -11,6 +17,7 @@ import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
 import Link from "next/link";
 import { ToastContainer } from "react-toastify";
+import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 
 const CategoriesPageDisplay = ({
   filtersMap,
@@ -21,6 +28,7 @@ const CategoriesPageDisplay = ({
   categoryDataa,
   productsDataResponse,
   categories,
+  gridProducts,
 }) => {
   const [open, setOpen] = useState(false);
   const { push: navigate, asPath } = useRouter();
@@ -31,7 +39,6 @@ const CategoriesPageDisplay = ({
   };
 
   const router = useRouter();
-
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const categoryData = { id: id };
@@ -47,13 +54,12 @@ const CategoriesPageDisplay = ({
   // );
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState(productsDataResponse);
-  const [hasMore, setHasMore] = useState(true)
-  const [page, setPage] = useState(0)
-  const elementRef = useRef(null)
-
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(0);
+  const elementRef = useRef(null);
 
   function onIntersection(entries) {
-    const firstEntry = entries[0]
+    const firstEntry = entries[0];
     if (firstEntry.isIntersecting && hasMore) {
       const { pagination } = productsData;
       const { total_pages } = pagination;
@@ -63,20 +69,18 @@ const CategoriesPageDisplay = ({
     }
   }
 
-
   useEffect(() => {
-    const observer = new IntersectionObserver(onIntersection)
+    const observer = new IntersectionObserver(onIntersection);
 
     if (observer && elementRef.current) {
-      observer.observe(elementRef.current)
+      observer.observe(elementRef.current);
     }
     return () => {
       if (observer) {
-        observer.disconnect()
+        observer.disconnect();
       }
-    }
-  }, [productsData])
-
+    };
+  }, [productsData]);
 
   const [limit, setLimit] = useState(16);
 
@@ -181,12 +185,12 @@ const CategoriesPageDisplay = ({
                   prevData?.items?.length === 0
                     ? response?.payload?.items
                     : [
-                      ...prevData?.items,
-                      ...response?.payload?.items.filter(
-                        (item) =>
-                          !prevData?.items?.some((i) => i.id === item.id)
-                      ),
-                    ],
+                        ...prevData?.items,
+                        ...response?.payload?.items.filter(
+                          (item) =>
+                            !prevData?.items?.some((i) => i.id === item.id)
+                        ),
+                      ],
                 pagination: response?.payload?.pagination,
               }));
             } else {
@@ -335,7 +339,7 @@ const CategoriesPageDisplay = ({
                     return (
                       <div key={index} className="flex items-center gap-1">
                         <a
-                          href={`/kategorije/${slug}`}
+                          href={`/${slug}`}
                           className="text-[#191919] text-[0.851rem] font-normal hover:text-black"
                         >
                           {breadcrumb?.name}
@@ -379,7 +383,7 @@ const CategoriesPageDisplay = ({
           ) : null}
         </div>
       )}
-  
+
       <div className="w-full flex-col flex items-center justify-center mt-10">
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center max-md:hidden">
           {router?.pathname?.includes("search") ? (
@@ -398,12 +402,10 @@ const CategoriesPageDisplay = ({
           ) : (
             <>{categoryDataa?.basic_data?.name}</>
           )}
-
-          
         </h1>{" "}
         <span className="text-lg lowercase max-md:text-[11px] md:hidden">
-            &nbsp;({pagination?.total_items} proizvoda)
-          </span>
+          &nbsp;({pagination?.total_items} proizvoda)
+        </span>
         {router?.asPath?.includes("search") ? null : (
           <>
             <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
@@ -417,21 +419,28 @@ const CategoriesPageDisplay = ({
             ></p>
           </>
         )}
-        {categoryDataa?.basic_data?.name !== "Akcija" && categoryDataa?.basic_data?.name !== "Novo" && categoryDataa?.basic_data?.name !== "OUTLET" && categoryDataa?.basic_data?.name !== "Hotelski program" ? (
+        {categoryDataa?.basic_data?.name !== "Akcija" &&
+        categoryDataa?.basic_data?.name !== "Novo" &&
+        categoryDataa?.basic_data?.name !== "OUTLET" &&
+        categoryDataa?.basic_data?.name !== "Hotelski program" ? (
           <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
             {categories?.childrens &&
               categories.childrens.map((child) => (
-                <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
+                <div
+                  className="max-md:mx-[2px] mx-1 max-md:my-1"
+                  key={child?.id}
+                >
                   <a
-                    href={`/kategorije/${child?.slug_path}`}
+                    href={`/${child?.slug_path}`}
                     key={child?.id}
                     onClick={() => setOpen(false)}
                   >
                     <div
-                      className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${currentSlug === child?.slug
+                      className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
+                        currentSlug === child?.slug
                           ? "bg-croonus-1 text-white"
                           : "bg-white text-black"
-                        }`}
+                      }`}
                     >
                       <p className="">{child?.basic_data?.name}</p>
                     </div>
@@ -440,7 +449,6 @@ const CategoriesPageDisplay = ({
               ))}
           </div>
         ) : null}
-
         <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
           <Filters
             filters={availableFilters}
@@ -459,22 +467,35 @@ const CategoriesPageDisplay = ({
             limit={limit}
           />
         </div>
-        {products?.length === 0 ? (
+        {gridProducts?.length === 0 ? (
           <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center max-md:text-center max-md:px-4">
             Za ovu kategoriju trenutno nemamo proizvoda
           </div>
         ) : (
           <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-        
-                  <Products products={products} elementRef={elementRef} indexOfElementRef={page * 14}/>
-          
+            {gridProducts?.items?.map(({ id: id_product }) => {
+              return (
+                <Suspense
+                  fallback={
+                    <div
+                      className={`aspect-2/3 h-full w-full bg-slate-300 animate-pulse`}
+                    ></div>
+                  }
+                >
+                  <ThumbSuspense
+                    categoryId={currentSlug}
+                    slug={id_product}
+                    id={id_product}
+                    refreshWishlist={() => {}}
+                  />
+                </Suspense>
+              );
+            })}
           </div>
         )}
-
         <ToastContainer />
       </div>
     </>
-
   );
 };
 

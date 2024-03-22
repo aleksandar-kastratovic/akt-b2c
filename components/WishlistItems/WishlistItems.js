@@ -156,7 +156,7 @@ const id_product = product?.basic_data?.id_product
       className={` flex flex-col relative products-center keen-slider__slide`}
     >
       <div className="col-span-1">
-        <a href={`/proizvod/${product?.slug}`}>
+        <a href={`/${product?.slug}`}>
           <div className="relative w-full">
                 {product?.image[0] ? (
                   <>
@@ -264,7 +264,7 @@ const id_product = product?.basic_data?.id_product
                         });
                       }
                     } else {
-                      router.push(`/proizvod/${product?.slug_path}`);
+                      router.push(`/${product?.slug_path}`);
                     }
                   }}
                 />
@@ -273,7 +273,7 @@ const id_product = product?.basic_data?.id_product
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
             <a
               className="font-normal text-sm clamp"
-              href={`/proizvod/${product?.slug_path}`}
+              href={`/${product?.slug_path}`}
               onClick={() => {
                 process?.env?.GTM_ENABLED === "true" &&
                   window?.dataLayer?.push({ ecommerce: null });

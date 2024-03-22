@@ -25,9 +25,9 @@ const fetchCategory = async (slug) => {
 };
 
 const fetchCategoryChildren = async (slug) => {
-  const fetchCategoryChildren = await get(`/categories/product/tree/branch/parent/${slug}`).then(
-    (response) => response?.payload
-  );
+  const fetchCategoryChildren = await get(
+    `/categories/product/tree/branch/parent/${slug}`
+  ).then((response) => response?.payload);
   return fetchCategoryChildren;
 };
 
@@ -47,6 +47,20 @@ const fetchProducts = async (slug) => {
       direction: "asc",
     },
     filters: [],
+  }).then((response) => response?.payload);
+  return fetcProducts;
+};
+
+const fetchGridProducts = async (slug) => {
+  const fetcProducts = await list(`/products/category/list/${slug}`, {
+    limit: 16,
+    page: 1,
+    sort: {
+      field: "price",
+      direction: "asc",
+    },
+    filters: [],
+    render: false,
   }).then((response) => response?.payload);
   return fetcProducts;
 };
@@ -90,21 +104,22 @@ const CategoryPage = async ({ params: { path } }) => {
   const filters = await fetchFilters(path[path?.length - 1]);
   const newProducts = await fetchNewProducts();
   const products = await fetchProducts(path[path?.length - 1]);
+  const gridProducts = await fetchGridProducts(path[path?.length - 1]);
   const categories = await fetchCategoryChildren(path[path?.length - 1]);
+  console.log(gridProducts, "grid");
   return (
     <>
       {categoryDataa ? (
-
-          <CategoriesPageDisplay
-            filtersMap={filters}
-            categoryDataa={categoryDataa}
-            query={path[path?.length - 1]}
-            id={path[path?.length - 1]}
-            newProducts={newProducts}
-            productsDataResponse={products}
-            categories={categories}
-          />
-   
+        <CategoriesPageDisplay
+          filtersMap={filters}
+          categoryDataa={categoryDataa}
+          query={path[path?.length - 1]}
+          id={path[path?.length - 1]}
+          newProducts={newProducts}
+          productsDataResponse={products}
+          gridProducts={gridProducts}
+          categories={categories}
+        />
       ) : (
         notFound()
       )}

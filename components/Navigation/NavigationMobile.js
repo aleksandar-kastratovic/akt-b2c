@@ -180,7 +180,7 @@ const NavigationMobile = () => {
                     ? searchData.slice(0, 6).map((item) => (
                         <a
                           key={item?.id}
-                          href={`/proizvod/${item?.categories[0]?.slug}/${item.slug}`}
+                          href={`/${item?.categories[0]?.slug}/${item.slug}`}
                           className="h-[83px]"
                           onClick={() => {
                             setSearchTerm("");
@@ -370,7 +370,7 @@ const NavigationMobile = () => {
                                     <div className="w-[90%] mx-auto pl-4">
                                       <a
                                         className="text-xs font-medium"
-                                        href={`/kategorije/${item2?.slug_path}`}
+                                        href={`/${item2?.slug_path}`}
                                         onClick={() => {
                                           setOpen(false);
                                           setCategory({ id: null, data: [] });
@@ -388,7 +388,7 @@ const NavigationMobile = () => {
                             <div className="w-[90%] mx-auto pl-2">
                               <a
                                 className="text-sm font-medium"
-                                href={`/kategorije/${item?.slug_path}`}
+                                href={`/${item?.slug_path}`}
                                 onClick={() => {
                                   setOpen(false);
                                   setCategory({ id: null, data: [] });
@@ -405,7 +405,7 @@ const NavigationMobile = () => {
               ) : (
                 <a
                   className="text-base  font-medium uppercase"
-                  href={`/kategorije/${item?.slug_path}`}
+                  href={`/${item?.slug_path}`}
                   onClick={() => {
                     setOpen(false);
                     setCategory({ id: null, data: [] });

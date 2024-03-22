@@ -39,7 +39,7 @@ const ProductInfo = ({ products, description, badge }) => {
 
   useEffect(() => {
     if (newURL) {
-      window.history.replaceState(null, null, `/proizvod/${newURL}`);
+      window.history.replaceState(null, null, `/${newURL}`);
     }
   }, [newURL]);
 
