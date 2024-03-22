@@ -57,7 +57,7 @@ const getBreadcrumbs = async (slug, categoryId) => {
   return await get(
     categoryId
       ? `/product-details/breadcrumbs/${slug}?categoryId=${categoryId}`
-      : `/product-details/breadcrumbs/${slug}`
+      : `/product-details/breadcrumbs/${slug}?categoryId=*`
   ).then((res) => res?.payload);
 };
 
@@ -125,26 +125,31 @@ const ProductPage = async ({ params: { path } }) => {
                   Početna
                 </a>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                {breadcrumbs?.steps?.map((breadcrumb, index, arr) => {
-                  return (
-                    <div className="flex items-center gap-[0.1rem]">
-                      <a
-                        href={
-                          index === arr.length - 1
-                            ? `/${breadcrumb?.slug_path}`
-                            : `/${breadcrumb?.slug_path}`
-                        }
-                        className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
-                      >
-                        {breadcrumb?.name}
-                      </a>
-                      {index !== arr.length - 1 && (
-                        <span className="text-[#191919] text-[0.85rem]">/</span>
-                      )}
-                    </div>
-                  );
-                })}
-                <span className="text-[#191919] text-[0.85rem]">/</span>
+                {breadcrumbs?.steps?.length > 0 &&
+                  breadcrumbs?.steps?.map((breadcrumb, index, arr) => {
+                    return (
+                      <div className="flex items-center gap-[0.1rem]">
+                        <a
+                          href={
+                            index === arr.length - 1
+                              ? `/${breadcrumb?.slug_path}`
+                              : `/${breadcrumb?.slug_path}`
+                          }
+                          className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
+                        >
+                          {breadcrumb?.name}
+                        </a>
+                        {index !== arr.length - 1 && (
+                          <span className="text-[#191919] text-[0.85rem]">
+                            /
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                {breadcrumbs?.steps?.length > 0 && (
+                  <span className="text-[#191919] text-[0.85rem]">/</span>
+                )}
                 <h1 className="text-[0.85rem] font-normal text-black">
                   {breadcrumbs?.end?.name}
                 </h1>
@@ -167,7 +172,6 @@ const ProductPage = async ({ params: { path } }) => {
                 description={description}
                 badge={badge}
                 categoryId={path[path?.length - 2]}
-                breadcrumbs={breadcrumbs}
               />
               <div
                 className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}
