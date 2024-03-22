@@ -54,9 +54,6 @@ const getProductSEO = async (id) => {
 };
 
 const getBreadcrumbs = async (slug, categoryId) => {
-  console.log("slug", slug);
-  console.log("categoryId", categoryId);
-
   return await get(
     `/product-details/breadcrumbs/${slug}?categoryId=${categoryId}`
   ).then((res) => res?.payload);
