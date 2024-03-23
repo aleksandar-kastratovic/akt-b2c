@@ -27,7 +27,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     router.back();
   }
   const [refresh, setRefresh] = useState(false);
-  console.log(refresh)
   const [cart, mutateCart] = useCartContext();
   const [cartData, setCartData] = useState([]);
   const [secondAddress, setSecondAddress] = useState(false);
@@ -104,18 +103,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const errorCheck = "Morate prihvatiti uslove";
 
   const [errors, setErrors] = useState([]);
-  useEffect(() => {
-    if (errors.length > 0) {
-      toast.error("Morate popuniti sva obavezna polja", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
-      return;
-    }
-  });
+
   const getCart = useCallback(() => {
     list("/cart")
       .then((response) => {
@@ -164,6 +152,13 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     }
     if (err.length > 0) {
       setErrors(err);
+      toast.error("Morate popuniti sva obavezna polja", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     } else {
       const ret = {
         customer_type_billing: formData.type,
@@ -323,7 +318,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         onVerify={verifyCaptcha}
         refreshReCaptcha={refreshReCaptcha}
       />
-     
+
       <div className="mx-auto text-sm 4xl:container min-h-[600px] md:min-h-[800px]">
         <div className="bg-[#f5f5f6] mt-3.5">
           <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
@@ -977,32 +972,35 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           </div>
         ) : (
           !cartLoading && (
-          <>
-            <div className="nocontent-holder m-6">
-              <div className="text-center">
-                <span className="text-2xl font-medium">Vaša korpa</span>
+            <>
+              <div className="nocontent-holder m-6">
+                <div className="text-center">
+                  <span className="text-2xl font-medium">Vaša korpa</span>
+                </div>
+                <div className="mt-6 text-center text-lg font-medium">
+                  Trenutno ne postoji sadržaj u Vašoj korpi.
+                </div>
+                <div className="mt-10 text-center">
+                  <button className="rounded-[5rem] bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
+                    <a href="/">Vrati se na početnu stranu.</a>
+                  </button>
+                </div>
+                <div className="help-container mt-10 text-center">
+                  <p className="font-medium">Pomoć pri kupovini:</p>
+                  <ul className="mt-2">
+                    <li>
+                      - Ukoliko Vam je potrebna pomoć u svakom trenutku nas
+                      možete kontaktirati pozivom na broj call centra{" "}
+                      {process.env.TELEPHONE}.
+                    </li>
+                    <Link href={`/pomoc-pri-kupovini`} className="underline">
+                      - Pogledajte uputstvo za pomoć pri kupovini.
+                    </Link>
+                  </ul>
+                </div>
               </div>
-              <div className="mt-6 text-center text-lg font-medium">
-                Trenutno ne postoji sadržaj u Vašoj korpi.
-              </div>
-              <div className="mt-10 text-center">
-                <button className="rounded-[5rem] bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
-                  <a href="/">Vrati se na početnu stranu.</a>
-                </button>
-              </div>
-              <div className="help-container mt-10 text-center">
-                <p className="font-medium">Pomoć pri kupovini:</p>
-                <ul className="mt-2">
-                  <li>
-                    - Ukoliko Vam je potrebna pomoć u svakom trenutku nas možete
-                    kontaktirati pozivom na broj call centra{" "}
-                    {process.env.TELEPHONE}.
-                  </li>
-                  <li>- Pogledajte uputstvo za pomoć pri kupovini.</li>
-                </ul>
-              </div>
-            </div>
-          </>)
+            </>
+          )
         )}
         {(loading || loadingCreditCard) && (
           <div className="fixed top-0 left-0 bg-black bg-opacity-40 h-screen w-screen flex items-center justify-center">

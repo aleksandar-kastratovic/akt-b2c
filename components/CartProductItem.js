@@ -13,6 +13,7 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
   const [productAmount, setProductAmount] = useState(
     Number(item.cart.quantity)
   );
+  const [sureCheck, setSureCheck] = useState(false);
 
   const removeFromCart = useGlobalRemoveFromCart();
 
@@ -72,8 +73,8 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
         <span
           className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => {
-            removeFromCart(item?.product?.id);
-            setRefresh(!refresh);
+            setSureCheck(true);
+
             if (process?.env?.GTM_ENABLED === "true") {
               window?.dataLayer?.push({
                 ecommerce: null,
@@ -101,6 +102,38 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           X
         </span>
       </div>
+      {sureCheck && (
+        <div
+          className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
+          onClick={() => setSureCheck(false)}
+        >
+          <div className="rounded-lg bg-white p-5">
+            <span className="text-[15px] font-bold">
+              Da li ste sigurni da želite da uklonite proizvod iz korpe?
+            </span>
+            <div className="mt-5 flex items-center justify-center gap-4">
+              <button
+                className="rounded-lg bg-[#E5E5E5] px-5 py-2 hover:bg-red-500 hover:text-white max-md:text-[15px]"
+                onClick={() => setSureCheck(false)}
+              >
+                Ne
+              </button>
+              <button
+                className="rounded-lg bg-[#E5E5E5] px-5 py-2 hover:bg-green-500 hover:text-white max-md:text-[15px]"
+                onClick={() => {
+                  removeFromCart(item?.product?.id);
+                  const timeout = setTimeout(() => {
+                    setRefresh(!refresh);
+                  }, 500);
+                  return () => clearTimeout(timeout);
+                }}
+              >
+                Da
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

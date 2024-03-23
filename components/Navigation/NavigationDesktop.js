@@ -294,8 +294,8 @@ const NavigationDesktop = () => {
 
   return (
     <>
-      <div className="fixed-menu-container">
-        <div className=" max-lg:hidden z-[100] lg:sticky lg:top-0">
+      <div className="fixed-menu-container sticky top-0 z-[100]">
+        <div className="max-lg:hidden z-[100] lg:sticky lg:top-0">
           <div className="bg-croonus-1">
             <div className="w-[85%] flex items-center  justify-between mx-auto py-1">
               <a href={`tel:0313894222`} className="text-white text-sm">

@@ -188,7 +188,7 @@ const NavigationMobile = () => {
                             setSearchOpen(false);
                           }}
                         >
-                          <div className="flex items-center justify-between h-[83px] p-2.5 hover:bg-croonus-1 cursor-pointer">
+                          <div className="flex items-center justify-between h-[83px] p-2.5 hover:bg-croonus-2 cursor-pointer">
                             <div className="flex items-center p-1 gap-5 h-[83px]">
                               {item?.image[0] && (
                                 <Image
@@ -209,7 +209,7 @@ const NavigationMobile = () => {
                 </div>
                 {searchData?.length > 6 && (
                   <div
-                    className="flex py-1.5 justify-center items-center sticky bottom-0 w-full bg-croonus-2 text-white hover:bg-opacity-90 cursor-pointer"
+                    className="flex py-1.5 justify-center items-center sticky bottom-0 w-full bg-croonus-2 text-black hover:bg-opacity-90 cursor-pointer"
                     onClick={handleSearch}
                   >
                     {searchData?.length > 6 ? (
@@ -283,26 +283,26 @@ const NavigationMobile = () => {
               </a>
             </div>
           </div> */}
-          <form
-            className="w-[90%] mx-auto mt-10 relative"
-            onSubmit={handleSearch}
-          >
-            <input
-              type="text"
-              className="w-full p-3 border placeholder:text-xs text-[16px] focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"
-              placeholder="Pretražite kategoriju"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-            />
-            <Image
-              src={Search}
-              width={18}
-              height={18}
-              className="absolute right-4 top-3"
-              onClick={handleSearch}
-              alt="search"
-            />
-          </form>
+          {/*<form*/}
+          {/*  className="w-[90%] mx-auto mt-10 relative"*/}
+          {/*  onSubmit={handleSearch}*/}
+          {/*>*/}
+          {/*  <input*/}
+          {/*    type="text"*/}
+          {/*    className="w-full p-3 border placeholder:text-xs text-[16px] focus:outline-none placeholder:uppercase focus:ring-0 focus:border-black border-black"*/}
+          {/*    placeholder="Pretražite kategoriju"*/}
+          {/*    value={searchTerm}*/}
+          {/*    onChange={(event) => setSearchTerm(event.target.value)}*/}
+          {/*  />*/}
+          {/*  <Image*/}
+          {/*    src={Search}*/}
+          {/*    width={18}*/}
+          {/*    height={18}*/}
+          {/*    className="absolute right-4 top-3"*/}
+          {/*    onClick={handleSearch}*/}
+          {/*    alt="search"*/}
+          {/*  />*/}
+          {/*</form>*/}
           <div className="pb-5 w-full flex flex-col gap-1 mx-auto mt-10 overflow-y-auto">
             {categories.map((item) => {
               const isActive = category?.id === item?.id;

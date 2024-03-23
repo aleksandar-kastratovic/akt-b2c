@@ -225,9 +225,9 @@ const ContactPage = () => {
             <div className="flex flex-col max-lg:items-center max-lg:justify-center max-lg:text-center gap-10">
               <div className="flex flex-col">
                 <h1 className="text-xl font-normal">Pozovite nas</h1>
-                <p className="text-sm font-light">
-                  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.
-                </p>
+                {/*<p className="text-sm font-light">*/}
+                {/*  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.*/}
+                {/*</p>*/}
               </div>
               <div className="pl-10 pt-3 bg-[#f5f5f6] gap-5 pb-3 w-full max-lg:pt-5 flex flex-col justify-around">
                 <div className="flex flex-col max-lg:items-center max-lg:justify-center max-lg:text-center gap-0">
