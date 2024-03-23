@@ -76,7 +76,9 @@ export async function generateMetadata({ params: { path } }) {
 }
 
 const CategoryProduct = async ({ params: { path }, params }) => {
-  const data = await handleData(path[path?.length - 1]);
+  let str;
+  str = path?.join("/");
+  const data = await handleData(str);
   switch (true) {
     case data?.type === "category" && data?.status === true:
       return <CategoryPage params={params} />;
