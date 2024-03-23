@@ -51,19 +51,6 @@ const fetchProducts = async (slug) => {
   return fetcProducts;
 };
 
-const fetchGridProducts = async (slug) => {
-  const fetcProducts = await list(`/products/category/list/${slug}`, {
-    limit: 16,
-    page: 1,
-    sort: {
-      field: "price",
-      direction: "asc",
-    },
-    filters: [],
-    render: false,
-  }).then((response) => response?.payload);
-  return fetcProducts;
-};
 
 const fetchNewProducts = async () => {
   const fetchNewProducts = await list("/products/new-in/list").then(
@@ -104,7 +91,6 @@ const CategoryPage = async ({ params: { path } }) => {
   const filters = await fetchFilters(path[path?.length - 1]);
   const newProducts = await fetchNewProducts();
   const products = await fetchProducts(path[path?.length - 1]);
-  const gridProducts = await fetchGridProducts(path[path?.length - 1]);
   const categories = await fetchCategoryChildren(path[path?.length - 1]);
   return (
     <>
@@ -116,7 +102,6 @@ const CategoryPage = async ({ params: { path } }) => {
           id={path[path?.length - 1]}
           newProducts={newProducts}
           productsDataResponse={products}
-          gridProducts={gridProducts}
           categories={categories}
         />
       ) : (

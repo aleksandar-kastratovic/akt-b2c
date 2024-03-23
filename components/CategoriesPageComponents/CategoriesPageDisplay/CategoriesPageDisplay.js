@@ -63,24 +63,45 @@ const CategoriesPageDisplay = ({
     if (firstEntry.isIntersecting && hasMore) {
       const { pagination } = productsData;
       const { total_pages } = pagination;
-      if (page !== total_pages) {
+      const scrollPercentage =
+        (window?.scrollY + window?.innerHeight) /
+        document?.documentElement?.scrollHeight;
+
+      if (page !== total_pages && scrollPercentage >= 0.7) {
         setPage(page + 1);
       }
     }
   }
 
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollPercentage = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+
+      if (hasMore && scrollPercentage >= 0.8) {
+        const { pagination } = productsData;
+        const { total_pages } = pagination;
+        if (page < total_pages) {
+          setPage(page + 1);
+        }
+      }
+    };
+
     const observer = new IntersectionObserver(onIntersection);
 
     if (observer && elementRef.current) {
       observer.observe(elementRef.current);
     }
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       if (observer) {
         observer.disconnect();
       }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [productsData]);
+
 
   const [limit, setLimit] = useState(16);
 
@@ -177,6 +198,7 @@ const CategoriesPageDisplay = ({
           page: page,
           sort: sort,
           filters: selectedFilters,
+          render: false,
         })
           .then((response) => {
             if (page > 1) {
@@ -276,12 +298,12 @@ const CategoriesPageDisplay = ({
       ecommerce: {
         currencyCode: "RSD",
         impressions: [
-          products?.map((item, index) => {
+          productsDataResponse?.items?.map((item, index) => {
             return {
               id: item?.basic_data?.id_product,
               name: item?.basic_data?.name,
               price: item?.price?.price?.original,
-              list: `Kategorija ${item?.categories[0]?.name}`,
+              list: `Kategorija ${item?.categories[0]?.name ?? ""}`,
             };
           }),
         ],
@@ -467,13 +489,16 @@ const CategoriesPageDisplay = ({
             limit={limit}
           />
         </div>
-        {gridProducts?.length === 0 ? (
+        {productsData?.items?.length === 0 ? (
           <div className="my-[10rem] flex h-full text-lg font-medium items-center justify-center max-md:text-center max-md:px-4">
             Za ovu kategoriju trenutno nemamo proizvoda
           </div>
         ) : (
-          <div className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 ">
-            {gridProducts?.items?.map(({ id: id_product }) => {
+          <div
+            ref={elementRef}
+            className="max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4 "
+          >
+            {productsData?.items?.map(({ id: id_product }) => {
               return (
                 <Suspense
                   fallback={
