@@ -222,7 +222,7 @@ const FilterWithinTree = ({ filter }) => {
             <a
               className="text-[0.875rem] leading-[1.625rem]"
               htmlFor={"chbx-" + item.id}
-              href={`/${item?.slug}`}
+              href={`/${item?.slug_path}`}
             >
               {item.label}
             </a>
