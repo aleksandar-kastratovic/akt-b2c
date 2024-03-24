@@ -219,9 +219,11 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
                     <div className="bg-croonus-3  self-start w-fit ">
                       <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
                         -
-                        {(item?.price?.discount?.amount /
-                          item?.price?.price?.original) *
-                          100}
+                        {(
+                          (item?.price?.discount?.amount /
+                            item?.price?.price?.original) *
+                          100
+                        ).toFixed(0)}
                         % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
                         {currencyFormat(item?.price?.max?.price?.discount)}
                       </p>
@@ -271,9 +273,15 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
                 >
                   {currencyFormat(item?.price?.price?.original)}
                 </p>
-                <div className="bg-croonus-3 self-start w-fit ">
+                <div className="bg-croonus-3  self-start w-fit ">
                   <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                    {currencyFormat(item?.price?.price?.discount)}
+                    -
+                    {(
+                      (item?.price?.discount?.amount /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    % {currencyFormat(item?.price?.price?.discount)}
                   </p>
                 </div>
               </>

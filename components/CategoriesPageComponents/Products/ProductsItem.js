@@ -20,7 +20,7 @@ const ProductsItem = ({ products = [] }) => {
     <div key={item.id} className={`${classes.item} col-span-1`}>
       <div className={`${classes.item} relative flex justify-center`}>
         
-        <a href={`/${item.id}`}>
+        <Link href={`/${item.id}`}>
           {item.image[0].toString() && (
             <Image
               src={item.image[0].toString()}
@@ -30,13 +30,13 @@ const ProductsItem = ({ products = [] }) => {
               alt={item.basic_data.name}
             />
           )}
-        </a>
+        </Link>
         <div
           className={`${classes.more} absolute bottom-3 mx-auto hidden w-[90%] justify-center bg-croonus-1 py-2 text-center text-croonus-3 hover:bg-croonus-3 hover:text-croonus-1 max-lg:hidden`}
         >
-          <a href={`/${item.id}`}>
+          <Link href={`/${item.id}`}>
             <span>More Details</span>{" "}
-          </a>
+          </Link>
         </div>
         <div className="absolute top-2 left-2 rounded-full hover:bg-croonus-2 hover:bg-opacity-30">
           <Image

@@ -298,12 +298,12 @@ const NavigationDesktop = () => {
         <div className="max-lg:hidden z-[100] lg:sticky lg:top-0">
           <div className="bg-croonus-1">
             <div className="w-[85%] flex items-center  justify-between mx-auto py-1">
-              <a href={`tel:0313894222`} className="text-white text-sm">
+              <Link href={`tel:0313894222`} className="text-white text-sm">
                 Call centar: 031 / 3894 - 222
-              </a>
-              <a href="/nalog" className="text-white text-sm hover:underline">
+              </Link>
+              <Link href="/nalog" className="text-white text-sm hover:underline">
                 Moj profil
-              </a>
+              </Link>
             </div>
           </div>
           <div className="bg-white bg-opacity-90 backdrop-blur">
@@ -326,7 +326,7 @@ const NavigationDesktop = () => {
                   />
                 )}
 
-                <a href="/">
+                <Link href="/">
                   {" "}
                   <Image
                     src={Logo}
@@ -337,7 +337,7 @@ const NavigationDesktop = () => {
                       setSubcategory(false)}}
                     alt="logo"
                   />
-                </a>
+                </Link>
               </div>
               <div className="flex items-center gap-5 relative ">
                 <form
@@ -366,7 +366,7 @@ const NavigationDesktop = () => {
                 />
                   {searchTerm?.length < 3 && searchTerm?.length >= 1 && (
                     <span className={`absolute text-sm top-1 right-2 text-red-500`}>
-                        Unesite bar 3 karaktera
+                        Unesite najmanje 3 karaktera
                     </span>
                 )}
 
@@ -467,22 +467,22 @@ const NavigationDesktop = () => {
               />
                 <div className="flex items-center gap-5">
                   <div className="relative">
-                    <a href="/lista-zelja">
+                    <Link href="/lista-zelja">
                       <Image
                         src={Wishlist}
                         width={35}
                         height={35}
                         alt="favorite"
                       />
-                    </a>
+                    </Link>
                     <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                       {wishListCount}
                     </span>
                   </div>
                   <div className="relative">
-                    <a href="/korpa">
+                    <Link href="/korpa">
                       <Image src={Cart} width={38} height={38} alt="cart" />
-                    </a>
+                    </Link>
                     <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                       {cartCount}
                     </span>
@@ -505,7 +505,7 @@ const NavigationDesktop = () => {
                 <div className="flex flex-col mt-10 border-r-4 border-[#f9f9f9] pr-4">
                   {categories.map((item) => {
                     return item?.children ? (
-                      <a
+                      <Link
                         key={item.id}
                         href={`/${item?.slug_path}`}
                         className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
@@ -518,16 +518,16 @@ const NavigationDesktop = () => {
                         }}
                       >
                         {item?.name}
-                      </a>
+                      </Link>
                     ) : (
-                      <a
+                      <Link
                         href={`/${item?.slug_path}`}
                         key={item?.id}
                         className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
                         onClick={() => setOpen(false)}
                       >
                         {item?.name}
-                      </a>
+                      </Link>
                     );
                   })}
                 </div>
@@ -541,7 +541,7 @@ const NavigationDesktop = () => {
               <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px]">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col" key={item.id}>
-                    <a
+                    <Link
                       href={`/${item?.slug_path}`}
                       onClick={() => {
                         setOpen(false)
@@ -550,11 +550,11 @@ const NavigationDesktop = () => {
                       <h1 className="text-xl font-light hover:underline">
                         {item?.name}
                       </h1>
-                    </a>
+                    </Link>
                     <div className="mt-5 pl-2 ">
                       {item?.children
                         ? item?.children?.map((child) => (
-                            <a
+                            <Link
                               href={`/${child?.slug_path}`}
                               key={child?.id}
                               onClick={() => {
@@ -564,7 +564,7 @@ const NavigationDesktop = () => {
                               <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
                                 <p className="">{child?.name}</p>
                               </div>
-                            </a>
+                            </Link>
                           ))
                         : null}
                     </div>
@@ -575,7 +575,7 @@ const NavigationDesktop = () => {
               <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[18px] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
                 {subCategory?.map((item) => (
                   <div className="col-span-1 flex flex-col h-fit" key={item.id}>
-                    <a
+                    <Link
                       href={`/${item?.slug_path}`}
                       onClick={() => {
                         setOpen(false)
@@ -584,11 +584,11 @@ const NavigationDesktop = () => {
                       <h1 className="text-xl font-light hover:underline">
                         {item?.name}
                       </h1>
-                    </a>
+                    </Link>
                     <div className="mt-2 pl-2 ">
                       {item?.children
                         ? item?.children?.map((child) => (
-                            <a
+                            <Link
                               href={`/${child?.slug_path}`}
                               key={child?.id}
                               onClick={() => {
@@ -598,7 +598,7 @@ const NavigationDesktop = () => {
                               <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
                                 <p className="">{child?.name}</p>
                               </div>
-                            </a>
+                            </Link>
                           ))
                         : null}
                     </div>
@@ -614,7 +614,7 @@ const NavigationDesktop = () => {
               {landingPagesList?.items?.map((item, index) => {
                 return (
                   <div key={index}>
-                    <a
+                    <Link
                       href={`/promo/${item?.slug}`}
                       key={item?.id}
                       className="font-medium uppercase px-3 text-xl py-1"
@@ -623,7 +623,7 @@ const NavigationDesktop = () => {
                         setSubcategory([])}}
                     >
                       {item?.name}
-                    </a>
+                    </Link>
                   </div>
                 );
               })}

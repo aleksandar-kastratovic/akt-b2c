@@ -1,3 +1,4 @@
+import Link from "next/link";
 const NotFound = () => {
   return (
     <>
@@ -10,7 +11,7 @@ const NotFound = () => {
         </div>
         <div className="mt-5 text-center">
           <button className="rounded-[5rem] bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
-            <a href="/">Vrati se na početnu stranu.</a>
+            <Link href="/">Vrati se na početnu stranu.</Link>
           </button>
         </div>
       </div>

@@ -53,7 +53,7 @@ const Wishlist = () => {
               </h1>{" "}
               <p>Kada dodate artikle u listu želja, oni će se pojaviti ovde.</p>
               <button className="rounded-[5rem] mt-10 bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
-                <a href="/">Vrati se na početnu stranu.</a>
+                <Link href="/">Vrati se na početnu stranu.</Link>
               </button>            </div>
           </div>
         )}

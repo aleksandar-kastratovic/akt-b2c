@@ -12,7 +12,7 @@ const SearchAppPage = () => {
   const [newProductsArray, setNewProductsArray] = useState();
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
+  useEffect(() => {
     const getProducts = async () => {
       await list(`/products/search/list`, {
         search,
@@ -43,60 +43,55 @@ const SearchAppPage = () => {
           </h1>
         </div>
 
-       
-         
-        
         {loading ? (
-            <>
-              {Array.from({ length: 12 }, (x, i) => (
-                <div
-                  key={i}
-                  className="max-md:h-[250px] h-[500px] max-md:w-full w-full col-span-1 bg-slate-300 object-cover animate-pulse"
-                ></div>
-              ))}
-            </>
-          ) : newProductsArray?.length > 0 ? (
-            <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
-      
+          <>
+            {Array.from({ length: 12 }, (x, i) => (
+              <div
+                key={i}
+                className="max-md:h-[250px] h-[500px] max-md:w-full w-full col-span-1 bg-slate-300 object-cover animate-pulse"
+              ></div>
+            ))}
+          </>
+        ) : newProductsArray?.length > 0 ? (
+          <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
             <Products products={newProductsArray} />
-      
-            </div>
-          ) : (
-            <div
-              className={`col-span-2 md:col-span-2 lg:col-span-3 2xl:col-span-4 text-left`}
-            >
-              <>
-                <div className="mx-auto mt-10 max-lg:text-center max-md:flex max-md:items-center max-md:justify-center max-md:flex-col text-black lg:mt-10 mb-[3rem]">
-                  <h1 className="text-2xl font-semibold ">
-                    Ne postoji rezultat za vašu pretragu "{search}".
-                  </h1>
-                  <h2 className="mt-6 text-xl font-normal ">
-                    Pomoć u pretrazi:
-                  </h2>
-                  <ul className="mt-6 text-lg  ">
-                    <li>- Proverite greške u kucanju</li>
-                    <li>- Koristite više generičkih termina za pretragu</li>
-                    <li>
-                      - Proizvod ili kategorija koju tražite možda još uvek nisu
-                      dostupni na našem portalu. Kontaktirajte nas u cilju
-                      dodatnog informisanja.
-                    </li>
-                    <li>
-                      - Ukoliko vam je potrebna pomoć, u svakom trenutku nas
-                      možete kontakirati pozivom na broj call centra:{" "}
+          </div>
+        ) : (
+          <div
+            className={`col-span-2 md:col-span-2 lg:col-span-3 2xl:col-span-4 text-left`}
+          >
+            <>
+              <div className="mx-auto mt-10 max-lg:text-center max-md:flex max-md:items-center max-md:justify-center max-md:flex-col text-black lg:mt-10 mb-[3rem]">
+                <h1 className="text-2xl font-semibold ">
+                  Ne postoji rezultat za vašu pretragu "{search}".
+                </h1>
+                <h2 className="mt-6 text-xl font-normal ">Pomoć u pretrazi:</h2>
+                <ul className="mt-6 text-lg  ">
+                  <li>- Proverite greške u kucanju</li>
+                  <li>- Koristite više generičkih termina za pretragu</li>
+                  <li>
+                    - Proizvod ili kategorija koju tražite možda još uvek nisu
+                    dostupni na našem portalu. Kontaktirajte nas u cilju
+                    dodatnog informisanja.
+                  </li>
+                  <li>
+                    - Ukoliko vam je potrebna pomoć, u svakom trenutku nas
+                    možete kontakirati pozivom na broj call centra:{" "}
+                    <a className={`underline`} href={`tel:${process.env.TELEPHONE}`}>
                       {process.env.TELEPHONE}
-                    </li>
-                  </ul>
-                  <Link
-                    href="/"
-                    className="mt-[1rem] max-md:w-[90%] max-md:mx-auto flex max-sm:justify-center rounded-xl bg-croonus-1 px-6 py-2 text-base text-white hover:bg-opacity-80 w-fit"
-                  >
-                    Početna strana
-                  </Link>
-                </div>
-              </>
-            </div>
-          )}
+                    </a>
+                  </li>
+                </ul>
+                <Link
+                  href="/"
+                  className="mt-[1rem] max-md:w-[90%] max-md:mx-auto flex max-sm:justify-center rounded-xl bg-croonus-1 px-6 py-2 text-base text-white hover:bg-opacity-80 w-fit"
+                >
+                  Početna strana
+                </Link>
+              </div>
+            </>
+          </div>
+        )}
       </div>
     </>
   );

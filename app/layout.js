@@ -5,9 +5,7 @@ import { CartContextProvider } from "./api/cartContext";
 import "./globals.css";
 import CookieAlert from "@/components/CookieAlert/CookieAlert";
 import "react-toastify/dist/ReactToastify.css";
-import Analytics, {
-  GoogleTagManager,
-} from "@/components/GoogleTagManager/GoogleTagManager";
+import Analytics from "@/components/GoogleTagManager/GoogleTagManager";
 import Script from "next/script";
 import { Suspense } from "react";
 import { UserProvider } from "@/context/userContext";
@@ -38,18 +36,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <QueryProvider>
-      <UserProvider>
-        <CartContextProvider>
-          <html lang="en">
-            <head>
-              <Script
-                src="https://kit.fontawesome.com/f141ac3909.js"
-                crossorigin="anonymous"
-              ></Script>
-            </head>
+    <html lang="en">
+      <head>
+        <Script
+          src="https://kit.fontawesome.com/f141ac3909.js"
+          crossorigin="anonymous"
+        ></Script>
+      </head>
 
-            <body className="4xl:container mx-auto">
+      <body className="4xl:container mx-auto">
+        <QueryProvider>
+          <UserProvider>
+            <CartContextProvider>
               <Suspense>
                 <Analytics />
               </Suspense>
@@ -59,10 +57,10 @@ export default function RootLayout({ children }) {
               <div className="min-h-[600px] md:min-h-[700px]">{children}</div>
               <ToastContainer />
               <Footer />
-            </body>
-          </html>
-        </CartContextProvider>
-      </UserProvider>
-    </QueryProvider>
+            </CartContextProvider>
+          </UserProvider>
+        </QueryProvider>
+      </body>
+    </html>
   );
 }

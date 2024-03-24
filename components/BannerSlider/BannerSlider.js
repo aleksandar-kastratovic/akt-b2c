@@ -58,9 +58,9 @@ const BannerSlider = ({ banners }) => {
           <p className="text-[1rem] max-md:text-[0.8rem] font-normal text-black text-left max-lg:py-4 max-md:py-0">
             {item?.text}
           </p>
-          <a href={`${item?.url}`} className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-w-max">
+          <Link href={`${item?.url}`} className="bg-croonus-1 text-white text-xs md:text-base font-normal px-4 py-2 max-w-max">
               {item?.button}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col-span-2  relative max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
@@ -84,7 +84,7 @@ const BannerSlider = ({ banners }) => {
         </div>
         {/* {loaded && instanceRef.current && (
           <>
-            <Arrow
+            <Linkrrow
               left
               onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.prev()
@@ -92,7 +92,7 @@ const BannerSlider = ({ banners }) => {
               disabled={currentSlide === 0}
             />
 
-            <Arrow
+            <Linkrrow
               onClick={(e) =>
                 e.stopPropagation() || instanceRef.current?.next()
               }

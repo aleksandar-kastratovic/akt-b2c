@@ -1,5 +1,4 @@
 "use client";
-import Products from "../Products/Products";
 import React, {
   useState,
   useEffect,
@@ -8,12 +7,10 @@ import React, {
   Suspense,
 } from "react";
 import Filters from "../../Filters/Filters";
-import Breadcrumbs from "@/helpers/GenerateBreadCrumbs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { queryKeys, sortKeys } from "@/helpers/const";
-import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import { post, list, get } from "@/app/api/api";
 import Link from "next/link";
 import { ToastContainer } from "react-toastify";
@@ -75,7 +72,9 @@ const CategoriesPageDisplay = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPercentage = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      const scrollPercentage =
+        (window.scrollY + window.innerHeight) /
+        document.documentElement.scrollHeight;
 
       if (hasMore && scrollPercentage >= 0.8) {
         const { pagination } = productsData;
@@ -92,16 +91,15 @@ const CategoriesPageDisplay = ({
       observer.observe(elementRef.current);
     }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       if (observer) {
         observer.disconnect();
       }
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [productsData]);
-
 
   const [limit, setLimit] = useState(16);
 
@@ -126,31 +124,49 @@ const CategoriesPageDisplay = ({
   const [availableFilters, setAvailableFilters] = useState(filters);
   const [changeFilters, setChangeFilters] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
+  const [lastSelectedFilterKey, setLastSelectedFilterKey] = useState();
 
   useEffect(() => {
     if (changeFilters) {
       post(`/products/category/filters/${categoryData?.id}`, {
         filters: selectedFilters,
       }).then((response) => {
-        const newFilters = response?.payload;
-        if (newFilters) {
-          let ret = availableFilters;
-          for (const filter of newFilters) {
-            if (
-              selectedFilters.filter((item) => item?.column === filter?.key)
-                .length === 0
-            ) {
-              ret = ret?.map((item) => {
-                if (item?.key === filter?.key) {
-                  return filter;
-                }
-                return item;
-              });
-            }
+        const lastSelectedFilterValues = selectedFilters?.find((item) => {
+          return item?.column === lastSelectedFilterKey;
+        });
+
+        const lastSelectedFilter = availableFilters?.find((item) => {
+          return item?.key === lastSelectedFilterKey;
+        });
+
+        const filterLastSelectedFromResponse = response?.payload?.filter(
+          (item) => {
+            return item?.key !== lastSelectedFilterKey;
           }
-          setAvailableFilters(newFilters);
-          setPage(page);
+        );
+
+        const indexOfLastSelectedFilter = availableFilters?.findIndex(
+          (index) => {
+            return index?.key === lastSelectedFilterKey;
+          }
+        );
+
+        if (
+          lastSelectedFilter &&
+          lastSelectedFilterValues?.value?.selected?.length > 0
+        ) {
+          setAvailableFilters([
+            ...filterLastSelectedFromResponse.slice(
+              0,
+              indexOfLastSelectedFilter
+            ),
+            lastSelectedFilter,
+            ...filterLastSelectedFromResponse.slice(indexOfLastSelectedFilter),
+          ]);
+        } else {
+          setAvailableFilters(response?.payload);
         }
+        setChangeFilters(false);
       });
     }
 
@@ -347,12 +363,12 @@ const CategoriesPageDisplay = ({
             <div className="text-[0.875rem] max-lg:hidden font-light">
               {breadcrumbs?.length > 0 && (
                 <div className="flex items-center gap-1 py-2flex-wrap">
-                  <a
+                  <Link
                     href={`/`}
                     className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
                   >
                     Početna
-                  </a>{" "}
+                  </Link>{" "}
                   <span className="text-[#191919] text-[0.85rem]">/</span>
                   {uniqueBreadcrumbs.map((slug, index) => {
                     const breadcrumb = breadcrumbs.find(
@@ -360,12 +376,12 @@ const CategoriesPageDisplay = ({
                     );
                     return (
                       <div key={index} className="flex items-center gap-1">
-                        <a
+                        <Link
                           href={`/${slug}`}
                           className="text-[#191919] text-[0.851rem] font-normal hover:text-black"
                         >
                           {breadcrumb?.name}
-                        </a>
+                        </Link>
                         {index !== uniqueBreadcrumbs.length - 1 && (
                           <span className="text-[#191919] text-[0.85rem]">
                             /
@@ -452,7 +468,7 @@ const CategoriesPageDisplay = ({
                   className="max-md:mx-[2px] mx-1 max-md:my-1"
                   key={child?.id}
                 >
-                  <a
+                  <Link
                     href={`/${child?.slug_path}`}
                     key={child?.id}
                     onClick={() => setOpen(false)}
@@ -466,7 +482,7 @@ const CategoriesPageDisplay = ({
                     >
                       <p className="">{child?.basic_data?.name}</p>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               ))}
           </div>
@@ -484,6 +500,7 @@ const CategoriesPageDisplay = ({
             searchProducts={searchProducts}
             onSortChange={onSortChange}
             sort={sort}
+            setLastSelectedFilterKey={setLastSelectedFilterKey}
             sortKeys={sortKeys}
             onLimitChange={onLimitChange}
             limit={limit}

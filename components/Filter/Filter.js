@@ -14,6 +14,7 @@ const Filter = ({
   setChangeFilters,
   changeFilterOptions,
   setActiveFilters,
+  setLastSelectedFilterKey,
 }) => {
   const changeHandler = (data) => {
     let tmp = [...selectedFilters];
@@ -31,6 +32,8 @@ const Filter = ({
       }
     }
     setSelectedFilters([...tmp]);
+    setLastSelectedFilterKey(data?.column);
+    setChangeFilters(true);
     // setActiveFilters([...tmp]);
   };
 
@@ -219,13 +222,13 @@ const FilterWithinTree = ({ filter }) => {
             key={item.id}
             className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem]"
           >
-            <a
+            <Link
               className="text-[0.875rem] leading-[1.625rem]"
               htmlFor={"chbx-" + item.id}
               href={`/${item?.slug_path}`}
             >
               {item.label}
-            </a>
+            </Link>
           </div>
         </>
       ))}

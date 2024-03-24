@@ -18,6 +18,7 @@ import ArrowPic from "../../assets/Icons/arrow.png";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
+import { useRemoveFromWishlist } from "@/hooks/akt.hooks";
 
 const ProductsSlider = ({
   products,
@@ -186,7 +187,7 @@ const ProductsSlider = ({
               case true:
                 return (
                   <>
-                    <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg">
+                    <div className="absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
                       <p className="text-black">
                         -
                         {(
@@ -204,7 +205,7 @@ const ProductsSlider = ({
               case false:
                 return (
                   <>
-                    <div className="absolute top-2 right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                    <div className="absolute top-[0.2rem] right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
                       <p className="text-black">
                         -
                         {(
@@ -230,7 +231,7 @@ const ProductsSlider = ({
           case true:
             return (
               <>
-                <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                <div className="absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
                   <p className="text-black">
                     -
                     {(
@@ -251,6 +252,7 @@ const ProductsSlider = ({
         }
     }
   };
+
   const [, , , mutateWishList] = useCartContext();
 
   const { data: wishlist, refetch } = useQuery({
@@ -260,10 +262,18 @@ const ProductsSlider = ({
     },
     refetchOnWindowFocus: false,
   });
-  const product = products.map((item, index) => {
+  const { mutate: removeFromWishlist, isPending } = useRemoveFromWishlist();
+  const product = products?.map((item, index) => {
     const isProductInWishlist = wishlist?.find(
       (product) => product?.product?.id === item?.basic_data?.id_product
     );
+
+    const wishlist_item = wishlist?.filter(
+      (item1) => item1?.product?.id === item?.basic_data?.id_product
+    );
+
+    const wishlist_id = wishlist_item?.[0]?.wishlist?.id;
+
     return (
       <div
         key={item.id}
@@ -358,7 +368,7 @@ const ProductsSlider = ({
                 ) : null}
                 {item?.price?.discount?.active && (
                   <div
-                    className={`absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[0.8rem] z-[10] rounded-lg z-100`}
+                    className={`absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[0.8rem] z-[10] rounded-lg z-100`}
                   >
                     <p className={`text-black`}>
                       {renderDiscountPercentage(item)}
@@ -376,7 +386,7 @@ const ProductsSlider = ({
                     setWishlistId(item?.basic_data?.id_product);
                   }}
                   onClick={async () => {
-                    if (!isInWishlist) {
+                    if (!isProductInWishlist) {
                       await post("/wishlist", {
                         id: null,
                         id_product: item?.basic_data?.id_product,
@@ -391,17 +401,12 @@ const ProductsSlider = ({
                             position: "top-center",
                           });
                           mutateWishList();
-                        } else {
-                          toast.warn("Proizvod je već u željama.", {
-                            autoClose: 2000,
-                            position: "top-center",
-                          });
                         }
                       });
                       refetch();
                     } else {
                       setTimeout(async () => {
-                        await deleteMethod(`/wishlist/${wishlistId}`).then(
+                        await deleteMethod(`/wishlist/${wishlist_id}`).then(
                           (res) => {
                             if (res?.code === 200) {
                               toast.success("Uspešno uklonjeno iz želja.", {
@@ -409,6 +414,7 @@ const ProductsSlider = ({
                                 position: "top-center",
                               });
                               mutateWishList();
+                              refetch();
                             } else {
                               toast.error("Došlo je do greške.", {
                                 autoClose: 2000,

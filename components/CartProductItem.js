@@ -37,7 +37,7 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
       <div className="col-span-2 grid grid-cols-3 gap-x-10 mt-1 relative">
         <div className="relative col-span-1 w-full flex items-center ">
           <div className="">
-            <a href={`/${item?.product?.slug}`}>
+            <Link href={`/${item?.product?.slug}`}>
               <Image
                 src={convertHttpToHttps(item?.product?.image[0])}
                 width={250}
@@ -45,15 +45,15 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
                 alt=""
                 className="object-cover h-full w-full"
               />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="col-span-2 flex justify-evenly flex-col ">
-          <a href={`/${item?.product?.slug}`}>
+          <Link href={`/${item?.product?.slug}`}>
             <span className="text-base font-medium">
               {item?.product?.basic_data?.name}
             </span>
-          </a>
+          </Link>
           <span>Šifra: {item?.product?.basic_data?.sku}</span>
           <div className="flex items-center gap-3 max-md:hidden">
             <span>Količina</span>
@@ -66,7 +66,12 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           </div>
           <div className="flex items-center gap-3 md:hidden">
             <span>Količina:</span>
-            {productAmount}
+            <PlusMinusInputOne
+                max={+item?.product?.inventory?.amount}
+                amount={productAmount}
+                setCount={setProductAmount}
+                onClick={() => setRefresh(!refresh)}
+            />
           </div>
           <span>Ukupan iznos: {currencyFormat(total?.discount, currency)}</span>
         </div>

@@ -258,8 +258,9 @@ const ThumbSuspense = ({
   };
   return (
     <div key={thumbKey || id_product}>
-      <div className="col-span-1">
-        <a href={`/${product?.slug_path}`}>
+      <div className="col-span-1 relative">
+        {renderDiscountPercentage(product)}
+        <Link href={`/${product?.slug_path}`}>
           <div className="relative w-full">
             {product?.image[0] ? (
               <>
@@ -317,7 +318,7 @@ const ThumbSuspense = ({
               </div>
             ) : null}
           </div>
-        </a>
+        </Link>
 
         <div className="text-start w-full pt-1">
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
@@ -353,7 +354,7 @@ const ThumbSuspense = ({
 
             <div className="w-[2px] h-[26px] bg-[#000]"></div>
             <div className="flex items-center justify-start w-full">
-              <a
+              <Link
                 href={`/${product?.slug_path}`}
                 onClick={() => {
                   process?.env?.GTM_ENABLED === "true" &&
@@ -387,11 +388,11 @@ const ThumbSuspense = ({
                   alt="cart"
                   className="cursor-pointer hover:scale-110 transition-all duration-200 "
                 />
-              </a>
+              </Link>
             </div>
           </div>
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-            <a
+            <Link
               className="font-normal text-sm clamp"
               href={`/${product?.slug_path}`}
               onClick={() => {
@@ -419,7 +420,7 @@ const ThumbSuspense = ({
               }}
             >
               {product?.basic_data?.name}
-            </a>
+            </Link>
           </p>
           {product?.price?.price?.original == 0 ||
           product?.price?.price?.original == null ? (

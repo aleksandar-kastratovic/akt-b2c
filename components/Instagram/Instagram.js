@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Instagram = () => {
   const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ const Instagram = () => {
                 item?.media_type === "VIDEO" && "hidden"
               }`}
             >
-              <a href={item.permalink} target="_blank" rel="noreferrer">
+              <Link href={item.permalink} target="_blank" rel="noreferrer">
                 <div className={`h-[200px] md:h-[400px] relative rounded-t-2xl`}>
                   {item?.media_type === "VIDEO" ? null : (
                     <Image
@@ -40,7 +41,7 @@ const Instagram = () => {
                     />
                   )}
                 </div>
-              </a>
+              </Link>
               <div
                 className={`border-l border-b border-r rounded-b-2xl border-croonus-3`}
               >

@@ -51,7 +51,6 @@ const fetchProducts = async (slug) => {
   return fetcProducts;
 };
 
-
 const fetchNewProducts = async () => {
   const fetchNewProducts = await list("/products/new-in/list").then(
     (response) => response?.payload?.items
@@ -107,6 +106,8 @@ const CategoryPage = async ({ params: { path } }) => {
       ) : (
         notFound()
       )}
+
+
     </>
   );
 };
