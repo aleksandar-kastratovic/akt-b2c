@@ -6,8 +6,11 @@ const Filters = ({
   setSelectedFilters,
   categoryData,
   onSortChange,
+  setChangeFilters,
   sort,
+  filters,
   sortKeys,
+  setLastSelectedFilterKey,
 }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -39,7 +42,7 @@ const Filters = ({
               : `invisible opacity-0 -translate-x-[150%] transition-all duration-[1000ms] absolute top-0 -z-[50]  left-[125px] right-0 flex items-center`
           }
         >
-          {(filtersMap ?? []).map((filter, index) => {
+          {(filters ?? []).map((filter, index) => {
             const isOpen = openIndex === index;
             return (
               <div className={`relative max-lg:hidden w-[calc(100vw/9)]`}>
@@ -68,6 +71,8 @@ const Filters = ({
                     <div className="w-[90%] uppercase mx-auto pb-3.5">
                       <Filter
                         filter={filter}
+                        setChangeFilters={setChangeFilters}
+                        setLastSelectedFilterKey={setLastSelectedFilterKey}
                         selectedFilters={selectedFilters}
                         setSelectedFilters={setSelectedFilters}
                       />
@@ -154,7 +159,7 @@ const Filters = ({
                 onClick={() => setOpenModal(false)}
               ></i>
 
-              {(filtersMap ?? []).map((filter, index) => {
+              {(filters ?? []).map((filter, index) => {
                 const isOpen = openIndex === index;
                 const isActive = filter === activeFilter;
 
@@ -191,8 +196,10 @@ const Filters = ({
                       >
                         <div className="w-[85%] uppercase mx-auto">
                           <Filter
+                            setChangeFilters={setChangeFilters}
                             filter={filter}
                             selectedFilters={selectedFilters}
+                            setLastSelectedFilterKey={setLastSelectedFilterKey}
                             setSelectedFilters={setSelectedFilters}
                             setActiveFilters={setActiveFilters}
                           />

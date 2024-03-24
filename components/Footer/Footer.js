@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { post } from "@/app/api/api";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../assets/logo.png";
@@ -18,19 +18,25 @@ import Image7 from "../../assets/Icons/img3.png";
 import Image8 from "../../assets/Icons/img4.png";
 
 const Footer = () => {
-
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const currentYear = format(new Date(), 'yyyy');
+  const currentYear = format(new Date(), "yyyy");
   const {
     register,
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
+    setError,
+    formState: {
+      errors,
+      isSubmitting: isSubmitted,
+      isSubmitSuccessful,
+      isValid,
+    },
   } = useForm();
 
   const onSubmit = (data) => {
+    setError();
     setLoading(true);
     post("/newsletter", {
       email: data.email,
@@ -51,6 +57,13 @@ const Footer = () => {
       })
       .catch((error) => console.warn(error));
   };
+
+  const handleError = () => {
+    toast.error("Unesite validnu e-mail adresu.", {
+      position: "top-center",
+    });
+  };
+
   return (
     <>
       <div className="max-lg:mt-0 mt-[5rem] w-[95%] lg:w-[60%] mx-auto border-t border-t-black max-lg:border-t-0 text-croonus-1">
@@ -64,9 +77,15 @@ const Footer = () => {
                 <span className="uppercase text-sm font-normal">
                   {process.env.COMPANY} |
                 </span>
-                <a className="text-sm font-normal">
-                  <a href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7588672,20.06973,14z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`} target={`_blank`}> {process.env.ADDRESS} |</a>
-                </a>
+                <div className="text-sm font-normal">
+                  <Link
+                    href={`https://www.google.com/maps/place/Stefan+ku%C4%87ni+tekstil+Arilje+-+AKT+d.o.o./@43.7588672,20.06973,14z/data=!4m10!1m2!2m1!1s22+avgusta+arilje!3m6!1s0x475783202233eed5:0x350be1a19d9fe701!8m2!3d43.7627428!4d20.0954014!15sChEyMiBhdmd1c3RhIGFyaWxqZVoTIhEyMiBhdmd1c3RhIGFyaWxqZZIBDmNsb3RoaW5nX3N0b3Jl4AEA!16s%2Fg%2F11c1p2kh6x?entry=ttu`}
+                    target={`_blank`}
+                  >
+                    {" "}
+                    {process.env.ADDRESS} |
+                  </Link>
+                </div>
                 <span className=" text-sm ffont-normal">
                   {process.env.TOWN}
                 </span>
@@ -79,28 +98,28 @@ const Footer = () => {
                   MB: {process.env.MB} |
                 </span>
               </div>
-              <a
+              <Link
                 href={`mailto:${process.env.EMAIL}`}
                 className="text-sm font-normal"
               >
                 e-mail: {process.env.EMAIL}
-              </a>
+              </Link>
             </div>
             <div className="flex items-center gap-10">
-              <a
+              <Link
                 href={`https://www.facebook.com/STEFAN.DOO.ARILJE`}
                 target={`_blank`}
               >
                 {" "}
                 <i className="fa-brands fa-facebook-f text-3xl text-croonus-1 cursor-pointer"></i>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={`https://www.instagram.com/stefantekstil.rs/`}
                 target={`_blank`}
               >
                 {" "}
                 <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
@@ -150,7 +169,14 @@ const Footer = () => {
                     })}
                     className="max-lg:w-full max-lg:py-2 w-full pl-5 placeholder:text-black placeholder:text-sm border border-black self-stretch focus:ring-0 focus:outline-none focus:border-black"
                   />
-                  <button className="bg-croonus-1 max-lg:mt-2 max-lg:w-full max-lg:py-2 w-[16rem] text-base py-3 text-white hover:bg-opacity-80">
+                  <button
+                    onClick={() => {
+                      if (!isValid && !isSubmitted && !isSubmitSuccessful) {
+                        handleError();
+                      }
+                    }}
+                    className="bg-croonus-1 max-lg:mt-2 max-lg:w-full max-lg:py-2 w-[16rem] text-base py-3 text-white hover:bg-opacity-80"
+                  >
                     Prijavite se!
                   </button>
                 </form>
@@ -162,14 +188,28 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-lg:hidden lg:w-[90%] mt-8 text-white text-base py-3 mx-auto bg-croonus-4 flex max-lg:flex-col justify-center items-center gap-10">
-        <a href="/pomoc-pri-kupovini">Pomoć pri kupovini</a>
-        <a href="/uslovi">Uslovi korišćenja</a>
-        <a href="/kolacici">Politika o kolačićima</a>
-        <a href="/politika-privatnosti">Politika privatnosti</a>
-        <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
-        <a href="/o-nama">O nama</a>
-        {/* <a href="/blog">Blog</a> */}
-        <a href="/kontakt">Kontakt</a>
+        <Link className={`hover:underline`} href="/pomoc-pri-kupovini">
+          Pomoć pri kupovini
+        </Link>
+        <Link className={`hover:underline`} href="/uslovi">
+          Uslovi korišćenja
+        </Link>
+        <Link className={`hover:underline`} href="/kolacici">
+          Politika o kolačićima
+        </Link>
+        <Link className={`hover:underline`} href="/politika-privatnosti">
+          Politika privatnosti
+        </Link>
+        <Link className={`hover:underline`} href="/uslovi#nacin-placanja">
+          Načini plaćanja
+        </Link>
+        <Link className={`hover:underline`} href="/o-nama">
+          O nama
+        </Link>
+        {/* <Link href="/blog">Blog</Link> */}
+        <Link className={`hover:underline`} href="/kontakt">
+          Kontakt
+        </Link>
       </div>
       <div
         className="bg-croonus-1 py-5 justify-center text-white text-center font-normal flex items-center gap-5 lg:hidden mt-10"
@@ -180,14 +220,14 @@ const Footer = () => {
       </div>
       {open && (
         <div className="bg-[#2e2524] translate-y-0 transition-all max-md:text-xs justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden pt-3">
-          <a href="/pomoc-pri-kupovini">Pomoć pri kupovini</a>
-          <a href="/uslovi">Uslovi korišćenja</a>
-          <a href="/kolacici">Politika o kolačićima</a>
-          <a href="/politika-privatnosti">Politika privatnosti</a>
-          <a href="/uslovi#nacin-placanja">Načini plaćanja</a>
-          <a href="/o-nama">O nama</a>
-          {/* <a href="/blog">Blog</a> */}
-          <a href="/kontakt">Kontakt</a>
+          <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
+          <Link href="/uslovi">Uslovi korišćenja</Link>
+          <Link href="/kolacici">Politika o kolačićima</Link>
+          <Link href="/politika-privatnosti">Politika privatnosti</Link>
+          <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
+          <Link href="/o-nama">O nama</Link>
+          {/* <Link href="/blog">Blog</Link> */}
+          <Link href="/kontakt">Kontakt</Link>
         </div>
       )}
 
@@ -239,7 +279,7 @@ const Footer = () => {
           />
         </div>
 
-        <a
+        <Link
           href="https://www.bancaintesa.rs"
           rel="noopener noreferrer"
           target="_blank"
@@ -253,8 +293,8 @@ const Footer = () => {
               className="object-scale-down"
             />
           </div>
-        </a>
-        <a
+        </Link>
+        <Link
           href="http://www.mastercard.com/rs/consumer/credit-cards.html"
           rel="noopener noreferrer"
           target="_blank"
@@ -268,8 +308,8 @@ const Footer = () => {
               className="object-scale-down max-sm:w-[100%]"
             />
           </div>
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html"
           rel="noopener noreferrer"
           target="_blank"
@@ -283,7 +323,7 @@ const Footer = () => {
               className="object-scale-down"
             />
           </div>
-        </a>
+        </Link>
       </div>
       <div className="w-[50%] mx-auto"></div>
       <div className="w-[95%] lg:w-[80%] mx-auto">
@@ -299,9 +339,9 @@ const Footer = () => {
         </p>
         <div className="text-sm text-center mt-6">
           &copy; {currentYear} AKT DOO | Sva prava zadržana. Powered by{" "}
-          <a className="underline font-medium" href="https://croonus.com">
+          <Link className="underline font-medium" href="https://croonus.com">
             Croonus Technologies
-          </a>
+          </Link>
         </div>
       </div>
     </>

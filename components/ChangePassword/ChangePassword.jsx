@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import show from "@/assets/Icons/show-password.png";
 import hide from "@/assets/Icons/hide-password.png";
+import Link from "next/link";
 
 const ChangePassword = () => {
   const [isChecked, setIsChecked] = useState(true);

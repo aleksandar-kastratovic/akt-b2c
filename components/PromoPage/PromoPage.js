@@ -198,18 +198,18 @@ const LandingPage = ({ slug }) => {
                         className={`col-span-1 flex flex-col items-center justify-center p-5 gap-3 border border-croonus-1 rounded-2xl`}
                       >
                         {thumb?.name && (
-                          <a href={`${thumb?.url}`}>
+                          <Link href={`${thumb?.url}`}>
                             {" "}
                             <h1 className={`text-2xl font-medium`}>
                               {thumb?.name}
                             </h1>
-                          </a>
+                          </Link>
                         )}
                         {thumb?.description && (
                           <p className={`text-center`}>{thumb?.description}</p>
                         )}
                         {thumb?.thumb_image && (
-                          <a href={`${thumb?.url}`}>
+                          <Link href={`${thumb?.url}`}>
                             {" "}
                             <div className={``}>
                               <Image
@@ -223,16 +223,16 @@ const LandingPage = ({ slug }) => {
                                 className={`w-full h-auto`}
                               />
                             </div>
-                          </a>
+                          </Link>
                         )}
                         {thumb?.button && (
-                          <a href={`${thumb?.url}`} className={`w-full`}>
+                          <Link href={`${thumb?.url}`} className={`w-full`}>
                             <button
                               className={`rounded-[5rem] bg-croonus-2 text-white p-2 mt-2 w-full hover:scale-105 hover:bg-opacity-90 transition-all duration-500`}
                             >
                               {thumb?.button}
                             </button>
-                          </a>
+                          </Link>
                         )}
                       </div>
                     );

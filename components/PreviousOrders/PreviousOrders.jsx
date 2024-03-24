@@ -53,9 +53,9 @@ const PreviousOrders = () => {
                       {order?.total_with_vat}
                     </td>
                     <td className=" pl-[1.4rem] py-[0.7rem]">
-                      <a href={`/customer-orders/${order?.order_token}`}>
+                      <Link href={`/customer-orders/${order?.order_token}`}>
                         Pogledaj više
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 </>
@@ -85,9 +85,9 @@ const PreviousOrders = () => {
                   <span className="font-medium">{order?.total_with_vat}</span>
                 </p>
                 <div className="ml-[0.4rem] py-[0.7rem] mt-[2rem] font-medium">
-                  <a href={`/customer-orders/${order?.id}`}>
+                  <Link href={`/customer-orders/${order?.id}`}>
                     Pogledaj više
-                  </a>
+                  </Link>
                 </div>
               </div>
             </>

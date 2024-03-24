@@ -39,7 +39,7 @@ const Blog = () => {
         
               return (
                 <div className="col-span-1 mb-6 p-4" key={row?.id}>
-                  <a href={`/blog/${row?.id}`}>
+                  <Link href={`/blog/${row?.id}`}>
                     <div className=" postHolder" id={row.id}>
                       <div className="relative  max-lg:h-[300px] max-h-[240px]  h-[240px] w-full">
                         <Image
@@ -60,7 +60,7 @@ const Blog = () => {
                         </button>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
               );
             })}

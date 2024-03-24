@@ -94,11 +94,11 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
             </p>
           </div>
           {item?.button && (
-            <a href={`${item?.url}`}>
+            <Link href={`${item?.url}`}>
               <button className="px-6 py-2 text-xl bg-croonus-1 text-white hover:bg-opacity-80">
                 {item?.button}
               </button>
-            </a>
+            </Link>
           )}
         </div>
       </div>

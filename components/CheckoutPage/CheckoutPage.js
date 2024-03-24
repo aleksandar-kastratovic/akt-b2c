@@ -947,9 +947,9 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                   />
                   <label htmlFor="agreed">
                     Saglasan sam sa{" "}
-                    <a href="/uslovi" className="underline" target="_blank">
+                    <Link href="/uslovi" className="underline" target="_blank">
                       Opštim uslovima korišćenja
-                    </a>{" "}
+                    </Link>{" "}
                     AKT ONLINE SHOP-a.
                   </label>
                   {errors.includes("agreed") && (
@@ -982,7 +982,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                 </div>
                 <div className="mt-10 text-center">
                   <button className="rounded-[5rem] bg-croonus-1 px-4 py-2 text-white hover:bg-opacity-80">
-                    <a href="/">Vrati se na početnu stranu.</a>
+                    <Link href="/">Vrati se na početnu stranu.</Link>
                   </button>
                 </div>
                 <div className="help-container mt-10 text-center">

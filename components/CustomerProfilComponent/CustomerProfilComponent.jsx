@@ -5,6 +5,7 @@ import ShippingAddress from "@/components/ShippingAddress/ShippingAddress";
 import PreviousOrders from "@/components/PreviousOrders/PreviousOrders";
 import ChangePassword from "@/components/ChangePassword/ChangePassword";
 import MyProfile from "@/components/MyProfile/MyProfile";
+import Link from "next/link";
 
 import ProfilNav from "@/components/ProfilNav/ProfilNav";
 

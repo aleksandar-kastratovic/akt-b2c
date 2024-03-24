@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Kolacici = () => {
   return (
     <div className="w-[85%] mx-auto max-lg:w-[95%] ">
@@ -60,44 +62,44 @@ const Kolacici = () => {
       </p>
       <ul className="mt-2 list-disc ml-10">
         <li className="py-2.5">
-          <a
+          <Link
             href="https://support.google.com/accounts/answer/61416?hl=en"
             target="_blank"
             rel="noreferrer"
             className="text-red-500 font-medium"
           >
             Google Chrome
-          </a>
+          </Link>
         </li>
         <li className="py-2.5">
-          <a
+          <Link
             href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences"
             target="_blank"
             rel="noreferrer"
             className="text-red-500 font-medium"
           >
             Mozilla Firefox
-          </a>
+          </Link>
         </li>
         <li className="py-2.5">
-          <a
+          <Link
             href="http://windows.microsoft.com/en-us/internet-explorer/delete-manage-cookies"
             target="_blank"
             rel="noreferrer"
             className="text-red-500 font-medium"
           >
             Internet Explorer
-          </a>
+          </Link>
         </li>
         <li className="py-2.5">
-          <a
+          <Link
             href="http://support.apple.com/kb/PH19214"
             target="_blank"
             rel="noreferrer"
             className="text-red-500 font-medium"
           >
             Safari
-          </a>
+          </Link>
         </li>
       </ul>
     </div>

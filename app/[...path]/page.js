@@ -1,7 +1,7 @@
 import { get } from "@/app/api/api";
 import CategoryPage from "@/app/kategorije/[...path]/page";
 import ProductPage from "@/app/proizvod/[...path]/page";
-import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 const handleData = async (slug) => {
   return await get(`/slugs/product-categories?slug=${slug}`).then(
@@ -81,11 +81,56 @@ const CategoryProduct = async ({ params: { path }, params }) => {
   const data = await handleData(str);
   switch (true) {
     case data?.type === "category" && data?.status === true:
-      return <CategoryPage params={params} />;
+      return (
+        <Suspense
+          fallback={
+            <>
+              <div
+                className={`w-[90%] mx-auto mt-[2rem] bg-slate-300 animate-pulse h-[250px]`}
+              />
+              <div
+                className={`w-[60%] mx-auto mt-[2rem] bg-slate-300 animate-pulse h-[100px]`}
+              />
+            </>
+          }
+        >
+          <CategoryPage params={params} />
+        </Suspense>
+      );
     case data?.type === "product" && data?.status === true:
-      return <ProductPage params={params} />;
+      return (
+        <Suspense
+          fallback={
+            <div className="w-[85%] mt-[5rem] mx-auto grid grid-cols-2 lg:grid-cols-6 gap-x-10">
+              <div className="col-span-2 lg:col-span-3 h-[30rem] bg-slate-300 animate-pulse"></div>
+
+              <div
+                className={`flex flex-col gap-5 max-md:mt-5 col-span-2 lg:col-span-3`}
+              >
+                <div
+                  className={`w-full h-[40px] bg-slate-300 animate-pulse`}
+                ></div>
+                <div
+                  className={`w-full h-[40px] bg-slate-300 animate-pulse`}
+                ></div>
+                <div
+                  className={`w-full h-[40px] bg-slate-300 animate-pulse`}
+                ></div>
+                <div
+                  className={`w-full h-[40px] bg-slate-300 animate-pulse`}
+                ></div>
+                <div
+                  className={`w-full h-[40px] bg-slate-300 animate-pulse`}
+                ></div>
+              </div>
+            </div>
+          }
+        >
+          <ProductPage params={params} />
+        </Suspense>
+      );
     default:
-      notFound();
+      break;
   }
 };
 

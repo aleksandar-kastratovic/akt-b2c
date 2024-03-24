@@ -109,9 +109,9 @@ const NavigationMobile = () => {
             />
           </div>
           <div className="pl-10 pb-2">
-            <a href="/">
+            <Link href="/">
               <Image src={Logo} width={150} height={150} />
-            </a>
+            </Link>
           </div>
           <div className="flex items-center gap-5 relative">
             <Image
@@ -121,9 +121,9 @@ const NavigationMobile = () => {
               onClick={() => setSearchOpen(!searchOpen)}
               alt="search"
             />
-            <a href="/korpa">
+            <Link href="/korpa">
               <Image src={Cart} width={35} height={35} alt="cart" />
-            </a>
+            </Link>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
                 {cartCount}
@@ -155,7 +155,7 @@ const NavigationMobile = () => {
                 <div
                   className={`absolute top-[0.8rem] right-[2.25rem] text-xs text-red-500`}
                 >
-                  <span>Unesite barem 3 karaktera</span>
+                  <span>Unesite najmanje 3 karaktera</span>
                 </div>
               )}
               <i
@@ -178,7 +178,7 @@ const NavigationMobile = () => {
                 <div className="max-h-[400px] overflow-y-auto customscroll2">
                   {searchData?.length > 0
                     ? searchData.slice(0, 6).map((item) => (
-                        <a
+                        <Link
                           key={item?.id}
                           href={`/${item?.categories[0]?.slug}/${item.slug}`}
                           className="h-[83px]"
@@ -203,7 +203,7 @@ const NavigationMobile = () => {
                               <p className="text-sm">{item.basic_data.name}</p>
                             </div>
                           </div>
-                        </a>
+                        </Link>
                       ))
                     : null}
                 </div>
@@ -243,13 +243,13 @@ const NavigationMobile = () => {
             ></i>
 
             <div className="flex items-center relative gap-5 mr-5">
-            <a href="/nalog">
+            <Link href="/nalog">
               <Image src={User} width={35} height={35} />
-              </a>
-              <a href="/lista-zelja">
+              </Link>
+              <Link href="/lista-zelja">
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
-              </a>
+              </Link>
              
               
               {wishListCount > 0 && (
@@ -261,7 +261,7 @@ const NavigationMobile = () => {
           </div>
           {/* <div className=" bg-[#f8f8fa] py-3">
             <div className="w-[90%] mx-auto flex flex-col gap-[20px]">
-              <a
+              <Link
                 href="/novo"
                 className="text-base font-medium uppercase"
                 onClick={() => {
@@ -270,8 +270,8 @@ const NavigationMobile = () => {
                 }}
               >
                 Novo
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/akcija"
                 className="text-base font-medium uppercase"
                 onClick={() => {
@@ -280,7 +280,7 @@ const NavigationMobile = () => {
                 }}
               >
                 Akcija
-              </a>
+              </Link>
             </div>
           </div> */}
           {/*<form*/}
@@ -368,7 +368,7 @@ const NavigationMobile = () => {
                                 return (
                                   <div className="w-full py-2 bg-white">
                                     <div className="w-[90%] mx-auto pl-4">
-                                      <a
+                                      <Link
                                         className="text-xs font-medium"
                                         href={`/${item2?.slug_path}`}
                                         onClick={() => {
@@ -377,7 +377,7 @@ const NavigationMobile = () => {
                                         }}
                                       >
                                         {item2?.name}
-                                      </a>
+                                      </Link>
                                     </div>
                                   </div>
                                 );
@@ -386,7 +386,7 @@ const NavigationMobile = () => {
                         ) : (
                           <div className="w-full py-2">
                             <div className="w-[90%] mx-auto pl-2">
-                              <a
+                              <Link
                                 className="text-sm font-medium"
                                 href={`/${item?.slug_path}`}
                                 onClick={() => {
@@ -395,7 +395,7 @@ const NavigationMobile = () => {
                                 }}
                               >
                                 {item?.name}
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         );
@@ -403,7 +403,7 @@ const NavigationMobile = () => {
                   </div>
                 </>
               ) : (
-                <a
+                <Link
                   className="text-base  font-medium uppercase"
                   href={`/${item?.slug_path}`}
                   onClick={() => {
@@ -415,7 +415,7 @@ const NavigationMobile = () => {
                   <div className="w-full py-2">
                     <div className="w-[90%] mx-auto">{item?.name}</div>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>

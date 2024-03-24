@@ -156,7 +156,7 @@ const id_product = product?.basic_data?.id_product
       className={` flex flex-col relative products-center keen-slider__slide`}
     >
       <div className="col-span-1">
-        <a href={`/${product?.slug}`}>
+        <Link href={`/${product?.slug}`}>
           <div className="relative w-full">
                 {product?.image[0] ? (
                   <>
@@ -211,7 +211,7 @@ const id_product = product?.basic_data?.id_product
                 )}
           </div>
           
-        </a>
+        </Link>
         <div className="text-start w-full pt-1">
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             
@@ -271,7 +271,7 @@ const id_product = product?.basic_data?.id_product
               </div>
           </div>
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-            <a
+            <Link
               className="font-normal text-sm clamp"
               href={`/${product?.slug_path}`}
               onClick={() => {
@@ -299,7 +299,7 @@ const id_product = product?.basic_data?.id_product
               }}
             >
               {product?.basic_data?.name}
-            </a>
+            </Link>
           </p>
           {product?.price?.price?.original == 0 || product?.price?.price?.original == null ? (
             

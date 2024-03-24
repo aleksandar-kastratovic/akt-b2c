@@ -37,7 +37,7 @@ const Products = ({
     },
     refetchOnWindowFocus: false,
   });
-  
+
   const renderPrices = (item) => {
     switch (item?.product_type) {
       case "variant":
@@ -460,7 +460,7 @@ const Products = ({
               </div>
             </div>
             <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-              <a
+              <Link
                 className="font-normal text-sm clamp"
                 href={`/${item?.slug_path}`}
                 onClick={() => {
@@ -488,7 +488,7 @@ const Products = ({
                 }}
               >
                 {item?.basic_data?.name}
-              </a>
+              </Link>
             </p>
             {item?.price?.price?.original == 0 ||
             item?.price?.price?.original == null ? (

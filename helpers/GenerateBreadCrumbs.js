@@ -9,7 +9,7 @@ const Breadcrumbs = ({ asPath }) => {
   const asPathSegments = asPath.split("/").filter((segment) => segment !== "");
   return (
     <div className="text-base max-lg:hidden">
-      <a href="/">Početna</a>
+      <Link href="/">Početna</Link>
       {asPathSegments.map((segment, index) => (
         <React.Fragment key={index}>
           <span> / </span>
