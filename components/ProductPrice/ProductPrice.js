@@ -314,10 +314,8 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
                 return currencyFormat(item?.price?.price?.discount);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                    item?.price?.min?.price?.discount
-                )} - ${currencyFormat(
-                    item?.price?.max?.price?.discount
-                )}`;
+                  item?.price?.min?.price?.discount
+                )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
             }
         }
         break;
@@ -331,10 +329,8 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
                 return currencyFormat(productVariant?.price?.price?.original);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                    item?.price?.min?.price?.original
-                )} - ${currencyFormat(
-                    item?.price?.max?.price?.original
-                )}`;
+                  item?.price?.min?.price?.original
+                )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
             }
         }
         break;
@@ -430,11 +426,7 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
         {/*</p>*/}
         {products?.data?.item?.price?.price?.original !== 0 &&
         products?.data?.item?.price?.price?.original !== null ? (
-          <>
-            {renderPrices(
-              productVariant?.id ? productVariant : products?.data?.item
-            )}
-          </>
+          <>{renderPrices(products?.data?.item)}</>
         ) : null}
       </div>
       <div>
