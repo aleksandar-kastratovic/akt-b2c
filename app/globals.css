@@ -30,6 +30,21 @@ input::-webkit-inner-spin-button {
     opacity: 1;
   
 }
+.profilHolder {
+  margin-top: 3rem;
+  margin-bottom: 10rem;
+}
+.profilNav {
+  min-width: 20rem;
+}
+.rightSideContent {
+  margin-left: 4rem;
+}
+.profilNav button {
+  padding-left: 1.6rem;
+  padding-right: 6rem;
+  margin-bottom: 0.4rem;
+}
 .bganimate {
   position: relative;
   overflow: hidden;
