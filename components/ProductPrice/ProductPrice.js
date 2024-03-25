@@ -302,6 +302,44 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
     }
   };
 
+  const renderFinalPrice = (item) => {
+    switch (item?.price?.discount?.active) {
+      case true:
+        switch (products?.product_type) {
+          case "single":
+            return currencyFormat(item?.price?.price?.discount);
+          case "variant":
+            switch (true) {
+              case Boolean(productVariant?.id) === true:
+                return currencyFormat(item?.price?.price?.discount);
+              case Boolean(productVariant?.id) === false:
+                return `${currencyFormat(
+                    item?.price?.min?.price?.discount
+                )} - ${currencyFormat(
+                    item?.price?.max?.price?.discount
+                )}`;
+            }
+        }
+        break;
+      case false:
+        switch (products?.product_type) {
+          case "single":
+            return currencyFormat(item?.price?.price?.original);
+          case "variant":
+            switch (true) {
+              case Boolean(productVariant?.id) === true:
+                return currencyFormat(productVariant?.price?.price?.original);
+              case Boolean(productVariant?.id) === false:
+                return `${currencyFormat(
+                    item?.price?.min?.price?.original
+                )} - ${currencyFormat(
+                    item?.price?.max?.price?.original
+                )}`;
+            }
+        }
+        break;
+    }
+  };
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex flex-col gap-4">
@@ -392,7 +430,11 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
         {/*</p>*/}
         {products?.data?.item?.price?.price?.original !== 0 &&
         products?.data?.item?.price?.price?.original !== null ? (
-          <>{renderPrices(products?.data?.item)}</>
+          <>
+            {renderPrices(
+              productVariant?.id ? productVariant : products?.data?.item
+            )}
+          </>
         ) : null}
       </div>
       <div>
@@ -416,55 +458,10 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
           />
         </div>
       )}
-      {products?.data?.item?.price?.price?.original !== 0 &&
-      products?.data?.item?.price?.price?.original !== null ? (
+      {products?.data?.item?.price?.price_defined ? (
         <h1 className="text-[1.5rem] font-bold max-lg:text-left max-md:hidden">
-          {products?.data?.item?.price?.discount?.active ? (
-            <>
-              {products?.product_type === "single" ? (
-                <>
-                  {currencyFormat(products?.data?.item?.price?.price?.discount)}
-                </>
-              ) : productVariant?.id ? (
-                <>{currencyFormat(productVariant?.price?.price?.discount)}</>
-              ) : (
-                <>
-                  {currencyFormat(
-                    products?.data?.item?.price?.min?.price?.discount
-                  )}{" "}
-                  -{" "}
-                  {currencyFormat(
-                    products?.data?.item?.price?.max?.price?.discount
-                  )}
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {products?.product_type === "single" ? (
-                <>
-                  {currencyFormat(products?.data?.item?.price?.price?.original)}
-                </>
-              ) : (
-                <>
-                  {productVariant?.id ? (
-                    <>
-                      {currencyFormat(productVariant?.price?.price?.original)}
-                    </>
-                  ) : (
-                    <>
-                      {currencyFormat(
-                        products?.data?.item?.price?.min?.price?.original
-                      )}{" "}
-                      -{" "}
-                      {currencyFormat(
-                        products?.data?.item?.price?.max?.price?.original
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-            </>
+          {renderFinalPrice(
+            productVariant?.id ? productVariant : products?.data?.item
           )}
         </h1>
       ) : (
