@@ -249,7 +249,7 @@ export const useSearch = ({ searchTerm, isSearchPage = false }) => {
       });
 
     case true:
-      return useSuspenseQuery({
+      return useQuery({
         queryKey: [{ search: searchTerm }],
         queryFn: async () => {
           if (searchTerm?.length >= 3) {
@@ -412,14 +412,13 @@ export const useCategoryFilters = ({
 export const useCategoryProducts = ({
   slug,
   page,
-  setPage,
   limit,
   sort,
   setSelectedFilters,
   filterKey,
   setSort,
-  render = true,
-  setIsLoadingMore,
+  setPage,
+  render,
 }) => {
   return useSuspenseQuery({
     queryKey: [
@@ -430,23 +429,20 @@ export const useCategoryProducts = ({
         limit: limit,
         sort: sort,
         selectedFilters: filterKey,
-        render: render,
       },
     ],
     queryFn: async () => {
       try {
         //vadimo filtere iz URL koji su prethodno selektovani i pushovani sa router.push()
-        const selectedFilters_tmp = (filterKey ?? ",")
-          ?.split(",")
+        const selectedFilters_tmp = (filterKey ?? "::")
+          ?.split("::")
           ?.map((filter) => {
             const [column, selected] = filter?.split("=");
             const selectedValues = selected?.split("_");
             return {
               column,
               value: {
-                selected: column?.includes("cena")
-                  ? [Number(selectedValues[0]), Number(selectedValues[1])]
-                  : selectedValues,
+                selected: selectedValues,
               },
             };
           });
@@ -458,22 +454,22 @@ export const useCategoryProducts = ({
           direction: sort_tmp[1],
         };
 
+        //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
+        if (selectedFilters_tmp?.every((column) => column?.column !== "")) {
+          setSelectedFilters(selectedFilters_tmp);
+        }
+        setSort(sortObj);
+        setPage(page);
+
         return await LIST(`/products/category/list/${slug}`, {
-          page: page,
+          page: 1,
           limit: limit,
           sort: sortObj,
+          render: render,
           filters: selectedFilters_tmp?.every((column) => column?.column !== "")
             ? selectedFilters_tmp
             : [],
-          render: render,
-        }).then((res) => {
-          //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
-          if (selectedFilters_tmp?.every((column) => column?.column !== "")) {
-            setSelectedFilters(selectedFilters_tmp);
-          }
-          setSort(sortObj);
-          setIsLoadingMore(false);
-
+        }).then(async (res) => {
           return res?.payload;
         });
       } catch (error) {

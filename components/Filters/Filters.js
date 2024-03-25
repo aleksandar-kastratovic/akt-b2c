@@ -5,7 +5,7 @@ const Filters = ({
   selectedFilters,
   setSelectedFilters,
   categoryData,
-  onSortChange,
+  setSort,
   setChangeFilters,
   sort,
   filters,
@@ -104,7 +104,12 @@ const Filters = ({
             name="sort"
             id="sort"
             className="border-[#f2f2f2] py-3 uppercase text-xs select-none focus:ring-0 focus:border-croonus-1 focus:outline-none"
-            onChange={onSortChange}
+            onChange={(e) => {
+              setSort({
+                field: e.target.value.split("_")[0],
+                direction: e.target.value.split("_")[1],
+              });
+            }}
             value={sort ? `${sort.field}_${sort.direction}` : "none"}
           >
             <option value="null">Izaberite</option>
@@ -127,7 +132,12 @@ const Filters = ({
           name="sort"
           id="sort"
           className="col-span-1 uppercase focus:ring-0 lg:hidden text-center text-white bg-croonus-1 relative focus:border-croonus-1 focus:outline-none max-md:text-xs"
-          onChange={onSortChange}
+          onChange={(e) => {
+            setSort({
+              field: e.target.value.split("_")[0],
+              direction: e.target.value.split("_")[1],
+            });
+          }}
           value={(sort && `${sort.field}_${sort.direction}`) || "none"}
         >
           <option value="none">Sortiraj</option>

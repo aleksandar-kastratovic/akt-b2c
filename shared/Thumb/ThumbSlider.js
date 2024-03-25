@@ -49,7 +49,7 @@ const ThumbSlider = ({
   const [isPriceAvailable, setIsPriceAvailable] = useState(true);
 
   const handleNavigate = (slug_path) => {
-    router.push(`/kontakt?slug=${slug_path}`, { scroll: false });
+    router.push(`/kontakt?slug=${slug}`, { scroll: false });
   };
 
   const { base64_placeholder } = config;
