@@ -28,7 +28,7 @@ const fetchProductGallery = async (id) => {
   fetch = get;
   const response = await fetch(`/product-details/gallery/${id}`, {
     cache: "force-cache",
-  }).then((response) => response?.payload?.gallery);
+  }).then((response) => response?.payload);
   return response;
 };
 
@@ -63,7 +63,6 @@ const getBreadcrumbs = async (slug, categoryId) => {
 
 export async function generateMetadata({ params: { path } }) {
   const product = await fetchProduct(path[path?.length - 1]);
-  const productImage = await fetchProductGallery(path[path?.length - 1]);
   const productSEO = await getProductSEO(path[path?.length - 1]);
   return {
     title: productSEO?.meta_title ?? product?.data?.item?.basic_data?.name,
@@ -80,7 +79,7 @@ export async function generateMetadata({ params: { path } }) {
       type: "website",
       images: [
         {
-          url: productImage[0]?.image,
+          url: productSEO?.meta_image,
           width: 800,
           height: 600,
           alt: product?.data?.item?.basic_data?.name,
@@ -160,15 +159,16 @@ const ProductPage = async ({ params: { path } }) => {
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-x-10">
               <div className="col-span-2 lg:col-span-3 max-md:hidden">
                 <ProductDetailsSlider
-                  productGallery={productGallery}
+                  productGallery={productGallery?.gallery}
                   description={description}
                 />
               </div>
               <div className="col-span-2 md:hidden">
-                <MobileImageSlider images={productGallery} />
+                <MobileImageSlider images={productGallery?.gallery} />
               </div>
               <ProductInfo
                 products={products}
+                stickers={productGallery?.stickers}
                 description={description}
                 badge={badge}
                 categoryId={path[path?.length - 2]}

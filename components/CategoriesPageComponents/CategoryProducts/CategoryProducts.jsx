@@ -38,56 +38,6 @@ export const CategoryProducts = ({
   const [changeFilters, setChangeFilters] = useState(false);
   const [lastSelectedFilterKey, setLastSelectedFilterKey] = useState("");
 
-  // azuriramo query parametre sa selektovanim sortom, stranicom i filterima
-  const updateURLQuery = (sort, selectedFilters, page) => {
-    let sort_tmp;
-    let filters_tmp;
-    let viewed_tmp;
-    if (sort?.field !== "" && sort?.direction !== "") {
-      sort_tmp = `${sort?.field}_${sort?.direction}`;
-    }
-
-    if (selectedFilters?.length > 0) {
-      filters_tmp = selectedFilters
-        ?.map((filter) => {
-          const selectedValues = filter?.value?.selected?.join("_");
-          return `${filter?.column}=${selectedValues}`;
-        })
-        .join("::");
-    } else {
-      filters_tmp = "";
-    }
-
-    if (pagination?.total_items - pagination?.items_per_page < 10) {
-      viewed_tmp = pagination?.total_items;
-    } else {
-      viewed_tmp = page === 1 ? limit : limit + 10;
-    }
-
-    return { sort_tmp, filters_tmp, viewed_tmp };
-  };
-
-  useEffect(() => {
-    const { sort_tmp, filters_tmp, viewed_tmp } = updateURLQuery(
-      sort,
-      selectedFilters,
-      page
-    );
-
-    let queryString = "";
-
-    const generateQueryString = (sort_tmp, filters_tmp, viewed_tmp) => {
-      let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
-        filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
-      }${sort_tmp ? `sort=${sort_tmp}` : ""}${
-        sort_tmp && viewed_tmp ? "&" : ""
-      }${viewed_tmp ? `viewed=${viewed_tmp}` : ""}`;
-
-      router.push(queryString, { scroll: false });
-    };
-
-    generateQueryString(sort_tmp, filters_tmp, viewed_tmp);
-  }, [sort, selectedFilters, limit]);
   //dobijamo proizvode za kategoriju sa api-ja
   const {
     data: { items: products, pagination },
@@ -105,6 +55,67 @@ export const CategoryProducts = ({
     setPage: setPage,
     render: false,
   });
+
+  // azuriramo query parametre sa selektovanim sortom, stranicom i filterima
+  const updateURLQuery = (sort, selectedFilters, page) => {
+    let sort_tmp;
+    let filters_tmp;
+    let viewed_tmp;
+    let prod_num_tmp;
+    if (sort?.field !== "" && sort?.direction !== "") {
+      sort_tmp = `${sort?.field}_${sort?.direction}`;
+    }
+
+    if (selectedFilters?.length > 0) {
+      filters_tmp = selectedFilters
+          ?.map((filter) => {
+            const selectedValues = filter?.value?.selected?.join("_");
+            return `${filter?.column}=${selectedValues}`;
+          })
+          .join("::");
+    } else {
+      filters_tmp = "";
+    }
+
+    if (pagination?.total_items - pagination?.items_per_page < 10) {
+      viewed_tmp = pagination?.total_items;
+    } else {
+      viewed_tmp = page === 1 ? limit : limit + 10;
+    }
+
+    prod_num_tmp = pagination?.total_items > 0 ? pagination?.total_items : "";
+
+    return { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp };
+  };
+
+  useEffect(() => {
+    const { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp } = updateURLQuery(
+        sort,
+        selectedFilters,
+        page
+    );
+
+    let queryString = "";
+
+    const generateQueryString = (
+        sort_tmp,
+        filters_tmp,
+        viewed_tmp,
+        prod_num_tmp
+    ) => {
+      let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
+          filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
+      }${sort_tmp ? `sort=${sort_tmp}` : ""}${
+          sort_tmp && viewed_tmp ? "&" : ""
+      }${viewed_tmp ? `viewed=${viewed_tmp}` : ""}${
+          viewed_tmp && prod_num_tmp ? "&" : ""
+      }${prod_num_tmp ? `prod_num=${prod_num_tmp}` : ""}`;
+
+      router.push(queryString, { scroll: false });
+    };
+
+    generateQueryString(sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp);
+  }, [sort, selectedFilters, limit, pagination?.total_items]);
 
   const mutateFilters = useCategoryFilters({
     slug,

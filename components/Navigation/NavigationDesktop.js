@@ -503,7 +503,7 @@ const NavigationDesktop = () => {
             <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll  h-full">
               <div className="flex flex-col">
                 <div className="flex flex-col mt-10 border-r-4 border-[#f9f9f9] pr-4">
-                  {categories.map((item) => {
+                  {(categories ?? [])?.map((item) => {
                     return item?.children ? (
                       <Link
                         key={item.id}

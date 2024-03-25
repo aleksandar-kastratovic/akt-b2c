@@ -4,9 +4,10 @@ import { useCategory } from "@/hooks/akt.hooks";
 import Link from "next/link";
 import Image from "next/image";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { get } from "@/app/api/api";
+import { useSearchParams } from "next/navigation";
 
 export const CategoryData = ({ slug }) => {
   const {
@@ -57,6 +58,10 @@ export const CategoryData = ({ slug }) => {
   const uniqueBreadcrumbs = [
     ...new Set(breadcrumbs?.map((breadcrumb) => breadcrumb?.slug)),
   ];
+
+  const params = useSearchParams();
+
+  const prod_num = params?.get("prod_num") ?? "0";
 
   return (
     <>
@@ -120,17 +125,20 @@ export const CategoryData = ({ slug }) => {
       <div className="w-full flex-col flex items-center justify-center mt-10">
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center max-md:hidden">
           {name}
-
-          {/*        <span className="text-lg lowercase max-md:text-[11px]">*/}
-          {/*  &nbsp;({pagination?.total_items} proizvoda)*/}
-          {/*</span>*/}
+          <Suspense fallback={`loading`}>
+            <span className="text-lg lowercase max-md:text-[11px]">
+              &nbsp;({prod_num} proizvoda)
+            </span>
+          </Suspense>
         </h1>
         <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center md:hidden">
           {name}
         </h1>
-        {/*      <span className="text-lg lowercase max-md:text-[11px] md:hidden">*/}
-        {/*  &nbsp;({pagination?.total_items} proizvoda)*/}
-        {/*</span>*/}
+        <Suspense fallback={`loading`}>
+          <span className="text-lg lowercase max-md:text-[11px] md:hidden">
+            &nbsp;({prod_num} proizvoda)
+          </span>
+        </Suspense>
 
         <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
           {short_description}
@@ -148,16 +156,12 @@ export const CategoryData = ({ slug }) => {
         name !== "Hotelski program" ? (
           <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
             {categories?.childrens &&
-              categories.childrens.map((child) => (
+              (categories?.childrens ?? [])?.map((child) => (
                 <div
                   className="max-md:mx-[2px] mx-1 max-md:my-1"
                   key={child?.id}
                 >
-                  <Link
-                    href={`/${child?.slug_path}`}
-                    key={child?.id}
-                    onClick={() => setOpen(false)}
-                  >
+                  <Link href={`/${child?.slug_path}`}>
                     <div
                       className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
                         currentSlug === child?.slug

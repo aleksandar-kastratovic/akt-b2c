@@ -15,7 +15,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { get, deleteMethod, post } from "@/app/api/api";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 
-const ProductInfo = ({ products, description, badge, categoryId = null }) => {
+const ProductInfo = ({
+  products,
+  description,
+  badge,
+  categoryId = null,
+  stickers,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const segments = pathname?.split("/");
@@ -339,9 +345,17 @@ const ProductInfo = ({ products, description, badge, categoryId = null }) => {
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex flex-col gap-4">
-        {badge[0]?.name ? (
-          <div className="px-4 py-1 bg-croonus-1 w-fit text-white">
-            <span>{badge[0]?.name}</span>
+        {badge?.length > 0 ? (
+          <div className={`flex gap-2 items-center flex-wrap`}>
+            {badge?.map(({ name }) => {
+              if (name) {
+                return (
+                  <div className="px-4 py-1 bg-croonus-1 w-fit text-white">
+                    <span>{name}</span>
+                  </div>
+                );
+              }
+            })}
           </div>
         ) : null}
         <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-full self-start hyphens">
