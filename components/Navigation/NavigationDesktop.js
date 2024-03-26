@@ -1,5 +1,5 @@
 "use client";
-import { get, list } from "@/app/api/api";
+import { get, list, post } from "@/app/api/api";
 import { useEffect, useState, useCallback, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
@@ -14,13 +14,14 @@ import { toast } from "react-toastify";
 import useDebounce from "@/hooks/useDebounce";
 import { currencyFormat } from "@/helpers/functions";
 import { useSearch } from "@/hooks/akt.hooks";
+import { useContext } from "react";
+import { userContext } from "@/context/userContext";
 
 const NavigationDesktop = () => {
   const pathname = usePathname();
-
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [landingPagesList, setLandingPagesList] = useState([]);
-  const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
   const [cart, , wishList] = useCartContext();
@@ -194,7 +195,7 @@ const NavigationDesktop = () => {
       setActiveCategory(categories[0]);
     }
   }, [categories]);
-  const router = useRouter();
+
   useEffect(() => {
     if (pathname?.includes("/korpa/")) {
       getCartCount();
@@ -291,6 +292,36 @@ const NavigationDesktop = () => {
     };
   }, [searchRef]);
 
+  const { isLoggedIn, setIsLoggedIn } = useContext(userContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
+  const logoutHandler = () => {
+    post("/customers/profile/logout")
+      .then((response) => {
+        if (response?.code === 200) {
+          setIsLoggedIn(false);
+          const deviceToken = Cookies.get("device_token");
+          Cookies.set("customer_token", deviceToken, { expires: 365 });
+          router.push("/nalog");
+          sessionStorage.removeItem("loggedIn");
+        } else {
+          setErrors("Greška.");
+        }
+        if (response?.code === 500 || response?.code === 400) {
+          setErrors(
+            "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+          );
+        }
+      })
+      .catch((error) => console.warn(error));
+  };
+
 
   return (
     <>
@@ -301,9 +332,37 @@ const NavigationDesktop = () => {
               <Link href={`tel:0313894222`} className="text-white text-sm">
                 Call centar: 031 / 3894 - 222
               </Link>
+            <div className="flex gap-4 items-center">
+              {isLoggedIn ? (
+            <>
+              <p className="text-white ml-[2rem] text-sm">Dobrodošli na profil!</p>
+              <div
+                className="bg-croonus-2 px-[0.8rem] ml-[1rem] transition-all ease cursor-pointer relative"
+                onClick={toggleDropdown}
+              >
+               Moj profil
+
+                {isDropdownOpen && (
+                  <div className="dropdownProfil absolute z-[200] right-0 top-[2rem]">
+                    <ul>
+                      <li className="border-b border-[#f0f0f0] px-[2.2rem] py-[0.4rem] bg-croonus-2 hover:bg-croonus-1 hover:text-white w-max border-b border-croonus-1">
+                        <a href="/customer-profil">Vidi profil</a>
+                      </li>
+                      <li className="px-[2.2rem] py-[0.4rem] bg-croonus-2  hover:bg-croonus-1 hover:text-white">
+                        <button onClick={logoutHandler}>Odjava</button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
               <Link href="/nalog" className="text-white text-sm hover:underline">
                 Moj profil
               </Link>
+         
+          )}
+            </div>
             </div>
           </div>
           <div className="bg-white bg-opacity-90 backdrop-blur">

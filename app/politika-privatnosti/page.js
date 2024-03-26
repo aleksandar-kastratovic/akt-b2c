@@ -4,7 +4,7 @@ const PolitikaPrivatnosti = () => {
       <div className="text-xl font-normal text-white bg-croonus-1 md:w-1/4 pl-5 py-1 mt-4">
         <h1 className="">Politika privatnosti</h1>
       </div>
-      <p className="mt-8">OBAVEŠTENJE O OBRADI PODATAKA O LIČNOSTI</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">OBAVEŠTENJE O OBRADI PODATAKA O LIČNOSTI</h5>
       <p className="mt-2">
         AKT d.o.o. Arilje, Put 22.avgusta bb (u daljem tekstu: AKT ili mi),
         izdaje ovo obaveštenje o obradi podataka o ličnosti (u daljem tekstu:
@@ -14,7 +14,7 @@ const PolitikaPrivatnosti = () => {
         Vam po tom osnovu pripadaju u skladu sa Zakonom o zaštiti podataka o
         ličnosti „Službeni glasnik RS“, br. 87/2018 (u daljem tekstu: ZZPL).
       </p>
-      <p className="mt-8">Značenje izraza „podatak o ličnosti“</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Značenje izraza „podatak o ličnosti“</h5>
       <p className="mt-2">
         U skladu sa ZZPL-om "podatak o ličnosti" (u daljem tekstu: podatak o
         ličnosti ili lični podatak) je svaki podatak koji se odnosi na fizičko
@@ -25,7 +25,7 @@ const PolitikaPrivatnosti = () => {
         fiziološkog, genetskog, mentalnog, ekonomskog, kulturnog i društvenog
         identiteta.
       </p>
-      <p className="mt-8">Rukovalac</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Rukovalac</h5>
       <p className="mt-2">
         Vaše podatke prikuplja i njihovom obradom upravlja:
       </p>

@@ -66,7 +66,7 @@ useEffect(() => {
                 <tbody>
                 <tr className="bg-croonus-4 divide-x divide-white text-white">
                     <td className=" rounded-tl-lg pl-[1.4rem] py-[0.7rem] max-sm:text-sm max-sm:pl-[0.4rem]">
-                    Ime adrese
+                    Naziv adrese
                     </td>
                     <td className=" pl-[1.4rem] py-[0.7rem] max-sm:text-sm max-sm:pl-[0.4rem]">
                     Adresa
