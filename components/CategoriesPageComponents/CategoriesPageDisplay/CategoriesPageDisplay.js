@@ -196,9 +196,7 @@ const CategoriesPageDisplay = ({
 
     // replaceQuery(newQuery);
   }, [selectedFilters, categoryData.id]);
-  const changeFilterOptions = (value) => {
-    setChangeFilters(value);
-  };
+
 
   const getProductList = useCallback(
     (limit, sort, page, selectedFilters) => {

@@ -8,7 +8,7 @@ import {
   useRemoveFromWishlist,
   useProductSticker,
 } from "@/hooks/akt.hooks";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RenderPriceDiscount from "@/shared/RenderPrice/RenderPriceDiscount";
@@ -185,43 +185,43 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-              item?.price?.min?.price?.original ===
-              item?.price?.max?.price?.original
-            ) {
+            item?.price?.min?.price?.original ===
+            item?.price?.max?.price?.original
+                ) {
               case true:
                 return (
-                  <>
-                    <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
-                      <p className="text-black">
-                        -
-                        {(
-                          ((item?.price?.max?.price?.original -
-                            item?.price?.max?.price?.discount) /
-                            item?.price?.max?.price?.original) *
-                          100
-                        ).toFixed(0)}
-                        %
-                      </p>
-                    </div>
-                  </>
+                    <>
+                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                        <p className="text-black">
+                          -
+                          {(
+                              ((item?.price?.max?.price?.original -
+                                      item?.price?.max?.price?.discount) /
+                                  item?.price?.max?.price?.original) *
+                              100
+                          ).toFixed(0)}
+                          %
+                        </p>
+                      </div>
+                    </>
                 );
                 break;
               case false:
                 return (
-                  <>
-                    <div className="absolute top-2 right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
-                      <p className="text-black">
-                        -
-                        {(
-                          ((item?.price?.max?.price?.original -
-                            item?.price?.max?.price?.discount) /
-                            item?.price?.max?.price?.original) *
-                          100
-                        ).toFixed(0)}
-                        %
-                      </p>
-                    </div>
-                  </>
+                    <>
+                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                        <p className="text-black">
+                          -
+                          {(
+                              ((item?.price?.max?.price?.original -
+                                      item?.price?.max?.price?.discount) /
+                                  item?.price?.max?.price?.original) *
+                              100
+                          ).toFixed(0)}
+                          %
+                        </p>
+                      </div>
+                    </>
                 );
                 break;
             }
@@ -234,20 +234,20 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             return (
-              <>
-                <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
-                  <p className="text-black">
-                    -
-                    {(
-                      ((item?.price?.price?.original -
-                        item?.price?.price?.discount) /
-                        item?.price?.price?.original) *
-                      100
-                    ).toFixed(0)}
-                    %
-                  </p>
-                </div>
-              </>
+                <>
+                  <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                    <p className="text-black">
+                      -
+                      {(
+                          ((item?.price?.price?.original -
+                                  item?.price?.price?.discount) /
+                              item?.price?.price?.original) *
+                          100
+                      ).toFixed(0)}
+                      %
+                    </p>
+                  </div>
+                </>
             );
             break;
           case false:
@@ -256,6 +256,8 @@ const ThumbSuspense = ({
         }
     }
   };
+
+
   return (
     <div key={thumbKey || id_product}>
       <div className="col-span-1 relative">
@@ -270,10 +272,11 @@ const ThumbSuspense = ({
                       src={convertHttpToHttps(product?.image[0])}
                       alt={product?.basic_data?.name}
                       width={0}
+                      placeholder={`blur`}
+                      blurDataURL={base64_placeholder}
                       height={0}
                       sizes={`100vw`}
-                      style={{ objectFit: "cover" }}
-                      className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                      className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full firstImage`}
                       loading="lazy"
                     />
                     <Image
@@ -282,8 +285,7 @@ const ThumbSuspense = ({
                       width={0}
                       height={0}
                       sizes={`100vw`}
-                      style={{ objectFit: "cover" }}
-                      className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                      className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 w-full h-full secondImage`}
                       loading="lazy"
                     />
                   </div>
@@ -293,10 +295,11 @@ const ThumbSuspense = ({
                       src={convertHttpToHttps(product?.image[0])}
                       alt={product?.basic_data?.name}
                       width={0}
+                      placeholder={`blur`}
+                      blurDataURL={base64_placeholder}
                       height={0}
                       sizes={`100vw`}
-                      style={{ objectFit: "cover" }}
-                      className={`aspect-2/3 opacity-100 object-cover w-full `}
+                      className={`aspect-2/3 opacity-100 h-full w-full `}
                       loading="lazy"
                     />
                   </div>
@@ -312,11 +315,21 @@ const ThumbSuspense = ({
                 alt={`proizvod-${item?.basic_data?.name}`}
               />
             )}
-            {product?.stickers[0]?.name ? (
-              <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[20] rounded-lg">
-                <p>{product?.stickers[0]?.name}</p>
-              </div>
-            ) : null}
+            {product?.stickers?.length > 0 && (
+                <div
+                    className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
+                >
+                  {product?.stickers?.map(({ name }) => {
+                    if (name) {
+                      return (
+                          <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                            <p>{name}</p>
+                          </div>
+                      );
+                    }
+                  })}
+                </div>
+            )}
           </div>
         </Link>
 
@@ -427,7 +440,7 @@ const ThumbSuspense = ({
             <button
               className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
               onClick={() => {
-                router?.push(`/kontakt?slug=${product?.slug_path}`);
+                router?.push(`/kontakt?slug=${product?.slug}`);
               }}
             >
               <span className="text-[0.8rem]">Pošaljite upit</span>

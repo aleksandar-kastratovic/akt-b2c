@@ -304,7 +304,7 @@ const NavigationMobile = () => {
           {/*  />*/}
           {/*</form>*/}
           <div className="pb-5 w-full flex flex-col gap-1 mx-auto mt-10 overflow-y-auto">
-            {categories.map((item) => {
+            {(categories ?? [])?.map((item) => {
               const isActive = category?.id === item?.id;
               return item?.children ? (
                 <>

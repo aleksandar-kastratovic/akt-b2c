@@ -187,7 +187,7 @@ const ProductsSlider = ({
               case true:
                 return (
                   <>
-                    <div className="absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
                       <p className="text-black">
                         -
                         {(
@@ -205,7 +205,7 @@ const ProductsSlider = ({
               case false:
                 return (
                   <>
-                    <div className="absolute top-[0.2rem] right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
                       <p className="text-black">
                         -
                         {(
@@ -231,7 +231,7 @@ const ProductsSlider = ({
           case true:
             return (
               <>
-                <div className="absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[1rem] z-[10] rounded-lg z-100">
+                <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
                   <p className="text-black">
                     -
                     {(
@@ -262,6 +262,8 @@ const ProductsSlider = ({
     },
     refetchOnWindowFocus: false,
   });
+  console.log("prod", products);
+
   const { mutate: removeFromWishlist, isPending } = useRemoveFromWishlist();
   const product = products?.map((item, index) => {
     const isProductInWishlist = wishlist?.find(
@@ -273,7 +275,6 @@ const ProductsSlider = ({
     );
 
     const wishlist_id = wishlist_item?.[0]?.wishlist?.id;
-
     return (
       <div
         key={item.id}
@@ -361,20 +362,24 @@ const ProductsSlider = ({
                     />
                   )}
                 </div>
-                {item?.stickers[0]?.name ? (
-                  <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
-                    <p>{item?.stickers[0]?.name}</p>
-                  </div>
-                ) : null}
-                {item?.price?.discount?.active && (
+                {item?.stickers?.length > 0 && (
                   <div
-                    className={`absolute top-[0.2rem] right-[0.2rem] px-3 bg-croonus-3 w-fit text-[0.8rem] z-[10] rounded-lg z-100`}
+                    className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
                   >
-                    <p className={`text-black`}>
-                      {renderDiscountPercentage(item)}
-                    </p>
+                    {item?.stickers?.map(({ name }) => {
+                      if (name) {
+                        return (
+                          <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                            <p>{name}</p>
+                          </div>
+                        );
+                      }
+                    })}
                   </div>
                 )}
+
+                {item?.price?.discount?.active &&
+                  renderDiscountPercentage(item)}
               </div>
             </Link>
           </div>

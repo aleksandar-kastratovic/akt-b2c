@@ -109,11 +109,11 @@ const FilterIn = ({
         <>
           <div
             key={item.id}
-            className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem]"
+            className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem] hover:underline cursor-pointer"
           >
             <input
               type="checkbox"
-              className="h-4 w-4 rounded-sm bg-transparent   text-croonus-1 focus:ring-0"
+              className="h-4 w-4 rounded-sm bg-transparent   text-croonus-1 focus:ring-0 hover:underline cursor-pointer"
               name={item.label}
               checked={selected.includes(
                 filter?.params?.use_field
@@ -129,7 +129,7 @@ const FilterIn = ({
               id={"chbx-" + item.id}
             />
             <label
-              className="text-[0.875rem] leading-[1.625rem]"
+              className="text-[0.875rem] leading-[1.625rem] hover:underline cursor-pointer"
               htmlFor={"chbx-" + item.id}
             >
               {item.label}
@@ -168,7 +168,6 @@ const FilterRange = ({ filter, onChange, selected }) => {
     if (selected.length !== 2)
       setSelectedValue([Number(filter.params.min), Number(filter.params.max)]);
   }, [selected, filter.params]);
-
   return (
     <>
       <div className={classes.slidecontainer}>
@@ -193,6 +192,7 @@ const FilterRange = ({ filter, onChange, selected }) => {
             setSelectedValue(e.target.value);
           }}
           onChangeCommitted={onRangeChange}
+          step={500}
           valueLabelDisplay="auto"
           min={Number(filter.params.min)}
           max={Number(filter.params.max)}
@@ -223,7 +223,7 @@ const FilterWithinTree = ({ filter }) => {
             className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem]"
           >
             <Link
-              className="text-[0.875rem] leading-[1.625rem]"
+              className="text-[0.875rem] leading-[1.625rem] hover:underline"
               htmlFor={"chbx-" + item.id}
               href={`/${item?.slug_path}`}
             >

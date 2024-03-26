@@ -1,33 +1,21 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { list } from "@/app/api/api";
 import Link from "next/link";
 import GenerateBreadCrumbsServer from "@/helpers/generateBreadCrumbsServer";
 import Products from "@/components/CategoriesPageComponents/Products/Products";
+import { useSearch } from "@/hooks/akt.hooks";
+import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 
 const SearchAppPage = () => {
   const params = useSearchParams();
   const search = params.get("query");
-  const [newProductsArray, setNewProductsArray] = useState();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      await list(`/products/search/list`, {
-        search,
-      })
-        .then((response) => {
-          setNewProductsArray(response?.payload?.items);
-        })
-        .finally(() => {
-          setTimeout(() => {
-            setLoading(false);
-          }, 1200);
-        });
-    };
-    getProducts();
-  }, [search]);
+  const { data, isLoading: loading } = useSearch({
+    isSearchPage: true,
+    searchTerm: search,
+  });
 
   return (
     <>
@@ -44,17 +32,33 @@ const SearchAppPage = () => {
         </div>
 
         {loading ? (
-          <>
+          <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
             {Array.from({ length: 12 }, (x, i) => (
               <div
                 key={i}
-                className="max-md:h-[250px] h-[500px] max-md:w-full w-full col-span-1 bg-slate-300 object-cover animate-pulse"
+                className="aspect-2/3 h-full max-md:w-full w-full col-span-1 bg-slate-300 object-cover animate-pulse"
               ></div>
             ))}
-          </>
-        ) : newProductsArray?.length > 0 ? (
+          </div>
+        ) : data?.length > 0 ? (
           <div className="mt-5 grid grid-cols-1 gap-x-5 gap-y-5 md:grid-cols-2 lg:mt-12 xl:grid-cols-3 3xl:grid-cols-4">
-            <Products products={newProductsArray} />
+            {data?.map(({ id }) => {
+              return (
+                <Suspense
+                  fallback={
+                    <div
+                      className={`col-span-1 aspect-2/3 h-full w-full animate-pulse bg-slate-300`}
+                    ></div>
+                  }
+                >
+                  <ThumbSuspense
+                    id={id}
+                    refreshWishlist={() => {}}
+                    categoryId={"*"}
+                  />
+                </Suspense>
+              );
+            })}
           </div>
         ) : (
           <div
@@ -77,7 +81,10 @@ const SearchAppPage = () => {
                   <li>
                     - Ukoliko vam je potrebna pomoć, u svakom trenutku nas
                     možete kontakirati pozivom na broj call centra:{" "}
-                    <a className={`underline`} href={`tel:${process.env.TELEPHONE}`}>
+                    <a
+                      className={`underline`}
+                      href={`tel:${process.env.TELEPHONE}`}
+                    >
                       {process.env.TELEPHONE}
                     </a>
                   </li>

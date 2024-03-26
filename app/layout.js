@@ -26,9 +26,9 @@ export const metadata = {
     keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
     images: [
       {
-        url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-8c7036530160c621f3c546cba20d65dd.png",
+        url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
         width: 800,
-        height: 600,
+        height: 800,
       },
     ],
   },

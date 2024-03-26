@@ -1,113 +1,84 @@
 import { Suspense } from "react";
-import { get, list, post } from "@/app/api/api";
-import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
+import { post } from "@/app/api/api";
+import { CategoryData } from "@/components/CategoriesPageComponents/CategoryData/CategoryData";
+import { CategoryProducts } from "@/components/CategoriesPageComponents/CategoryProducts/CategoryProducts";
 
-const CategoriesPageDisplay = dynamic(
-  () =>
-    import(
-      "@/components/CategoriesPageComponents/CategoriesPageDisplay/CategoriesPageDisplay"
-    ),
-  {
-    ssr: true,
-    loading: () => null,
-    modules: [
-      "@/components/CategoriesPageComponents/CategoriesPageDisplay/CategoriesPageDisplay",
-    ],
-  }
-);
-
-const fetchCategory = async (slug) => {
-  const fetchCategory = await get(`/categories/product/single/${slug}`).then(
+const getAllFilters = async (slug) => {
+  return await post(`/products/category/filters/${slug}`).then(
     (response) => response?.payload
   );
-  return fetchCategory;
 };
 
-const fetchCategoryChildren = async (slug) => {
-  const fetchCategoryChildren = await get(
-    `/categories/product/tree/branch/parent/${slug}`
-  ).then((response) => response?.payload);
-  return fetchCategoryChildren;
-};
+const CategoryPage = async ({ params: { path }, searchParams }) => {
+  const { sort: sortURL, viewed, filteri } = searchParams;
+  const slug_path = path[path?.length - 1];
+  //vadimo sort iz URL
+  const sort = (sortURL ?? "_")?.split("_");
+  const sortField = sort[0];
+  const sortDirection = sort[1];
 
-const fetchFilters = async (slug) => {
-  const fetchFilters = await post(`/products/category/filters/${slug}`).then(
-    (response) => response?.payload
-  );
-  return fetchFilters;
-};
+  //vadimo stranu iz URL i konvertujemo u type Number
+  const num_of_viewed_products = Number(viewed) > 0 ? Number(viewed) : 10;
 
-const fetchProducts = async (slug) => {
-  const fetcProducts = await list(`/products/category/list/${slug}`, {
-    limit: 16,
-    page: 1,
-    sort: {
-      field: "price",
-      direction: "asc",
-    },
-    filters: [],
-  }).then((response) => response?.payload);
-  return fetcProducts;
-};
+  //uzimamo sve filtere sa api-ja
+  const allFilters = await getAllFilters(slug_path);
 
-const fetchNewProducts = async () => {
-  const fetchNewProducts = await list("/products/new-in/list").then(
-    (response) => response?.payload?.items
-  );
-  return fetchNewProducts;
-};
+  //vadimo filtere iz URL
+  const selected_filters = filteri?.split("::")?.map((filter) => {
+    const [column, selected] = filter?.split("=");
+    const selectedValues = selected?.split("_");
+    return {
+      column,
+      value: {
+        selected:
+          column === "pv-r|cena"
+            ? [Number(selectedValues[0]), Number(selectedValues[1])]
+            : selectedValues,
+      },
+    };
+  });
 
-export async function generateMetadata({ params: { path } }) {
-  const category = await fetchCategory(path[path?.length - 1]);
-  return {
-    title: `${category?.seo?.title}` ?? "",
-    description: category?.seo?.description ?? "",
-    keywords: category?.seo?.keywords ?? "",
-    type: category?.seo?.type ?? "",
-    image: category?.seo?.image ?? "",
-    openGraph: {
-      title: `${category?.seo?.title}` ?? "",
-      description: category?.seo?.description ?? "",
-      url: category?.seo?.url ?? "",
-      type: category?.seo?.type ?? "",
-      images: [
-        {
-          url: category?.seo?.image ?? "",
-          width: 800,
-          height: 600,
-          alt: category?.seo?.title ?? "",
-          title: category?.seo?.title ?? "",
-          description: category?.seo?.description ?? "",
-        },
-      ],
-    },
-  };
-}
-
-const CategoryPage = async ({ params: { path } }) => {
-  const categoryDataa = await fetchCategory(path[path?.length - 1]);
-  const filters = await fetchFilters(path[path?.length - 1]);
-  const newProducts = await fetchNewProducts();
-  const products = await fetchProducts(path[path?.length - 1]);
-  const categories = await fetchCategoryChildren(path[path?.length - 1]);
   return (
     <>
-      {categoryDataa ? (
-        <CategoriesPageDisplay
-          filtersMap={filters}
-          categoryDataa={categoryDataa}
-          query={path[path?.length - 1]}
-          id={path[path?.length - 1]}
-          newProducts={newProducts}
-          productsDataResponse={products}
-          categories={categories}
-        />
-      ) : (
-        notFound()
-      )}
+      <Suspense
+        fallback={
+          <>
+            <div
+              className={`w-[80%] mx-auto h-[2rem] bg-slate-300 animate-pulse mt-10`}
+            ></div>
+            <div
+              className={`w-[80%] mx-auto h-[1.3rem] mt-5 bg-slate-300 animate-pulse`}
+            ></div>
+            <div
+              className={`w-[80%] mx-auto h-[4rem] mt-3 bg-slate-300 animate-pulse`}
+            ></div>
+            <div
+              className={`w-[80%] mx-auto h-[2rem] mt-6 bg-slate-300 animate-pulse`}
+            ></div>
+          </>
+        }
+      >
+        <CategoryData slug={path[path?.length - 1]} />
+      </Suspense>
 
-
+      {/*<CategoriesPageDisplay*/}
+      {/*  filtersMap={filters}*/}
+      {/*  categoryDataa={categoryDataa}*/}
+      {/*  query={path[path?.length - 1]}*/}
+      {/*  id={path[path?.length - 1]}*/}
+      {/*  newProducts={newProducts}*/}
+      {/*  productsDataResponse={products}*/}
+      {/*  categories={categories}*/}
+      {/*/>*/}
+      <CategoryProducts
+        slug={slug_path}
+        sortField={sortField}
+        sortDirection={sortDirection}
+        viewed={viewed}
+        allFilters={allFilters}
+        filters={selected_filters}
+        params={{ sortURL, viewed, filteri }}
+      />
     </>
   );
 };
