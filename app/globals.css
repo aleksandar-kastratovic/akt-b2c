@@ -520,6 +520,9 @@ input[type="number"] {
     justify-content: center;
     order: 1;
   }
+  .rightSideContent {
+    margin-left: 0rem;
+  }
 }
 .thumbnail .keen-slider__slide {
   font-size: 30px;
