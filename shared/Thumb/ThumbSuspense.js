@@ -312,7 +312,7 @@ const ThumbSuspense = ({
                 height={500}
                 className="h-full object-cover"
                 priority={true}
-                alt={`proizvod-${item?.basic_data?.name}`}
+                alt={`proizvod-${product?.basic_data?.name}`}
               />
             )}
             {product?.stickers?.length > 0 && (
