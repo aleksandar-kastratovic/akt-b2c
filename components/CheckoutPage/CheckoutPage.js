@@ -973,7 +973,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         ) : (
           !cartLoading && (
             <>
-              <div className="nocontent-holder m-6">
+              <div className="nocontent-holder m-6 h-[70vh] flex flex-col justify-center">
                 <div className="text-center">
                   <span className="text-2xl font-medium">Vaša korpa</span>
                 </div>
@@ -993,7 +993,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                       možete kontaktirati pozivom na broj call centra{" "}
                       {process.env.TELEPHONE}.
                     </li>
-                    <Link href={`/pomoc-pri-kupovini`} className="underline">
+                    <Link href={`/kako-kupiti`} className="underline">
                       - Pogledajte uputstvo za pomoć pri kupovini.
                     </Link>
                   </ul>

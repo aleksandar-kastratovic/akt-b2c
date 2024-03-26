@@ -559,9 +559,7 @@ const ProductInfo = ({
           >
             <button
               disabled={loadingWishlist}
-              className={`w-full flex items-center justify-center bg-${
-                isInWishlist ? `[#f3f3f3]` : ``
-              } g:hover:bg-red-500 p-1 max-md:h-full max-md:border max-md:border-[#919191] max-md:bg-[#fbfbfb]`}
+              className={`w-full flex items-center justify-center p-1 `}
             >
               {loadingWishlist ? (
                 <i

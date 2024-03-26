@@ -16,7 +16,7 @@ const Kolacici = () => {
         mogućnosti pregledanja sadržaja, ali Vam određene mogućnosti neće biti
         dostupne.
       </p>
-      <p className="mt-8">Šta su kolačići?</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Šta su kolačići?</h5>
       <p className="mt-2">
         Kolačići su informacije koje web stranica koju posećujete šalje vašem
         računaru u svrhu poboljšavanja Vašeg korisničkog iskustva i potreba.
@@ -33,9 +33,9 @@ const Kolacici = () => {
         pretraživača da sami birate da li želite da čuvate kolačiće ili da ih
         odbijete.
       </p>
-      <p className="mt-8">
+      <h6 className="font-semibold text-lg mb-[0.4rem] mt-[1.6rem]">
         Korist koju Vi imate ukoliko pristanete na kolačiće?
-      </p>
+      </h6>
       <ul className="mt-2 list-disc ml-10">
         <li className="py-2.5">
           Vaš uređaj pamti sve informacije koje ste uneli, tako da sledeći put
@@ -50,7 +50,7 @@ const Kolacici = () => {
           kupovine
         </li>
       </ul>
-      <p className="mt-8">Kako se brišu kolačići?</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Kako se brišu kolačići?</h5>
       <p className="mt-2">
         Sve postavke kolačića i informacije o istim možete pronaći u
         podešavanjima Vašeg internet pretraživača ili klikom na “Pomoć”.

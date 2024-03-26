@@ -20,7 +20,7 @@ const UserPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const { isLoggedIn, setLoggedIn } = useContext(userContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(userContext);
   const [isReg, setIsReg] = useState(false);
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -49,16 +49,10 @@ const UserPage = () => {
 
   const formSubmitHandler = () => {
     const err = [];
-    required.forEach((field) => {
-      if (!formData[field]) {
-        err.push(field);
-      }
-    });
     if (err.length > 0) {
       setErrors(err);
-      setLoading(false);
+      console.log(err);
     } else {
-      setLoading(true);
       const ret = {
         email: formData.email,
         password: formData.password,
@@ -66,15 +60,13 @@ const UserPage = () => {
       post("/customers/sign-in/login", ret)
         .then((response) => {
           if (response?.code === 200) {
-            setLoading(false);
-            router.push("/customer-profil");
+            setIsLoggedIn(true);
+            sessionStorage.setItem("loggedIn", true);
             Cookies.set("customer_token", response.payload.customer_token, {
               expires: 365,
             });
-            setLoggedIn(true);
-            // localStorage.setItem("loggedIn", true);
+            router.push("/customer-profil");
           } else {
-            setLoading(false);
             setErrors("Greška pri logovanju.");
             toast.error(
               "Greška pri logovanju. Proverite da li ste uneli ispravne podatke.",
@@ -88,7 +80,6 @@ const UserPage = () => {
             );
           }
           if (response?.code === 500 || response?.code === 400) {
-            setLoading(false);
             setErrors(
               "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
             );
@@ -103,7 +94,6 @@ const UserPage = () => {
               }
             );
           }
-          setLoading(false);
         })
         .catch((error) => console.warn(error));
     }

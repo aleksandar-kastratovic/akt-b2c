@@ -243,10 +243,10 @@ const NavigationMobile = () => {
             ></i>
 
             <div className="flex items-center relative gap-5 mr-5">
-            <Link href="/nalog">
+            <Link href="/nalog" onClick={() => {setOpen(false);}}>
               <Image src={User} width={35} height={35} />
               </Link>
-              <Link href="/lista-zelja">
+              <Link href="/lista-zelja" onClick={() => {setOpen(false);}}>
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
               </Link>

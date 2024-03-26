@@ -45,8 +45,8 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className="4xl:container mx-auto">
+      <UserProvider>
         <QueryProvider>
-          <UserProvider>
             <CartContextProvider>
               <Suspense>
                 <Analytics />
@@ -58,8 +58,8 @@ export default function RootLayout({ children }) {
               <ToastContainer />
               <Footer />
             </CartContextProvider>
-          </UserProvider>
-        </QueryProvider>
+          </QueryProvider>
+        </UserProvider>
       </body>
     </html>
   );

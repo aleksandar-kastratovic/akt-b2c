@@ -173,7 +173,7 @@ const Shipping = () => {
                     <div className="grid gap-3 grid-cols-3 my-4 md:w-[70%]">
                         <div className="flex flex-col gap-2">
                             <label htmlFor="name">
-                                Ime adrese:{" "}
+                                Naziv adrese:{" "}
                                 <span className="snap-mandatory text-red-500">*</span>
                             </label>
                             <input
@@ -190,7 +190,7 @@ const Shipping = () => {
                                 onChange={formChangeHandler}
                                 id="name"
                                 name="name"
-                                placeholder="Ime adrese*"
+                                placeholder="Naziv adrese*"
                             />
                         </div>
                         <div className="flex flex-col gap-2">

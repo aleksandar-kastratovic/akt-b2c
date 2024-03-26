@@ -29,6 +29,7 @@ const nextConfig = {
       "scontent.cdninstagram.com",
       "video.cdninstagram.com",
       "api.staging.croonus.com",
+      "192.168.1.223",
       "scontent-frx5-1.cdninstagram.com",
       "scontent-frt3-2.cdninstagram.com",
       "scontent-frt3-1.cdninstagram.com",

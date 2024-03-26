@@ -113,9 +113,12 @@
 .contactFormHolder p {
   color: #a8a8a8;
 }
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .contactFormHolder p {
     width: 90%;
+  }
+  .rightSideContent {
+    margin-left: 0rem;
   }
   .titleHolder {
     margin: 2rem 0rem 0rem 0rem;

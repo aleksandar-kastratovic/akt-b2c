@@ -313,16 +313,16 @@ const MyProfile = () => {
               </div>
             </div>
           </div>
-          <div className="mt-4 max-sm:flex max-sm:flex-col gap-4 pt-[2rem]">
+          <div className="mt-4 max-sm:flex max-sm:justify-center gap-4 pt-[2rem]">
             <button
               onClick={() => setDisabled(false)}
-              className="bg-croonus-4  text-white py-[0.8rem] px-[2rem] hover:bg-opacity-80 md:mr-4 max-sm:px-[1rem] min-w-[13rem] transition-all ease"
+              className="bg-croonus-4  text-white py-[0.8rem] px-[2rem] hover:bg-opacity-80 md:mr-4 max-sm:px-[1rem] md:min-w-[13rem] transition-all ease"
             >
               Izmena informacija
             </button>
             <button
               onClick={changeInputHandler}
-              className="bg-croonus-4  text-white py-[0.8rem] px-[2rem] max-sm:px-[1rem] hover:bg-opacity-80 min-w-[13rem] transition-all ease"
+              className="bg-croonus-4  text-white py-[0.8rem] px-[2rem] max-sm:px-[1rem] hover:bg-opacity-80 md:min-w-[13rem] transition-all ease"
             >
               Sačuvaj izmene
             </button>

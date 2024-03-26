@@ -266,7 +266,7 @@ const Uslovi = () => {
         koristiti, osim u skladu sa ovim odredbama. Ukoliko ne želite da budete
         obavezani ovim uslovima korišćenja, molimo da ne koristite vebsajt.
       </p>
-      <p className="mt-8">Odricanje od odgovornosti</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Odricanje od odgovornosti</h5>
       <p className="mt-2">
         Bez obzira na tehničke nepreciznosti ili štamparske greške koje se mogu
         javiti u sadržajima vebsajta, AKT ulaže napore da podaci na vebsajtu
@@ -314,7 +314,7 @@ const Uslovi = () => {
         monitoru. AKT ne snosi odgovornost ako boja kupljenog proizvoda nije
         identična onoj koja je reprodukovana na monitoru.
       </p>
-      <p className="mt-8">Zaštita ličnih podataka</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Zaštita ličnih podataka</h5>
       <p className="mt-2">
         AKT postupa sa ličnim podacima u skladu sa važećim zakonskim propisima i
         preduzeće sve raspoložive mere u cilju zaštite podataka o Korisniku, kao
@@ -323,7 +323,7 @@ const Uslovi = () => {
         obaveštenja svojih i/ili trećih lica, osim u slučaju da je Korisnik dao
         svoju izričitu suglasnost za prethodno navedeno.
       </p>
-      <p className="mt-8">Zaštićeni znakovi</p>
+      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">Zaštićeni znakovi</p>
       <p className="mt-2">
         Sve slike, ilustracije, žigovi, fotografije, grafizmi koje se nalaze na
         vebsajtu su u vlasništvu AKT ili trećih lica koji su Aktu dali licencu
@@ -332,7 +332,7 @@ const Uslovi = () => {
         Vebsajta i svako postupanje suprotno navedenom predstavlja kršenje
         zakona.
       </p>
-      <p className="mt-8">Kupovina proizvoda</p>
+      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">Kupovina proizvoda</p>
       <p className="mt-2">
         Prezentacija proizvoda na sajtu stefantekstil.rs predstavlja ponudu za
         kupovinu proizvoda. Proizvodi koji se prodaju putem vebsajta poseduju
@@ -352,7 +352,7 @@ const Uslovi = () => {
         postupka naručivanja, vi ste izdali obavezujući nalog za kupovinu i
         obavezali ste se da izvršite plaćanje.
       </p>
-      <p className="mt-8">
+      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">
         Ugovorna strana sa kojom zaključujete ugovor prilikom kupovine preko
         vebsajta je:
       </p>
@@ -373,7 +373,7 @@ const Uslovi = () => {
         6/2016 – dr. zakon) koja uključuju i pravo na vansudsko rešavanje
         eventualnog spora povodom ugovora o kupovini robe.
       </p>
-      <p className="mt-8">Cene i troškovi dostave</p>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Cene i troškovi dostave</h5>
       <p className="mt-2">
         Cene proizvoda i usluga izražene su u dinarima i iskazane su u bruto
         iznosu (sa PDV-om) uz svaki artikal. Cene svih proizvoda i usluga su
@@ -396,9 +396,9 @@ const Uslovi = () => {
         javi našoj službi prodaje na telefon 031/3894-222 i usmeno dostavi svoje
         podatke, kao i kod-broj narudžbine.
       </p>
-      <p className="mt-8" id={`nacin-placanja`}>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]" id={`nacin-placanja`}>
         Način plaćanja
-      </p>
+      </h5>
       <p className="mt-2">Korisnik naručenu robu i usluge može platiti:</p>
       <div className="ml-10">
         <ul className="list-disc mt-5">
@@ -407,127 +407,7 @@ const Uslovi = () => {
           <li>platnim karticama.</li>
         </ul>
       </div>
-      <p className="mt-8">Dostava</p>
-      <p className="mt-2">
-        Dostava naručenih proizvoda i/ili usluga se vrši putem kurirske službe
-        Dexpress na adresu Korisnika ili na adresu koju je Korisnik naveo kao
-        adresu za dostavu i moguća je (trenutno) na teritoriji Republike Srbije.
-        Naručeni proizvodi se dostavljaju u roku od 7 dana od dana prispeća
-        narudžbine. S obzirom na radno vreme kurirske službe, potrebno je da
-        Korisnik ili drugo lice koje može preuzeti pošiljku, bude na naznačenoj
-        adresi za dostavu, u vremenskom periodu od 9h do 15h.
-      </p>
-      <p className="mt-8">
-        Ukoliko iz bilo kog razloga Korisnik, prilikom podnošenja narudžbine,
-        unese netačne ili pogršne podatke, AKT ne snosi odgovornost za slučaj
-        neisporučivanja prizvoda i/ili usluga. U tom slučaju AKT će kontaktirati
-        Korisnika na dostavljeni kontakt broj ili e-mail adresu, proveriti
-        tačnost navedenih podataka i ponoviti postupak isporuke. U slučaju da se
-        ponovi nemogućnost isporuke, kupovina će se smatrati neuspelom.
-      </p>
-      <p className="mt-8">
-        U slučaju eventualnih promena ili situacija koje onemogućavaju redovan
-        tok isporuke, ili u slučaju da iz tehničkih razloga, razloga više sile i
-        slično AKT nije u mogućnosti da isporuči kupljenu robu i/ili usluge, bez
-        odlaganja će obavestiti Korisnika o novonastalim promenama, sa
-        naznačenjem novih rokova isporuke, ili u slučaju nemogućnosti izvršenja
-        isporuke i sa povraćajem uplaćenih sredstava.
-      </p>
-      <p className="mt-8">
-        Prilikom isporuke proizvoda, dužnost je Korisnika da izvrši pregled
-        proizvoda i da ukaže na evetualna mehanička oštećenja, u kom slučaju će
-        proizvod biti zamenjen.
-      </p>
-      <p className="mt-8">
-        Ukoliko pri prispeću pošiljke Korisnik ustanovi nedostatak ili grešku na
-        proizvodu, isti može zameniti za novi, u kom slučaju troškove ponovne
-        dostave snosi AKT.
-      </p>
-      <p className="mt-8">
-        U slučaju da Korisnik želi da promeni artikal za isti artikal druge
-        veličine, troškove ponovne dostave snosi Korisnik.
-      </p>
-      <p className="mt-8">Odgovornost zbog nesaobraznosti robe ugovoru</p>
-      <p className="mt-2">
-        Odgovornost Akta zbog nesaobraznosti robe ugovoru predviđena je Zakonom
-        o zaštiti potrošača („Sl. glasnik RS“ br.62/2014 I 6/2016 – dr. zakon).
-      </p>
-      <p className="mt-8">Reklamacije</p>
-      <p className="mt-2">
-        Sve reklamacije na proizvode kupljene preko vebsajta Korisnik može
-        izjaviti elektronski na e-mail adresu webshop@stefantekstil.rs ili
-        uputiti na broj korisničkog servisa 031/3894-222.
-      </p>
-      <p className="mt-8">
-        Prilikom izjavljivanja reklamacije dužni ste da dostavite robu na koju
-        se reklamacija odnosi, kao i račun na uvid ili drugi dokaz o kupovini te
-        robe (kopija računa, slip i sl.).
-      </p>
-      <p className="mt-8">
-        Nemogućnost potrošača da dostavi ambalažu robe ne može biti uslov za
-        rešavanje reklamacije, niti razlog za odbijanje otklanjanja
-        nesaobraznosti.
-      </p>
-      <p className="mt-8">
-        Stefan će elektronski potvrditi prijem reklamacije Korisnika, odnosno
-        saopštiti broj pod kojim je ista zavedena u evidenciji primljenih
-        reklamacija i odgovoriti na istu u zakonom predviđenom roku za rešavanje
-        reklamacija.
-      </p>
-      <p className="mt-8">Obaveštenje o pravu na odustanak od ugovora</p>
-      <p className="mt-2">
-        Korisnik ima pravo da odustane od ugovora o kupovini proizvoda koje je
-        kupio preko vebsajta, bez navođenja razloga zbog kojeg odustaje od
-        ugovora, u roku od 14 dana od dana kada je roba dospela u državinu
-        korisnika, odnosno trećeg lica koje je korisnik odredio, a koje nije
-        prevoznik.
-      </p>
-      <p className="mt-8">
-        {" "}
-        Ukoliko korisnik želi da odustane od ugovora o kupovini proizvoda koji
-        je zaključen putem vebsajta, to može učiniti slanjem obrasca za
-        odustanak od ugovora elektronski na mail adresu webshop@stefantekstil.rs
-        ili na drugi nedvosmislen način.
-      </p>
-      <p className="mt-8">
-        Ukoliko obrazac za odustanak od ugovora Korisnik dostavi elektronski,
-        AKT će ga, bez odlaganja pismenim putem obavestiti o prijemu obrasca.
-      </p>
-      <p className="mt-8">
-        Izjava o odustajanju od ugovora proizvodi pravno dejstvo od dana kada je
-        poslata Aktu i smatra se blagovremenom, ako je poslata u roku od 14 dana
-        od dana kada je roba dospela u državinu korisnika, odnosno trećeg lica
-        koje je korisnik odredio, a koje nije prevoznik. Istekom navedenog roka
-        Korisnik gubi pravo na odustajanje od ugovora.
-      </p>
-      <p className="mt-8">
-        U slučaju odustanka od ugovora, Korisnik snosi troškove vraćanja robe i
-        dužan je da u roku od 14 dana od dana odustajanja od ugovora pošalje
-        kupljene proizvode Aktu.
-      </p>
-      <p className="mt-8">
-        AKT će, bez odlaganja izvršiti povraćaj uplata koje je primio za robu,
-        uključujući i troškove isporuke, a najkasnije u roku od 14 dana od dana
-        kada je primio obrazac o odustanku od ugovora, s tim da AKT može
-        odložiti povraćaj navedenih sredstava dok ne dobije robu koja se vraća,
-        ili dok Korisnik ne dostavi dokaz da je poslao robu Aktu, u zavisnosti
-        od toga šta nastupa prvo.
-      </p>
-      <p className="mt-8">
-        Korisnik je u obavezi da dostavljene proizvode vrati Aktu u originalnom
-        trgovačkom pakovanju, kako mu je roba bila i dostavljena.
-      </p>
-      <p className="mt-8">
-        Korisnik je isključivo odgovoran za umanjenu vrednost robe koja nastane
-        kao posledica rukovanja robom na način koji nije adekvatan, odnosno
-        prevazilazi ono što je neophodno da bi se ustanovili priroda,
-        karakteristike i funkcionalnost robe.
-      </p>
-      <p className="mt-8">
-        Korisnik nema pravo da odustane od ugovora u slučaju isporuke robe
-        proizvedene prema posebnim zahtevima korisnika ili jasno
-        personalizovane.
-      </p>
+  
     </div>
   );
 };

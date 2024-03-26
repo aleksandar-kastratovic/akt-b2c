@@ -188,7 +188,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-lg:hidden lg:w-[90%] mt-8 text-white text-base py-3 mx-auto bg-croonus-4 flex max-lg:flex-col justify-center items-center gap-10">
-        <Link className={`hover:underline`} href="/pomoc-pri-kupovini">
+        <Link className={`hover:underline`} href="/kako-kupiti">
           Pomoć pri kupovini
         </Link>
         <Link className={`hover:underline`} href="/uslovi">
@@ -220,7 +220,7 @@ const Footer = () => {
       </div>
       {open && (
         <div className="bg-[#2e2524] translate-y-0 transition-all max-md:text-xs justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden pt-3">
-          <Link href="/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
+          <Link href="/kako-kupiti">Pomoć pri kupovini</Link>
           <Link href="/uslovi">Uslovi korišćenja</Link>
           <Link href="/kolacici">Politika o kolačićima</Link>
           <Link href="/politika-privatnosti">Politika privatnosti</Link>
