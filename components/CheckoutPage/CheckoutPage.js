@@ -993,7 +993,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
                       možete kontaktirati pozivom na broj call centra{" "}
                       {process.env.TELEPHONE}.
                     </li>
-                    <Link href={`/pomoc-pri-kupovini`} className="underline">
+                    <Link href={`/kako-kupiti`} className="underline">
                       - Pogledajte uputstvo za pomoć pri kupovini.
                     </Link>
                   </ul>
