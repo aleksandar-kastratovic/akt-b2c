@@ -23,16 +23,20 @@ const getProductSEO = async (id) => {
 };
 
 export async function generateMetadata({ params: { path } }) {
-  const data = await handleData(path[path?.length - 1]);
+  const str = path?.join("/");
+  const data = await handleData(str);
   switch (true) {
     case data?.type === "category" && data?.status:
       const category = await fetchCategory(path[path?.length - 1]);
+      const image_category =
+        convertHttpToHttps(category?.seo?.image) ??
+        "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
       return {
         title: `${category?.seo?.title}` ?? "",
         description: category?.seo?.description ?? "",
         keywords: category?.seo?.keywords ?? "",
         type: category?.seo?.type ?? "",
-        image: category?.seo?.image ?? "",
+        image: image_category ?? "",
         openGraph: {
           title: `${category?.seo?.title}` ?? "",
           description: category?.seo?.description ?? "",
@@ -40,10 +44,10 @@ export async function generateMetadata({ params: { path } }) {
           type: category?.seo?.type ?? "",
           images: [
             {
-              url: category?.seo?.image ?? "",
+              url: image_category ?? "",
               width: 800,
               height: 600,
-              alt: category?.seo?.title ?? "",
+              alt: category?.seo?.description ?? "",
               title: category?.seo?.title ?? "",
               description: category?.seo?.description ?? "",
             },
@@ -74,8 +78,6 @@ export async function generateMetadata({ params: { path } }) {
           ],
         },
       };
-    default:
-      break;
   }
 }
 

@@ -43,7 +43,7 @@ export const CategoryData = ({ slug }) => {
             ...prevBreadcrumbs,
             {
               name: parent?.name,
-              slug: parent?.slug,
+              slug: parent?.slug_path,
             },
           ]);
         }
@@ -143,12 +143,12 @@ export const CategoryData = ({ slug }) => {
         <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
           {short_description}
         </h5>
-        <p
+        <div
           className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-1 font-light w-[95%] lg:w-[80%] max-lg:text-left"
           dangerouslySetInnerHTML={{
             __html: description,
           }}
-        ></p>
+        ></div>
 
         {name !== "Akcija" &&
         name !== "Novo" &&
