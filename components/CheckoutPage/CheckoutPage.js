@@ -973,7 +973,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         ) : (
           !cartLoading && (
             <>
-              <div className="nocontent-holder m-6">
+              <div className="nocontent-holder m-6 h-[70vh] flex flex-col justify-center">
                 <div className="text-center">
                   <span className="text-2xl font-medium">Vaša korpa</span>
                 </div>
