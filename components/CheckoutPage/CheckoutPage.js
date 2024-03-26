@@ -217,7 +217,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         phone_billing: formData.phone,
         email_billing: formData.email,
         address_billing: formData.address,
-        object_number_billing: "",
+        object_number_billing: formData?.object_number,
         floor_billing: "",
         apartment_number_billing: "",
         id_town_billing: null,
