@@ -38,6 +38,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <Script
+            crossOrigin="anonymous"
+            src="https://kit.fontawesome.com/f141ac3909.js"
+        />
       </head>
 
       <body className="4xl:container mx-auto">
