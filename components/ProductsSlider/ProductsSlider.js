@@ -1,454 +1,639 @@
 "use client";
-
-import {
-    useAddToWishlist,
-    useAddToCart,
-    useIsInWishlist,
-    useProductThumb,
-    useRemoveFromWishlist,
-    useProductSticker,
-} from "@/hooks/akt.hooks";
-import React, { Suspense, useEffect, useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useKeenSlider } from "keen-slider/react";
+import { deleteMethod, get, list, post } from "@/app/api/api";
+import "keen-slider/keen-slider.min.css";
 import Image from "next/image";
-import RenderPriceDiscount from "@/shared/RenderPrice/RenderPriceDiscount";
-import RenderPrice from "@/shared/RenderPrice/RenderPrice";
-import { config } from "@/lib/akt.config";
-import Cart from "@/assets/Icons/shopping-bag.png";
-import { currencyFormat } from "@/helpers/functions";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import Link from "next/link";
+import { currencyFormat } from "@/helpers/functions";
+import Wishlist from "../../assets/Icons/favorite.png";
+import wishlistactive from "../../assets/Icons/favorite-active.png";
+import Cart from "../../assets/Icons/shopping-bag.png";
+import { useCartContext } from "@/app/api/cartContext";
+import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
+import { toast, ToastContainer } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import ArrowPic from "../../assets/Icons/arrow.png";
+import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import Wishlist from "@/assets/Icons/favorite.png";
-import wishlistactive from "@/assets/Icons/favorite-active.png";
+import { usePathname } from "next/navigation";
 
-const ThumbSuspense = ({
-                           className,
-                           id,
-                           thumbKey,
-                           refreshWishlist = () => {},
-                           categoryId,
-                       }) => {
-    const {
-        isPending: isWishlistPending,
-        mutate: addToWishlist,
-        isSuccess: isAdded,
-    } = useAddToWishlist();
-
-    const { data, refetch } = useIsInWishlist({ id });
-    const { mutate: removeFromWishlist, isSuccess: isRemoved } =
-        useRemoveFromWishlist();
-    const { base64_placeholder } = config;
-    const router = useRouter();
-    const isInWishlist = data?.exist;
-    const wishlist_id = data?.wishlist_item_id;
-
-    const [isPriceAvailable, setIsPriceAvailable] = useState(true);
-    const {
-        data: product,
-        data: {
-            slug_path,
-            inventory,
-            price,
-            image,
-            basic_data: { name, id_product },
+const ProductsSlider = ({
+  products,
+  text,
+  wishlistId,
+  setWishlistId = () => {},
+  isInWishlist = false,
+}) => {
+  const globalAddToCart = useGlobalAddToCart();
+  const globalAddToWishlist = useGlobalAddToWishList();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0,
+    slides: {
+      perView: 4,
+    },
+    breakpoints: {
+      "(max-width: 1024px)": {
+        slides: {
+          perView: 1.2,
+          spacing: 20,
         },
-        isFetched,
-    } = useProductThumb({ id: id, slug: id, categoryId: categoryId ?? "*" });
+      },
+      "(min-width:1024px)": {
+        slides: {
+          perView: 4,
+          spacing: 20,
+        },
+      },
+      "(min-width:1680px)": {
+        slides: {
+          perView: 4,
+          spacing: 30,
+        },
+      },
+    },
+    loop: true,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoaded(true);
+    },
+  });
 
-    const slug = slug_path;
-
-    //fetchujemo podatke o stickeru
-    const { data: sticker } = useProductSticker({ slug: id });
-
-    useEffect(() => {
-        if (isAdded || isRemoved) {
-            refetch();
-            refreshWishlist();
-        }
-    }, [isAdded, isRemoved]);
-
-    const { mutate: addToCart, isPending } = useAddToCart();
-
-    const handleAddToCart = (id) => {
-        addToCart({ id: id_product, quantity: 1 });
-    };
-    const renderPrices = (item) => {
-        switch (item?.product_type) {
-            case "variant":
-                switch (item?.price?.discount?.active) {
-                    case true:
-                        switch (
-                        item?.price?.min?.price?.original ===
-                        item?.price?.max?.price?.original
-                            ) {
-                            case true:
-                                return (
-                                    <>
-                                        <p
-                                            className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                                        >
-                                            {currencyFormat(item?.price?.price?.original)}
-                                        </p>
-                                        <div className="bg-croonus-3  self-start w-fit ">
-                                            <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                                                {currencyFormat(item?.price?.price?.discount)}
-                                            </p>
-                                        </div>
-                                    </>
-                                );
-                                break;
-                            case false:
-                                return (
-                                    <>
-                                        <p
-                                            className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                                        >
-                                            {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                                            {currencyFormat(item?.price?.max?.price?.original)}
-                                        </p>
-                                        <div className="bg-croonus-3  self-start w-fit ">
-                                            <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                                                {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
-                                                {currencyFormat(item?.price?.max?.price?.discount)}
-                                            </p>
-                                        </div>
-                                    </>
-                                );
-                                break;
-                        }
-                    case false:
-                        switch (
-                        item?.price?.min?.price?.original ===
-                        item?.price?.max?.price?.original
-                            ) {
-                            case true:
-                                return (
-                                    <>
-                                        <p
-                                            className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                                        >
-                                            {currencyFormat(item?.price?.min?.price?.original)}
-                                        </p>
-                                    </>
-                                );
-                                break;
-                            case false:
-                                return (
-                                    <>
-                                        <p
-                                            className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                                        >
-                                            {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                                            {currencyFormat(item?.price?.max?.price?.original)}
-                                        </p>
-                                    </>
-                                );
-                                break;
-                        }
-                }
-                break;
-            case "single":
-                switch (item?.price?.discount?.active) {
-                    case true:
-                        return (
-                            <>
-                                <p
-                                    className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                                >
-                                    {currencyFormat(item?.price?.price?.original)}
-                                </p>
-                                <div className="bg-croonus-3 self-start w-fit ">
-                                    <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                                        {currencyFormat(item?.price?.price?.discount)}
-                                    </p>
-                                </div>
-                            </>
-                        );
-                        break;
-                    case false:
-                        return (
-                            <>
-                                <p
-                                    className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                                >
-                                    {currencyFormat(item?.price?.price?.original)}
-                                </p>
-                            </>
-                        );
-                        break;
-                }
-        }
-    };
-
-    const renderDiscountPercentage = (item) => {
-        switch (item?.product_type) {
-            case "variant":
-                switch (item?.price?.discount?.active) {
-                    case true:
-                        switch (
-                        item?.price?.min?.price?.original ===
-                        item?.price?.max?.price?.original
-                            ) {
-                            case true:
-                                return (
-                                    <>
-                                        <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                                            <p className="text-black">
-                                                -
-                                                {(
-                                                    ((item?.price?.max?.price?.original -
-                                                            item?.price?.max?.price?.discount) /
-                                                        item?.price?.max?.price?.original) *
-                                                    100
-                                                ).toFixed(0)}
-                                                %
-                                            </p>
-                                        </div>
-                                    </>
-                                );
-                                break;
-                            case false:
-                                return (
-                                    <>
-                                        <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                                            <p className="text-black">
-                                                -
-                                                {(
-                                                    ((item?.price?.max?.price?.original -
-                                                            item?.price?.max?.price?.discount) /
-                                                        item?.price?.max?.price?.original) *
-                                                    100
-                                                ).toFixed(0)}
-                                                %
-                                            </p>
-                                        </div>
-                                    </>
-                                );
-                                break;
-                        }
-                    case false:
-                        return null;
-                        break;
-                }
-                break;
-            case "single":
-                switch (item?.price?.discount?.active) {
-                    case true:
-                        return (
-                            <>
-                                <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                                    <p className="text-black">
-                                        -
-                                        {(
-                                            ((item?.price?.price?.original -
-                                                    item?.price?.price?.discount) /
-                                                item?.price?.price?.original) *
-                                            100
-                                        ).toFixed(0)}
-                                        %
-                                    </p>
-                                </div>
-                            </>
-                        );
-                        break;
-                    case false:
-                        return null;
-                        break;
-                }
-        }
-    };
-
-    return (
-        <div key={thumbKey || id_product}>
-            <div className="col-span-1 relative">
-                {renderDiscountPercentage(product)}
-                <Link href={`/${product?.slug_path}`}>
-                    <div className="relative w-full">
-                        {product?.image[0] ? (
-                            <>
-                                {product?.image[1] ? (
-                                    <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
-                                        <Image
-                                            src={convertHttpToHttps(product?.image[0])}
-                                            alt={product?.basic_data?.name}
-                                            width={0}
-                                            height={0}
-                                            sizes={`60vw`}
-                                            className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full object-cover firstImage bg-slate-300`}
-                                            loading="lazy"
-                                        />
-
-                                        <Image
-                                            src={convertHttpToHttps(product?.image[1])}
-                                            alt={product?.basic_data?.name}
-                                            width={0}
-                                            height={0}
-                                            sizes={`60vw`}
-                                            className={`absolute aspect-2/3 top-0 transition-all duration-200 opacity-0 w-full h-full object-cover secondImage`}
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
-                                        <Image
-                                            src={convertHttpToHttps(product?.image[0])}
-                                            alt={product?.basic_data?.name}
-                                            width={0}
-                                            height={0}
-                                            sizes={`60vw`}
-                                            className={`opacity-100 aspect-2/3 h-full w-full  object-cover`}
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <Image
-                                src="/placeholder.jpg"
-                                width={500}
-                                height={500}
-                                className="h-full object-cover"
-                                priority={true}
-                                alt={`proizvod-${product?.basic_data?.name}`}
-                            />
-                        )}
-                        {product?.stickers?.length > 0 && (
-                            <div
-                                className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
-                            >
-                                {product?.stickers?.map(({ name }) => {
-                                    if (name) {
-                                        return (
-                                            <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                                                <p>{name}</p>
-                                            </div>
-                                        );
-                                    }
-                                })}
-                            </div>
-                        )}
-                    </div>
-                </Link>
-
-                <div className="text-start w-full pt-1">
-                    <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
-                        <div className="flex items-center justify-end w-full">
-                            {isInWishlist ? (
-                                <div
-                                    onClick={() => removeFromWishlist({ id: wishlist_id })}
-                                    className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                                >
-                                    <Image
-                                        alt="wishlist"
-                                        src={wishlistactive}
-                                        height={28}
-                                        width={28}
-                                        className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                                    />
-                                </div>
-                            ) : (
-                                <div
-                                    onClick={() => addToWishlist({ id })}
-                                    className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                                >
-                                    <Image
-                                        src={Wishlist}
-                                        alt="wishlist"
-                                        height={28}
-                                        width={28}
-                                        className={`cursor-pointer transition-all duration-500 hover:scale-110`}
-                                    />
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="w-[2px] h-[26px] bg-[#000]"></div>
-                        <div className="flex items-center justify-start w-full">
-                            <Link
-                                href={`/${product?.slug_path}`}
-                                onClick={() => {
-                                    process?.env?.GTM_ENABLED === "true" &&
-                                    window?.dataLayer?.push({ ecommerce: null });
-                                    window?.dataLayer?.push({
-                                        event: "productClick",
-                                        ecommerce: {
-                                            click: {
-                                                products: [
-                                                    {
-                                                        name: product?.basic_data?.name,
-                                                        id: product?.basic_data?.id_product,
-                                                        price: product?.price?.price?.original,
-                                                        brand: product?.basic_data?.brand,
-                                                        category: product?.basic_data?.category,
-                                                        variant: product?.basic_data?.variant,
-                                                        list: "Search Results",
-                                                        position: index + 1,
-                                                    },
-                                                ],
-                                            },
-                                        },
-                                    });
-                                }}
-                                className="ml-[20%] block"
-                            >
-                                <Image
-                                    src={Cart}
-                                    width={36}
-                                    height={36}
-                                    alt="cart"
-                                    className="cursor-pointer hover:scale-110 transition-all duration-200 "
-                                />
-                            </Link>
-                        </div>
-                    </div>
-                    <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-                        <Link
-                            className="font-normal text-sm clamp"
-                            href={`/${product?.slug_path}`}
-                            onClick={() => {
-                                process?.env?.GTM_ENABLED === "true" &&
-                                window?.dataLayer?.push({ ecommerce: null });
-                                window?.dataLayer?.push({
-                                    event: "productClick",
-                                    ecommerce: {
-                                        click: {
-                                            products: [
-                                                {
-                                                    name: product?.basic_data?.name,
-                                                    id: product?.basic_data?.id_product,
-                                                    price: product?.price?.price?.original,
-                                                    brand: product?.basic_data?.brand,
-                                                    category: product?.basic_data?.category,
-                                                    variant: product?.basic_data?.variant,
-                                                    list: "Search Results",
-                                                    position: index + 1,
-                                                },
-                                            ],
-                                        },
-                                    },
-                                });
-                            }}
-                        >
-                            {product?.basic_data?.name}
-                        </Link>
+  const renderPrices = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.price?.original)}
                     </p>
-                    {product?.price?.price?.original == 0 ||
-                    product?.price?.price?.original == null ? (
-                        <button
-                            className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-                            onClick={() => {
-                                router?.push(`/kontakt?slug=${product?.slug}`);
-                            }}
-                        >
-                            <span className="text-[0.8rem]">Pošaljite upit</span>
-                        </button>
-                    ) : (
-                        <>{renderPrices(product)}</>
-                    )}
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.discount)}
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                  </>
+                );
+                break;
+            }
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+                <div className="bg-croonus-3 self-start w-fit ">
+                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                    {currencyFormat(item?.price?.price?.discount)}
+                  </p>
                 </div>
-            </div>
-        </div>
+              </>
+            );
+            break;
+          case false:
+            return (
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+              </>
+            );
+            break;
+        }
+    }
+  };
+
+  const renderDiscountPercentage = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            switch (
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
+              case true:
+                return (
+                  <>
+                    <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+              case false:
+                return (
+                  <>
+                    <div className="absolute top-2 right-3 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
+                );
+                break;
+            }
+          case false:
+            return null;
+            break;
+        }
+        break;
+      case "single":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return (
+              <>
+                <div className="absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[1rem] z-[50] rounded-lg z-100">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
+            );
+            break;
+          case false:
+            return null;
+            break;
+        }
+    }
+  };
+  const [, , , mutateWishList] = useCartContext();
+
+  const { data: wishlist, refetch } = useQuery({
+    queryKey: ["wishlist"],
+    queryFn: async () => {
+      return await list(`/wishlist`).then((res) => res?.payload?.items);
+    },
+    refetchOnWindowFocus: false,
+  });
+  const product = products.map((item, index) => {
+    const isProductInWishlist = wishlist?.find(
+      (product) => product?.product?.id === item?.basic_data?.id_product
     );
+    return (
+      <div
+        key={item.id}
+        className={` col-span-1 !relative items-center keen-slider__slide number-slide${index}`}
+      >
+        <div>
+          <div className="w-full relative flex justify-center">
+            <a
+              className={`w-full`}
+              href={`/proizvod/${item?.slug}`}
+              onClick={() => {
+                process?.env?.GTM_ENABLED === "true" &&
+                  window?.dataLayer?.push({ ecommerce: null });
+                window?.dataLayer?.push({
+                  event: "productClick",
+                  ecommerce: {
+                    click: {
+                      products: [
+                        {
+                          name: item?.basic_data?.name,
+                          id: item?.basic_data?.id_product,
+                          price: item?.price?.price?.original,
+                          brand: item?.basic_data?.brand,
+                          category: item?.basic_data?.category,
+                          variant: item?.basic_data?.variant,
+                          list: "Search Results",
+                          position: index + 1,
+                        },
+                      ],
+                    },
+                  },
+                });
+              }}
+            >
+              <div className="relative w-full">
+                <div className="relative w-full">
+                  {item?.image[0] ? (
+                    <>
+                      {item?.image[1] ? (
+                        <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                          <Image
+                            src={convertHttpToHttps(item?.image[0])}
+                            alt={item?.basic_data?.name}
+                            width={0}
+                            height={0}
+                            sizes={`100vw`}
+                            style={{ objectFit: "cover" }}
+                            className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                            loading="lazy"
+                          />
+                          <Image
+                            src={convertHttpToHttps(item?.image[1])}
+                            alt={item?.basic_data?.name}
+                            width={0}
+                            height={0}
+                            sizes={`100vw`}
+                            style={{ objectFit: "cover" }}
+                            className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                          <Image
+                            src={convertHttpToHttps(item?.image[0])}
+                            alt={item?.basic_data?.name}
+                            width={0}
+                            height={0}
+                            sizes={`100vw`}
+                            style={{ objectFit: "cover" }}
+                            className={`aspect-2/3 opacity-100 object-cover w-full `}
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Image
+                      src="/placeholder.jpg"
+                      width={500}
+                      height={500}
+                      className="h-full object-cover"
+                      priority={true}
+                      alt={`proizvod-${item?.basic_data?.name}`}
+                    />
+                  )}
+                </div>
+                {item?.stickers[0]?.name ? (
+                  <div className="px-3 py-2 absolute top-1 left-1 bg-yellow-200 w-fit text-croonus-1 text-[0.8rem] z-[10] rounded-lg z-100">
+                    <p>{item?.stickers[0]?.name}</p>
+                  </div>
+                ) : null}
+                {item?.price?.discount?.active && (
+                  <div
+                    className={`absolute top-2 right-5 px-3 bg-croonus-3 w-fit text-[0.8rem] z-[10] rounded-lg z-100`}
+                  >
+                    <p className={`text-black`}>
+                      {renderDiscountPercentage(item)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </a>
+          </div>
+          <div className="text-start w-full pt-1">
+            <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
+              <div className="flex items-center justify-end w-full">
+                <div
+                  onMouseEnter={() => {
+                    setWishlistId(item?.basic_data?.id_product);
+                  }}
+                  onClick={async () => {
+                    if (!isInWishlist) {
+                      await post("/wishlist", {
+                        id: null,
+                        id_product: item?.basic_data?.id_product,
+                        quantity: 1,
+                        id_product_parent: null,
+                        description: null,
+                        status: null,
+                      }).then((res) => {
+                        if (res?.code === 200) {
+                          toast.success("Uspešno dodato u želje.", {
+                            autoClose: 2000,
+                            position: "top-center",
+                          });
+                          mutateWishList();
+                        } else {
+                          toast.warn("Proizvod je već u željama.", {
+                            autoClose: 2000,
+                            position: "top-center",
+                          });
+                        }
+                      });
+                      refetch();
+                    } else {
+                      setTimeout(async () => {
+                        await deleteMethod(`/wishlist/${wishlistId}`).then(
+                          (res) => {
+                            if (res?.code === 200) {
+                              toast.success("Uspešno uklonjeno iz želja.", {
+                                autoClose: 2000,
+                                position: "top-center",
+                              });
+                              mutateWishList();
+                            } else {
+                              toast.error("Došlo je do greške.", {
+                                autoClose: 2000,
+                                position: "top-center",
+                              });
+                            }
+                          }
+                        );
+                      }, 500);
+                    }
+                  }}
+                  className={`flex min-w-[25px] mr-[20%] items-center justify-center ${
+                    pathname !== "/zelje" && "hover:bg-[#f3f3f3]"
+                  } transition-all duration-300`}
+                >
+                  {isInWishlist ? (
+                    <i
+                      className={`fa fa-solid fa-times cursor-pointer text-xl hover:text-red-500`}
+                    ></i>
+                  ) : isProductInWishlist ? (
+                    <Image
+                      alt="wishlist"
+                      src={wishlistactive}
+                      height={28}
+                      width={28}
+                      className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+                    />
+                  ) : (
+                    <Image
+                      src={Wishlist}
+                      alt="wishlist"
+                      height={28}
+                      width={28}
+                      className={`cursor-pointer transition-all duration-500 hover:scale-110 ${
+                        isProductInWishlist && "hidden"
+                      }`}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="w-[2px] h-[26px] bg-[#000]"></div>
+              <div className="flex items-center justify-start w-full">
+                <Image
+                  src={Cart}
+                  width={36}
+                  height={36}
+                  alt="cart"
+                  className="cursor-pointer hover:scale-110 transition-all duration-200 ml-[20%]"
+                  onClick={() => {
+                    if (item?.product_type === "single") {
+                      globalAddToCart(item?.basic_data?.id_product, 1, false);
+                      toast.success("Proizvod je dodat u korpu!", {
+                        position: "top-center",
+                      });
+                      if (process?.env?.GTM_ENABLED === "true") {
+                        window?.dataLayer?.push({ ecommerce: null });
+                        window?.dataLayer?.push({
+                          event: "addToCart",
+                          ecommerce: {
+                            currencyCode: "RSD",
+                            add: {
+                              products: [
+                                {
+                                  name: item?.basic_data?.name,
+                                  id: item?.basic_data?.id_product,
+                                  price: item?.price?.price?.original,
+                                  brand: item?.basic_data?.brand,
+                                  category: item?.categories[0]?.name,
+                                  variant: null,
+                                  quantity: 1,
+                                },
+                              ],
+                            },
+                          },
+                        });
+                      }
+                    } else {
+                      router.push(`/proizvod/${item?.slug_path}`);
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <p className="text-black self-start font-sm text-lg mt-2 uppercase">
+              <a
+                className="font-normal text-sm clamp"
+                href={`/proizvod/${item?.slug_path}`}
+                onClick={() => {
+                  process?.env?.GTM_ENABLED === "true" &&
+                    window?.dataLayer?.push({ ecommerce: null });
+                  window?.dataLayer?.push({
+                    event: "productClick",
+                    ecommerce: {
+                      click: {
+                        products: [
+                          {
+                            name: item?.basic_data?.name,
+                            id: item?.basic_data?.id_product,
+                            price: item?.price?.price?.original,
+                            brand: item?.basic_data?.brand,
+                            category: item?.basic_data?.category,
+                            variant: item?.basic_data?.variant,
+                            list: "Search Results",
+                            position: index + 1,
+                          },
+                        ],
+                      },
+                    },
+                  });
+                }}
+              >
+                {item?.basic_data?.name}
+              </a>
+            </p>
+            {item?.price?.price?.original == 0 ||
+            item?.price?.price?.original == null ? (
+              <button
+                className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+                onClick={() => {
+                  router?.push(`/kontakt?slug=${item?.slug}`);
+                }}
+              >
+                <span className="text-[0.8rem]">Pošaljite upit</span>
+              </button>
+            ) : (
+              <>{renderPrices(item)}</>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <>
+      {" "}
+      <ToastContainer />
+      <div className="mt-[3.688rem] max-md:mt-[1rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
+        <div className="flex justify-between items-center">
+          <h1 className="text-[1.1rem] font-semibold">{text}</h1>
+          <div className="md:hidden">
+            <i
+              className="fa-solid md:hidden fa-chevron-right text-white text-xl bg-croonus-1 px-3 py-1.5"
+              onClick={() => {
+                instanceRef?.current?.next();
+              }}
+            ></i>
+          </div>
+        </div>
+        <div ref={sliderRef} className="keen-slider mt-[1.625rem]">
+          {product}
+        </div>
+        {loaded && instanceRef?.current && (
+          <div className="max-md:hidden">
+            <Arrow
+              left
+              onClick={(e) =>
+                e.stopPropagation() || instanceRef?.current?.prev()
+              }
+              disabled={currentSlide === 0}
+            />
+
+            <Arrow
+              onClick={(e) =>
+                e.stopPropagation() || instanceRef?.current?.next()
+              }
+              disabled={
+                currentSlide ===
+                instanceRef?.current?.track?.details?.slides?.length - 1
+              }
+            />
+          </div>
+        )}
+      </div>
+      {/* {loaded && instanceRef.current && (
+        <div className="dots">
+          {[
+            ...Array(instanceRef.current.track.details.slides.length).keys(),
+          ].map((idx) => {
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  instanceRef.current?.moveToIdx(idx);
+                }}
+                className={"dot" + (currentSlide === idx ? " active" : "")}
+              ></button>
+            );
+          })}
+        </div>
+      )} */}
+    </>
+  );
 };
 
-export default ThumbSuspense;
+function Arrow(props) {
+  const disabeld = props.disabled ? " arrow--disabled" : "";
+  return (
+    <div
+      onClick={props.onClick}
+      className={`flex flex-col items-center justify-center arrow ${
+        props.left ? "arrow--left" : "arrow--right"
+      } ${disabeld}`}
+    >
+      {props.left && (
+        <Image
+          src={ArrowPic}
+          width={35}
+          height={35}
+          alt=""
+          className="cursor-pointer rotate-90"
+        />
+      )}
+      {!props.left && (
+        <Image
+          src={ArrowPic}
+          width={35}
+          height={35}
+          alt=""
+          className="cursor-pointer -rotate-90"
+        />
+      )}
+    </div>
+  );
+}
+
+export default ProductsSlider;
