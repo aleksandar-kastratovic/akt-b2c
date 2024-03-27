@@ -262,7 +262,6 @@ const ProductsSlider = ({
     },
     refetchOnWindowFocus: false,
   });
-  console.log("prod", products);
 
   const { mutate: removeFromWishlist, isPending } = useRemoveFromWishlist();
   const product = products?.map((item, index) => {
@@ -278,112 +277,107 @@ const ProductsSlider = ({
     return (
       <div
         key={item.id}
-        className={` col-span-1 !relative items-center keen-slider__slide number-slide${index}`}
+        className={`col-span-1 !h-auto !relative items-center keen-slider__slide number-slide${index}`}
       >
-        <div>
-          <div className="w-full relative flex justify-center">
+        <div className={`flex flex-col h-full !gap-0`}>
+          <div className="w-full !h-full relative flex justify-center">
             <Link
               className={`w-full`}
               href={`/${item?.slug_path}`}
               onClick={() => {
                 process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({ ecommerce: null });
-                window?.dataLayer?.push({
-                  event: "productClick",
-                  ecommerce: {
-                    click: {
-                      products: [
-                        {
-                          name: item?.basic_data?.name,
-                          id: item?.basic_data?.id_product,
-                          price: item?.price?.price?.original,
-                          brand: item?.basic_data?.brand,
-                          category: item?.basic_data?.category,
-                          variant: item?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
+                  window?.dataLayer?.push({
+                    event: "productClick",
+                    ecommerce: {
+                      click: {
+                        products: [
+                          {
+                            name: item?.basic_data?.name,
+                            id: item?.basic_data?.id_product,
+                            price: item?.price?.price?.original,
+                            brand: item?.basic_data?.brand,
+                            category: item?.basic_data?.category,
+                            variant: item?.basic_data?.variant,
+                            list: "Search Results",
+                            position: index + 1,
+                          },
+                        ],
+                      },
                     },
-                  },
-                });
+                  });
               }}
             >
               <div className="relative w-full">
-                <div className="relative w-full">
-                  {item?.image[0] ? (
-                    <>
-                      {item?.image[1] ? (
-                        <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
-                          <Image
-                            src={convertHttpToHttps(item?.image[0])}
-                            alt={item?.basic_data?.name}
-                            width={0}
-                            height={0}
-                            sizes={`100vw`}
-                            style={{ objectFit: "cover" }}
-                            className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
-                            loading="lazy"
-                          />
-                          <Image
-                            src={convertHttpToHttps(item?.image[1])}
-                            alt={item?.basic_data?.name}
-                            width={0}
-                            height={0}
-                            sizes={`100vw`}
-                            style={{ objectFit: "cover" }}
-                            className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : (
-                        <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
-                          <Image
-                            src={convertHttpToHttps(item?.image[0])}
-                            alt={item?.basic_data?.name}
-                            width={0}
-                            height={0}
-                            sizes={`100vw`}
-                            style={{ objectFit: "cover" }}
-                            className={`aspect-2/3 opacity-100 object-cover w-full `}
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                    </>
-                  ) : (
-                    <Image
-                      src="/placeholder.jpg"
-                      width={500}
-                      height={500}
-                      className="h-full object-cover"
-                      priority={true}
-                      alt={`proizvod-${item?.basic_data?.name}`}
-                    />
-                  )}
-                </div>
-                {item?.stickers?.length > 0 && (
-                  <div
-                    className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
-                  >
-                    {item?.stickers?.map(({ name }) => {
-                      if (name) {
-                        return (
-                          <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                            <p>{name}</p>
-                          </div>
-                        );
-                      }
-                    })}
-                  </div>
+                {item?.image[0] ? (
+                  <>
+                    {item?.image[1] ? (
+                      <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                        <Image
+                          src={convertHttpToHttps(item?.image[0])}
+                          alt={item?.basic_data?.name ?? "AKT"}
+                          width={0}
+                          height={0}
+                          sizes={`70vw`}
+                          className={`transition-all duration-200 opacity-100 w-full h-auto firstImage`}
+                          loading="lazy"
+                        />
+                        <Image
+                          src={convertHttpToHttps(item?.image[1])}
+                          alt={item?.basic_data?.name ?? "AKT"}
+                          width={0}
+                          height={0}
+                          sizes={`70vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`absolute top-0 transition-all duration-200 opacity-0 w-full h-auto secondImage`}
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                        <Image
+                          src={convertHttpToHttps(item?.image[0])}
+                          alt={item?.basic_data?.name ?? "AKT"}
+                          width={0}
+                          height={0}
+                          sizes={`70vw`}
+                          style={{ objectFit: "cover" }}
+                          className={`opacity-100 h-auto w-full `}
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Image
+                    src="/placeholder.jpg"
+                    width={500}
+                    height={500}
+                    className="h-full object-cover"
+                    priority={true}
+                    alt={`proizvod-${item?.basic_data?.name}` ?? "AKT"}
+                  />
                 )}
-
-                {item?.price?.discount?.active &&
-                  renderDiscountPercentage(item)}
               </div>
+              {item?.stickers?.length > 0 && (
+                <div
+                  className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
+                >
+                  {item?.stickers?.map(({ name }) => {
+                    if (name) {
+                      return (
+                        <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                          <p>{name}</p>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              )}
+
+              {item?.price?.discount?.active && renderDiscountPercentage(item)}
             </Link>
           </div>
-          <div className="text-start w-full pt-1">
+          <div className="text-start mt-auto w-full pt-1">
             <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
               <div className="flex items-center justify-end w-full">
                 <div
@@ -476,7 +470,6 @@ const ProductsSlider = ({
                         position: "top-center",
                       });
                       if (process?.env?.GTM_ENABLED === "true") {
-                        window?.dataLayer?.push({ ecommerce: null });
                         window?.dataLayer?.push({
                           event: "addToCart",
                           ecommerce: {
@@ -510,46 +503,49 @@ const ProductsSlider = ({
                 href={`/${item?.slug_path}`}
                 onClick={() => {
                   process?.env?.GTM_ENABLED === "true" &&
-                    window?.dataLayer?.push({ ecommerce: null });
-                  window?.dataLayer?.push({
-                    event: "productClick",
-                    ecommerce: {
-                      click: {
-                        products: [
-                          {
-                            name: item?.basic_data?.name,
-                            id: item?.basic_data?.id_product,
-                            price: item?.price?.price?.original,
-                            brand: item?.basic_data?.brand,
-                            category: item?.basic_data?.category,
-                            variant: item?.basic_data?.variant,
-                            list: "Search Results",
-                            position: index + 1,
-                          },
-                        ],
+                    window?.dataLayer?.push({
+                      event: "productClick",
+                      ecommerce: {
+                        click: {
+                          products: [
+                            {
+                              name: item?.basic_data?.name,
+                              id: item?.basic_data?.id_product,
+                              price: item?.price?.price?.original,
+                              brand: item?.basic_data?.brand,
+                              category: item?.basic_data?.category,
+                              variant: item?.basic_data?.variant,
+                              list: "Search Results",
+                              position: index + 1,
+                            },
+                          ],
+                        },
                       },
-                    },
-                  });
+                    });
                 }}
               >
                 {item?.basic_data?.name}
               </Link>
             </p>
-            {item?.price?.price?.original == 0 ||
-            item?.price?.price?.original == null ? (
+
+          </div>
+          {item?.price?.price?.original == 0 ||
+          item?.price?.price?.original == null ? (
               <button
-                className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-                onClick={() => {
-                  router?.push(`/kontakt?slug=${item?.slug}`);
-                }}
+                  className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+                  onClick={() => {
+                    router?.push(`/kontakt?slug=${item?.slug}`);
+                  }}
               >
                 <span className="text-[0.8rem]">Pošaljite upit</span>
               </button>
-            ) : (
+          ) : (
               <>{renderPrices(item)}</>
-            )}
-          </div>
+          )}
         </div>
+
+
+
       </div>
     );
   });
@@ -630,7 +626,7 @@ function Arrow(props) {
           src={ArrowPic}
           width={35}
           height={35}
-          alt=""
+          alt="AKT"
           className="cursor-pointer rotate-90"
         />
       )}
@@ -639,7 +635,7 @@ function Arrow(props) {
           src={ArrowPic}
           width={35}
           height={35}
-          alt=""
+          alt="AKT"
           className="cursor-pointer -rotate-90"
         />
       )}

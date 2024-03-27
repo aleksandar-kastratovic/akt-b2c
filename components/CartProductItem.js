@@ -42,7 +42,10 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
                 src={convertHttpToHttps(item?.product?.image[0])}
                 width={250}
                 height={250}
-                alt=""
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={true}
+                fetchPriority={`high`}
+                alt="AKT"
                 className="object-cover h-full w-full"
               />
             </Link>
@@ -67,10 +70,10 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           <div className="flex items-center gap-3 md:hidden">
             <span>Količina:</span>
             <PlusMinusInputOne
-                max={+item?.product?.inventory?.amount}
-                amount={productAmount}
-                setCount={setProductAmount}
-                onClick={() => setRefresh(!refresh)}
+              max={+item?.product?.inventory?.amount}
+              amount={productAmount}
+              setCount={setProductAmount}
+              onClick={() => setRefresh(!refresh)}
             />
           </div>
           <span>Ukupan iznos: {currencyFormat(total?.discount, currency)}</span>
@@ -79,11 +82,8 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => {
             setSureCheck(true);
-
+            console.log(item, "item");
             if (process?.env?.GTM_ENABLED === "true") {
-              window?.dataLayer?.push({
-                ecommerce: null,
-              });
               window?.dataLayer?.push({
                 event: "removeFromCart",
                 ecommerce: {
@@ -92,9 +92,11 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
                       {
                         id: item?.product?.id,
                         name: item?.product?.basic_data?.name,
-                        price: item?.product?.price?.with_vat,
-                        brand: item?.product?.brand?.name,
-                        category: item?.product?.category?.name,
+                        price: item?.product?.price?.cost?.with_vat,
+                        brand: item?.product?.basic_data?.brand_name,
+                        category: item?.product?.categories?.map(
+                          ({ name }) => name
+                        ),
                         quantity: item?.cart?.quantity,
                       },
                     ],

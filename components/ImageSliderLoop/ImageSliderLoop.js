@@ -82,7 +82,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
             fill
             className="relative object-cover h-full w-full"
             src={convertHttpToHttps(item?.image)}
-            alt={item?.name}
+            alt={item?.name ?? "AKT"}
             priority={true}
           />
         </Link>
@@ -146,7 +146,7 @@ const ImageSliderLoop = ({ bannerimages, updateImage }) => {
             height={1222}
             className="relative z-50 h-auto w-full max-lg:h-[10%] max-lg:w-full"
             src={item?.image}
-            alt={item.id}
+            alt="AKT"
             priority
           />
         </Link>

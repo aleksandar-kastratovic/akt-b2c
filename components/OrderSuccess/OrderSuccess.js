@@ -15,7 +15,7 @@ const OrderSuccess = ({ order }) => {
             id: order?.order?.slug,
             tax: order?.order?.total_vat,
             revenue: order?.order?.total,
-            shipping: order?.order?.total_delivery,
+            shipping: order?.order?.total_delivery_amount,
           },
           products: order?.items?.map((item) => {
             return {
@@ -27,6 +27,8 @@ const OrderSuccess = ({ order }) => {
               category: item?.basic_data?.category_breadcrumbs,
               manufacturer: item?.basic_data?.manufacture_name,
               quantity: item?.price?.quantity,
+              discount: item?.price?.price_discount_amount,
+              variant: item?.basic_data?.attributes_text
             };
           }),
         },
@@ -181,7 +183,7 @@ const OrderSuccess = ({ order }) => {
             </div>
           </div>
           <div className="col-span-1 max-sm:row-start-1 place-self-center p-5">
-            <Image src={Image1} width={100} height={100} />
+            <Image src={Image1} width={100} height={100} alt="AKT"/>
           </div>
         </div>
       </div>

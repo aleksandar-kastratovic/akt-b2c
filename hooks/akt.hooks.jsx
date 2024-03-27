@@ -419,65 +419,133 @@ export const useCategoryProducts = ({
   setSort,
   setPage,
   render,
+  isGTM = false,
 }) => {
-  return useSuspenseQuery({
-    queryKey: [
-      "categoryProducts",
-      {
-        slug: slug,
-        page: page,
-        limit: limit,
-        sort: sort,
-        selectedFilters: filterKey,
-      },
-    ],
-    queryFn: async () => {
-      try {
-        //vadimo filtere iz URL koji su prethodno selektovani i pushovani sa router.push()
-        const selectedFilters_tmp = (filterKey ?? "::")
-          ?.split("::")
-          ?.map((filter) => {
-            const [column, selected] = filter?.split("=");
-            const selectedValues = selected?.split("_");
-            return {
-              column,
-              value: {
-                selected: selectedValues,
-              },
+  switch (isGTM) {
+    case false:
+      return useSuspenseQuery({
+        queryKey: [
+          "categoryProducts",
+          {
+            slug: slug,
+            page: page,
+            limit: limit,
+            sort: sort,
+            selectedFilters: filterKey,
+          },
+        ],
+        queryFn: async () => {
+          try {
+            //vadimo filtere iz URL koji su prethodno selektovani i pushovani sa router.push()
+            const selectedFilters_tmp = (filterKey ?? "::")
+              ?.split("::")
+              ?.map((filter) => {
+                const [column, selected] = filter?.split("=");
+                const selectedValues = selected?.split("_");
+                return {
+                  column,
+                  value: {
+                    selected: selectedValues,
+                  },
+                };
+              });
+
+            //radimo isto za sort
+            const sort_tmp = (sort ?? "_")?.split("_");
+            const sortObj = {
+              field: sort_tmp[0],
+              direction: sort_tmp[1],
             };
-          });
 
-        //radimo isto za sort
-        const sort_tmp = (sort ?? "_")?.split("_");
-        const sortObj = {
-          field: sort_tmp[0],
-          direction: sort_tmp[1],
-        };
+            //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
+            if (selectedFilters_tmp?.every((column) => column?.column !== "")) {
+              setSelectedFilters(selectedFilters_tmp);
+            }
+            setSort(sortObj);
+            setPage(page);
 
-        //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
-        if (selectedFilters_tmp?.every((column) => column?.column !== "")) {
-          setSelectedFilters(selectedFilters_tmp);
-        }
-        setSort(sortObj);
-        setPage(page);
+            return await LIST(`/products/category/list/${slug}`, {
+              page: 1,
+              limit: limit,
+              sort: sortObj,
+              render: render,
+              filters: selectedFilters_tmp?.every(
+                (column) => column?.column !== ""
+              )
+                ? selectedFilters_tmp
+                : [],
+            }).then(async (res) => {
+              return res?.payload;
+            });
+          } catch (error) {
+            return error;
+          }
+        },
+        refetchOnWindowFocus: false,
+      });
+    case true:
+      return useQuery({
+        queryKey: [
+          "categoryProductsForGTM",
+          {
+            slug: slug,
+            page: page,
+            limit: limit,
+            sort: sort,
+            selectedFilters: filterKey,
+            gtm: isGTM
+          },
+        ],
+        queryFn: async () => {
+          try {
+            //vadimo filtere iz URL koji su prethodno selektovani i pushovani sa router.push()
+            const selectedFilters_tmp = (filterKey ?? "::")
+              ?.split("::")
+              ?.map((filter) => {
+                const [column, selected] = filter?.split("=");
+                const selectedValues = selected?.split("_");
+                return {
+                  column,
+                  value: {
+                    selected: selectedValues,
+                  },
+                };
+              });
 
-        return await LIST(`/products/category/list/${slug}`, {
-          page: 1,
-          limit: limit,
-          sort: sortObj,
-          render: render,
-          filters: selectedFilters_tmp?.every((column) => column?.column !== "")
-            ? selectedFilters_tmp
-            : [],
-        }).then(async (res) => {
-          return res?.payload;
-        });
-      } catch (error) {
-        return error;
-      }
-    },
-    refetchOnWindowFocus: false,
-  });
+            //radimo isto za sort
+            const sort_tmp = (sort ?? "_")?.split("_");
+            const sortObj = {
+              field: sort_tmp[0],
+              direction: sort_tmp[1],
+            };
+
+            //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
+            if (selectedFilters_tmp?.every((column) => column?.column !== "")) {
+              setSelectedFilters(selectedFilters_tmp);
+            }
+            setSort(sortObj);
+            setPage(page);
+
+            return await LIST(`/products/category/list/${slug}`, {
+              page: 1,
+              limit: limit,
+              sort: sortObj,
+              render: true,
+              filters: selectedFilters_tmp?.every(
+                (column) => column?.column !== ""
+              )
+                ? selectedFilters_tmp
+                : [],
+            }).then(async (res) => {
+              return res?.payload;
+            });
+          } catch (error) {
+            return error;
+          }
+        },
+        refetchOnWindowFocus: false,
+      });
+  }
 };
 
 //hook za dobijanje proizvoda na detaljnoj strani

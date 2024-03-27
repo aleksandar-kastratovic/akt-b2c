@@ -30,7 +30,7 @@ const Marker = () => {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <Image src={pin} alt="" layout="fill" objectFit="contain" />
+      <Image src={pin} alt="AKT" layout="fill" objectFit="contain" />
     </div>
   );
 };

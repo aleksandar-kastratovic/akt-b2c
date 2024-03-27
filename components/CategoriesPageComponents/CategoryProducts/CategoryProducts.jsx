@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 import Filters from "@/components/Filters/Filters";
 import { sortKeys } from "@/helpers/const";
+import { currencyFormat } from "@/helpers/functions";
 
 export const CategoryProducts = ({
   slug,
@@ -56,6 +57,19 @@ export const CategoryProducts = ({
     render: false,
   });
 
+  const { data: gtm_data, isLoading: isLoadingGTM } = useCategoryProducts({
+    slug,
+    page: pageKey ?? 1,
+    limit: limit,
+    sort: sortKey ?? "_",
+    setSelectedFilters,
+    filterKey,
+    setSort,
+    setPage: setPage,
+    render: true,
+    isGTM: true,
+  });
+
   // azuriramo query parametre sa selektovanim sortom, stranicom i filterima
   const updateURLQuery = (sort, selectedFilters, page) => {
     let sort_tmp;
@@ -68,11 +82,11 @@ export const CategoryProducts = ({
 
     if (selectedFilters?.length > 0) {
       filters_tmp = selectedFilters
-          ?.map((filter) => {
-            const selectedValues = filter?.value?.selected?.join("_");
-            return `${filter?.column}=${selectedValues}`;
-          })
-          .join("::");
+        ?.map((filter) => {
+          const selectedValues = filter?.value?.selected?.join("_");
+          return `${filter?.column}=${selectedValues}`;
+        })
+        .join("::");
     } else {
       filters_tmp = "";
     }
@@ -90,25 +104,25 @@ export const CategoryProducts = ({
 
   useEffect(() => {
     const { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp } = updateURLQuery(
-        sort,
-        selectedFilters,
-        page
+      sort,
+      selectedFilters,
+      page
     );
 
     let queryString = "";
 
     const generateQueryString = (
-        sort_tmp,
-        filters_tmp,
-        viewed_tmp,
-        prod_num_tmp
+      sort_tmp,
+      filters_tmp,
+      viewed_tmp,
+      prod_num_tmp
     ) => {
       let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
-          filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
+        filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
       }${sort_tmp ? `sort=${sort_tmp}` : ""}${
-          sort_tmp && viewed_tmp ? "&" : ""
+        sort_tmp && viewed_tmp ? "&" : ""
       }${viewed_tmp ? `viewed=${viewed_tmp}` : ""}${
-          viewed_tmp && prod_num_tmp ? "&" : ""
+        viewed_tmp && prod_num_tmp ? "&" : ""
       }${prod_num_tmp ? `prod_num=${prod_num_tmp}` : ""}`;
 
       router.push(queryString, { scroll: false });
@@ -208,6 +222,59 @@ export const CategoryProducts = ({
       return () => clearTimeout(timeout);
     }
   }, [isFetched]);
+
+  //GTM
+  const renderPrices = (item) => {
+    switch (item?.product_type) {
+      case "variant":
+        switch (item?.price?.discount?.active) {
+          case true:
+            return item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+              ? currencyFormat(item?.price?.price?.discount)
+              : `${currencyFormat(
+                  item?.price?.min?.price?.discount
+                )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
+          case false:
+            return item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+              ? currencyFormat(item?.price?.min?.price?.original)
+              : `${currencyFormat(
+                  item?.price?.min?.price?.original
+                )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
+        }
+        break;
+      case "single":
+        return item?.price?.discount?.active
+          ? currencyFormat(item?.price?.price?.discount)
+          : currencyFormat(item?.price?.price?.original);
+    }
+  };
+
+  useEffect(() => {
+    if (!isLoadingGTM) {
+      process?.env?.GTM_ENABLED === "true" &&
+        window?.dataLayer?.push({
+          event: "view_item_list",
+          ecommerce: {
+            currencyCode: "RSD",
+            impressions: [
+              gtm_data?.items?.map((item, index) => {
+                return {
+                  id: item?.basic_data?.id_product,
+                  name: item?.basic_data?.name,
+                  price: `${renderPrices(item)}`,
+                  list: `Kategorija ${item?.categories?.[0]?.name ?? ""}`,
+                  discount:
+                    item?.price?.discount?.active &&
+                    item?.price?.discount?.amount,
+                };
+              }),
+            ],
+          },
+        });
+    }
+  }, [gtm_data?.pagination, isLoadingGTM]);
 
   return (
     <>

@@ -54,7 +54,7 @@ const ProductGallery = ({ productGallery }) => {
           onMouseLeave={() => {
             setShowMagnifier(false);
           }}
-          alt={src.alt}
+          alt={src.alt ?? "AKT"}
         />
 
         <div
@@ -91,6 +91,7 @@ const ProductGallery = ({ productGallery }) => {
             <ImageMagnifier
               src={convertHttpToHttps(image?.image)}
               fill
+              alt="AKT"
               priority
               style={{ objectFit: "fill" }}
             />
@@ -114,6 +115,7 @@ const ProductGallery = ({ productGallery }) => {
           src={convertHttpToHttps(image?.image)}
           fill
           priority
+          alt="AKT"
           style={{ objectFit: "contain" }}
           className="cursor-pointer max-md:hidden"
         />

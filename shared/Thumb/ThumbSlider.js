@@ -74,7 +74,9 @@ const ThumbSlider = ({
             src={images[0] ?? "/maximon.png"}
             width={500}
             height={500}
-            alt={name ?? "Akt"}
+            alt={name ?? "AKT"}
+            placeholder={`blur`}
+            blurDataURL={base64_placeholder}
             className={`relative z-[1] aspect-2/3 max-h-[350px] transition-all duration-500 group-hover:scale-110`}
           />
         </Link>
@@ -85,7 +87,7 @@ const ThumbSlider = ({
           <div className={`absolute left-2 top-2 z-[5] hidden`}>
             <Image
               src={`/icons/heart-active.png`}
-              alt={`Maximon`}
+              alt={`AKT`}
               width={18}
               height={18}
             />
@@ -102,14 +104,14 @@ const ThumbSlider = ({
               >
                 <Image
                   src={`/icons/cart.png`}
-                  alt={`Maximon`}
+                  alt={`AKT`}
                   width={25}
                   height={25}
                   className={`inactive`}
                 />
                 <Image
                   src={`/icons/cart-active.png`}
-                  alt={`Maximon`}
+                  alt={`AKT`}
                   width={25}
                   height={25}
                   className={`active hidden`}
@@ -125,14 +127,14 @@ const ThumbSlider = ({
          >
            <Image
              src={`/icons/cart.png`}
-             alt={`Maximon`}
+             alt={`AKT`}
              width={25}
              height={25}
              className={`inactive`}
            />
            <Image
              src={`/icons/cart-active.png`}
-             alt={`Maximon`}
+             alt={`AKT`}
              width={25}
              height={25}
              className={`active hidden`}
@@ -154,7 +156,7 @@ const ThumbSlider = ({
             {wishlist_data?.exist ? (
               <Image
                 src={`/icons/heart-active.png`}
-                alt={`Maximon`}
+                alt={`AKT`}
                 width={25}
                 height={25}
               />
@@ -162,14 +164,14 @@ const ThumbSlider = ({
               <div className={`wishlistHover`}>
                 <Image
                   src={`/icons/heart.png`}
-                  alt={`Maximon`}
+                  alt={`AKT`}
                   width={25}
                   height={25}
                   className={`inactive`}
                 />
                 <Image
                   src={`/icons/heart-active.png`}
-                  alt={`Maximon`}
+                  alt={`AKT`}
                   width={25}
                   height={25}
                   className={`active hidden`}

@@ -457,7 +457,7 @@ const NavigationDesktop = () => {
                                 <div className=" relative">
                                   <Image
                                     src={item?.image[0]}
-                                    alt={``}
+                                    alt="AKT"
                                     width={60}
                                     height={60}
                                     className={`object-cover rounded-full h-[60px]`}
@@ -516,7 +516,7 @@ const NavigationDesktop = () => {
                   src={Search}
                   width={26}
                   height={26}
-                  alt=""
+                  alt="AKT"
                   onClick={handleSearch}
                   className={
                     background === "white"

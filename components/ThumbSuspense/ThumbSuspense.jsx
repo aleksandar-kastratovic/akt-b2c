@@ -248,7 +248,6 @@ const Products = ({
           href={`/${item?.slug_path}`}
           onClick={() => {
             process?.env?.GTM_ENABLED === "true" &&
-              window?.dataLayer?.push({ ecommerce: null });
             window?.dataLayer?.push({
               event: "productClick",
               ecommerce: {
@@ -278,22 +277,20 @@ const Products = ({
                     <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
                       <Image
                         src={convertHttpToHttps(item?.image[0])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
-                        sizes={`100vw`}
-                        style={{ objectFit: "cover" }}
-                        className={`transition-all aspect-2/3 duration-200 opacity-100 object-cover w-full h-full firstImage`}
+                        sizes={`70vw`}
+                        className={`transition-all duration-200 opacity-100 w-full h-auto firstImage`}
                         loading="lazy"
                       />
                       <Image
                         src={convertHttpToHttps(item?.image[1])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
-                        sizes={`100vw`}
-                        style={{ objectFit: "cover" }}
-                        className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 object-cover w-full h-full secondImage`}
+                        sizes={`70vw`}
+                        className={`absolute top-0 transition-all duration-200 opacity-0 w-full h-auto secondImage`}
                         loading="lazy"
                       />
                     </div>
@@ -301,12 +298,11 @@ const Products = ({
                     <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
                       <Image
                         src={convertHttpToHttps(item?.image[0])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
-                        sizes={`100vw`}
-                        style={{ objectFit: "cover" }}
-                        className={`aspect-2/3 opacity-100 object-cover w-full `}
+                        sizes={`70vw`}
+                        className={`opacity-100 h-auto w-full `}
                         loading="lazy"
                       />
                     </div>
@@ -435,7 +431,6 @@ const Products = ({
                     position: "top-center",
                   });
                   if (process?.env?.GTM_ENABLED === "true") {
-                    window?.dataLayer?.push({ ecommerce: null });
                     window?.dataLayer?.push({
                       event: "addToCart",
                       ecommerce: {
@@ -469,7 +464,6 @@ const Products = ({
             href={`/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
-                window?.dataLayer?.push({ ecommerce: null });
               window?.dataLayer?.push({
                 event: "productClick",
                 ecommerce: {

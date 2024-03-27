@@ -235,7 +235,7 @@ const Footer = () => {
         <div className="w-[44px] h-[44px] relative">
           <Image
             src={Image5}
-            alt="Winea"
+            alt="AKT"
             fill={true}
             style={{ objectFit: "contain" }}
             className="object-scale-down"
@@ -244,7 +244,7 @@ const Footer = () => {
         <div className="w-[44px] h-[44px] relative">
           <Image
             src={Image6}
-            alt="Winea"
+            alt="AKT"
             fill={true}
             style={{ objectFit: "contain" }}
             className="object-scale-down"
@@ -253,7 +253,7 @@ const Footer = () => {
         <div className="w-[50px] h-[50px] relative">
           <Image
             src={Image7}
-            alt="Winea"
+            alt="AKT"
             fill={true}
             style={{ objectFit: "contain" }}
             className="object-scale-down"
@@ -262,7 +262,7 @@ const Footer = () => {
         <div className="w-[50px] h-[50px] relative">
           <Image
             src={Image8}
-            alt="Winea"
+            alt="AKT"
             fill={true}
             style={{ objectFit: "contain" }}
             className="object-scale-down"
@@ -272,7 +272,7 @@ const Footer = () => {
         <div className="w-[40px] h-[40px] relative">
           <Image
             src={Image1}
-            alt="Winea"
+            alt="AKT"
             fill={true}
             style={{ objectFit: "contain" }}
             className="object-scale-down"
@@ -287,7 +287,7 @@ const Footer = () => {
           <div className="w-[160px] h-[40px] relative">
             <Image
               src={Image4}
-              alt="Winea"
+              alt="AKT"
               fill={true}
               style={{ objectFit: "contain" }}
               className="object-scale-down"
@@ -302,7 +302,7 @@ const Footer = () => {
           <div className="w-[80px] h-[50px] relative">
             <Image
               src={Image3}
-              alt="Winea"
+              alt="AKT"
               fill={true}
               style={{ objectFit: "contain" }}
               className="object-scale-down max-sm:w-[100%]"
@@ -317,7 +317,7 @@ const Footer = () => {
           <div className="w-[50px] h-[50px] relative">
             <Image
               src={Image2}
-              alt="Winea"
+              alt="AKT"
               fill={true}
               style={{ objectFit: "contain" }}
               className="object-scale-down"

@@ -46,7 +46,7 @@ const Blog = () => {
                  
                           src={convertHttpToHttps(row?.images?.thumb_image)}
                         fill
-                        alt={row?.basic_data?.title}
+                        alt={row?.basic_data?.title ?? "AKT"}
                         className="object-cover rounded-xl"
                         />
                       </div>

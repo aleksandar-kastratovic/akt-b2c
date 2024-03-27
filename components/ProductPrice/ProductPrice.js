@@ -72,6 +72,25 @@ const ProductInfo = ({
           setIsInWishlist(false);
         }
       });
+      window?.dataLayer?.push({
+        event: "removeToWishlist",
+        ecommerce: {
+          currencyCode: "RSD",
+          remove: {
+            products: [
+              {
+                name: products?.data?.item?.basic_data?.name,
+                id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.price?.original,
+                brand: products?.data?.item?.basic_data?.brand,
+                category: products?.data?.item?.categories[0]?.name,
+                variant: null,
+                quantity: 1,
+              },
+            ],
+          },
+        },
+      });
     } else {
       await post("/wishlist", {
         id: null,
@@ -95,6 +114,25 @@ const ProductInfo = ({
           });
           setLoadingWishlist(false);
         }
+      });
+      window?.dataLayer?.push({
+        event: "addToWishlist",
+        ecommerce: {
+          currencyCode: "RSD",
+          add: {
+            products: [
+              {
+                name: products?.data?.item?.basic_data?.name,
+                id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.price?.original,
+                brand: products?.data?.item?.basic_data?.brand,
+                category: products?.data?.item?.categories[0]?.name,
+                variant: null,
+                quantity: 1,
+              },
+            ],
+          },
+        },
       });
     }
   };
@@ -145,7 +183,6 @@ const ProductInfo = ({
     }
     setProductAmount(1);
     if (process?.env?.GTM_ENABLED === "true") {
-      window?.dataLayer?.push({ ecommerce: null });
       window?.dataLayer?.push({
         event: "addToCart",
         ecommerce: {
@@ -167,26 +204,6 @@ const ProductInfo = ({
       });
     }
   };
-  useEffect(() => {
-    if (process?.env?.GTM_ENABLED === "true") {
-      window?.dataLayer?.push({
-        ecommerce: {
-          detail: {
-            products: [
-              {
-                name: products?.data?.item?.basic_data?.name,
-                id: products?.data?.item?.basic_data?.id_product,
-                price: products?.data?.item?.price?.price?.original,
-                brand: products?.data?.item?.basic_data?.brand,
-                category: products?.data?.item?.categories[0]?.name,
-                variant: productVariant?.basic_data?.name,
-              },
-            ],
-          },
-        },
-      });
-    }
-  });
 
   const renderPrices = (item) => {
     switch (item?.product_type) {
@@ -342,6 +359,29 @@ const ProductInfo = ({
         break;
     }
   };
+
+  useEffect(() => {
+    if (process?.env?.GTM_ENABLED === "true") {
+      window?.dataLayer?.push({
+        event: "viewItem",
+        ecommerce: {
+          detail: {
+            products: [
+              {
+                name: products?.data?.item?.basic_data?.name,
+                id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.price?.original,
+                brand: products?.data?.item?.basic_data?.brand,
+                category: products?.data?.item?.categories[0]?.name,
+                variant: productVariant?.basic_data?.name,
+              },
+            ],
+          },
+        },
+      });
+    }
+  }, [productVariant?.id]);
+
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex flex-col gap-4">

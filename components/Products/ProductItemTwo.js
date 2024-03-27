@@ -14,7 +14,7 @@ const ProductItemTwo = ({ recommendedCategories2, indexBanner2 }) => {
               width={400}
               height={400}
               className="w-full"
-              alt=""
+              alt="AKT"
             />
           ))}
         </div>
@@ -39,7 +39,7 @@ const ProductItemTwo = ({ recommendedCategories2, indexBanner2 }) => {
             width={400}
             height={400}
             className="w-full"
-            alt=""
+            alt="AKT"
           />{" "}
         </div>
       </div>

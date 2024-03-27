@@ -307,7 +307,6 @@ const CategoriesPageDisplay = ({
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
   useEffect(() => {
     process?.env?.GTM_ENABLED === "true" &&
-      window?.dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
     window?.dataLayer.push({
       ecommerce: {
         currencyCode: "RSD",
@@ -415,6 +414,7 @@ const CategoriesPageDisplay = ({
               src={convertHttpToHttps(categoryDataa?.seo?.image)}
               className="w-full h-full object-cover"
               priority={true}
+              alt="AKT"
             />
           ) : null}
         </div>

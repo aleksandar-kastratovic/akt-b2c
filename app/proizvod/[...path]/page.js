@@ -61,29 +61,22 @@ const getBreadcrumbs = async (slug, categoryId) => {
   ).then((res) => res?.payload);
 };
 
-
 export async function generateMetadata({ params: { path } }) {
-  const product = await fetchProduct(path[path?.length - 1]);
   const productSEO = await getProductSEO(path[path?.length - 1]);
   return {
-    title: productSEO?.meta_title ?? product?.data?.item?.basic_data?.name,
-    description:
-      productSEO?.meta_description ??
-      product?.data?.item?.basic_data?.short_description,
-    keywords:
-      productSEO?.meta_keywords ?? product?.data?.item?.basic_data?.name,
+    title: productSEO?.meta_title,
+    description: productSEO?.meta_description,
+    keywords: productSEO?.meta_keywords,
     openGraph: {
-      title: productSEO?.meta_title ?? product?.data?.item?.basic_data?.name,
-      description:
-        productSEO?.meta_description ??
-        product?.data?.item?.basic_data?.short_description,
+      title: productSEO?.meta_title,
+      description: productSEO?.meta_description,
       type: "website",
       images: [
         {
           url: productSEO?.meta_image,
           width: 800,
           height: 600,
-          alt: product?.data?.item?.basic_data?.name,
+          alt: productSEO?.meta_description,
         },
       ],
     },
@@ -175,7 +168,7 @@ const ProductPage = async ({ params: { path } }) => {
                 categoryId={path[path?.length - 2]}
               />
               <div
-                className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6 `}
+                className={`flex flex-col max-md:mt-5 col-span-2 lg:col-span-6`}
               >
                 <h1 className={`font-medium text-[1.4rem`}>Opis proizvoda</h1>
                 <div

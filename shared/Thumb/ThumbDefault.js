@@ -61,7 +61,7 @@ const ThumbDefault = ({
           <div className={`absolute left-2 top-2 z-[5] hidden`}>
             <Image
               src={`/icons/heart-active.png`}
-              alt={`Maximon`}
+              alt={`AKT`}
               width={18}
               height={18}
             />
@@ -77,14 +77,14 @@ const ThumbDefault = ({
           >
             <Image
               src={`/icons/cart.png`}
-              alt={`Maximon`}
+              alt={`AKT`}
               width={25}
               height={25}
               className={`inactive`}
             />
             <Image
               src={`/icons/cart-active.png`}
-              alt={`Maximon`}
+              alt={`AKT`}
               width={25}
               height={25}
               className={`active hidden`}
@@ -118,7 +118,7 @@ const ThumbDefault = ({
               {isInWishlist ? (
                 <Image
                   src={`/icons/heart-active.png`}
-                  alt={`Maximon`}
+                  alt={`AKT`}
                   width={25}
                   height={25}
                 />
@@ -126,14 +126,14 @@ const ThumbDefault = ({
                 <div className={`wishlistHover`}>
                   <Image
                     src={`/icons/heart.png`}
-                    alt={`Maximon`}
+                    alt={`AKT`}
                     width={25}
                     height={25}
                     className={`inactive`}
                   />
                   <Image
                     src={`/icons/heart-active.png`}
-                    alt={`Maximon`}
+                    alt={`AKT`}
                     width={25}
                     height={25}
                     className={`active hidden`}
