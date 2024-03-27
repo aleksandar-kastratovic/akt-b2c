@@ -351,6 +351,7 @@ export default function Variants({
                               src={convertHttpToHttps(value?.image)}
                               width={40}
                               height={40}
+                              alt="AKT"
                               className="rounded-full h-full object-cover"
                             />
                           </div>

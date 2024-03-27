@@ -287,7 +287,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             ecommerce: {
               checkout: {
                 actionField: { step: 1, option: "checkout" },
-                products: cartItems.map((item) => ({
+                products: cartItems?.map((item) => ({
                   name: item?.product?.basic_data?.name,
                   id: item?.product?.id,
                   price: item?.product?.price?.cost?.with_vat,

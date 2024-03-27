@@ -185,43 +185,43 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
             }
@@ -234,20 +234,20 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             return (
-                <>
-                  <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                    <p className="text-black">
-                      -
-                      {(
-                          ((item?.price?.price?.original -
-                                  item?.price?.price?.discount) /
-                              item?.price?.price?.original) *
-                          100
-                      ).toFixed(0)}
-                      %
-                    </p>
-                  </div>
-                </>
+              <>
+                <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
             );
             break;
           case false:
@@ -257,63 +257,67 @@ const ThumbSuspense = ({
     }
   };
 
-
   return (
-    <div key={thumbKey || id_product}>
-      <div className="col-span-1 relative">
-        {renderDiscountPercentage(product)}
-        <Link href={`/${product?.slug_path}`}>
+    <div
+      key={thumbKey || id_product}
+      className="col-span-1 relative self-stretch"
+    >
+      {renderDiscountPercentage(product)}
+      <div className={`flex flex-col h-full`}>
+        <Link href={`/${product?.slug_path}`} className={`h-full`}>
           <div className="relative w-full">
             {product?.image[0] ? (
-              <>
-                {product?.image[1] ? (
-                  <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
-                    <Image
-                      src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
-                      width={0}
-                      placeholder={`blur`}
-                      blurDataURL={base64_placeholder}
-                      height={0}
-                      sizes={`100vw`}
-                      className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full firstImage`}
-                      loading="lazy"
-                    />
-                    <Image
-                      src={convertHttpToHttps(product?.image[1])}
-                      alt={product?.basic_data?.name}
-                      width={0}
-                      height={0}
-                      sizes={`100vw`}
-                      className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 w-full h-full secondImage`}
-                      loading="lazy"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
-                    <Image
-                      src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
-                      width={0}
-                      placeholder={`blur`}
-                      blurDataURL={base64_placeholder}
-                      height={0}
-                      sizes={`100vw`}
-                      className={`aspect-2/3 opacity-100 h-full w-full `}
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-              </>
+                <>
+                  {product?.image[1] ? (
+                      <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage overflow-hidden ">
+                        <Image
+                            src={convertHttpToHttps(product?.image[0])}
+                            alt={product?.basic_data?.name ?? "AKT"}
+                            width={0}
+                            height={0}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            quality={70}
+                            priority
+                            fetchPriority={`high`}
+                            className={`transition-all relative z-[1] duration-200 opacity-100 w-full h-auto firstImage`}
+                        />
+                        <Image
+                            src={convertHttpToHttps(product?.image[1])}
+                            alt={product?.basic_data?.name ?? "AKT"}
+                            width={0}
+                            height={0}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            quality={70}
+                            priority
+                            fetchPriority={`high`}
+                            className={`absolute z-[1] top-0 transition-all duration-200 opacity-0 w-full h-auto secondImage`}
+                        />
+                      </div>
+                  ) : (
+                      <div className="relative w-full min-h-full max-md:w-[94%] mx-auto overflow-hiden">
+                        <Image
+                            src={convertHttpToHttps(product?.image[0])}
+                            alt={product?.basic_data?.name ?? "AKT"}
+                            width={0}
+                            height={0}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            quality={70}
+                            priority
+                            fetchPriority={`high`}
+                            className={`opacity-100 h-auto w-full relative z-[1]`}
+                        />
+                      </div>
+                  )}
+                </>
             ) : (
-              <Image
-                src="/placeholder.jpg"
-                width={500}
-                height={500}
-                className="h-full object-cover"
-                priority={true}
-                alt={`proizvod-${product?.basic_data?.name}`}
-              />
+                <Image
+                    src="/placeholder.jpg"
+                    width={500}
+                    height={500}
+                    className="h-full object-cover"
+                    priority={true}
+                    alt={`proizvod-${product?.basic_data?.name}` ?? "AKT"}
+                />
             )}
             {product?.stickers?.length > 0 && (
                 <div
@@ -332,46 +336,124 @@ const ThumbSuspense = ({
             )}
           </div>
         </Link>
-
-        <div className="text-start w-full pt-1">
+        <div className="text-start mt-auto w-full pt-1">
           <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
             <div className="flex items-center justify-end w-full">
               {isInWishlist ? (
-                <div
-                  onClick={() => removeFromWishlist({ id: wishlist_id })}
-                  className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                >
-                  <Image
-                    alt="wishlist"
-                    src={wishlistactive}
-                    height={28}
-                    width={28}
-                    className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                  />
-                </div>
+                  <div
+                      onClick={() => {
+                        removeFromWishlist({ id: wishlist_id });
+                        window?.dataLayer?.push({
+                          event: "removeToWishlist",
+                          ecommerce: {
+                            currencyCode: "RSD",
+                            remove: {
+                              products: [
+                                {
+                                  name: product?.basic_data?.name,
+                                  id: product?.basic_data?.id_product,
+                                  price: product?.price?.price?.original,
+                                  brand: product?.basic_data?.brand,
+                                  category: product?.categories[0]?.name,
+                                  variant: null,
+                                  quantity: 1,
+                                },
+                              ],
+                            },
+                          },
+                        });
+                      }}
+                      className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                  >
+                    <Image
+                        alt="wishlist"
+                        src={wishlistactive}
+                        height={28}
+                        width={28}
+                        className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+                    />
+                  </div>
               ) : (
-                <div
-                  onClick={() => addToWishlist({ id })}
-                  className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                >
-                  <Image
-                    src={Wishlist}
-                    alt="wishlist"
-                    height={28}
-                    width={28}
-                    className={`cursor-pointer transition-all duration-500 hover:scale-110`}
-                  />
-                </div>
+                  <div
+                      onClick={() => {
+                        addToWishlist({ id });
+                        window?.dataLayer?.push({
+                          event: "addToWishlist",
+                          ecommerce: {
+                            currencyCode: "RSD",
+                            add: {
+                              products: [
+                                {
+                                  name: product?.basic_data?.name,
+                                  id: product?.basic_data?.id_product,
+                                  price: product?.price?.price?.original,
+                                  brand: product?.basic_data?.brand,
+                                  category: product?.categories[0]?.name,
+                                  variant: null,
+                                  quantity: 1,
+                                },
+                              ],
+                            },
+                          },
+                        });
+                      }}
+                      className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                  >
+                    <Image
+                        src={Wishlist}
+                        alt="wishlist"
+                        height={28}
+                        width={28}
+                        className={`cursor-pointer transition-all duration-500 hover:scale-110`}
+                    />
+                  </div>
               )}
             </div>
 
             <div className="w-[2px] h-[26px] bg-[#000]"></div>
             <div className="flex items-center justify-start w-full">
               <Link
+                  href={`/${product?.slug_path}`}
+                  onClick={() => {
+                    process?.env?.GTM_ENABLED === "true" &&
+                    window?.dataLayer?.push({
+                      event: "productClick",
+                      ecommerce: {
+                        click: {
+                          products: [
+                            {
+                              name: product?.basic_data?.name,
+                              id: product?.basic_data?.id_product,
+                              price: product?.price?.price?.original,
+                              brand: product?.basic_data?.brand,
+                              category: product?.basic_data?.category,
+                              variant: product?.basic_data?.variant,
+                              list: "Search Results",
+                              position: index + 1,
+                            },
+                          ],
+                        },
+                      },
+                    });
+                  }}
+                  className="ml-[20%] block"
+              >
+                <Image
+                    src={Cart}
+                    width={36}
+                    height={36}
+                    alt="cart"
+                    className="cursor-pointer hover:scale-110 transition-all duration-200 "
+                />
+              </Link>
+            </div>
+          </div>
+          <p className="text-black self-start font-sm text-lg mt-2 uppercase">
+            <Link
+                className="font-normal text-sm clamp"
                 href={`/${product?.slug_path}`}
                 onClick={() => {
                   process?.env?.GTM_ENABLED === "true" &&
-                    window?.dataLayer?.push({ ecommerce: null });
                   window?.dataLayer?.push({
                     event: "productClick",
                     ecommerce: {
@@ -392,61 +474,22 @@ const ThumbSuspense = ({
                     },
                   });
                 }}
-                className="ml-[20%] block"
-              >
-                <Image
-                  src={Cart}
-                  width={36}
-                  height={36}
-                  alt="cart"
-                  className="cursor-pointer hover:scale-110 transition-all duration-200 "
-                />
-              </Link>
-            </div>
-          </div>
-          <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-            <Link
-              className="font-normal text-sm clamp"
-              href={`/${product?.slug_path}`}
-              onClick={() => {
-                process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({ ecommerce: null });
-                window?.dataLayer?.push({
-                  event: "productClick",
-                  ecommerce: {
-                    click: {
-                      products: [
-                        {
-                          name: product?.basic_data?.name,
-                          id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          brand: product?.basic_data?.brand,
-                          category: product?.basic_data?.category,
-                          variant: product?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
-                    },
-                  },
-                });
-              }}
             >
               {product?.basic_data?.name}
             </Link>
           </p>
           {product?.price?.price?.original == 0 ||
           product?.price?.price?.original == null ? (
-            <button
-              className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-              onClick={() => {
-                router?.push(`/kontakt?slug=${product?.slug}`);
-              }}
-            >
-              <span className="text-[0.8rem]">Pošaljite upit</span>
-            </button>
+              <button
+                  className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+                  onClick={() => {
+                    router?.push(`/kontakt?slug=${product?.slug}`);
+                  }}
+              >
+                <span className="text-[0.8rem]">Pošaljite upit</span>
+              </button>
           ) : (
-            <>{renderPrices(product)}</>
+              <>{renderPrices(product)}</>
           )}
         </div>
       </div>

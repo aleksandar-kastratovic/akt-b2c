@@ -47,7 +47,7 @@ const StaticPage = ({ slug }) => {
                       <div
                         className={`max-sm:h-[280px] sm:h-[300px] lg:h-[450px] 2xl:h-[500px]`}
                       >
-                        <Image src={image?.file} alt={``} fill priority />
+                        <Image src={image?.file} alt="AKT" fill priority />
                       </div>
                     </div>
                   );

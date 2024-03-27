@@ -118,6 +118,7 @@ export const CategoryData = ({ slug }) => {
             src={convertHttpToHttps(image)}
             className="w-full h-full object-cover"
             priority={true}
+            alt="AKT"
           />
         ) : null}
       </div>
