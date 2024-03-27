@@ -181,7 +181,7 @@ const OrderSuccess = ({ order }) => {
             </div>
           </div>
           <div className="col-span-1 max-sm:row-start-1 place-self-center p-5">
-            <Image src={Image1} width={100} height={100} />
+            <Image src={Image1} width={100} height={100} alt="AKT"/>
           </div>
         </div>
       </div>

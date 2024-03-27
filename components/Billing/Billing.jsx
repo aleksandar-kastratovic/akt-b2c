@@ -164,7 +164,7 @@ const Billing = () => {
                 <button className='bg-croonus-3 p-[0.4rem] sm:mr-[4rem] max-sm:mr-[0.6rem] ml-[1re] rounded-[50%] mt-[0.4rem] hover:translate-y-0.5 transition-all ease cursor-pointer text-white min-w-[2.2rem] absolute md:top-4 md:left-4' onClick={handleGoBack}>
                     <Image
                     src={back}
-                    alt="back button"
+                    alt="back button AKT"
                     className='invert transform rotate-180'
                     width={22}
                     height={22}/>

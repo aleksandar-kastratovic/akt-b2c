@@ -164,7 +164,7 @@ const id_product = product?.basic_data?.id_product
                     <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
                         <Image
                           src={convertHttpToHttps(product?.image[0])}
-                          alt={product?.basic_data?.name}
+                          alt={product?.basic_data?.name ?? "AKT"}
                           width={0}
                           height={0}
                           sizes={`100vw`}
@@ -174,7 +174,7 @@ const id_product = product?.basic_data?.id_product
                         />
                         <Image
                           src={convertHttpToHttps(product?.image[1])}
-                          alt={product?.basic_data?.name}
+                          alt={product?.basic_data?.name ?? "AKT"}
                           width={0}
                           height={0}
                           sizes={`100vw`}
@@ -187,7 +187,7 @@ const id_product = product?.basic_data?.id_product
                     <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
                     <Image
                       src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
+                      alt={product?.basic_data?.name }
                       width={0}
                       height={0}
                       sizes={`100vw`}

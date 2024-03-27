@@ -29,7 +29,7 @@ const MobileImageSlider = ({ images }) => {
         src={convertHttpToHttps(item?.image)}
         width={2000}
         height={2000}
-        alt=""
+        alt="AKT"
         priority={true}
       />
     </div>

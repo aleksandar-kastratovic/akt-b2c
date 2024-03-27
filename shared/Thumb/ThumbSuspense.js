@@ -270,7 +270,7 @@ const ThumbSuspense = ({
                   <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
                     <Image
                       src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
+                      alt={product?.basic_data?.name ?? "AKT"}
                       width={0}
                       placeholder={`blur`}
                       blurDataURL={base64_placeholder}
@@ -281,7 +281,7 @@ const ThumbSuspense = ({
                     />
                     <Image
                       src={convertHttpToHttps(product?.image[1])}
-                      alt={product?.basic_data?.name}
+                      alt={product?.basic_data?.name ?? "AKT"}
                       width={0}
                       height={0}
                       sizes={`100vw`}
@@ -293,7 +293,7 @@ const ThumbSuspense = ({
                   <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
                     <Image
                       src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
+                      alt={product?.basic_data?.name ?? "AKT"}
                       width={0}
                       placeholder={`blur`}
                       blurDataURL={base64_placeholder}
@@ -312,7 +312,7 @@ const ThumbSuspense = ({
                 height={500}
                 className="h-full object-cover"
                 priority={true}
-                alt={`proizvod-${product?.basic_data?.name}`}
+                alt={`proizvod-${product?.basic_data?.name}` ?? "AKT"}
               />
             )}
             {product?.stickers?.length > 0 && (

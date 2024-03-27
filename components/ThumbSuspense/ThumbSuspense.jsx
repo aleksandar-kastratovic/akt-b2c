@@ -278,7 +278,7 @@ const Products = ({
                     <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
                       <Image
                         src={convertHttpToHttps(item?.image[0])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
                         sizes={`100vw`}
@@ -288,7 +288,7 @@ const Products = ({
                       />
                       <Image
                         src={convertHttpToHttps(item?.image[1])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
                         sizes={`100vw`}
@@ -301,7 +301,7 @@ const Products = ({
                     <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
                       <Image
                         src={convertHttpToHttps(item?.image[0])}
-                        alt={item?.basic_data?.name}
+                        alt={item?.basic_data?.name ?? "AKT"}
                         width={0}
                         height={0}
                         sizes={`100vw`}

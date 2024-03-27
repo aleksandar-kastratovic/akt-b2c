@@ -30,7 +30,7 @@ const ProductItemOne = ({ recommendedCategories1, indexBanner1 }) => {
             width={400}
             height={400}
             className="w-full"
-            alt=""
+            alt="AKT"
           />
         </div>
       </div>
@@ -41,7 +41,7 @@ const ProductItemOne = ({ recommendedCategories1, indexBanner1 }) => {
             width={400}
             height={400}
             className="w-full"
-            alt=""
+            alt="AKT"
             key={item.id}
           />
         ))}{" "}

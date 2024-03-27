@@ -42,7 +42,7 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
                 src={convertHttpToHttps(item?.product?.image[0])}
                 width={250}
                 height={250}
-                alt=""
+                alt="AKT"
                 className="object-cover h-full w-full"
               />
             </Link>

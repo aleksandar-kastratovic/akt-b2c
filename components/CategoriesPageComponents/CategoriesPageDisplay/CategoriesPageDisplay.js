@@ -415,6 +415,7 @@ const CategoriesPageDisplay = ({
               src={convertHttpToHttps(categoryDataa?.seo?.image)}
               className="w-full h-full object-cover"
               priority={true}
+              alt="AKT"
             />
           ) : null}
         </div>

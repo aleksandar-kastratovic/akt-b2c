@@ -27,7 +27,7 @@ const BlogPost = async ({ params: { bid } }) => {
                         src={convertHttpToHttps(blogpost.images?.thumb_image)}
                         fill
                         className="object-cover rounded-xl"
-                        alt={blogpost.basic_data.title}
+                        alt={blogpost.basic_data.title ?? "AKT"}
                         />
                       </div>
           </div>

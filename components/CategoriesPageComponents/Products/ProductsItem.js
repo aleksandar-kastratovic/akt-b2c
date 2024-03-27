@@ -27,7 +27,7 @@ const ProductsItem = ({ products = [] }) => {
               width={3300}
               height={3300}
               className="h-auto w-full"
-              alt={item.basic_data.name}
+              alt={item.basic_data.name ?? "AKT"}
             />
           )}
         </Link>
@@ -43,7 +43,7 @@ const ProductsItem = ({ products = [] }) => {
             src={Wishlist}
             height={35}
             width={35}
-            alt=""
+            alt="AKT"
             className="p-[4px]"
           />
         </div>

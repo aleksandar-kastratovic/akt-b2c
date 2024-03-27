@@ -67,6 +67,7 @@ const BannerSlider = ({ banners }) => {
         <Image
           src={convertHttpToHttps(item?.image)}
           fill
+          alt="AKT"
           className="object-cover max-md:pt-[3rem]"
         />
       </div>
