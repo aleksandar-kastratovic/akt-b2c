@@ -46,6 +46,28 @@ input::-webkit-inner-spin-button {
   padding-right: 6rem;
   margin-bottom: 0.4rem;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.category-item-enter {
+  animation: fadeIn 1s ease;
+}
+.loadMoreButton {
+  margin: 3rem auto;
+  display: flex;
+  margin-top: 2rem;
+  border: 1px solid black;
+  padding: 0.3rem 1.2rem;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
 .bganimate {
   position: relative;
   overflow: hidden;
@@ -645,6 +667,9 @@ input[type="number"] {
 @media (max-width: 760px) {
   .contactFormHolder p {
     width: 90%;
+  }
+  .rightSideContent {
+    margin-left: 0rem;
   }
   .titleHolder {
     margin: 2rem 0rem 0rem 0rem;
