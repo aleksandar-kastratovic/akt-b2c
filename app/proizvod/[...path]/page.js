@@ -61,6 +61,7 @@ const getBreadcrumbs = async (slug, categoryId) => {
   ).then((res) => res?.payload);
 };
 
+
 export async function generateMetadata({ params: { path } }) {
   const product = await fetchProduct(path[path?.length - 1]);
   const productSEO = await getProductSEO(path[path?.length - 1]);

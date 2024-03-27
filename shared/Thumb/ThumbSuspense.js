@@ -8,7 +8,7 @@ import {
   useRemoveFromWishlist,
   useProductSticker,
 } from "@/hooks/akt.hooks";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import RenderPriceDiscount from "@/shared/RenderPrice/RenderPriceDiscount";
@@ -52,6 +52,7 @@ const ThumbSuspense = ({
       image,
       basic_data: { name, id_product },
     },
+    isFetched,
   } = useProductThumb({ id: id, slug: id, categoryId: categoryId ?? "*" });
 
   const slug = slug_path;
@@ -185,43 +186,43 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
             }
@@ -234,20 +235,20 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             return (
-                <>
-                  <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                    <p className="text-black">
-                      -
-                      {(
-                          ((item?.price?.price?.original -
-                                  item?.price?.price?.discount) /
-                              item?.price?.price?.original) *
-                          100
-                      ).toFixed(0)}
-                      %
-                    </p>
-                  </div>
-                </>
+              <>
+                <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
             );
             break;
           case false:
@@ -256,7 +257,6 @@ const ThumbSuspense = ({
         }
     }
   };
-
 
   return (
     <div key={thumbKey || id_product}>
@@ -267,25 +267,24 @@ const ThumbSuspense = ({
             {product?.image[0] ? (
               <>
                 {product?.image[1] ? (
-                  <div className="relative  w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                  <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
                     <Image
-                      src={convertHttpToHttps(product?.image[0])}
-                      alt={product?.basic_data?.name}
-                      width={0}
-                      placeholder={`blur`}
-                      blurDataURL={base64_placeholder}
-                      height={0}
-                      sizes={`100vw`}
-                      className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full firstImage`}
-                      loading="lazy"
+                        src={convertHttpToHttps(product?.image[0])}
+                        alt={product?.basic_data?.name}
+                        width={0}
+                        height={0}
+                        sizes={`60vw`}
+                        className={`transition-all duration-200 opacity-100 w-full h-auto firstImage bg-slate-300`}
+                        loading="lazy"
                     />
+
                     <Image
                       src={convertHttpToHttps(product?.image[1])}
                       alt={product?.basic_data?.name}
                       width={0}
                       height={0}
-                      sizes={`100vw`}
-                      className={`absolute top-0 transition-all aspect-2/3 duration-200 opacity-0 w-full h-full secondImage`}
+                      sizes={`60vw`}
+                      className={`absolute top-0 transition-all duration-200 opacity-0 w-full h-auto secondImage`}
                       loading="lazy"
                     />
                   </div>
@@ -295,11 +294,9 @@ const ThumbSuspense = ({
                       src={convertHttpToHttps(product?.image[0])}
                       alt={product?.basic_data?.name}
                       width={0}
-                      placeholder={`blur`}
-                      blurDataURL={base64_placeholder}
                       height={0}
-                      sizes={`100vw`}
-                      className={`aspect-2/3 opacity-100 h-full w-full `}
+                      sizes={`60vw`}
+                      className={`opacity-100 h-auto w-full `}
                       loading="lazy"
                     />
                   </div>
@@ -316,19 +313,19 @@ const ThumbSuspense = ({
               />
             )}
             {product?.stickers?.length > 0 && (
-                <div
-                    className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
-                >
-                  {product?.stickers?.map(({ name }) => {
-                    if (name) {
-                      return (
-                          <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                            <p>{name}</p>
-                          </div>
-                      );
-                    }
-                  })}
-                </div>
+              <div
+                className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
+              >
+                {product?.stickers?.map(({ name }) => {
+                  if (name) {
+                    return (
+                      <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                        <p>{name}</p>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
             )}
           </div>
         </Link>

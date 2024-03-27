@@ -74,9 +74,7 @@ const ThumbSlider = ({
             src={images[0] ?? "/maximon.png"}
             width={500}
             height={500}
-            alt={name ?? "Maximon"}
-            placeholder={`blur`}
-            blurDataURL={base64_placeholder}
+            alt={name ?? "Akt"}
             className={`relative z-[1] aspect-2/3 max-h-[350px] transition-all duration-500 group-hover:scale-110`}
           />
         </Link>
