@@ -539,9 +539,9 @@ const NavigationDesktop = () => {
                     </span>
                   </div>
                   <div className="relative">
-                    <Link href="/korpa">
+                    <a href="/korpa">
                       <Image src={Cart} width={38} height={38} alt="cart" />
-                    </Link>
+                    </a>
                     <span className="absolute text-sm -top-2 px-1.5 rounded-full -right-1 bg-yellow-200">
                       {cartCount}
                     </span>
