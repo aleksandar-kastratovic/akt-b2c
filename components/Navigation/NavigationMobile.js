@@ -121,9 +121,9 @@ const NavigationMobile = () => {
               onClick={() => setSearchOpen(!searchOpen)}
               alt="search"
             />
-            <Link href="/korpa">
+            <a href="/korpa">
               <Image src={Cart} width={35} height={35} alt="cart" />
-            </Link>
+            </a>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-croonus-3 rounded-full px-1.5 text-sm">
                 {cartCount}
