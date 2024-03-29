@@ -151,13 +151,14 @@ const Uslovi = () => {
       </p>
       <p>
         Ukoliko korisnik želi da odustane od ugovora o kupovini proizvoda koji
-        je zaključen putem vebsajta, to može učiniti slanjem obrasca za
-        odustanak od ugovora elektronski na mail adresu{" "}
+        je zaključen putem vebsajta, to može učiniti slanjem <a href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf" download className="underline cursor-pointer">Obrasca za
+        odustanak od ugovora</a> elektronski na mail adresu{" "}
         <Link href="mailto:webshop@stefantekstil.rs" className="underline">
           webshop@stefantekstil.rs
         </Link>{" "}
         ili na drugi nedvosmislen način.
       </p>
+      <p>Obrazac za odustanak od ugovora možete preuzeti na <a href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf" download className="underline cursor-pointer text-red-600">ovom linku</a>.</p>
       <p>
         Ukoliko obrazac za odustanak od ugovora Korisnik dostavi elektronski,
         AKT će ga, bez odlaganja pismenim putem obavestiti o prijemu obrasca.
@@ -233,10 +234,10 @@ const Uslovi = () => {
       <p>
         U slučaju vraćanja robe i povraćaja sredstava kupcu koji je prethodno
         platio nekom od platnih kartica, delimično ili u celosti, a bez obzira
-        na razlog vraćanja, [upisati IME_PRODAJNOG_MESTA] je u obavezi da
+        na razlog vraćanja, {process.env.COMPANY} je u obavezi da
         povraćaj vrši isključivo preko VISA, EC/MC, Maestro, Amex i Dina metoda
         plaćanja, što znači da će banka na zahtev prodavca obaviti povraćaj
-        sredstava na račun korisnika kartice
+        sredstava na račun korisnika kartice.
       </p>
       <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
         Izjava o PDV-u
