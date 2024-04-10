@@ -13,19 +13,20 @@ import Search from "../../assets/Icons/search.png";
 import { toast } from "react-toastify";
 import useDebounce from "@/hooks/useDebounce";
 import { currencyFormat } from "@/helpers/functions";
-import { useSearch } from "@/hooks/akt.hooks";
+import {
+  useCartBadge,
+  useCategoryTree,
+  useLandingPages,
+  useSearch,
+  useWishlistBadge,
+} from "@/hooks/akt.hooks";
 import { useContext } from "react";
 import { userContext } from "@/context/userContext";
 
 const NavigationDesktop = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [categories, setCategories] = useState([]);
-  const [landingPagesList, setLandingPagesList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartCount, setCartCount] = useState(0);
-  const [cart, , wishList] = useCartContext();
-  const [wishListCount, setWishListCount] = useState(0);
   const [background, setBackground] = useState("transparent");
   const [subCategory, setSubcategory] = useState(false);
 
@@ -36,51 +37,10 @@ const NavigationDesktop = () => {
     category = true;
   }
 
-  const getCartCount = useCallback(() => {
-    get("/cart/badge-count")
-      .then((response) => {
-        setCartCount(response?.payload?.summary?.total_quantity ?? 0);
-      })
-      .catch((error) => console.warn(error));
-  }, []);
-
-  const getWishlistCount = useCallback(() => {
-    get("/wishlist/badge-count")
-      .then((response) => {
-        setWishListCount(response?.payload?.summary?.items_count ?? 0);
-      })
-      .catch((error) => console.warn(error));
-  }, []);
-
-  useEffect(() => {
-    getWishlistCount();
-  }, [getWishlistCount, wishList]);
-
-  useEffect(() => {
-    getCartCount();
-  }, [getCartCount, cart]);
-
-  useEffect(() => {
-    setCartCount(Math.round(cartCount));
-  }, [cartCount]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await get("/categories/product/tree").then((response) =>
-        setCategories(response?.payload)
-      );
-    };
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    const getLandingPages = async () => {
-      const data = await list(`/landing-pages/list`).then((response) =>
-        setLandingPagesList(response?.payload)
-      );
-    };
-    getLandingPages();
-  }, []);
+  const { data: categories } = useCategoryTree();
+  const { data: landingPagesList } = useLandingPages();
+  const { data: cartCount } = useCartBadge();
+  const { data: wishListCount } = useWishlistBadge();
 
   useEffect(() => {
     if (category) {
@@ -105,8 +65,7 @@ const NavigationDesktop = () => {
     };
   }, [category, background]);
 
-
- const handleSearch = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm?.length >= 3) {
       router.push(`/pretraga?query=${searchTerm}`);
@@ -117,10 +76,8 @@ const NavigationDesktop = () => {
   const [activeCategory, setActiveCategory] = useState();
   const [height, setHeight] = useState(0);
 
-
   useEffect(() => {
     if (pathname?.includes("/korpa/")) {
-      getCartCount();
       router?.refresh();
     }
   }, [pathname]);
@@ -141,7 +98,6 @@ const NavigationDesktop = () => {
     slug: undefined,
   });
   const [activeSubSubCategory, setActiveSubSubCategory] = useState();
- 
 
   useEffect(() => {
     if (category) {
@@ -175,7 +131,7 @@ const NavigationDesktop = () => {
       pathname?.includes("/kategorija" || "") &&
         setVisible(false) &&
         setOpen(false);
-        setSubcategory(false)
+      setSubcategory(false);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -198,7 +154,6 @@ const NavigationDesktop = () => {
 
   useEffect(() => {
     if (pathname?.includes("/korpa/")) {
-      getCartCount();
       router?.refresh();
     }
   }, [pathname]);
@@ -207,7 +162,7 @@ const NavigationDesktop = () => {
     const handleMouseOutsideOfBrowserViewport = (event) => {
       if (event.clientY <= 0) {
         setOpen(false);
-        setSubcategory(false)
+        setSubcategory(false);
       }
     };
 
@@ -224,7 +179,7 @@ const NavigationDesktop = () => {
     if (pathname?.includes("/kategorija" || "")) {
       setOpen(false);
       setVisible(false);
-      setSubcategory(false)
+      setSubcategory(false);
     }
   }, [pathname]);
 
@@ -232,7 +187,6 @@ const NavigationDesktop = () => {
   const [loading, setLoading] = useState(false);
 
   const debouncedSearch = useDebounce(searchTerm, 500);
-
 
   const { data, isFetching } = useSearch({
     searchTerm: debouncedSearch,
@@ -247,13 +201,11 @@ const NavigationDesktop = () => {
         }).then((response) => {
           setSearchData(response?.payload);
           setLoading(false);
-         
         });
       };
       getData(debouncedSearch);
     }
   }, [debouncedSearch]);
-
 
   const searchRef = useRef(null);
   const searchImgRef = useRef(null);
@@ -273,7 +225,6 @@ const NavigationDesktop = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [searchRef]);
-  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -322,7 +273,6 @@ const NavigationDesktop = () => {
       .catch((error) => console.warn(error));
   };
 
-
   return (
     <>
       <div className="fixed-menu-container sticky top-0 z-[100]">
@@ -332,37 +282,40 @@ const NavigationDesktop = () => {
               <Link href={`tel:0313894222`} className="text-white text-sm">
                 Call centar: 031 / 3894 - 222
               </Link>
-            <div className="flex gap-4 items-center">
-              {isLoggedIn ? (
-            <>
-              <p className="text-white ml-[2rem] text-sm">Dobrodošli na profil!</p>
-              <div
-                className="bg-croonus-2 px-[0.8rem] ml-[1rem] transition-all ease cursor-pointer relative"
-                onClick={toggleDropdown}
-              >
-               Moj profil
-
-                {isDropdownOpen && (
-                  <div className="dropdownProfil absolute z-[200] right-0 top-[2rem]">
-                    <ul>
-                      <li className="border-b border-[#f0f0f0] px-[2.2rem] py-[0.4rem] bg-croonus-2 hover:bg-croonus-1 hover:text-white w-max border-b border-croonus-1">
-                        <a href="/customer-profil">Vidi profil</a>
-                      </li>
-                      <li className="px-[2.2rem] py-[0.4rem] bg-croonus-2  hover:bg-croonus-1 hover:text-white">
-                        <button onClick={logoutHandler}>Odjava</button>
-                      </li>
-                    </ul>
-                  </div>
+              <div className="flex gap-4 items-center">
+                {isLoggedIn ? (
+                  <>
+                    <p className="text-white ml-[2rem] text-sm">
+                      Dobrodošli na profil!
+                    </p>
+                    <div
+                      className="bg-croonus-2 px-[0.8rem] ml-[1rem] transition-all ease cursor-pointer relative"
+                      onClick={toggleDropdown}
+                    >
+                      Moj profil
+                      {isDropdownOpen && (
+                        <div className="dropdownProfil absolute z-[200] right-0 top-[2rem]">
+                          <ul>
+                            <li className="border-b border-[#f0f0f0] px-[2.2rem] py-[0.4rem] bg-croonus-2 hover:bg-croonus-1 hover:text-white w-max border-b border-croonus-1">
+                              <a href="/customer-profil">Vidi profil</a>
+                            </li>
+                            <li className="px-[2.2rem] py-[0.4rem] bg-croonus-2  hover:bg-croonus-1 hover:text-white">
+                              <button onClick={logoutHandler}>Odjava</button>
+                            </li>
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    href="/nalog"
+                    className="text-white text-sm hover:underline"
+                  >
+                    Moj profil
+                  </Link>
                 )}
               </div>
-            </>
-          ) : (
-              <Link href="/nalog" className="text-white text-sm hover:underline">
-                Moj profil
-              </Link>
-         
-          )}
-            </div>
             </div>
           </div>
           <div className="bg-white bg-opacity-90 backdrop-blur">
@@ -372,8 +325,9 @@ const NavigationDesktop = () => {
                   <i
                     className="fa-solid fa-xmark text-4xl"
                     onClick={() => {
-                      setOpen(false)
-                      setSubcategory(false)}}
+                      setOpen(false);
+                      setSubcategory(false);
+                    }}
                   />
                 ) : (
                   <Image
@@ -392,28 +346,27 @@ const NavigationDesktop = () => {
                     width={220}
                     height={220}
                     onClick={() => {
-                      setOpen(false)
-                      setSubcategory(false)}}
+                      setOpen(false);
+                      setSubcategory(false);
+                    }}
                     alt="logo"
                   />
                 </Link>
               </div>
               <div className="flex items-center gap-5 relative ">
                 <form
-                 
-                 onSubmit={(e) => handleSearch(e)}
+                  onSubmit={(e) => handleSearch(e)}
                   className={`${
                     searchTerm?.length > 0 ? `w-[25rem]` : `w-60`
-                } transition-all duration-500 relative`}
-
+                  } transition-all duration-500 relative`}
                 >
                   <input
                     type="text"
                     placeholder="Unesite pojam za pretragu"
                     className={`bg-transparent border-l-0 w-full border-t-0 border-r-0 border-b ${
-                        background === "white"
-                            ? "border-b-black text-black"
-                            : "border-b-black focus:border-b-black"
+                      background === "white"
+                        ? "border-b-black text-black"
+                        : "border-b-black focus:border-b-black"
                     }  focus:ring-0 placeholder:text-sm text-sm p-0 focus:border-b-black  focus:outline-none`}
                     onInput={(event) => {
                       setSearchTerm(event.target.value);
@@ -422,94 +375,94 @@ const NavigationDesktop = () => {
                       }
                     }}
                     value={searchTerm}
-                />
+                  />
                   {searchTerm?.length < 3 && searchTerm?.length >= 1 && (
-                    <span className={`absolute text-sm top-1 right-2 text-red-500`}>
-                        Unesite najmanje 3 karaktera
+                    <span
+                      className={`absolute text-sm top-1 right-2 text-red-500`}
+                    >
+                      Unesite najmanje 3 karaktera
                     </span>
-                )}
+                  )}
 
-                <div
+                  <div
                     ref={searchRef}
                     className={`${
-                    searchTerm?.length >= 3
-                      ? `absolute flex flex-col h-[420px] hidescrollbar overflow-y-auto bg-white top-[30px] right-0 w-full border rounded-b-lg`
-                      : `hidden`
-                  } `}
-                >
-                {searchData?.items?.length > 0 && searchTerm?.length > 0 && (
-                    <div className="w-[95%] mx-auto mt-5">
-                      <h1 className="text-[1rem] font-normal">
-                        Rezultati pretrage
-                      </h1>
-                      <div className="flex flex-col gap-5 mt-3 pb-5">
-                        {searchData?.items?.slice(0, 6)?.map((item) => {
-                        
-                          return (
-                            <Link
-                              href={`/${item?.slug_path}`}
-                              onClick={(e) => {
-                                setSearchData([]);
-                                setSearchTerm("");
-                              }}
-                            >
-                             <div className="flex flex-row items-center gap-5">
-                                <div className=" relative">
-                                  <Image
-                                    src={item?.image[0]}
-                                    alt="AKT"
-                                    width={60}
-                                    height={60}
-                                    className={`object-cover rounded-full h-[60px]`}
-                                  />
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                  <h1 className="text-[0.9rem] font-normal">
-                                    {item?.basic_data?.name}
-                                  </h1>
-                                  <h1 className="text-[0.9rem] w-fit font-bold text-center">
-                                    {currencyFormat(
-                                      item?.price?.price?.discount ??
-                                        item?.price?.price?.original
-                                    )}
-                                  </h1>
-                                </div>
-                              </div>
-                              </Link>
-                          );
-                        })}
+                      searchTerm?.length >= 3
+                        ? `absolute flex flex-col h-[420px] hidescrollbar overflow-y-auto bg-white top-[30px] right-0 w-full border rounded-b-lg`
+                        : `hidden`
+                    } `}
+                  >
+                    {searchData?.items?.length > 0 &&
+                      searchTerm?.length > 0 && (
+                        <div className="w-[95%] mx-auto mt-5">
+                          <h1 className="text-[1rem] font-normal">
+                            Rezultati pretrage
+                          </h1>
+                          <div className="flex flex-col gap-5 mt-3 pb-5">
+                            {searchData?.items?.slice(0, 6)?.map((item) => {
+                              return (
+                                <Link
+                                  href={`/${item?.slug_path}`}
+                                  onClick={(e) => {
+                                    setSearchData([]);
+                                    setSearchTerm("");
+                                  }}
+                                >
+                                  <div className="flex flex-row items-center gap-5">
+                                    <div className=" relative">
+                                      <Image
+                                        src={item?.image[0]}
+                                        alt="AKT"
+                                        width={60}
+                                        height={60}
+                                        className={`object-cover rounded-full h-[60px]`}
+                                      />
+                                    </div>
+                                    <div className="flex flex-col gap-1">
+                                      <h1 className="text-[0.9rem] font-normal">
+                                        {item?.basic_data?.name}
+                                      </h1>
+                                      <h1 className="text-[0.9rem] w-fit font-bold text-center">
+                                        {currencyFormat(
+                                          item?.price?.price?.discount ??
+                                            item?.price?.price?.original
+                                        )}
+                                      </h1>
+                                    </div>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    {loading && (
+                      <div className={`w-[95%] mx-auto text-center mt-5`}>
+                        <i
+                          className={`fas fa-spinner fa-spin text-xl text-black`}
+                        ></i>
                       </div>
-                    </div>
-                  )}
-                  {loading && (
-                    <div className={`w-[95%] mx-auto text-center mt-5`}>
-                      <i
-                        className={`fas fa-spinner fa-spin text-xl text-black`}
-                      ></i>
-                    </div>
-                  )}
-                  {!loading && (
-                    <div
-                      className={`sticky bottom-0 w-full bg-croonus-2 py-2 mt-auto text-center hover:bg-opacity-80`}
-                    >
-                                            <button
-                        onClick={() => {
-                          handleSearch();
-                          setSearchData([]);
-                        }}
-                        className={` w-full h-full font-light text-center`}
+                    )}
+                    {!loading && (
+                      <div
+                        className={`sticky bottom-0 w-full bg-croonus-2 py-2 mt-auto text-center hover:bg-opacity-80`}
                       >
-                        Prikaži sve rezultate (
-                        {searchData?.pagination?.total_items > 10
-                          ? `još ${searchData?.pagination?.total_items - 10}`
-                          : `Pretraži`}
-                        )
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-           
+                        <button
+                          onClick={() => {
+                            handleSearch();
+                            setSearchData([]);
+                          }}
+                          className={` w-full h-full font-light text-center`}
+                        >
+                          Prikaži sve rezultate (
+                          {searchData?.pagination?.total_items > 10
+                            ? `još ${searchData?.pagination?.total_items - 10}`
+                            : `Pretraži`}
+                          )
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </form>
                 <Image
                   ref={searchImgRef}
@@ -520,10 +473,10 @@ const NavigationDesktop = () => {
                   onClick={handleSearch}
                   className={
                     background === "white"
-                        ? "cursor-pointer "
-                        : "cursor-pointer"
+                      ? "cursor-pointer "
+                      : "cursor-pointer"
                   }
-              />
+                />
                 <div className="flex items-center gap-5">
                   <div className="relative">
                     <Link href="/lista-zelja">
@@ -573,7 +526,9 @@ const NavigationDesktop = () => {
                           const timeout = setTimeout(() => {
                             setSubcategory(item?.children);
                           }, 200);
-                          return() => {clearTimeout(timeout)}
+                          return () => {
+                            clearTimeout(timeout);
+                          };
                         }}
                       >
                         {item?.name}
@@ -594,79 +549,86 @@ const NavigationDesktop = () => {
             </div>
             {subCategory ? (
               <>
-               {subCategory?.some(
-              (item) => item?.children && item?.children.length > 0
-            ) ? (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px]">
-                {subCategory?.map((item) => (
-                  <div className="col-span-1 flex flex-col" key={item.id}>
-                    <Link
-                      href={`/${item?.slug_path}`}
-                      onClick={() => {
-                        setOpen(false)
-                        setSubcategory([])}}
-                    >
-                      <h1 className="text-xl font-light hover:underline">
-                        {item?.name}
-                      </h1>
-                    </Link>
-                    <div className="mt-5 pl-2 ">
-                      {item?.children
-                        ? item?.children?.map((child) => (
-                            <Link
-                              href={`/${child?.slug_path}`}
-                              key={child?.id}
-                              onClick={() => {
-                                setOpen(false)
-                              setSubcategory([])}}
-                            >
-                              <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
-                                <p className="">{child?.name}</p>
-                              </div>
-                            </Link>
-                          ))
-                        : null}
-                    </div>
+                {subCategory?.some(
+                  (item) => item?.children && item?.children.length > 0
+                ) ? (
+                  <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px]">
+                    {subCategory?.map((item) => (
+                      <div className="col-span-1 flex flex-col" key={item.id}>
+                        <Link
+                          href={`/${item?.slug_path}`}
+                          onClick={() => {
+                            setOpen(false);
+                            setSubcategory([]);
+                          }}
+                        >
+                          <h1 className="text-xl font-light hover:underline">
+                            {item?.name}
+                          </h1>
+                        </Link>
+                        <div className="mt-5 pl-2 ">
+                          {item?.children
+                            ? item?.children?.map((child) => (
+                                <Link
+                                  href={`/${child?.slug_path}`}
+                                  key={child?.id}
+                                  onClick={() => {
+                                    setOpen(false);
+                                    setSubcategory([]);
+                                  }}
+                                >
+                                  <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2 whitespace-nowrap w-max">
+                                    <p className="">{child?.name}</p>
+                                  </div>
+                                </Link>
+                              ))
+                            : null}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[18px] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
-                {subCategory?.map((item) => (
-                  <div className="col-span-1 flex flex-col h-fit" key={item.id}>
-                    <Link
-                      href={`/${item?.slug_path}`}
-                      onClick={() => {
-                        setOpen(false)
-                        setSubcategory([]) }}
-                    >
-                      <h1 className="text-xl font-light hover:underline">
-                        {item?.name}
-                      </h1>
-                    </Link>
-                    <div className="mt-2 pl-2 ">
-                      {item?.children
-                        ? item?.children?.map((child) => (
-                            <Link
-                              href={`/${child?.slug_path}`}
-                              key={child?.id}
-                              onClick={() => {
-                                setOpen(false)
-                                setSubcategory([])} }
-                            >
-                              <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
-                                <p className="">{child?.name}</p>
-                              </div>
-                            </Link>
-                          ))
-                        : null}
-                    </div>
+                ) : (
+                  <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10  gap-y-[18px] 2xl:gap-x-20 self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll transition ease-in-out delay-150  md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px] ">
+                    {subCategory?.map((item) => (
+                      <div
+                        className="col-span-1 flex flex-col h-fit"
+                        key={item.id}
+                      >
+                        <Link
+                          href={`/${item?.slug_path}`}
+                          onClick={() => {
+                            setOpen(false);
+                            setSubcategory([]);
+                          }}
+                        >
+                          <h1 className="text-xl font-light hover:underline">
+                            {item?.name}
+                          </h1>
+                        </Link>
+                        <div className="mt-2 pl-2 ">
+                          {item?.children
+                            ? item?.children?.map((child) => (
+                                <Link
+                                  href={`/${child?.slug_path}`}
+                                  key={child?.id}
+                                  onClick={() => {
+                                    setOpen(false);
+                                    setSubcategory([]);
+                                  }}
+                                >
+                                  <div className="text-sm font-light py-1 px-1 hover:bg-croonus-2">
+                                    <p className="">{child?.name}</p>
+                                  </div>
+                                </Link>
+                              ))
+                            : null}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}</>
+                )}
+              </>
             ) : null}
-           
           </div>
           <div className="fixed bottom-0 bg-croonus-1 text-white w-full py-1">
             <div className="px-1 mx-auto flex">
@@ -678,8 +640,9 @@ const NavigationDesktop = () => {
                       key={item?.id}
                       className="font-medium uppercase px-3 text-xl py-1"
                       onClick={() => {
-                        setOpen(false)
-                        setSubcategory([])}}
+                        setOpen(false);
+                        setSubcategory([]);
+                      }}
                     >
                       {item?.name}
                     </Link>

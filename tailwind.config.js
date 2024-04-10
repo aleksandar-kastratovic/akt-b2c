@@ -7,6 +7,7 @@ module.exports = {
     "./components/****/***/**/*.{js,ts,jsx,tsx}",
     "./pages/*/.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./_components/**/*.{js,ts,jsx,tsx}",
     "./app/layout.js",
   ],
   theme: {
@@ -17,7 +18,7 @@ module.exports = {
         "croonus-3": "#eddd9e",
         "croonus-4": "#333333",
         "croonus-5": "#f5f5f6",
-        "croonus-gray": "#f7f7f7"
+        "croonus-gray": "#f7f7f7",
       },
       screens: {
         "3xl": "1680px",

@@ -3,9 +3,12 @@ import { useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import {useProductGallery} from "@/hooks/akt.hooks";
 
 
-const MobileImageSlider = ({ images }) => {
+const MobileImageSlider = ({ slug }) => {
+  const { data: images } = useProductGallery({ slug: slug });
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider({

@@ -63,6 +63,49 @@ export const useScroll = () => {
   return { headerShowing, sideBarShowing };
 };
 
+export const useCategoryTree = () => {
+  return useSuspenseQuery({
+    queryKey: ["categoryTree"],
+    queryFn: async () => {
+      return await GET(`/categories/product/tree`).then((res) => res?.payload);
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useCartBadge = () => {
+  return useSuspenseQuery({
+    queryKey: ["cartBadge"],
+    queryFn: async () => {
+      return await GET(`/cart/badge-count`).then(
+        (res) => Math.round(res?.payload?.summary?.total_quantity)
+      );
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useWishlistBadge = () => {
+  return useSuspenseQuery({
+    queryKey: ["wishlistBadge"],
+    queryFn: async () => {
+      return await GET(`/wishlist/badge-count`).then(
+        (res) => res?.payload?.summary?.items_count
+      );
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+export const useLandingPages = () => {
+  return useSuspenseQuery({
+    queryKey: ["LandingPages"],
+    queryFn: async () => {
+      return await LIST(`/landing-pages/list`).then((res) => res?.payload);
+    },
+    refetchOnWindowFocus: false,
+  });
+};
+
 //hook za dodavanje u korpu, proslediti id i kolicinu
 export const useAddToCart = () => {
   const [, mutateCart] = useCartContext();
@@ -493,7 +536,7 @@ export const useCategoryProducts = ({
             limit: limit,
             sort: sort,
             selectedFilters: filterKey,
-            gtm: isGTM
+            gtm: isGTM,
           },
         ],
         queryFn: async () => {
@@ -601,11 +644,13 @@ export const useProductGallery = ({ slug, id }) => {
 };
 
 //hook za dobijanje breadcrumbs na detaljnoj strani
-export const useProductBreadcrumbs = ({ slug }) => {
+export const useProductBreadcrumbs = ({ slug, categoryId }) => {
   return useSuspenseQuery({
     queryKey: ["productBreadcrumbs", { slug: slug }],
     queryFn: async () => {
-      return await GET(`/product-details/breadcrumbs/${slug}`).then((res) => {
+      return await GET(
+        `/product-details/breadcrumbs/${slug}?categoryId=${categoryId ?? "*"}`
+      ).then((res) => {
         return res?.payload;
       });
     },
