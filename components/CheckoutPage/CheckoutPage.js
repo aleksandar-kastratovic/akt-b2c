@@ -261,11 +261,9 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
 
             const formData = document.getElementById("bank_send_form");
             formData.submit();
-
             mutateCart();
           } else {
             mutateCart();
-
             router.push(`/kupovina/${response?.payload?.order?.order_token}`);
           }
 

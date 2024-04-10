@@ -9,8 +9,11 @@ import { FreeMode, Pagination, Thumbs } from "swiper";
 import Image from "next/image";
 import classes from "./styles.module.css";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
+import { useProductGallery } from "@/hooks/akt.hooks";
 
-const ProductGallery = ({ productGallery }) => {
+const ProductGallery = ({ slug }) => {
+  const { data: productGallery } = useProductGallery({ slug: slug });
+
   function ImageMagnifier({
     src,
     width,
@@ -35,7 +38,9 @@ const ProductGallery = ({ productGallery }) => {
       >
         <Image
           src={src}
-          fill
+          width={0}
+          height={0}
+          sizes={"100vw"}
           priority
           className="h-full w-full object-cover"
           onMouseEnter={(e) => {
@@ -93,7 +98,7 @@ const ProductGallery = ({ productGallery }) => {
               fill
               alt="AKT"
               priority
-              style={{ objectFit: "fill" }}
+              style={{ objectFit: "cover" }}
             />
           </SwiperSlide>
         );
@@ -116,8 +121,8 @@ const ProductGallery = ({ productGallery }) => {
           fill
           priority
           alt="AKT"
-          style={{ objectFit: "contain" }}
-          className="cursor-pointer max-md:hidden"
+          style={{ objectFit: "cover" }}
+          className="cursor-pointer max-md:hidden aspect-square"
         />
       </SwiperSlide>
     );

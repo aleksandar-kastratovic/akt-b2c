@@ -24,6 +24,8 @@ const nextConfig = {
     INSTAGRAM_KEY: process.env.INSTAGRAM_KEY,
   },
   images: {
+    minimumCacheTTL: 60 * 60 * 12 * 90,
+
     domains: [
       "api.akt.croonus.com",
       "scontent.cdninstagram.com",

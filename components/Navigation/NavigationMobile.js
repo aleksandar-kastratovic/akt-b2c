@@ -13,14 +13,12 @@ import { useRouter } from "next/navigation";
 import Burger from "../../assets/Icons/burger.png";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { toast } from "react-toastify";
+import {useCartBadge, useCategoryTree, useWishlistBadge} from "@/hooks/akt.hooks";
 const NavigationMobile = () => {
-  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
   const [search, setSearch] = useState("");
 
   const [cart, , wishList] = useCartContext();
-  const [wishListCount, setWishListCount] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
   const [category, setCategory] = useState({ id: null, data: [] });
   const [activeSubcategory, setActiveSubcategory] = useState({
@@ -29,14 +27,12 @@ const NavigationMobile = () => {
   });
   const [subCategory, setSubcategory] = useState({ id: null, data: [] });
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await get("/categories/product/tree").then((response) =>
-        setCategories(response?.payload)
-      );
-    };
-    fetchCategories();
-  }, []);
+
+  const { data: categories } = useCategoryTree();
+  const { data: cartCount } = useCartBadge();
+  const { data: wishListCount } = useWishlistBadge();
+
+
   const [searchData, setSearchData] = useState([]);
   useEffect(() => {
     const fetchSearchData = async () => {
@@ -58,6 +54,7 @@ const NavigationMobile = () => {
     };
     disableBodyScroll();
   }, [open]);
+
   const { push: navigate, asPath } = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -72,29 +69,6 @@ const NavigationMobile = () => {
     }
   };
 
-  const getCartCount = useCallback(() => {
-    get("/cart/badge-count")
-      .then((response) => {
-        setCartCount(response?.payload?.summary?.items_count ?? 0);
-      })
-      .catch((error) => console.warn(error));
-  }, []);
-
-  const getWishlistCount = useCallback(() => {
-    get("/wishlist/badge-count")
-      .then((response) => {
-        setWishListCount(response?.payload?.summary?.items_count ?? 0);
-      })
-      .catch((error) => console.warn(error));
-  }, []);
-
-  useEffect(() => {
-    getWishlistCount();
-  }, [getWishlistCount, wishList]);
-
-  useEffect(() => {
-    getCartCount();
-  }, [getCartCount, cart]);
   return (
     <>
       <div className="lg:hidden bg-white sticky top-0 z-[200] bg-opacity-80 backdrop-blur">

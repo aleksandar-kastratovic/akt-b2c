@@ -22,12 +22,12 @@ import Wishlist from "@/assets/Icons/favorite.png";
 import wishlistactive from "@/assets/Icons/favorite-active.png";
 
 const ThumbSuspense = ({
-                         className,
-                         id,
-                         thumbKey,
-                         refreshWishlist = () => {},
-                         categoryId,
-                       }) => {
+  className,
+  id,
+  thumbKey,
+  refreshWishlist = () => {},
+  categoryId,
+}) => {
   const {
     isPending: isWishlistPending,
     mutate: addToWishlist,
@@ -36,7 +36,7 @@ const ThumbSuspense = ({
 
   const { data, refetch } = useIsInWishlist({ id });
   const { mutate: removeFromWishlist, isSuccess: isRemoved } =
-      useRemoveFromWishlist();
+    useRemoveFromWishlist();
   const { base64_placeholder } = config;
   const router = useRouter();
   const isInWishlist = data?.exist;
@@ -78,70 +78,70 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <p
-                          className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                      >
-                        {currencyFormat(item?.price?.price?.original)}
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.price?.discount)}
                       </p>
-                      <div className="bg-croonus-3  self-start w-fit ">
-                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                          {currencyFormat(item?.price?.price?.discount)}
-                        </p>
-                      </div>
-                    </>
+                    </div>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <p
-                          className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                        {currencyFormat(item?.price?.max?.price?.original)}
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.discount)}
                       </p>
-                      <div className="bg-croonus-3  self-start w-fit ">
-                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                          {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
-                          {currencyFormat(item?.price?.max?.price?.discount)}
-                        </p>
-                      </div>
-                    </>
+                    </div>
+                  </>
                 );
                 break;
             }
           case false:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <p
-                          className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)}
-                      </p>
-                    </>
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)}
+                    </p>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <p
-                          className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                        {currencyFormat(item?.price?.max?.price?.original)}
-                      </p>
-                    </>
+                  <>
+                    <p
+                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                  </>
                 );
                 break;
             }
@@ -151,29 +151,29 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             return (
-                <>
-                  <p
-                      className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
-                  >
-                    {currencyFormat(item?.price?.price?.original)}
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1 line-through`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+                <div className="bg-croonus-3 self-start w-fit ">
+                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                    {currencyFormat(item?.price?.price?.discount)}
                   </p>
-                  <div className="bg-croonus-3 self-start w-fit ">
-                    <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                      {currencyFormat(item?.price?.price?.discount)}
-                    </p>
-                  </div>
-                </>
+                </div>
+              </>
             );
             break;
           case false:
             return (
-                <>
-                  <p
-                      className={`text-[0.875rem] self-start text-black font-semibold py-1`}
-                  >
-                    {currencyFormat(item?.price?.price?.original)}
-                  </p>
-                </>
+              <>
+                <p
+                  className={`text-[0.875rem] self-start text-black font-semibold py-1`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+              </>
             );
             break;
         }
@@ -186,43 +186,43 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
-                        <p className="text-black">
-                          -
-                          {(
-                              ((item?.price?.max?.price?.original -
-                                      item?.price?.max?.price?.discount) /
-                                  item?.price?.max?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          %
-                        </p>
-                      </div>
-                    </>
+                  <>
+                    <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                      <p className="text-black">
+                        -
+                        {(
+                          ((item?.price?.max?.price?.original -
+                            item?.price?.max?.price?.discount) /
+                            item?.price?.max?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        %
+                      </p>
+                    </div>
+                  </>
                 );
                 break;
             }
@@ -235,20 +235,20 @@ const ThumbSuspense = ({
         switch (item?.price?.discount?.active) {
           case true:
             return (
-                <>
-                  <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
-                    <p className="text-black">
-                      -
-                      {(
-                          ((item?.price?.price?.original -
-                                  item?.price?.price?.discount) /
-                              item?.price?.price?.original) *
-                          100
-                      ).toFixed(0)}
-                      %
-                    </p>
-                  </div>
-                </>
+              <>
+                <div className="absolute top-1 right-1 px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg z-20">
+                  <p className="text-black">
+                    -
+                    {(
+                      ((item?.price?.price?.original -
+                        item?.price?.price?.discount) /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                </div>
+              </>
             );
             break;
           case false:
@@ -259,195 +259,195 @@ const ThumbSuspense = ({
   };
 
   return (
-      <div key={thumbKey || id_product}>
-        <div className="col-span-1 relative">
-          {renderDiscountPercentage(product)}
-          <Link href={`/${product?.slug_path}`}>
-            <div className="relative w-full">
-              {product?.image[0] ? (
-                  <>
-                    {product?.image[1] ? (
-                        <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
-                          <Image
-                              src={convertHttpToHttps(product?.image[0])}
-                              alt={product?.basic_data?.name}
-                              width={0}
-                              height={0}
-                              sizes={`60vw`}
-                              className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full object-cover firstImage bg-slate-300`}
-                              loading="lazy"
-                          />
+    <div key={thumbKey || id_product}>
+      <div className="col-span-1 relative">
+        {renderDiscountPercentage(product)}
+        <Link href={`/${product?.slug_path}`}>
+          <div className="relative w-full">
+            {product?.image[0] ? (
+              <>
+                {product?.image[1] ? (
+                  <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                    <Image
+                      src={convertHttpToHttps(product?.image[0])}
+                      alt={product?.basic_data?.name}
+                      width={0}
+                      height={0}
+                      sizes={`60vw`}
+                      className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full object-cover firstImage bg-slate-300`}
+                      loading="lazy"
+                    />
 
-                          <Image
-                              src={convertHttpToHttps(product?.image[1])}
-                              alt={product?.basic_data?.name}
-                              width={0}
-                              height={0}
-                              sizes={`60vw`}
-                              className={`absolute aspect-2/3 top-0 transition-all duration-200 opacity-0 w-full h-full object-cover secondImage`}
-                              loading="lazy"
-                          />
-                        </div>
-                    ) : (
-                        <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
-                          <Image
-                              src={convertHttpToHttps(product?.image[0])}
-                              alt={product?.basic_data?.name}
-                              width={0}
-                              height={0}
-                              sizes={`60vw`}
-                              className={`opacity-100 aspect-2/3 h-full w-full  object-cover`}
-                              loading="lazy"
-                          />
-                        </div>
-                    )}
-                  </>
-              ) : (
-                  <Image
-                      src="/placeholder.jpg"
-                      width={500}
-                      height={500}
-                      className="h-full object-cover"
-                      priority={true}
-                      alt={`proizvod-${product?.basic_data?.name}`}
-                  />
-              )}
-              {product?.stickers?.length > 0 && (
-                  <div
-                      className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
-                  >
-                    {product?.stickers?.map(({ name }) => {
-                      if (name) {
-                        return (
-                            <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
-                              <p>{name}</p>
-                            </div>
-                        );
-                      }
-                    })}
+                    <Image
+                      src={convertHttpToHttps(product?.image[1])}
+                      alt={product?.basic_data?.name}
+                      width={0}
+                      height={0}
+                      sizes={`60vw`}
+                      className={`absolute aspect-2/3 top-0 transition-all duration-200 opacity-0 w-full h-full object-cover secondImage`}
+                      loading="lazy"
+                    />
                   </div>
-              )}
-            </div>
-          </Link>
-
-          <div className="text-start w-full pt-1">
-            <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
-              <div className="flex items-center justify-end w-full">
-                {isInWishlist ? (
-                    <div
-                        onClick={() => removeFromWishlist({ id: wishlist_id })}
-                        className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                    >
-                      <Image
-                          alt="wishlist"
-                          src={wishlistactive}
-                          height={28}
-                          width={28}
-                          className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
-                      />
-                    </div>
                 ) : (
-                    <div
-                        onClick={() => addToWishlist({ id })}
-                        className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
-                    >
-                      <Image
-                          src={Wishlist}
-                          alt="wishlist"
-                          height={28}
-                          width={28}
-                          className={`cursor-pointer transition-all duration-500 hover:scale-110`}
-                      />
-                    </div>
+                  <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                    <Image
+                      src={convertHttpToHttps(product?.image[0])}
+                      alt={product?.basic_data?.name}
+                      width={0}
+                      height={0}
+                      sizes={`60vw`}
+                      className={`opacity-100 aspect-2/3 h-full w-full  object-cover`}
+                      loading="lazy"
+                    />
+                  </div>
                 )}
-              </div>
-
-              <div className="w-[2px] h-[26px] bg-[#000]"></div>
-              <div className="flex items-center justify-start w-full">
-                <Link
-                    href={`/${product?.slug_path}`}
-                    onClick={() => {
-                      process?.env?.GTM_ENABLED === "true" &&
-                      window?.dataLayer?.push({ ecommerce: null });
-                      window?.dataLayer?.push({
-                        event: "productClick",
-                        ecommerce: {
-                          click: {
-                            products: [
-                              {
-                                name: product?.basic_data?.name,
-                                id: product?.basic_data?.id_product,
-                                price: product?.price?.price?.original,
-                                brand: product?.basic_data?.brand,
-                                category: product?.basic_data?.category,
-                                variant: product?.basic_data?.variant,
-                                list: "Search Results",
-                                position: index + 1,
-                              },
-                            ],
-                          },
-                        },
-                      });
-                    }}
-                    className="ml-[20%] block"
-                >
-                  <Image
-                      src={Cart}
-                      width={36}
-                      height={36}
-                      alt="cart"
-                      className="cursor-pointer hover:scale-110 transition-all duration-200 "
-                  />
-                </Link>
-              </div>
-            </div>
-            <p className="text-black self-start font-sm text-lg mt-2 uppercase">
-              <Link
-                  className="font-normal text-sm clamp"
-                  href={`/${product?.slug_path}`}
-                  onClick={() => {
-                    process?.env?.GTM_ENABLED === "true" &&
-                    window?.dataLayer?.push({ ecommerce: null });
-                    window?.dataLayer?.push({
-                      event: "productClick",
-                      ecommerce: {
-                        click: {
-                          products: [
-                            {
-                              name: product?.basic_data?.name,
-                              id: product?.basic_data?.id_product,
-                              price: product?.price?.price?.original,
-                              brand: product?.basic_data?.brand,
-                              category: product?.basic_data?.category,
-                              variant: product?.basic_data?.variant,
-                              list: "Search Results",
-                              position: index + 1,
-                            },
-                          ],
-                        },
-                      },
-                    });
-                  }}
-              >
-                {product?.basic_data?.name}
-              </Link>
-            </p>
-            {product?.price?.price?.original == 0 ||
-            product?.price?.price?.original == null ? (
-                <button
-                    className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
-                    onClick={() => {
-                      router?.push(`/kontakt?slug=${product?.slug}`);
-                    }}
-                >
-                  <span className="text-[0.8rem]">Pošaljite upit</span>
-                </button>
+              </>
             ) : (
-                <>{renderPrices(product)}</>
+              <Image
+                src="/placeholder.jpg"
+                width={500}
+                height={500}
+                className="h-full object-cover"
+                priority={true}
+                alt={`proizvod-${product?.basic_data?.name}`}
+              />
+            )}
+            {product?.stickers?.length > 0 && (
+              <div
+                className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
+              >
+                {product?.stickers?.map(({ name }) => {
+                  if (name) {
+                    return (
+                      <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                        <p>{name}</p>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
             )}
           </div>
+        </Link>
+
+        <div className="text-start w-full pt-1">
+          <div className=" py-[3px] w-[70%] flex justify-center items-center w-full border-b border-black">
+            <div className="flex items-center justify-end w-full">
+              {isInWishlist ? (
+                <div
+                  onClick={() => removeFromWishlist({ id: wishlist_id })}
+                  className={`flex min-w-[25px] items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                >
+                  <Image
+                    alt="wishlist"
+                    src={wishlistactive}
+                    height={28}
+                    width={28}
+                    className="cursor-pointer hover:scale-110 transition-all duration-200 mr-[20%]"
+                  />
+                </div>
+              ) : (
+                <div
+                  onClick={() => addToWishlist({ id })}
+                  className={`flex items-center justify-center transition-all cursor-pointer duration-300 hover:bg-[#f3f3f3] mr-[23%]`}
+                >
+                  <Image
+                    src={Wishlist}
+                    alt="wishlist"
+                    height={28}
+                    width={28}
+                    className={`cursor-pointer transition-all duration-500 hover:scale-110`}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="w-[2px] h-[26px] bg-[#000]"></div>
+            <div className="flex items-center justify-start w-full">
+              <Link
+                href={`/${product?.slug_path}`}
+                onClick={() => {
+                  process?.env?.GTM_ENABLED === "true" &&
+                    window?.dataLayer?.push({ ecommerce: null });
+                  window?.dataLayer?.push({
+                    event: "productClick",
+                    ecommerce: {
+                      click: {
+                        products: [
+                          {
+                            name: product?.basic_data?.name,
+                            id: product?.basic_data?.id_product,
+                            price: product?.price?.price?.original,
+                            brand: product?.basic_data?.brand,
+                            category: product?.basic_data?.category,
+                            variant: product?.basic_data?.variant,
+                            list: "Search Results",
+                            position: index + 1,
+                          },
+                        ],
+                      },
+                    },
+                  });
+                }}
+                className="ml-[20%] block"
+              >
+                <Image
+                  src={Cart}
+                  width={36}
+                  height={36}
+                  alt="cart"
+                  className="cursor-pointer hover:scale-110 transition-all duration-200 "
+                />
+              </Link>
+            </div>
+          </div>
+          <p className="text-black self-start font-sm text-lg mt-2 uppercase">
+            <Link
+              className="font-normal text-sm clamp"
+              href={`/${product?.slug_path}`}
+              onClick={() => {
+                process?.env?.GTM_ENABLED === "true" &&
+                  window?.dataLayer?.push({ ecommerce: null });
+                window?.dataLayer?.push({
+                  event: "productClick",
+                  ecommerce: {
+                    click: {
+                      products: [
+                        {
+                          name: product?.basic_data?.name,
+                          id: product?.basic_data?.id_product,
+                          price: product?.price?.price?.original,
+                          brand: product?.basic_data?.brand,
+                          category: product?.basic_data?.category,
+                          variant: product?.basic_data?.variant,
+                          list: "Search Results",
+                          position: index + 1,
+                        },
+                      ],
+                    },
+                  },
+                });
+              }}
+            >
+              {product?.basic_data?.name}
+            </Link>
+          </p>
+          {product?.price?.price?.original == 0 ||
+          product?.price?.price?.original == null ? (
+            <button
+              className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
+              onClick={() => {
+                router?.push(`/kontakt?slug=${product?.slug}`);
+              }}
+            >
+              <span className="text-[0.8rem]">Pošaljite upit</span>
+            </button>
+          ) : (
+            <>{renderPrices(product)}</>
+          )}
         </div>
       </div>
+    </div>
   );
 };
 

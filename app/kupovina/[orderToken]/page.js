@@ -9,7 +9,7 @@ const userOrderToken = async (orderToken) => {
 const orderToken = async ({ params: { orderToken } }) => {
   const order = await userOrderToken(orderToken);
 
-  return <OrderSuccess order={order} />;
+  return <OrderSuccess order={order} token={orderToken}/>;
 };
 
 export default orderToken;
