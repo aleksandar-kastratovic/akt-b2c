@@ -263,12 +263,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               const formData = document.getElementById("bank_send_form");
               formData.submit();
             } else {
-              router.push(`/kupovina/${response?.payload?.order?.order_token}`);
               mutateCart();
+              router.push(`/kupovina/${response?.payload?.order?.order_token}`);
             }
           } else {
-            router.push(`/kupovina/neuspesno`);
             mutateCart();
+            router.push(`/kupovina/neuspesno`);
           }
 
           window?.dataLayer?.push({
