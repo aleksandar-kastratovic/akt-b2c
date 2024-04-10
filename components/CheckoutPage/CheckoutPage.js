@@ -254,30 +254,21 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         .then((response) => {
           const creditCardForm = response?.payload?.payment_provider_data?.form;
 
-          if (response?.code === 200 && creditCardForm) {
-            const dom = document.createElement("div");
-            dom.innerHTML = creditCardForm;
-            document.body.appendChild(dom);
+          if (response?.code === 200) {
+            if (creditCardForm) {
+              const dom = document.createElement("div");
+              dom.innerHTML = creditCardForm;
+              document.body.appendChild(dom);
 
-            const formData = document.getElementById("bank_send_form");
-            formData.submit();
-            mutateCart();
+              const formData = document.getElementById("bank_send_form");
+              formData.submit();
+            } else {
+              mutateCart();
+              router.push(`/kupovina/${response?.payload?.order?.order_token}`);
+            }
           } else {
             mutateCart();
-            router.push(`/kupovina/${response?.payload?.order?.order_token}`);
-          }
-
-          if (response?.code === 500 || response?.code === 400) {
-            return (
-              <div className="flex flex-row items-center justify-center rounded-2xl border border-croonus-1">
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="text-2xl font-medium">Greška</h1>
-                  <p className="text-base">
-                    Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.
-                  </p>
-                </div>
-              </div>
-            );
+            router.push(`/kupovina/neuspesno`);
           }
 
           window?.dataLayer?.push({

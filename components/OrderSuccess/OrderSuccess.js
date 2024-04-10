@@ -38,7 +38,7 @@ const OrderSuccess = ({ order, token }) => {
 
   let conditions;
 
-  if (token === "undefined" || !order) {
+  if (token === "undefined" || token === "neuspesno" || !order) {
     conditions = (
       <div className="flex items-center justify-center py-10 text-center lg:max-w-[40%] mx-auto ">
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-croonus-1 p-6">

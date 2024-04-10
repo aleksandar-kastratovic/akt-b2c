@@ -74,8 +74,10 @@ export const useCategoryTree = () => {
 };
 
 export const useCartBadge = () => {
+  const [cart] = useCartContext();
+
   return useSuspenseQuery({
-    queryKey: ["cartBadge"],
+    queryKey: ["cartBadge",cart],
     queryFn: async () => {
       return await GET(`/cart/badge-count`).then(
         (res) => Math.round(res?.payload?.summary?.total_quantity)
@@ -86,8 +88,10 @@ export const useCartBadge = () => {
 };
 
 export const useWishlistBadge = () => {
+  const [, , wishList] = useCartContext();
+
   return useSuspenseQuery({
-    queryKey: ["wishlistBadge"],
+    queryKey: ["wishlistBadge",wishList],
     queryFn: async () => {
       return await GET(`/wishlist/badge-count`).then(
         (res) => res?.payload?.summary?.items_count
