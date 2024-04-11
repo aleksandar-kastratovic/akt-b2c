@@ -117,8 +117,8 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     getCart();
   }, [refresh]);
 
-  const cartItems = cartData.items ?? [];
-  const cartCost = cartData.summary?.total ?? 0;
+  const cartItems = cartData?.items ?? [];
+  const cartCost = cartData?.summary?.total ?? 0;
 
   const formChangeHandler = ({ target }) => {
     setErrors(errors.filter((item) => item != target.name));
@@ -267,8 +267,12 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
               router.push(`/kupovina/${response?.payload?.order?.order_token}`);
             }
           } else {
-            mutateCart();
-            router.push(`/kupovina/neuspesno`);
+            setLoading(false);
+            setLoadingCreditCard(false);
+            toast.error(response?.payload?.message ?? response?.message ?? "Došlo je do greške", {
+              position: "top-center",
+              autoClose: 2000,
+            });
           }
 
           window?.dataLayer?.push({
@@ -286,7 +290,9 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
             },
           });
         })
-        .catch((error) => console.warn(error));
+        .catch((error) => {
+
+        });
     }
   };
 

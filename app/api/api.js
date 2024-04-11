@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 const generateCustomerToken = () => {
   return "device_" + Math.random().toString(12) + Date.now();
@@ -14,7 +15,7 @@ const getCustomerToken = () => {
   return token;
 };
 
-const makeRequest = async (method, path, payload) => {
+const makeRequest = async (method, path, payload, isCart) => {
   const customer_token = getCustomerToken();
   try {
     const response = await axios({
@@ -22,11 +23,11 @@ const makeRequest = async (method, path, payload) => {
       url: process.env.API_URL + path.replace(/^\//, ""),
       headers: { "customer-token": customer_token },
       data: payload,
-      cache: "no-store",
     });
     return response.data;
   } catch (error) {
     console.error(error);
+    return error?.response?.data;
   }
 };
 
@@ -42,8 +43,8 @@ export const post = async (path, payload) => {
   return makeRequest("POST", path, payload);
 };
 
-export const list = async (path, payload, id) => {
-  return makeRequest("LIST", path, { ...payload, id });
+export const list = async (path, payload) => {
+  return makeRequest("LIST", path, payload);
 };
 
 export const deleteMethod = async (path) => {
