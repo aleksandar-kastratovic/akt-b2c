@@ -300,7 +300,7 @@ export const useSearch = ({ searchTerm, isSearchPage = false }) => {
         queryKey: [{ search: searchTerm }],
         queryFn: async () => {
           if (searchTerm?.length >= 3) {
-            return await LIST("/products/search/list", {
+            return await LIST(`/products/search/list?categoryId="*"`, {
               search: searchTerm,
             }).then((res) => res?.payload?.items);
           }
