@@ -154,7 +154,7 @@ const NavigationMobile = () => {
                     ? searchData.slice(0, 6).map((item) => (
                         <Link
                           key={item?.id}
-                          href={`/${item?.categories[0]?.slug}/${item.slug}`}
+                          href={`/${item?.slug_path}`}
                           className="h-[83px]"
                           onClick={() => {
                             setSearchTerm("");
