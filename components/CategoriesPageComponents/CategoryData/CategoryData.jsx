@@ -68,8 +68,8 @@ export const CategoryData = ({ slug }) => {
       <div className="w-full bg-croonus-5">
         <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
           <div className="text-[0.875rem] max-lg:hidden font-light">
-            {breadcrumbs?.length > 0 && (
-              <div className="flex items-center gap-1 py-2flex-wrap">
+            {breadcrumbs?.length > 0 ? (
+              <div className="flex items-center gap-1 py-2 flex-wrap">
                 <Link
                   href={`/`}
                   className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
@@ -93,6 +93,19 @@ export const CategoryData = ({ slug }) => {
                     </div>
                   );
                 })}
+                <span className="text-[#191919] text-[0.85rem]">/</span>
+                <h1 className="text-[0.85rem] font-normal text-black">
+                  {name}
+                </h1>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1">
+                <Link
+                  href={`/`}
+                  className="text-[#191919] text-[0.85rem] font-normal hover:text-black"
+                >
+                  Početna
+                </Link>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
                 <h1 className="text-[0.85rem] font-normal text-black">
                   {name}
