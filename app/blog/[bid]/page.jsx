@@ -18,10 +18,10 @@ const BlogPost = async ({ params: { bid } }) => {
   return (
     <>
       <div className="mx-auto 4xl:container">
-        <div className=" blogPostHolder mb-16">
+        <div className="blogPostHolder mb-16">
           <div className=" imgHolder">
       
-            <div className="relative  max-lg:h-[300px] max-h-[340px]  h-[340px] w-auto">
+            <div className="relative max-lg:h-[300px] max-h-[340px] h-[340px] w-auto">
                         <Image
                  
                         src={convertHttpToHttps(blogpost.images?.thumb_image)}

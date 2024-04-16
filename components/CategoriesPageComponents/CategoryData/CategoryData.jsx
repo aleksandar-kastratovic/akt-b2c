@@ -69,7 +69,7 @@ export const CategoryData = ({ slug }) => {
         <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
           <div className="text-[0.875rem] max-lg:hidden font-light">
             {breadcrumbs?.length > 0 ? (
-              <div className="flex items-center gap-1 py-2 flex-wrap">
+              <div className="flex items-center gap-1 flex-wrap">
                 <Link
                   href={`/`}
                   className="text-[#191919] text-[0.85rem] font-normal hover:text-black"

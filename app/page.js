@@ -3,6 +3,7 @@ import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import BannerSlider from "@/components/BannerSlider/BannerSlider";
 import Instagram from "@/components/Instagram/Instagram";
+import { Suspense } from "react";
 
 const fetchBanners = async () => {
   fetch = get;
@@ -28,8 +29,6 @@ const fetchTopSellProducts = async () => {
   return products;
 };
 
-
-
 const fetchBannersBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/banners", {
@@ -47,7 +46,9 @@ const Index = async () => {
   return (
     <>
       <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
-      <ProductsSlider products={topSellers} text="Najpopularnije" />
+      <Suspense>
+        <ProductsSlider products={topSellers} text="Najpopularnije" />
+      </Suspense>
       <BannerSlider banners={homeBanners} />
       {/* <Instagram /> */}
     </>
