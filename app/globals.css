@@ -31,6 +31,19 @@ input::-webkit-inner-spin-button {
     opacity: 1;
   
 }
+
+.autoWidth {
+  width: auto !important;
+}
+
+.cartWidth {
+  width: 32px !important;
+}
+
+.wishlistWidth {
+  width: 28px !important;
+}
+
 .profilHolder {
   margin-top: 3rem;
   margin-bottom: 10rem;
