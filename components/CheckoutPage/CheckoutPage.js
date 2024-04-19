@@ -255,6 +255,20 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           const creditCardForm = response?.payload?.payment_provider_data?.form;
 
           if (response?.code === 200) {
+            window?.dataLayer?.push({
+              event: "checkout",
+              ecommerce: {
+                checkout: {
+                  actionField: { step: 1, option: "checkout" },
+                  products: cartItems?.map((item) => ({
+                    name: item?.product?.basic_data?.name,
+                    id: item?.product?.id,
+                    price: item?.product?.price?.cost?.with_vat,
+                    quantity: item?.cart?.quantity,
+                  })),
+                },
+              },
+            });
             if (creditCardForm) {
               const dom = document.createElement("div");
               dom.innerHTML = creditCardForm;
@@ -269,30 +283,18 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           } else {
             setLoading(false);
             setLoadingCreditCard(false);
-            toast.error(response?.payload?.message ?? response?.message ?? "Došlo je do greške", {
-              position: "top-center",
-              autoClose: 2000,
-            });
+            toast.error(
+              response?.payload?.message ??
+                response?.message ??
+                "Došlo je do greške",
+              {
+                position: "top-center",
+                autoClose: 2000,
+              }
+            );
           }
-
-          window?.dataLayer?.push({
-            event: "checkout",
-            ecommerce: {
-              checkout: {
-                actionField: { step: 1, option: "checkout" },
-                products: cartItems?.map((item) => ({
-                  name: item?.product?.basic_data?.name,
-                  id: item?.product?.id,
-                  price: item?.product?.price?.cost?.with_vat,
-                  quantity: item?.cart?.quantity,
-                })),
-              },
-            },
-          });
         })
-        .catch((error) => {
-
-        });
+        .catch((error) => {});
     }
   };
 
