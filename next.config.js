@@ -4061,20 +4061,6 @@ const nextConfig = {
         statusCode: 301,
       },
       {
-        source: "/warner-bros/ukrasni-jastuk-tweety-roze-srce",
-        destination:
-          "/warner-bros/dekorativni-jastucici/ukrasni-jastuk-tweety-roze-srce",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source:
-          "/warner-bros/dekorativni-jastucici/ukrasni-jastuk-tweety-roze-srce",
-        destination: "/warner-bros/ukrasni-jastuk-tweety-roze-srce",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
         source: "/akcija/ukrasni-jastuk-tweety-roze-srce",
         destination: "/warner-bros/ukrasni-jastuk-tweety-roze-srce",
         permanent: true,
@@ -4183,20 +4169,6 @@ const nextConfig = {
           "/program-za-decu/ukrasni-jastucici/ukrasni-jastuk-silvester-i-tweety",
         destination:
           "/warner-bros/dekorativni-jastucici/ukrasni-jastuk-silvester-i-tweety",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/warner-bros/ukrasni-jastuk-silvester-i-tweety",
-        destination:
-          "/warner-bros/dekorativni-jastucici/ukrasni-jastuk-silvester-i-tweety",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source:
-          "/warner-bros/dekorativni-jastucici/ukrasni-jastuk-silvester-i-tweety",
-        destination: "/warner-bros/ukrasni-jastuk-silvester-i-tweety",
         permanent: true,
         statusCode: 301,
       },
