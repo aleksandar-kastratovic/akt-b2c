@@ -76,7 +76,7 @@ export const useCategoryTree = () => {
 export const useCartBadge = () => {
   const [cart] = useCartContext();
 
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["cartBadge",cart],
     queryFn: async () => {
       return await GET(`/cart/badge-count`).then(
@@ -90,7 +90,7 @@ export const useCartBadge = () => {
 export const useWishlistBadge = () => {
   const [, , wishList] = useCartContext();
 
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["wishlistBadge",wishList],
     queryFn: async () => {
       return await GET(`/wishlist/badge-count`).then(

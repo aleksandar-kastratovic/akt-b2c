@@ -511,6 +511,7 @@ const NavigationDesktop = () => {
               : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
           }
         >
+          {console.log(subCategory)}
           <div className="w-full h-[70%] my-auto mx-auto flex justify-start items-start">
             <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll  h-full">
               <div className="flex flex-col">
@@ -523,12 +524,7 @@ const NavigationDesktop = () => {
                         className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => {
-                          const timeout = setTimeout(() => {
-                            setSubcategory(item?.children);
-                          }, 200);
-                          return () => {
-                            clearTimeout(timeout);
-                          };
+                          item?.children ? setSubcategory(item?.children) : setSubcategory([])
                         }}
                       >
                         {item?.name}
@@ -536,6 +532,9 @@ const NavigationDesktop = () => {
                     ) : (
                       <Link
                         href={`/${item?.slug_path}`}
+                        onMouseEnter={() => {
+                          item?.children ? setSubcategory(item?.children) : setSubcategory([])
+                        }}
                         key={item?.id}
                         className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
                         onClick={() => setOpen(false)}
@@ -547,7 +546,7 @@ const NavigationDesktop = () => {
                 </div>
               </div>
             </div>
-            {subCategory ? (
+            {subCategory?.length > 0 ? (
               <>
                 {subCategory?.some(
                   (item) => item?.children && item?.children.length > 0

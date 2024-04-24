@@ -85,22 +85,18 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
             console.log(item, "item");
             if (process?.env?.GTM_ENABLED === "true") {
               window?.dataLayer?.push({
-                event: "removeFromCart",
+                event: "remove_from_cart",
                 ecommerce: {
-                  remove: {
-                    products: [
-                      {
-                        id: item?.product?.id,
-                        name: item?.product?.basic_data?.name,
-                        price: item?.product?.price?.cost?.with_vat,
-                        brand: item?.product?.basic_data?.brand_name,
-                        category: item?.product?.categories?.map(
-                          ({ name }) => name
-                        ),
-                        quantity: item?.cart?.quantity,
-                      },
-                    ],
-                  },
+                  items: [
+                    {
+                      item_id: item?.product?.id,
+                      item_name: item?.product?.basic_data?.name,
+                      price: item?.product?.price?.cost?.with_vat,
+                      item_brand: item?.product?.basic_data?.brand_name,
+                      item_category: item?.product?.categories?.[0]?.name,
+                      quantity: item?.cart?.quantity,
+                    },
+                  ],
                 },
               });
             }

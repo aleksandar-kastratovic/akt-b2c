@@ -256,17 +256,14 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
 
           if (response?.code === 200) {
             window?.dataLayer?.push({
-              event: "checkout",
+              event: "begin_checkout",
               ecommerce: {
-                checkout: {
-                  actionField: { step: 1, option: "checkout" },
-                  products: cartItems?.map((item) => ({
-                    name: item?.product?.basic_data?.name,
-                    id: item?.product?.id,
-                    price: item?.product?.price?.cost?.with_vat,
-                    quantity: item?.cart?.quantity,
-                  })),
-                },
+                items: cartItems?.map((item) => ({
+                  item_name: item?.product?.basic_data?.name,
+                  item_id: item?.product?.id,
+                  price: item?.product?.price?.cost?.with_vat,
+                  quantity: item?.cart?.quantity,
+                })),
               },
             });
             if (creditCardForm) {

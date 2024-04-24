@@ -11,8 +11,7 @@ import { Suspense } from "react";
 import { UserProvider } from "@/context/userContext";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
-import Loader from "@/components/Loader";
-
+import "swiper/css";
 export const metadata = {
   title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
   description:

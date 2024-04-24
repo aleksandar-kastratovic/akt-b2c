@@ -243,22 +243,20 @@ const id_product = product?.basic_data?.id_product
                       });
                       if (process?.env?.GTM_ENABLED === "true") {
                         window?.dataLayer?.push({
-                          event: "addToCart",
+                          event: "add_to_cart",
                           ecommerce: {
-                            currencyCode: "RSD",
-                            add: {
-                              products: [
-                                {
-                                  name: product?.basic_data?.name,
-                                  id: product?.basic_data?.id_product,
-                                  price: product?.price?.price?.original,
-                                  brand: product?.basic_data?.brand,
-                                  category: product?.categories[0]?.name,
-                                  variant: null,
-                                  quantity: 1,
-                                },
-                              ],
-                            },
+                            currency: "RSD",
+                            items: [
+                              {
+                                item_name: product?.basic_data?.name,
+                                item_id: product?.basic_data?.id_product,
+                                price: product?.price?.price?.original,
+                                item_brand: product?.basic_data?.brand,
+                                item_category1: product?.categories[0]?.name,
+                                item_variant: null,
+                                quantity: 1,
+                              },
+                            ],
                           },
                         });
                       }
@@ -276,22 +274,20 @@ const id_product = product?.basic_data?.id_product
               onClick={() => {
                 process?.env?.GTM_ENABLED === "true" &&
                 window?.dataLayer?.push({
-                  event: "productClick",
+                  event: "view_item",
                   ecommerce: {
-                    click: {
-                      products: [
-                        {
-                          name: product?.basic_data?.name,
-                          id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          brand: product?.basic_data?.brand,
-                          category: product?.basic_data?.category,
-                          variant: product?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
-                    },
+                    items: [
+                      {
+                        item_name: product?.basic_data?.name,
+                        item_id: product?.basic_data?.id_product,
+                        price: product?.price?.price?.original,
+                        item_brand: product?.basic_data?.brand,
+                        item_category1: product?.basic_data?.category,
+                        item_variant: product?.basic_data?.variant,
+                        list: "Search Results",
+                        position: index + 1,
+                      },
+                    ],
                   },
                 });
               }}

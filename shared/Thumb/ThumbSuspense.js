@@ -383,22 +383,19 @@ const ThumbSuspense = ({
               onClick={() => {
                 process?.env?.GTM_ENABLED === "true" &&
                   window?.dataLayer?.push({
-                    event: "productClick",
+                    event: "view_item",
                     ecommerce: {
-                      click: {
-                        products: [
-                          {
-                            name: product?.basic_data?.name,
-                            id: product?.basic_data?.id_product,
-                            price: product?.price?.price?.original,
-                            brand: product?.basic_data?.brand,
-                            category: product?.basic_data?.category,
-                            variant: product?.basic_data?.variant,
-                            list: "Search Results",
-                            position: index + 1,
-                          },
-                        ],
-                      },
+                      items: [
+                        {
+                          item_name: product?.basic_data?.name,
+                          item_id: product?.basic_data?.id_product,
+                          price: product?.price?.price?.original,
+                          item_brand: product?.basic_data?.brand,
+                          item_category1: product?.basic_data?.category,
+                          item_variant: product?.basic_data?.variant,
+                          position: index + 1,
+                        },
+                      ],
                     },
                   });
               }}
@@ -420,25 +417,22 @@ const ThumbSuspense = ({
             href={`/${product?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
-                window?.dataLayer?.push({
-                  event: "productClick",
-                  ecommerce: {
-                    click: {
-                      products: [
-                        {
-                          name: product?.basic_data?.name,
-                          id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          brand: product?.basic_data?.brand,
-                          category: product?.basic_data?.category,
-                          variant: product?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
+              window?.dataLayer?.push({
+                event: "productClick",
+                ecommerce: {
+                  items: [
+                    {
+                      name: product?.basic_data?.name,
+                      id: product?.basic_data?.id_product,
+                      price: product?.price?.price?.original,
+                      brand: product?.basic_data?.brand,
+                      category: product?.basic_data?.category,
+                      variant: product?.basic_data?.variant,
+                      position: index + 1,
                     },
-                  },
-                });
+                  ],
+                },
+              });
             }}
           >
             {product?.basic_data?.name}

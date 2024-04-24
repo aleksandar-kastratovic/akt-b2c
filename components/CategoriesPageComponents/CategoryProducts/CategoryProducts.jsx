@@ -258,16 +258,16 @@ export const CategoryProducts = ({
           event: "view_item_list",
           ecommerce: {
             currencyCode: "RSD",
-            impressions: [
+            items: [
               gtm_data?.items?.map((item, index) => {
                 return {
-                  id: item?.basic_data?.id_product,
-                  name: item?.basic_data?.name,
+                  item_id: item?.basic_data?.id_product,
+                  item_name: item?.basic_data?.name,
                   price: `${renderPrices(item)}`,
-                  list: `Kategorija ${item?.categories?.[0]?.name ?? ""}`,
+                  item_category1: item?.categories?.[0]?.name ?? "",
                   discount:
-                    item?.price?.discount?.active &&
-                    item?.price?.discount?.amount,
+                      item?.price?.discount?.active &&
+                      item?.price?.discount?.amount,
                 };
               }),
             ],

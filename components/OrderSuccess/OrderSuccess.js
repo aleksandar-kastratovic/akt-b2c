@@ -8,30 +8,25 @@ import { useEffect } from "react";
 const OrderSuccess = ({ order, token }) => {
   useEffect(() => {
     window?.dataLayer?.push({
-      event: "transaction",
+      event: "purchase",
       ecommerce: {
-        purchase: {
-          actionField: {
-            id: order?.order?.slug,
-            tax: order?.order?.total_vat,
-            revenue: order?.order?.total,
-            shipping: order?.order?.total_delivery_amount,
-          },
-          products: order?.items?.map((item) => {
-            return {
-              name: item?.basic_data?.name,
-              id: item?.basic_data?.id_product,
-              price: item?.price?.total_with_vat,
-              brand: item?.basic_data?.brand_name,
-              currency: item?.basic_data?.currency,
-              category: item?.basic_data?.category_breadcrumbs,
-              manufacturer: item?.basic_data?.manufacture_name,
-              quantity: item?.price?.quantity,
-              discount: item?.price?.price_discount_amount,
-              variant: item?.basic_data?.attributes_text,
-            };
-          }),
-        },
+        transaction_id: order?.order?.slug,
+        value: order?.order?.total,
+        tax: order?.order?.total_vat,
+        currency: "RSD",
+        shipping: order?.order?.total_delivery_amount,
+        items: order?.items?.map((item) => {
+          return {
+            item_name: item?.basic_data?.name,
+            item_id: item?.basic_data?.id_product,
+            price: item?.price?.total_with_vat,
+            item_brand: item?.basic_data?.brand_name,
+            item_category1: item?.basic_data?.category_breadcrumbs,
+            quantity: item?.price?.quantity,
+            discount: item?.price?.price_discount_amount,
+            item_variant: item?.basic_data?.attributes_text,
+          };
+        }),
       },
     });
   }, [order]);
@@ -51,9 +46,13 @@ const OrderSuccess = ({ order, token }) => {
           <span>
             Poštovani, prilikom obrade Vaše porudžbenice došlo je do greške.
             Molimo Vas da pokušate ponovo ili nas kontaktirate putem call centra{" "}
-            <a className={`underline`} href={`tel:${process.env.TELEPHONE}`}>{process.env.TELEPHONE}</a>{" "}
+            <a className={`underline`} href={`tel:${process.env.TELEPHONE}`}>
+              {process.env.TELEPHONE}
+            </a>{" "}
             ili putem emaila{" "}
-            <a className={`underline`} href={`mailto:${process.env.EMAIL}`}>{process.env.EMAIL}</a>
+            <a className={`underline`} href={`mailto:${process.env.EMAIL}`}>
+              {process.env.EMAIL}
+            </a>
           </span>
           <Link href="/">
             <button className="mt-10  bg-croonus-1 border py-2 px-3 text-white uppercase hover:bg-opacity-80">
