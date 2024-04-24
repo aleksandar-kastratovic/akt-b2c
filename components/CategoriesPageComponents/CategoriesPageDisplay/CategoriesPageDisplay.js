@@ -308,15 +308,16 @@ const CategoriesPageDisplay = ({
   useEffect(() => {
     process?.env?.GTM_ENABLED === "true" &&
     window?.dataLayer.push({
+      event: "view_item_list",
       ecommerce: {
-        currencyCode: "RSD",
-        impressions: [
+        currency: "RSD",
+        items: [
           productsDataResponse?.items?.map((item, index) => {
             return {
-              id: item?.basic_data?.id_product,
-              name: item?.basic_data?.name,
+              item_id: item?.basic_data?.id_product,
+              item_name: item?.basic_data?.name,
               price: item?.price?.price?.original,
-              list: `Kategorija ${item?.categories[0]?.name ?? ""}`,
+              item_category1: item?.categories?.[0]?.name ?? "",
             };
           }),
         ],

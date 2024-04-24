@@ -1,9 +1,7 @@
-import { get, list } from "./api/api";
+import {get, list} from "./api/api";
 import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import BannerSlider from "@/components/BannerSlider/BannerSlider";
-import Instagram from "@/components/Instagram/Instagram";
-import { Suspense } from "react";
 
 const fetchBanners = async () => {
   fetch = get;
@@ -21,14 +19,6 @@ const fetchMobileBanners = async () => {
   return banners;
 };
 
-const fetchTopSellProducts = async () => {
-  fetch = list;
-  const products = await fetch("/products/section/list/top_sellers", {}).then(
-    (response) => response?.payload?.items
-  );
-  return products;
-};
-
 const fetchBannersBanners = async () => {
   fetch = get;
   const banners = await fetch("/banners/banners", {
@@ -39,16 +29,15 @@ const fetchBannersBanners = async () => {
 
 const Index = async () => {
   const banners = await fetchBanners();
-  const topSellers = await fetchTopSellProducts();
 
   const mobileBanners = await fetchMobileBanners();
   const homeBanners = await fetchBannersBanners();
   return (
     <>
       <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
-      <Suspense>
-        <ProductsSlider products={topSellers} text="Najpopularnije" />
-      </Suspense>
+
+      <ProductsSlider text="Najpopularnije" />
+
       <BannerSlider banners={homeBanners} />
       {/* <Instagram /> */}
     </>
