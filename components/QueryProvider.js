@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,11 +20,11 @@ const persister = createSyncStoragePersister({
 
 export const QueryProvider = ({ children }) => {
   return (
-      <PersistQueryClientProvider
-          client={queryClient}
-          persistOptions={{ persister }}
-      >
-        {children}
-      </PersistQueryClientProvider>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}
+    >
+      <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
+    </PersistQueryClientProvider>
   );
 };

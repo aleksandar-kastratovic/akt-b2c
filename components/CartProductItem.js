@@ -82,11 +82,13 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           className="absolute -top-4 right-2 cursor-pointer"
           onClick={() => {
             setSureCheck(true);
-            console.log(item, "item");
             if (process?.env?.GTM_ENABLED === "true") {
               window?.dataLayer?.push({
                 event: "remove_from_cart",
                 ecommerce: {
+                  currency: "RSD",
+                  value:
+                    item?.cart?.quantity * item?.product?.price?.cost?.with_vat,
                   items: [
                     {
                       item_id: item?.product?.id,

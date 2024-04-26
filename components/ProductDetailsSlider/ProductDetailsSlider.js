@@ -5,7 +5,7 @@ import "swiper/swiper-bundle.css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
 import "swiper/css/pagination";
-import { FreeMode, Pagination, Thumbs } from "swiper";
+import { FreeMode, Pagination, Thumbs } from "swiper/modules";
 import Image from "next/image";
 import classes from "./styles.module.css";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";

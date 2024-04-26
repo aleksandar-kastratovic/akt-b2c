@@ -5,7 +5,7 @@ import { post } from "@/app/api/api";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logo from "../../assets/logo.png";
+import Logo from "../../public/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import Image1 from "../../assets/Icons/american.png";

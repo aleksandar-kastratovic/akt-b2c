@@ -239,6 +239,8 @@ export const useAddToWishlist = () => {
       });
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+
   });
 };
 
@@ -323,6 +325,8 @@ export const useIsInWishlist = ({ id }) => {
       });
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+
   });
 };
 
@@ -382,6 +386,7 @@ export const useCategory = ({ slug }) => {
       );
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
 };
 
@@ -591,6 +596,8 @@ export const useCategoryProducts = ({
           }
         },
         refetchOnWindowFocus: false,
+        refetchOnMount: false,
+
       });
   }
 };
@@ -619,6 +626,8 @@ export const useProductThumb = ({ slug, id, categoryId = "*" }) => {
       });
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+
   });
 };
 
@@ -631,6 +640,8 @@ export const useProductSticker = ({ slug, id }) => {
       });
     },
     refetchOnWindowFocus: false,
+    refetchOnMount: false,
+
   });
 };
 

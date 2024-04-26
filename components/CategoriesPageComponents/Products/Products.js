@@ -245,6 +245,8 @@ const Products = ({
                 window?.dataLayer?.push({
                   event: "view_item",
                   ecommerce: {
+                    currency: "RSD",
+                    value:item?.price?.price?.original,
                     items: [
                       {
                         item_name: item?.basic_data?.name,
@@ -432,11 +434,12 @@ const Products = ({
                           event: "add_to_cart",
                           ecommerce: {
                             currency: "RSD",
+                            value: item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
                             items: [
                               {
                                 item_name: item?.basic_data?.name,
                                 item_id: item?.basic_data?.id_product,
-                                price: item?.price?.price?.original,
+                                price: item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
                                 item_brand: item?.basic_data?.brand,
                                 item_category1: item?.categories[0]?.name,
                                 item_variant: null,
@@ -462,6 +465,8 @@ const Products = ({
                   window?.dataLayer?.push({
                     event: "view_item",
                     ecommerce: {
+                      currency:"RSD",
+                      value:item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
                       items: [
                         {
                           item_name: item?.basic_data?.name,

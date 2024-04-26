@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import Cart from "../../assets/Icons/shopping-bag.png";
 import { useCartContext } from "@/app/api/cartContext";
-import Logo from "../../assets/logo.png";
+import Logo from "../../public/logo.png";
 import Wishlist from "../../assets/Icons/favorite.png";
 import Link from "next/link";
 import Search from "../../assets/Icons/search.png";
@@ -14,6 +14,7 @@ import Burger from "../../assets/Icons/burger.png";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { toast } from "react-toastify";
 import {useCartBadge, useCategoryTree, useWishlistBadge} from "@/hooks/akt.hooks";
+
 const NavigationMobile = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -84,7 +85,7 @@ const NavigationMobile = () => {
           </div>
           <div className="pl-10 pb-2">
             <Link href="/">
-              <Image src={Logo} width={150} height={150} />
+              <Image src={Logo} width={150} height={150} priority/>
             </Link>
           </div>
           <div className="flex items-center gap-5 relative">

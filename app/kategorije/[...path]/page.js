@@ -1,13 +1,6 @@
 import { Suspense } from "react";
-import { post } from "@/app/api/api";
 import { CategoryData } from "@/components/CategoriesPageComponents/CategoryData/CategoryData";
 import { CategoryProducts } from "@/components/CategoriesPageComponents/CategoryProducts/CategoryProducts";
-
-const getAllFilters = async (slug) => {
-  return await post(`/products/category/filters/${slug}`).then(
-    (response) => response?.payload
-  );
-};
 
 const CategoryPage = async ({ params: { path }, searchParams }) => {
   const { sort: sortURL, viewed, filteri } = searchParams;
@@ -20,8 +13,6 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
   //vadimo stranu iz URL i konvertujemo u type Number
   const num_of_viewed_products = Number(viewed) > 0 ? Number(viewed) : 10;
 
-  //uzimamo sve filtere sa api-ja
-  const allFilters = await getAllFilters(slug_path);
 
   //vadimo filtere iz URL
   const selected_filters = filteri?.split("::")?.map((filter) => {
@@ -60,25 +51,17 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
       >
         <CategoryData slug={path[path?.length - 1]} />
       </Suspense>
-
-      {/*<CategoriesPageDisplay*/}
-      {/*  filtersMap={filters}*/}
-      {/*  categoryDataa={categoryDataa}*/}
-      {/*  query={path[path?.length - 1]}*/}
-      {/*  id={path[path?.length - 1]}*/}
-      {/*  newProducts={newProducts}*/}
-      {/*  productsDataResponse={products}*/}
-      {/*  categories={categories}*/}
-      {/*/>*/}
-      <CategoryProducts
-        slug={slug_path}
-        sortField={sortField}
-        sortDirection={sortDirection}
-        viewed={viewed}
-        allFilters={allFilters}
-        filters={selected_filters}
-        params={{ sortURL, viewed, filteri }}
-      />
+      <Suspense>
+        <CategoryProducts
+          slug={slug_path}
+          sortField={sortField}
+          sortDirection={sortDirection}
+          viewed={viewed}
+          allFilters={[]}
+          filters={selected_filters}
+          params={{ sortURL, viewed, filteri }}
+        />
+      </Suspense>
     </>
   );
 };

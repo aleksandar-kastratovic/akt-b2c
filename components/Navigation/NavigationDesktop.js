@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
 import Link from "next/link";
-import Logo from "../../assets/logo.png";
 import Image from "next/image";
 import Wishlist from "../../assets/Icons/favorite.png";
 import Cart from "../../assets/Icons/shopping-bag.png";
@@ -342,9 +341,10 @@ const NavigationDesktop = () => {
                 <Link href="/">
                   {" "}
                   <Image
-                    src={Logo}
+                    src={`/logo.png`}
                     width={220}
                     height={220}
+                    priority
                     onClick={() => {
                       setOpen(false);
                       setSubcategory(false);
@@ -511,7 +511,6 @@ const NavigationDesktop = () => {
               : `-translate-x-full z-[99] flex h-screen w-screen lg:w-[76%] 2xl:w-[64%] transition-all duration-[600ms] fixed top-0 left-0 bg-white`
           }
         >
-          {console.log(subCategory)}
           <div className="w-full h-[70%] my-auto mx-auto flex justify-start items-start">
             <div className="flex flex-col gap-3 2xl:max-h-[500px] 3xl:max-h-[680px] min-w-max overflow-y-scroll hidescroll  h-full">
               <div className="flex flex-col">
