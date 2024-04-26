@@ -248,23 +248,27 @@ const Products = ({
           href={`/${item?.slug_path}`}
           onClick={() => {
             process?.env?.GTM_ENABLED === "true" &&
-            window?.dataLayer?.push({
-              event: "view_item",
-              ecommerce: {
-                items: [
-                  {
-                    item_name: item?.basic_data?.name,
-                    item_id: item?.basic_data?.id_product,
-                    price: item?.price?.price?.original,
-                    item_brand: item?.basic_data?.brand,
-                    item_category1: item?.basic_data?.category,
-                    item_variant: item?.basic_data?.variant,
-                    list: "Search Results",
-                    position: index + 1,
-                  },
-                ],
-              },
-            });
+              window?.dataLayer?.push({
+                event: "view_item",
+                ecommerce: {
+                  currency: "RSD",
+                  value: item?.price?.discount?.active
+                    ? item?.price?.price?.discount
+                    : item?.price?.price?.original,
+                  items: [
+                    {
+                      item_name: item?.basic_data?.name,
+                      item_id: item?.basic_data?.id_product,
+                      price: item?.price?.price?.original,
+                      item_brand: item?.basic_data?.brand,
+                      item_category1: item?.basic_data?.category,
+                      item_variant: item?.basic_data?.variant,
+                      list: "Search Results",
+                      position: index + 1,
+                    },
+                  ],
+                },
+              });
           }}
         >
           <div className="relative w-full">
@@ -433,6 +437,9 @@ const Products = ({
                       event: "add_to_cart",
                       ecommerce: {
                         currency: "RSD",
+                        value: item?.price?.discount?.active
+                          ? item?.price?.price?.discount
+                          : item?.price?.price?.original,
                         items: [
                           {
                             item_name: item?.basic_data?.name,
@@ -460,23 +467,23 @@ const Products = ({
             href={`/${item?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
-              window?.dataLayer?.push({
-                event: "view_item",
-                ecommerce: {
-                  items: [
-                    {
-                      item_name: item?.basic_data?.name,
-                      item_id: item?.basic_data?.id_product,
-                      price: item?.price?.price?.original,
-                      item_brand: item?.basic_data?.brand,
-                      item_category1: item?.basic_data?.category,
-                      item_variant: item?.basic_data?.variant,
-                      list: "Search Results",
-                      position: index + 1,
-                    },
-                  ],
-                },
-              });
+                window?.dataLayer?.push({
+                  event: "view_item",
+                  ecommerce: {
+                    items: [
+                      {
+                        item_name: item?.basic_data?.name,
+                        item_id: item?.basic_data?.id_product,
+                        price: item?.price?.price?.original,
+                        item_brand: item?.basic_data?.brand,
+                        item_category1: item?.basic_data?.category,
+                        item_variant: item?.basic_data?.variant,
+                        list: "Search Results",
+                        position: index + 1,
+                      },
+                    ],
+                  },
+                });
             }}
           >
             {item?.basic_data?.name}

@@ -1,17 +1,16 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { list } from "@/app/api/api";
 import { Slider } from "@/_components/slider";
 
-const ProductsSlider = ({ text }) => {
+const ProductsSlider = ({ text, data }) => {
+  const [swiper, setSwiper] = useState();
+
   return (
     <>
-      {" "}
       <ToastContainer />
       <div className="mt-[3.688rem] max-md:mt-[1rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
         <div className="flex justify-between items-center">
@@ -25,7 +24,8 @@ const ProductsSlider = ({ text }) => {
             ></i>
           </div>
         </div>
-          <Slider />
+
+        <Slider setSwiperData={setSwiper} data={data} />
       </div>
     </>
   );

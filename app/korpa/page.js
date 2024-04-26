@@ -1,17 +1,17 @@
 import CheckoutPage from "@/components/CheckoutPage/CheckoutPage";
-import { get } from "../api/api";
+import {get} from "../api/api";
+
 const paymentOptions = async () => {
-  const paymentOptions = await get("/checkout/payment-options").then(
-    (response) => response?.payload
+  return await get("/checkout/payment-options").then(
+      (response) => response?.payload
   );
-  return paymentOptions;
 };
 const deliveryOptions = async () => {
-  const deliveryOptions = await get("/checkout/delivery-options").then(
-    (response) => response?.payload
+  return await get("/checkout/delivery-options").then(
+      (response) => response?.payload
   );
-  return deliveryOptions;
 };
+
 const Cart = async () => {
   const paymentoptions = await paymentOptions();
   const deliveryoptions = await deliveryOptions();
@@ -26,3 +26,5 @@ const Cart = async () => {
 };
 
 export default Cart;
+
+export const revalidate = 30;

@@ -21,12 +21,14 @@ const makeRequest = async (method, path, payload, isCart) => {
     const response = await axios({
       method: method,
       url: process.env.API_URL + path.replace(/^\//, ""),
-      headers: { "customer-token": customer_token },
+      headers: {
+        "customer-token": customer_token,
+        "Cache-Control": "max-age=86400",
+      },
       data: payload,
     });
     return response.data;
   } catch (error) {
-    console.error(error);
     return error?.response?.data;
   }
 };

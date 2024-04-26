@@ -274,7 +274,7 @@ const ThumbSuspense = ({
   };
 
   return (
-    <div className="col-span-1 relative" key={id_product}>
+    <div className="col-span-1 relative w-full" key={id_product}>
       {renderDiscountPercentage(product)}
       <Link href={`/${product?.slug_path}`}>
         <div className="relative w-full">
@@ -385,6 +385,10 @@ const ThumbSuspense = ({
                   window?.dataLayer?.push({
                     event: "view_item",
                     ecommerce: {
+                      currency: "RSD",
+                      value: product?.price?.discount?.active
+                        ? product?.price?.price?.discount
+                        : product?.price?.price?.original,
                       items: [
                         {
                           item_name: product?.basic_data?.name,
@@ -417,22 +421,22 @@ const ThumbSuspense = ({
             href={`/${product?.slug_path}`}
             onClick={() => {
               process?.env?.GTM_ENABLED === "true" &&
-              window?.dataLayer?.push({
-                event: "productClick",
-                ecommerce: {
-                  items: [
-                    {
-                      name: product?.basic_data?.name,
-                      id: product?.basic_data?.id_product,
-                      price: product?.price?.price?.original,
-                      brand: product?.basic_data?.brand,
-                      category: product?.basic_data?.category,
-                      variant: product?.basic_data?.variant,
-                      position: index + 1,
-                    },
-                  ],
-                },
-              });
+                window?.dataLayer?.push({
+                  event: "productClick",
+                  ecommerce: {
+                    items: [
+                      {
+                        name: product?.basic_data?.name,
+                        id: product?.basic_data?.id_product,
+                        price: product?.price?.price?.original,
+                        brand: product?.basic_data?.brand,
+                        category: product?.basic_data?.category,
+                        variant: product?.basic_data?.variant,
+                        position: index + 1,
+                      },
+                    ],
+                  },
+                });
             }}
           >
             {product?.basic_data?.name}

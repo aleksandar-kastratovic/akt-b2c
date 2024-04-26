@@ -255,9 +255,17 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           const creditCardForm = response?.payload?.payment_provider_data?.form;
 
           if (response?.code === 200) {
+            const totalValue = cartItems
+              ?.map(
+                (item) => item?.quantity * item?.product?.price?.cost?.with_vat
+              )
+              .reduce((acc, curr) => acc + curr, 0);
+
             window?.dataLayer?.push({
               event: "begin_checkout",
               ecommerce: {
+                currency: "RSD",
+                value: totalValue,
                 items: cartItems?.map((item) => ({
                   item_name: item?.product?.basic_data?.name,
                   item_id: item?.product?.id,

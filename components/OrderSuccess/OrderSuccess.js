@@ -9,6 +9,7 @@ const OrderSuccess = ({ order, token }) => {
   useEffect(() => {
     window?.dataLayer?.push({
       event: "purchase",
+
       ecommerce: {
         transaction_id: order?.order?.slug,
         value: order?.order?.total,

@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   env: {
     API_URL: process.env.API_URL,
     COMPANY: process.env.COMPANY,
@@ -17,7 +14,6 @@ const nextConfig = {
     SITE: process.env.SITE,
     EMAIL: process.env.EMAIL,
     TELEPHONE: process.env.TELEPHONE,
-
     CAPTCHAKEY: process.env.CAPTCHAKEY,
     GTM_ENABLED: process.env.GTM_ENABLED,
     GTM_ID: process.env.GTM_ID,

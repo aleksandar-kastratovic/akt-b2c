@@ -5,7 +5,7 @@ import { get, list } from "@/app/api/api";
 import Image from "next/image";
 import Thumb from "@/components/CategoriesPageComponents/Products/Products";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { Pagination } from "swiper/modules";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";

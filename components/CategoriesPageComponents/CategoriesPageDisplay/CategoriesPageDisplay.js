@@ -305,26 +305,6 @@ const CategoriesPageDisplay = ({
   }, [products]);
   const numPostsLoaded = Math.min(productNum, newProductsArray?.length);
   const allPostsLoaded = numPostsLoaded === newProductsArray?.length;
-  useEffect(() => {
-    process?.env?.GTM_ENABLED === "true" &&
-    window?.dataLayer.push({
-      event: "view_item_list",
-      ecommerce: {
-        currency: "RSD",
-        items: [
-          productsDataResponse?.items?.map((item, index) => {
-            return {
-              item_id: item?.basic_data?.id_product,
-              item_name: item?.basic_data?.name,
-              price: item?.price?.price?.original,
-              item_category1: item?.categories?.[0]?.name ?? "",
-            };
-          }),
-        ],
-      },
-    });
-  }, [pagination]);
-
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   useEffect(() => {

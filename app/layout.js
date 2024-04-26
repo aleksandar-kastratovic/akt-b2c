@@ -1,3 +1,4 @@
+import "swiper/css";
 import Footer from "@/components/Footer/Footer";
 import NavigationDesktop from "@/components/Navigation/NavigationDesktop";
 import NavigationMobile from "@/components/Navigation/NavigationMobile";
@@ -11,7 +12,7 @@ import { Suspense } from "react";
 import { UserProvider } from "@/context/userContext";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
-import "swiper/css";
+
 export const metadata = {
   title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
   description:
@@ -38,27 +39,27 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <Script
-            crossOrigin="anonymous"
-            src="https://kit.fontawesome.com/f141ac3909.js"
+          crossOrigin="anonymous"
+          src="https://kit.fontawesome.com/f141ac3909.js"
         />
       </head>
 
       <body className="4xl:container mx-auto">
-      <UserProvider>
-        <QueryProvider>
-            <CartContextProvider>
-              <Suspense>
-                <Analytics />
-              </Suspense>
-              <CookieAlert />
+        <UserProvider>
+          <CartContextProvider>
+            <Suspense>
+              <Analytics />
+            </Suspense>
+            <CookieAlert />
+            <QueryProvider>
               <NavigationDesktop />
               <NavigationMobile />
               <div className="min-h-[600px] md:min-h-[700px]">{children}</div>
-              <ToastContainer />
-              <Footer />
-            </CartContextProvider>
-          </QueryProvider>
+            </QueryProvider>
+            <Footer />
+          </CartContextProvider>
         </UserProvider>
+        <ToastContainer />
       </body>
     </html>
   );

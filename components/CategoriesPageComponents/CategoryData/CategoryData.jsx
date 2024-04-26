@@ -5,9 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import React, { Suspense, useEffect, useState } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { get } from "@/app/api/api";
 import { useSearchParams } from "next/navigation";
+import { CategoryChildren } from "@/_components/category-children";
 
 export const CategoryData = ({ slug }) => {
   const {
@@ -19,17 +18,6 @@ export const CategoryData = ({ slug }) => {
     data,
   } = useCategory({ slug });
 
-  const { data: categories } = useSuspenseQuery({
-    queryKey: ["products", { slug }],
-    queryFn: async () => {
-      return await get(`/categories/product/tree/branch/parent/${slug}`).then(
-        (response) => response?.payload
-      );
-    },
-    refetchOnWindowFocus: false,
-  });
-
-  const currentSlug = categories?.slug;
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
@@ -163,33 +151,15 @@ export const CategoryData = ({ slug }) => {
             __html: description,
           }}
         ></div>
-
-        {name !== "Akcija" &&
-        name !== "Novo" &&
-        name !== "OUTLET" &&
-        name !== "Hotelski program" ? (
-          <div className="mt-[2rem] pl-2 flex flex-wrap justify-center md:gap-y-2">
-            {categories?.childrens &&
-              (categories?.childrens ?? [])?.map((child) => (
-                <div
-                  className="max-md:mx-[2px] mx-1 max-md:my-1"
-                  key={child?.id}
-                >
-                  <Link href={`/${child?.slug_path}`}>
-                    <div
-                      className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
-                        currentSlug === child?.slug
-                          ? "bg-croonus-1 text-white"
-                          : "bg-white text-black"
-                      }`}
-                    >
-                      <p className="">{child?.basic_data?.name}</p>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-          </div>
-        ) : null}
+        <Suspense
+          fallback={
+            <div
+              className={`mt-[2rem] w-full h-10 bg-slate-300 animate-pulse`}
+            />
+          }
+        >
+          <CategoryChildren slug={slug} name={name} />
+        </Suspense>
       </div>
     </>
   );

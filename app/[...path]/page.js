@@ -3,7 +3,7 @@ import CategoryPage from "@/app/kategorije/[...path]/page";
 import ProductPage from "@/app/proizvod/[...path]/page";
 import { Suspense } from "react";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 const handleData = async (slug) => {
   return await get(`/slugs/product-categories?slug=${slug}`).then(
@@ -27,7 +27,9 @@ export async function generateMetadata({ params: { path } }) {
   const str = path?.join("/");
   const data = await handleData(str);
   switch (true) {
-    case data?.type === "category" && data?.status:
+    case data?.type === "category" &&
+      data?.status &&
+      data?.redirect_url === false:
       const category = await fetchCategory(path[path?.length - 1]);
       const image_category =
         convertHttpToHttps(category?.seo?.image) ??
@@ -56,7 +58,9 @@ export async function generateMetadata({ params: { path } }) {
         },
       };
 
-    case data?.type === "product" && data?.status:
+    case data?.type === "product" &&
+      data?.status &&
+      data?.redirect_url === false:
       const productSEO = await getProductSEO(path[path?.length - 1]);
       const image =
         convertHttpToHttps(productSEO?.meta_image) ??
@@ -85,13 +89,20 @@ export async function generateMetadata({ params: { path } }) {
 const CategoryProduct = async ({ params: { path }, params, searchParams }) => {
   const str = path?.join("/");
   const data = await handleData(str);
+
   switch (true) {
-    case data?.type === "category" && data?.status === true:
+    case data?.type === "category" &&
+      data?.status === true &&
+      data?.redirect_url === false:
       return <CategoryPage params={params} searchParams={searchParams} />;
-    case data?.type === "product" && data?.status === true:
+    case data?.type === "product" &&
+      data?.status === true &&
+      data?.redirect_url === false:
       return <ProductPage params={params} />;
+    case data?.status === false:
+      return notFound();
     default:
-      notFound();
+      redirect(`/${data?.redirect_url}`);
   }
 };
 
