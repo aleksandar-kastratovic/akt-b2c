@@ -11,8 +11,8 @@ const handleData = async (slug) => {
   );
 };
 
-const fetchCategory = async (slug) => {
-  return await get(`/categories/product/single/${slug}`).then(
+const fetchCategorySEO = async (slug) => {
+  return await get(`/categories/product/single/seo/${slug}`).then(
     (response) => response?.payload
   );
 };
@@ -23,40 +23,91 @@ const getProductSEO = async (id) => {
   );
 };
 
+const defaultMetadata = {
+  title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
+  description:
+    "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
+  keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
+  openGraph: {
+    title:
+      "Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje",
+    description:
+      "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
+    keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
+    images: [
+      {
+        url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
+        width: 800,
+        height: 800,
+      },
+    ],
+  },
+};
+
 export async function generateMetadata({ params: { path } }) {
   const str = path?.join("/");
   const data = await handleData(str);
+
   switch (true) {
-    case data?.type === "category" &&
-      data?.status &&
+    case data?.status === false &&
+      data?.type === null &&
+      data?.id === null &&
       data?.redirect_url === false:
-      const category = await fetchCategory(path[path?.length - 1]);
-      const image_category =
-        convertHttpToHttps(category?.seo?.image) ??
-        "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
       return {
-        title: `${category?.seo?.title}` ?? "",
-        description: category?.seo?.description ?? "",
-        keywords: category?.seo?.keywords ?? "",
-        type: category?.seo?.type ?? "",
-        image: image_category ?? "",
+        title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
+        description:
+          "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
+        keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
         openGraph: {
-          title: `${category?.seo?.title}` ?? "",
-          description: category?.seo?.description ?? "",
-          url: category?.seo?.url ?? "",
-          type: category?.seo?.type ?? "",
+          title:
+            "Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje",
+          description:
+            "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
+          keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
           images: [
             {
-              url: image_category ?? "",
+              url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
               width: 800,
-              height: 600,
-              alt: category?.seo?.description ?? "",
-              title: category?.seo?.title ?? "",
-              description: category?.seo?.description ?? "",
+              height: 800,
             },
           ],
         },
       };
+
+    case data?.type === "category" &&
+      data?.status &&
+      data?.redirect_url === false:
+      const category = await fetchCategorySEO(path[path?.length - 1]);
+      const image_category =
+        convertHttpToHttps(category?.image) ??
+        "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
+
+      if (category) {
+        return {
+          title: `${category?.title}` ?? "",
+          description: category?.description ?? "",
+          keywords: category?.keywords ?? "",
+          type: category?.type ?? "",
+          image: image_category ?? "",
+          openGraph: {
+            title: `${category?.title}` ?? "",
+            description: category?.description ?? "",
+            type: category?.type ?? "",
+            images: [
+              {
+                url: image_category ?? "",
+                width: 800,
+                height: 600,
+                alt: category?.description ?? "",
+                title: category?.title ?? "",
+                description: category?.description ?? "",
+              },
+            ],
+          },
+        };
+      } else {
+        return defaultMetadata;
+      }
 
     case data?.type === "product" &&
       data?.status &&
@@ -65,24 +116,28 @@ export async function generateMetadata({ params: { path } }) {
       const image =
         convertHttpToHttps(productSEO?.meta_image) ??
         "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
-      return {
-        title: productSEO?.meta_title ?? "",
-        description: productSEO?.meta_description ?? "",
-        keywords: productSEO?.meta_keywords ?? "",
-        openGraph: {
+      if (productSEO) {
+        return {
           title: productSEO?.meta_title ?? "",
           description: productSEO?.meta_description ?? "",
-          type: "website",
-          images: [
-            {
-              url: image,
-              width: 800,
-              height: 800,
-              alt: productSEO?.meta_title ?? productSEO?.meta_description,
-            },
-          ],
-        },
-      };
+          keywords: productSEO?.meta_keywords ?? "",
+          openGraph: {
+            title: productSEO?.meta_title ?? "",
+            description: productSEO?.meta_description ?? "",
+            type: "website",
+            images: [
+              {
+                url: image,
+                width: 800,
+                height: 800,
+                alt: productSEO?.meta_title ?? productSEO?.meta_description,
+              },
+            ],
+          },
+        };
+      } else {
+        return defaultMetadata;
+      }
   }
 }
 
