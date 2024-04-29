@@ -2560,13 +2560,6 @@ const nextConfig = {
         statusCode: 301,
       },
       {
-        source: "/zvezda-vs-partizan/ukrasni-jastucic-partizan-karo",
-        destination:
-          "/zvezda-vs-partizan/ukrasni-jastuci/ukrasni-jastucic-partizan-karo",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
         source:
           "/program-za-decu/ukrasni-jastucici/ukrasni-jastucic-partizan-karo",
         destination: "/zvezda-vs-partizan/ukrasni-jastucic-partizan-karo",
@@ -2578,13 +2571,6 @@ const nextConfig = {
           "/program-za-decu/ukrasni-jastucici/ukrasni-jastucic-partizan-karo",
         destination:
           "/zvezda-vs-partizan/ukrasni-jastuci/ukrasni-jastucic-partizan-karo",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source:
-          "/zvezda-vs-partizan/ukrasni-jastuci/ukrasni-jastucic-partizan-karo",
-        destination: "/zvezda-vs-partizan/ukrasni-jastucic-partizan-karo",
         permanent: true,
         statusCode: 301,
       },
