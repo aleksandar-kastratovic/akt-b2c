@@ -51,7 +51,7 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
       >
         <CategoryData slug={path[path?.length - 1]} />
       </Suspense>
-      <Suspense>
+
         <CategoryProducts
           slug={slug_path}
           sortField={sortField}
@@ -61,7 +61,7 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
           filters={selected_filters}
           params={{ sortURL, viewed, filteri }}
         />
-      </Suspense>
+
     </>
   );
 };
