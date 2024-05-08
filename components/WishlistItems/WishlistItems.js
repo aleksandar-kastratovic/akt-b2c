@@ -274,6 +274,10 @@ const Wishlistproducts = ({ items, product, refetch_wishlist = () => {} }) => {
                   window?.dataLayer?.push({
                     event: "view_item",
                     ecommerce: {
+                      currency: "RSD",
+                      value: product?.price?.discount?.active
+                          ? product?.price?.price?.discount
+                          : product?.price?.price?.original,
                       items: [
                         {
                           item_name: product?.basic_data?.name,

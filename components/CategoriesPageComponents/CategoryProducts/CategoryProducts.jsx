@@ -57,18 +57,18 @@ export const CategoryProducts = ({
     render: false,
   });
 
-  // const { data: gtm_data, isLoading: isLoadingGTM } = useCategoryProducts({
-  //   slug,
-  //   page: pageKey ?? 1,
-  //   limit: limit,
-  //   sort: sortKey ?? "_",
-  //   setSelectedFilters,
-  //   filterKey,
-  //   setSort,
-  //   setPage: setPage,
-  //   render: true,
-  //   isGTM: true,
-  // });
+  const { data: gtm_data, isLoading: isLoadingGTM } = useCategoryProducts({
+    slug,
+    page: pageKey ?? 1,
+    limit: limit,
+    sort: sortKey ?? "_",
+    setSelectedFilters,
+    filterKey,
+    setSort,
+    setPage: setPage,
+    render: true,
+    isGTM: true,
+  });
 
   // azuriramo query parametre sa selektovanim sortom, stranicom i filterima
   const updateURLQuery = (sort, selectedFilters, page) => {
@@ -251,30 +251,32 @@ export const CategoryProducts = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (!isLoadingGTM) {
-  //     process?.env?.GTM_ENABLED === "true" &&
-  //       window?.dataLayer?.push({
-  //         event: "view_item_list",
-  //         ecommerce: {
-  //           currency: "RSD",
-  //           items: [
-  //             gtm_data?.items?.map((item, index) => {
-  //               return {
-  //                 item_id: item?.basic_data?.id_product,
-  //                 item_name: item?.basic_data?.name,
-  //                 price: `${renderPrices(item)}`,
-  //                 item_category1: item?.categories?.[0]?.name ?? "",
-  //                 discount:
-  //                     item?.price?.discount?.active &&
-  //                     item?.price?.discount?.amount,
-  //               };
-  //             }),
-  //           ],
-  //         },
-  //       });
-  //   }
-  // }, [gtm_data?.pagination, isLoadingGTM]);
+  useEffect(() => {
+    if (!isLoadingGTM) {
+      process?.env?.GTM_ENABLED === "true" &&
+        window?.dataLayer?.push({
+          event: "view_item_list",
+          ecommerce: {
+            item_list_id: "related_products",
+            item_list_name: "Related products",
+            currency: "RSD",
+            items: [
+              gtm_data?.items?.map((item, index) => {
+                return {
+                  item_id: item?.basic_data?.id_product,
+                  item_name: item?.basic_data?.name,
+                  price: `${renderPrices(item)}`,
+                  item_category1: item?.categories?.[0]?.name ?? "",
+                  discount:
+                    item?.price?.discount?.active &&
+                    item?.price?.discount?.amount,
+                };
+              }),
+            ],
+          },
+        });
+    }
+  }, [gtm_data?.pagination, isLoadingGTM]);
 
   return (
     <>

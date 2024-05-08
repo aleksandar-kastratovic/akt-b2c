@@ -355,26 +355,6 @@ export const BasicData = ({ slug, categoryId }) => {
     }
   };
 
-  useEffect(() => {
-    if (process?.env?.GTM_ENABLED === "true") {
-      window?.dataLayer?.push({
-        event: "view_item",
-        ecommerce: {
-        currency: "RSD",
-          items: [
-            {
-              item_name: products?.data?.item?.basic_data?.name,
-              item_id: products?.data?.item?.basic_data?.id_product,
-              price: products?.data?.item?.price?.price?.original,
-              item_brand: products?.data?.item?.basic_data?.brand,
-              item_category1: products?.data?.item?.categories[0]?.name,
-              item_variant: productVariant?.basic_data?.name,
-            },
-          ],
-        },
-      });
-    }
-  }, [productVariant?.id]);
 
   return (
     <>

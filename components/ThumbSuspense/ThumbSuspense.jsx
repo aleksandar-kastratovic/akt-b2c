@@ -470,6 +470,10 @@ const Products = ({
                 window?.dataLayer?.push({
                   event: "view_item",
                   ecommerce: {
+                    currency: "RSD",
+                    value: item?.price?.discount?.active
+                      ? item?.price?.price?.discount
+                      : item?.price?.price?.original,
                     items: [
                       {
                         item_name: item?.basic_data?.name,
