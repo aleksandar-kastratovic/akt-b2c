@@ -260,19 +260,17 @@ export const CategoryProducts = ({
             item_list_id: "related_products",
             item_list_name: "Related products",
             currency: "RSD",
-            items: [
-              gtm_data?.items?.map((item, index) => {
-                return {
-                  item_id: item?.basic_data?.id_product,
-                  item_name: item?.basic_data?.name,
-                  price: `${renderPrices(item)}`,
-                  item_category1: item?.categories?.[0]?.name ?? "",
-                  discount:
-                    item?.price?.discount?.active &&
-                    item?.price?.discount?.amount,
-                };
-              }),
-            ],
+            items: gtm_data?.items?.map((item, index) => {
+              return {
+                item_id: item?.basic_data?.id_product,
+                item_name: item?.basic_data?.name,
+                price: `${renderPrices(item)}`,
+                item_category1: item?.categories?.[0]?.name ?? "",
+                discount:
+                  item?.price?.discount?.active &&
+                  item?.price?.discount?.amount,
+              };
+            }),
           },
         });
     }

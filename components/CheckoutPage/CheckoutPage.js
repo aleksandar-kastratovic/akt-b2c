@@ -257,7 +257,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
           if (response?.code === 200) {
             const totalValue = cartItems
               ?.map(
-                (item) => item?.quantity * item?.product?.price?.cost?.with_vat
+                (item) => item?.cart?.quantity * item?.product?.price?.cost?.with_vat
               )
               .reduce((acc, curr) => acc + curr, 0);
 

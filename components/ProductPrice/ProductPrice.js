@@ -1,19 +1,8 @@
 "use client";
-import { currencyFormat } from "@/helpers/functions";
 import React, { useState, useEffect, Suspense } from "react";
-import PlusMinusInputOne from "../PlusMinusInputOne";
-import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
-import { toast, ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
-import Image from "next/image";
-import { useCartContext } from "@/app/api/cartContext";
-import Cart from "../../assets/Icons/shopping-bag.png";
-import wishlist from "@/assets/Icons/favorite.png";
-import wishlistactive from "../../assets/Icons/favorite-active.png";
-import Variants from "../Variants/Variants";
-import { usePathname, useRouter } from "next/navigation";
-import { get, deleteMethod, post } from "@/app/api/api";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+
 import { Badges } from "@/_components/badges";
 import { BasicData } from "@/_components/basic-data";
 
