@@ -13,13 +13,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCartContext } from "@/app/api/cartContext";
 import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { currencyFormat } from "@/helpers/functions";
+import * as process from "process";
 
 export const BasicData = ({ slug, categoryId }) => {
   const { data: products } = useSuspenseQuery({
     queryKey: ["slug", slug],
     queryFn: async () => {
       return await get(
-        `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
+          `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
       ).then((res) => res?.payload);
     },
     refetchOnWindowFocus: false,
@@ -52,7 +53,6 @@ export const BasicData = ({ slug, categoryId }) => {
             autoClose: 3000,
           });
           mutateWishList();
-
           setLoadingWishlist(false);
           setIsInWishlist(false);
         } else {
@@ -69,8 +69,8 @@ export const BasicData = ({ slug, categoryId }) => {
         ecommerce: {
           currency: "RSD",
           value: products?.data?.item?.price?.discount?.active
-            ? products?.data?.item?.price?.price?.discount
-            : products?.data?.item?.price?.price?.original,
+              ? products?.data?.item?.price?.price?.discount
+              : products?.data?.item?.price?.price?.original,
           items: [
             {
               item_name: products?.data?.item?.basic_data?.name,
@@ -133,7 +133,7 @@ export const BasicData = ({ slug, categoryId }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       return await get(
-        `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`
+          `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`
       ).then((res) => {
         if (res?.payload?.exist) {
           setIsInWishlist(true);
@@ -206,76 +206,76 @@ export const BasicData = ({ slug, categoryId }) => {
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-              item?.price?.min?.price?.original ===
-              item?.price?.max?.price?.original
-            ) {
+            item?.price?.min?.price?.original ===
+            item?.price?.max?.price?.original
+                ) {
               case true:
                 return (
-                  <>
-                    <p
-                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                    >
-                      {currencyFormat(item?.price?.price?.original)}
-                    </p>
-                    <div className="bg-croonus-3  self-start w-fit ">
-                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                        {currencyFormat(item?.price?.price?.discount)}
+                    <>
+                      <p
+                          className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                      >
+                        {currencyFormat(item?.price?.price?.original)}
                       </p>
-                    </div>
-                  </>
+                      <div className="bg-croonus-3  self-start w-fit ">
+                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                          {currencyFormat(item?.price?.price?.discount)}
+                        </p>
+                      </div>
+                    </>
                 );
                 break;
               case false:
                 return (
-                  <>
-                    <p
-                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                    >
-                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                      {currencyFormat(item?.price?.max?.price?.original)}
-                    </p>
-                    <div className="bg-croonus-3  self-start w-fit ">
-                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                        -
-                        {(
-                          (item?.price?.discount?.amount /
-                            item?.price?.price?.original) *
-                          100
-                        ).toFixed(0)}
-                        % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
-                        {currencyFormat(item?.price?.max?.price?.discount)}
+                    <>
+                      <p
+                          className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                      >
+                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.original)}
                       </p>
-                    </div>
-                  </>
+                      <div className="bg-croonus-3  self-start w-fit ">
+                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                          -
+                          {(
+                              (item?.price?.discount?.amount /
+                                  item?.price?.price?.original) *
+                              100
+                          ).toFixed(0)}
+                          % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                          {currencyFormat(item?.price?.max?.price?.discount)}
+                        </p>
+                      </div>
+                    </>
                 );
                 break;
             }
           case false:
             switch (
-              item?.price?.min?.price?.original ===
-              item?.price?.max?.price?.original
-            ) {
+            item?.price?.min?.price?.original ===
+            item?.price?.max?.price?.original
+                ) {
               case true:
                 return (
-                  <>
-                    <p
-                      className={`text-[1rem] self-start text-black font-normal py-1`}
-                    >
-                      {currencyFormat(item?.price?.min?.price?.original)}
-                    </p>
-                  </>
+                    <>
+                      <p
+                          className={`text-[1rem] self-start text-black font-normal py-1`}
+                      >
+                        {currencyFormat(item?.price?.min?.price?.original)}
+                      </p>
+                    </>
                 );
                 break;
               case false:
                 return (
-                  <>
-                    <p
-                      className={`text-[1rem] self-start text-black font-normal py-1`}
-                    >
-                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                      {currencyFormat(item?.price?.max?.price?.original)}
-                    </p>
-                  </>
+                    <>
+                      <p
+                          className={`text-[1rem] self-start text-black font-normal py-1`}
+                      >
+                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.original)}
+                      </p>
+                    </>
                 );
                 break;
             }
@@ -285,35 +285,35 @@ export const BasicData = ({ slug, categoryId }) => {
         switch (item?.price?.discount?.active) {
           case true:
             return (
-              <>
-                <p
-                  className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                >
-                  {currencyFormat(item?.price?.price?.original)}
-                </p>
-                <div className="bg-croonus-3  self-start w-fit ">
-                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                    -
-                    {(
-                      (item?.price?.discount?.amount /
-                        item?.price?.price?.original) *
-                      100
-                    ).toFixed(0)}
-                    % {currencyFormat(item?.price?.price?.discount)}
+                <>
+                  <p
+                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                  >
+                    {currencyFormat(item?.price?.price?.original)}
                   </p>
-                </div>
-              </>
+                  <div className="bg-croonus-3  self-start w-fit ">
+                    <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                      -
+                      {(
+                          (item?.price?.discount?.amount /
+                              item?.price?.price?.original) *
+                          100
+                      ).toFixed(0)}
+                      % {currencyFormat(item?.price?.price?.discount)}
+                    </p>
+                  </div>
+                </>
             );
             break;
           case false:
             return (
-              <>
-                <p
-                  className={`text-[1rem] self-start text-black font-normal py-1`}
-                >
-                  {currencyFormat(item?.price?.price?.original)}
-                </p>
-              </>
+                <>
+                  <p
+                      className={`text-[1rem] self-start text-black font-normal py-1`}
+                  >
+                    {currencyFormat(item?.price?.price?.original)}
+                  </p>
+                </>
             );
             break;
         }
@@ -332,7 +332,7 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(item?.price?.price?.discount);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                  item?.price?.min?.price?.discount
+                    item?.price?.min?.price?.discount
                 )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
             }
         }
@@ -347,13 +347,59 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(productVariant?.price?.price?.original);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                  item?.price?.min?.price?.original
+                    item?.price?.min?.price?.original
                 )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
             }
         }
         break;
     }
   };
+
+  useEffect(() => {
+    const getValue = () => {
+      switch (true) {
+        case products?.data?.item?.price?.min?.price?.original ===
+        products?.data?.item?.price?.max?.price?.original:
+          switch (true) {
+            case products?.data?.item?.price?.discount?.active:
+              return products?.data?.item?.price?.price?.discount;
+            case !products?.data?.item?.price?.discount?.active:
+              return products?.data?.item?.price?.price?.original;
+          }
+          break;
+        case products?.data?.item?.price?.min?.price?.original !==
+        products?.data?.item?.price?.max?.price?.original:
+          switch (true) {
+            case products?.data?.item?.price?.discount?.active:
+              return `${products?.data?.item?.price?.min?.price?.discount} - ${products?.data?.item?.price?.max?.price?.discount}`;
+            case !products?.data?.item?.price?.discount?.active:
+              return `${products?.data?.item?.price?.min?.price?.original} - ${products?.data?.item?.price?.max?.price?.original}`;
+          }
+          break;
+      }
+    };
+
+    if (process.env.GTM_ENABLED === "true") {
+      window?.dataLayer?.push({
+        event: "view_item",
+        ecommerce: {
+          currency: "RSD",
+          value: getValue(),
+          items: [
+            {
+              item_name: products?.data?.item?.basic_data?.name,
+              item_id: products?.data?.item?.basic_data?.id_product,
+              price: getValue(),
+              item_brand: products?.data?.item?.basic_data?.brand_name,
+              item_category1: products?.data?.item?.categories[0]?.name,
+              item_variant: productVariant?.basic_data?.attributes_text,
+            },
+          ],
+        },
+      });
+    }
+
+  }, [products, productVariant]);
 
 
   return (
