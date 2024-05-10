@@ -21,6 +21,8 @@ import {
 } from "@/hooks/akt.hooks";
 import { useContext } from "react";
 import { userContext } from "@/context/userContext";
+import defaultimage from "@/public/placeholder.jpg"
+
 
 const NavigationDesktop = () => {
   const pathname = usePathname();
@@ -409,15 +411,27 @@ const NavigationDesktop = () => {
                                   }}
                                 >
                                   <div className="flex flex-row items-center gap-5">
-                                    <div className=" relative">
-                                      <Image
-                                        src={item?.image[0]}
-                                        alt="AKT"
-                                        width={60}
-                                        height={60}
-                                        className={`object-cover rounded-full h-[60px]`}
-                                      />
-                                    </div>
+                                  {item?.image[0] ? (
+                                 <div className=" relative">
+                                 <Image
+                                   src={item?.image[0]}
+                                   alt="AKT"
+                                   width={60}
+                                   height={60}
+                                   className={`object-cover rounded-full h-[60px]`}
+                                 />
+                               </div>
+                              ) : (
+                                <div className=" relative">
+                                <Image
+                                  src={defaultimage}
+                                  alt="AKT"
+                                  width={60}
+                                  height={60}
+                                  className={`object-cover rounded-full h-[60px]`}
+                                />
+                              </div>
+                              )}
                                     <div className="flex flex-col gap-1">
                                       <h1 className="text-[0.9rem] font-normal">
                                         {item?.basic_data?.name}
