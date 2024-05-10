@@ -20,7 +20,7 @@ export const BasicData = ({ slug, categoryId }) => {
     queryKey: ["slug", slug],
     queryFn: async () => {
       return await get(
-          `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
+        `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
       ).then((res) => res?.payload);
     },
     refetchOnWindowFocus: false,
@@ -69,8 +69,8 @@ export const BasicData = ({ slug, categoryId }) => {
         ecommerce: {
           currency: "RSD",
           value: products?.data?.item?.price?.discount?.active
-              ? products?.data?.item?.price?.price?.discount
-              : products?.data?.item?.price?.price?.original,
+            ? products?.data?.item?.price?.price?.discount
+            : products?.data?.item?.price?.price?.original,
           items: [
             {
               item_name: products?.data?.item?.basic_data?.name,
@@ -113,8 +113,8 @@ export const BasicData = ({ slug, categoryId }) => {
         ecommerce: {
           currency: "RSD",
           value: products?.data?.item?.price?.discount?.active
-              ? products?.data?.item?.price?.price?.discount
-              : products?.data?.item?.price?.price?.original,
+            ? products?.data?.item?.price?.price?.discount
+            : products?.data?.item?.price?.price?.original,
           items: [
             {
               item_name: products?.data?.item?.basic_data?.name,
@@ -133,7 +133,7 @@ export const BasicData = ({ slug, categoryId }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       return await get(
-          `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`
+        `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`
       ).then((res) => {
         if (res?.payload?.exist) {
           setIsInWishlist(true);
@@ -163,6 +163,30 @@ export const BasicData = ({ slug, categoryId }) => {
       toast.success("Proizvod dodat u korpu!", {
         position: toast.POSITION.TOP_CENTER,
       });
+      if (process?.env?.GTM_ENABLED === "true") {
+        window?.dataLayer?.push({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "RSD",
+            value: products?.data?.item?.price?.discount?.active
+              ? products?.data?.item?.price?.price?.discount
+              : products?.data?.item?.price?.price?.original,
+            items: [
+              {
+                item_name: products?.data?.item?.basic_data?.name,
+                item_id: products?.data?.item?.basic_data?.id_product,
+                price: products?.data?.item?.price?.discount?.active
+                    ? products?.data?.item?.price?.price?.discount
+                    : products?.data?.item?.price?.price?.original,
+                item_brand: products?.data?.item?.basic_data?.brand,
+                item_category1: products?.data?.item?.categories[0]?.name,
+                item_variant: productVariant?.basic_data?.name,
+                quantity: productAmount,
+              },
+            ],
+          },
+        });
+      }
     } else {
       if (!productVariant) {
         toast.warn("Morate izabrati varijantu proizvoda!", {
@@ -173,31 +197,33 @@ export const BasicData = ({ slug, categoryId }) => {
         toast.success("Proizvod dodat u korpu!", {
           position: toast.POSITION.TOP_CENTER,
         });
+        if (process?.env?.GTM_ENABLED === "true") {
+          window?.dataLayer?.push({
+            event: "add_to_cart",
+            ecommerce: {
+              currency: "RSD",
+              value: productVariant?.price?.discount?.active
+                ? productVariant?.price?.price?.discount
+                : productVariant?.price?.price?.original,
+              items: [
+                {
+                  item_name: productVariant?.basic_data?.name,
+                  item_id: productVariant?.basic_data?.id_product,
+                  price: productVariant?.price?.discount?.active
+                      ? productVariant?.price?.price?.discount
+                      : productVariant?.price?.price?.original,
+                  item_brand: productVariant?.basic_data?.brand,
+                  item_category1: productVariant?.categories[0]?.name,
+                  item_variant: productVariant?.basic_data?.name,
+                  quantity: productAmount,
+                },
+              ],
+            },
+          });
+        }
       }
     }
     setProductAmount(1);
-    if (process?.env?.GTM_ENABLED === "true") {
-      window?.dataLayer?.push({
-        event: "add_to_cart",
-        ecommerce: {
-          currency: "RSD",
-          value: products?.data?.item?.price?.discount?.active
-              ? products?.data?.item?.price?.price?.discount
-              : products?.data?.item?.price?.price?.original,
-          items: [
-            {
-              item_name: products?.data?.item?.basic_data?.name,
-              item_id: products?.data?.item?.basic_data?.id_product,
-              price: products?.data?.item?.price?.price?.original,
-              item_brand: products?.data?.item?.basic_data?.brand,
-              item_category1: products?.data?.item?.categories[0]?.name,
-              item_variant: productVariant?.basic_data?.name,
-              quantity: productAmount,
-            },
-          ],
-        },
-      });
-    }
   };
 
   const renderPrices = (item) => {
@@ -206,76 +232,76 @@ export const BasicData = ({ slug, categoryId }) => {
         switch (item?.price?.discount?.active) {
           case true:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <p
-                          className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                      >
-                        {currencyFormat(item?.price?.price?.original)}
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                    >
+                      {currencyFormat(item?.price?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        {currencyFormat(item?.price?.price?.discount)}
                       </p>
-                      <div className="bg-croonus-3  self-start w-fit ">
-                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                          {currencyFormat(item?.price?.price?.discount)}
-                        </p>
-                      </div>
-                    </>
+                    </div>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <p
-                          className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                        {currencyFormat(item?.price?.max?.price?.original)}
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                    <div className="bg-croonus-3  self-start w-fit ">
+                      <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                        -
+                        {(
+                          (item?.price?.discount?.amount /
+                            item?.price?.price?.original) *
+                          100
+                        ).toFixed(0)}
+                        % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
+                        {currencyFormat(item?.price?.max?.price?.discount)}
                       </p>
-                      <div className="bg-croonus-3  self-start w-fit ">
-                        <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                          -
-                          {(
-                              (item?.price?.discount?.amount /
-                                  item?.price?.price?.original) *
-                              100
-                          ).toFixed(0)}
-                          % {currencyFormat(item?.price?.min?.price?.discount)} -{" "}
-                          {currencyFormat(item?.price?.max?.price?.discount)}
-                        </p>
-                      </div>
-                    </>
+                    </div>
+                  </>
                 );
                 break;
             }
           case false:
             switch (
-            item?.price?.min?.price?.original ===
-            item?.price?.max?.price?.original
-                ) {
+              item?.price?.min?.price?.original ===
+              item?.price?.max?.price?.original
+            ) {
               case true:
                 return (
-                    <>
-                      <p
-                          className={`text-[1rem] self-start text-black font-normal py-1`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)}
-                      </p>
-                    </>
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)}
+                    </p>
+                  </>
                 );
                 break;
               case false:
                 return (
-                    <>
-                      <p
-                          className={`text-[1rem] self-start text-black font-normal py-1`}
-                      >
-                        {currencyFormat(item?.price?.min?.price?.original)} -{" "}
-                        {currencyFormat(item?.price?.max?.price?.original)}
-                      </p>
-                    </>
+                  <>
+                    <p
+                      className={`text-[1rem] self-start text-black font-normal py-1`}
+                    >
+                      {currencyFormat(item?.price?.min?.price?.original)} -{" "}
+                      {currencyFormat(item?.price?.max?.price?.original)}
+                    </p>
+                  </>
                 );
                 break;
             }
@@ -285,35 +311,35 @@ export const BasicData = ({ slug, categoryId }) => {
         switch (item?.price?.discount?.active) {
           case true:
             return (
-                <>
-                  <p
-                      className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
-                  >
-                    {currencyFormat(item?.price?.price?.original)}
+              <>
+                <p
+                  className={`text-[1rem] self-start text-black font-normal py-2 line-through`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+                <div className="bg-croonus-3  self-start w-fit ">
+                  <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
+                    -
+                    {(
+                      (item?.price?.discount?.amount /
+                        item?.price?.price?.original) *
+                      100
+                    ).toFixed(0)}
+                    % {currencyFormat(item?.price?.price?.discount)}
                   </p>
-                  <div className="bg-croonus-3  self-start w-fit ">
-                    <p className="text-[1rem] self-start text-black font-normal py-2 px-2">
-                      -
-                      {(
-                          (item?.price?.discount?.amount /
-                              item?.price?.price?.original) *
-                          100
-                      ).toFixed(0)}
-                      % {currencyFormat(item?.price?.price?.discount)}
-                    </p>
-                  </div>
-                </>
+                </div>
+              </>
             );
             break;
           case false:
             return (
-                <>
-                  <p
-                      className={`text-[1rem] self-start text-black font-normal py-1`}
-                  >
-                    {currencyFormat(item?.price?.price?.original)}
-                  </p>
-                </>
+              <>
+                <p
+                  className={`text-[1rem] self-start text-black font-normal py-1`}
+                >
+                  {currencyFormat(item?.price?.price?.original)}
+                </p>
+              </>
             );
             break;
         }
@@ -332,7 +358,7 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(item?.price?.price?.discount);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                    item?.price?.min?.price?.discount
+                  item?.price?.min?.price?.discount
                 )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
             }
         }
@@ -347,7 +373,7 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(productVariant?.price?.price?.original);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                    item?.price?.min?.price?.original
+                  item?.price?.min?.price?.original
                 )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
             }
         }
@@ -359,7 +385,7 @@ export const BasicData = ({ slug, categoryId }) => {
     const getValue = () => {
       switch (true) {
         case products?.data?.item?.price?.min?.price?.original ===
-        products?.data?.item?.price?.max?.price?.original:
+          products?.data?.item?.price?.max?.price?.original:
           switch (true) {
             case products?.data?.item?.price?.discount?.active:
               return products?.data?.item?.price?.price?.discount;
@@ -368,7 +394,7 @@ export const BasicData = ({ slug, categoryId }) => {
           }
           break;
         case products?.data?.item?.price?.min?.price?.original !==
-        products?.data?.item?.price?.max?.price?.original:
+          products?.data?.item?.price?.max?.price?.original:
           switch (true) {
             case products?.data?.item?.price?.discount?.active:
               return `${products?.data?.item?.price?.min?.price?.discount} - ${products?.data?.item?.price?.max?.price?.discount}`;
@@ -398,9 +424,7 @@ export const BasicData = ({ slug, categoryId }) => {
         },
       });
     }
-
   }, [products, productVariant]);
-
 
   return (
     <>
