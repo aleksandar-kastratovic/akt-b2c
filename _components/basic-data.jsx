@@ -1,3 +1,4 @@
+"use client";
 import Variants from "@/components/Variants/Variants";
 import PlusMinusInputOne from "@/components/PlusMinusInputOne";
 import Image from "next/image";
@@ -163,30 +164,28 @@ export const BasicData = ({ slug, categoryId }) => {
       toast.success("Proizvod dodat u korpu!", {
         position: toast.POSITION.TOP_CENTER,
       });
-      if (process?.env?.GTM_ENABLED === "true") {
-        window?.dataLayer?.push({
-          event: "add_to_cart",
-          ecommerce: {
-            currency: "RSD",
-            value: products?.data?.item?.price?.discount?.active
-              ? products?.data?.item?.price?.price?.discount
-              : products?.data?.item?.price?.price?.original,
-            items: [
-              {
-                item_name: products?.data?.item?.basic_data?.name,
-                item_id: products?.data?.item?.basic_data?.id_product,
-                price: products?.data?.item?.price?.discount?.active
-                    ? products?.data?.item?.price?.price?.discount
-                    : products?.data?.item?.price?.price?.original,
-                item_brand: products?.data?.item?.basic_data?.brand,
-                item_category1: products?.data?.item?.categories[0]?.name,
-                item_variant: productVariant?.basic_data?.name,
-                quantity: productAmount,
-              },
-            ],
-          },
-        });
-      }
+      window?.dataLayer?.push({
+        event: "add_to_cart",
+        ecommerce: {
+          currency: "RSD",
+          value: products?.data?.item?.price?.discount?.active
+            ? products?.data?.item?.price?.price?.discount
+            : products?.data?.item?.price?.price?.original,
+          items: [
+            {
+              item_name: products?.data?.item?.basic_data?.name,
+              item_id: products?.data?.item?.basic_data?.id_product,
+              price: products?.data?.item?.price?.discount?.active
+                ? products?.data?.item?.price?.price?.discount
+                : products?.data?.item?.price?.price?.original,
+              item_brand: products?.data?.item?.basic_data?.brand,
+              item_category1: products?.data?.item?.categories[0]?.name,
+              item_variant: productVariant?.basic_data?.name,
+              quantity: productAmount,
+            },
+          ],
+        },
+      });
     } else {
       if (!productVariant) {
         toast.warn("Morate izabrati varijantu proizvoda!", {
@@ -197,30 +196,29 @@ export const BasicData = ({ slug, categoryId }) => {
         toast.success("Proizvod dodat u korpu!", {
           position: toast.POSITION.TOP_CENTER,
         });
-        if (process?.env?.GTM_ENABLED === "true") {
-          window?.dataLayer?.push({
-            event: "add_to_cart",
-            ecommerce: {
-              currency: "RSD",
-              value: productVariant?.price?.discount?.active
-                ? productVariant?.price?.price?.discount
-                : productVariant?.price?.price?.original,
-              items: [
-                {
-                  item_name: productVariant?.basic_data?.name,
-                  item_id: productVariant?.basic_data?.id_product,
-                  price: productVariant?.price?.discount?.active
-                      ? productVariant?.price?.price?.discount
-                      : productVariant?.price?.price?.original,
-                  item_brand: productVariant?.basic_data?.brand,
-                  item_category1: productVariant?.categories[0]?.name,
-                  item_variant: productVariant?.basic_data?.name,
-                  quantity: productAmount,
-                },
-              ],
-            },
-          });
-        }
+
+        window?.dataLayer?.push({
+          event: "add_to_cart",
+          ecommerce: {
+            currency: "RSD",
+            value: productVariant?.price?.discount?.active
+              ? productVariant?.price?.price?.discount
+              : productVariant?.price?.price?.original,
+            items: [
+              {
+                item_name: productVariant?.basic_data?.name,
+                item_id: productVariant?.basic_data?.id_product,
+                price: productVariant?.price?.discount?.active
+                  ? productVariant?.price?.price?.discount
+                  : productVariant?.price?.price?.original,
+                item_brand: productVariant?.basic_data?.brand,
+                item_category1: productVariant?.categories[0]?.name,
+                item_variant: productVariant?.basic_data?.name,
+                quantity: productAmount,
+              },
+            ],
+          },
+        });
       }
     }
     setProductAmount(1);
