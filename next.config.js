@@ -548,12 +548,6 @@ const nextConfig = {
         statusCode: 301,
       },
       {
-        source: "/posteljina-partizan",
-        destination: "/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
         source: "/set-peskira-duet",
         destination: "/set-peskira-duet-3",
         permanent: true,
