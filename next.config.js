@@ -2328,54 +2328,7 @@ const nextConfig = {
         permanent: true,
         statusCode: 301,
       },
-      {
-        source: "/program-za-decu/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/program-za-decu/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljine/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/zvezda-vs-partizan/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/zvezda-vs-partizan/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljine/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/program-za-decu/posteljine/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/program-za-decu/posteljine/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljine/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/zvezda-vs-partizan/posteljine/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/zvezda-vs-partizan/posteljine/posteljina-partizan",
-        destination: "/zvezda-vs-partizan/posteljine/posteljina-partizan-2",
-        permanent: true,
-        statusCode: 301,
-      },
+
       {
         source: "/program-za-decu/posteljina-fudbal",
         destination: "/program-za-decu/posteljine-za-decu/posteljina-fudbal",
