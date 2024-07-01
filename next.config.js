@@ -21,7 +21,7 @@ const nextConfig = {
   },
   images: {
     minimumCacheTTL: 60 * 60 * 12 * 90,
-
+    unoptimized: true,
     domains: [
       "api.akt.croonus.com",
       "scontent.cdninstagram.com",

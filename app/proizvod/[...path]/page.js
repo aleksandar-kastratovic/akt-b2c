@@ -89,5 +89,3 @@ const ProductPage = ({ params: { path } }) => {
 };
 
 export default ProductPage;
-
-export const revalidate = 30;

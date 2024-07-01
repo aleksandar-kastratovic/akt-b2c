@@ -67,5 +67,3 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
 };
 
 export default CategoryPage;
-
-export const revalidate = 30;
