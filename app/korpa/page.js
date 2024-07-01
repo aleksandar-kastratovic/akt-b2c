@@ -1,14 +1,14 @@
 import CheckoutPage from "@/components/CheckoutPage/CheckoutPage";
-import {get} from "../api/api";
+import { get } from "../api/api";
 
 const paymentOptions = async () => {
   return await get("/checkout/payment-options").then(
-      (response) => response?.payload
+    (response) => response?.payload
   );
 };
 const deliveryOptions = async () => {
   return await get("/checkout/delivery-options").then(
-      (response) => response?.payload
+    (response) => response?.payload
   );
 };
 
