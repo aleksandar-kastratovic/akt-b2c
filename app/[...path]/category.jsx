@@ -13,7 +13,6 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
   //vadimo stranu iz URL i konvertujemo u type Number
   const num_of_viewed_products = Number(viewed) > 0 ? Number(viewed) : 10;
 
-
   //vadimo filtere iz URL
   const selected_filters = filteri?.split("::")?.map((filter) => {
     const [column, selected] = filter?.split("=");
@@ -52,16 +51,15 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
         <CategoryData slug={path[path?.length - 1]} />
       </Suspense>
 
-        <CategoryProducts
-          slug={slug_path}
-          sortField={sortField}
-          sortDirection={sortDirection}
-          viewed={viewed}
-          allFilters={[]}
-          filters={selected_filters}
-          params={{ sortURL, viewed, filteri }}
-        />
-
+      <CategoryProducts
+        slug={slug_path}
+        sortField={sortField}
+        sortDirection={sortDirection}
+        viewed={viewed}
+        allFilters={[]}
+        filters={selected_filters}
+        params={{ sortURL, viewed, filteri }}
+      />
     </>
   );
 };
