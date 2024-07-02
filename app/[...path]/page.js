@@ -1,6 +1,6 @@
 import { get } from "@/app/api/api";
-import CategoryPage from "@/app/kategorije/[...path]/page";
-import ProductPage from "@/app/proizvod/[...path]/page";
+import CategoryPage from "./category";
+import ProductPage from "./product";
 import { Suspense } from "react";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { notFound, redirect } from "next/navigation";
