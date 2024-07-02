@@ -21,7 +21,7 @@ console.log(bannerimages, "bnr:")
             key={index}
             className={`w-full relative flex items-center flex-col`}
           >
-            <Link href={item?.file_data?.url ?? "/"}>
+            <Link href={item?.url ?? "/"}>
               <video
                 width={item?.file_data?.banner_position?.width}
                 height={item?.file_data?.banner_position?.height}
@@ -62,7 +62,7 @@ console.log(bannerimages, "bnr:")
             key={index}
             className={`w-full relative flex items-center flex-col`}
           >
-            <Link href={item?.file_data?.url ?? "/"}>
+            <Link href={item?.url ?? "/"}>
               <Image
                 width={1300}
                 height={600}
