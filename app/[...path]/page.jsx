@@ -1,7 +1,6 @@
 import { get } from "@/app/api/api";
-import CategoryPage from "./category";
-import ProductPage from "./product";
-import { Suspense } from "react";
+import CategoryPage from "../../_components/category";
+import ProductPage from "../../_components/product";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { notFound, redirect } from "next/navigation";
 

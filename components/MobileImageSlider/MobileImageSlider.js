@@ -11,12 +11,10 @@ const MobileImageSlider = ({ slug }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperData, setSwiperData] = useState(null);
 
-  console.log(swiperData);
-
   return (
     <div className={`relative h-full`}>
       <Swiper
-          autoHeight={true}
+        autoHeight={true}
         rewind
         onSwiper={(swiper) => setSwiperData(swiper)}
         onSlideChange={(swiper) => {
@@ -24,7 +22,7 @@ const MobileImageSlider = ({ slug }) => {
           setActiveIndex(swiper?.activeIndex);
         }}
         className={`!relative`}
-        direction={`vertical`}
+        direction={`horizontal`}
         slidesPerView={1}
       >
         {images?.map(({ image, id }) => {
@@ -43,7 +41,7 @@ const MobileImageSlider = ({ slug }) => {
         })}
         {swiperData && (
           <div
-            className={`absolute z-10 top-0 bottom-0 right-2 my-auto flex flex-col gap-3 justify-center`}
+            className={`absolute z-10 bottom-3 mx-auto flex flex-row left-0 right-0 gap-3 justify-center`}
           >
             {images?.map((i, x) => {
               return (
@@ -61,14 +59,6 @@ const MobileImageSlider = ({ slug }) => {
           </div>
         )}
       </Swiper>
-      <div
-        onClick={() => {
-          swiperData?.slideNext();
-        }}
-        className={`border px-16 py-1 text-center w-fit mx-auto absolute -bottom-5 left-0 z-10 right-0 bg-white`}
-      >
-        <i className="fa fa-solid fa-play fa-rotate-90 text-croonus-1 text-lg"></i>
-      </div>
     </div>
   );
 };
