@@ -69,7 +69,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     payment: null,
   });
 
-
   const required = [
     "first_name",
     "last_name",
@@ -133,9 +132,7 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const [loadingCreditCard, setLoadingCreditCard] = useState(false);
 
   const formSubmitHandler = () => {
-
     setRefreshReCaptcha((r) => !r);
-
     const err = [];
     for (const key in formData) {
       const item = formData[key];
@@ -164,6 +161,148 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
         pauseOnHover: true,
       });
     }
+    else {
+      const ret = {
+        customer_type_billing: formData.type,
+        id_company_shipping: null,
+        id_company_address_shipping: null,
+        company_name_shipping:
+          formData.type === "company"
+            ? secondAddress
+              ? formData.shipping_company_name
+              : formData.company_name
+            : null,
+        pib_shipping: formData.type === "company" ? formData.pib : null,
+        maticni_broj_shipping:
+          formData.type === "company" ? formData.maticni_broj : null,
+        first_name_shipping: secondAddress
+          ? formData.shipping_first_name
+          : formData.first_name,
+        last_name_shipping: secondAddress
+          ? formData.shipping_last_name
+          : formData.last_name,
+        phone_shipping: secondAddress
+          ? formData.shipping_phone
+          : formData.phone,
+        email_shipping: secondAddress
+          ? formData.shipping_email
+          : formData.email,
+        address_shipping: secondAddress
+          ? formData.shipping_address
+          : formData.address,
+        object_number_shipping: secondAddress
+          ? formData.shipping_object_number
+          : formData.object_number,
+        floor_shipping: "",
+        apartment_number_shipping: "",
+        id_town_shipping: null,
+        town_name_shipping: secondAddress
+          ? formData.shipping_town
+          : formData.town,
+        zip_code_shipping: secondAddress
+          ? formData.shipping_zip_code
+          : formData.zip_code,
+        id_municipality_shipping: null,
+        municipality_name_shipping: "",
+        id_country_shipping: null,
+        country_name_shipping: "Srbija",
+        note_shipping: secondAddress ? formData.shipping_note : formData.note,
+        id_company_billing: null,
+        id_company_address_billing: null,
+        company_name_billing:
+          formData.type === "company" ? formData.company_name : null,
+        pib_billing: formData.type === "company" ? formData.pib : null,
+        maticni_broj_billing:
+          formData.type === "company" ? formData.maticni_broj : null,
+        first_name_billing: formData.first_name,
+        last_name_billing: formData.last_name,
+        phone_billing: formData.phone,
+        email_billing: formData.email,
+        address_billing: formData.address,
+        object_number_billing: formData?.object_number,
+        floor_billing: "",
+        apartment_number_billing: "",
+        id_town_billing: null,
+        town_name_billing: formData.town,
+        zip_code_billing: formData.zip_code,
+        id_municipality_billing: null,
+        municipality_name_billing: "",
+        id_country_billing: null,
+        country_name_billing: "Srbija",
+        note_billing: formData.note,
+
+        delivery_method: formData.delivery,
+        delivery_method_options: [],
+
+        payment_method: formData.payment,
+        payment_method_options: [],
+
+        promo_code: null,
+        promo_code_options: [],
+
+        note: formData.note,
+        gcaptcha: token,
+
+        accept_rules: 1,
+      };
+      if (errors.length === 0) {
+        setLoading(true);
+        setLoadingCreditCard(true);
+      } else {
+        setLoading(true);
+        setLoadingCreditCard(true);
+      }
+      post("/checkout/one-page", ret)
+        .then((response) => {
+          const creditCardForm = response?.payload?.payment_provider_data?.form;
+
+          if (response?.code === 200) {
+            const totalValue = cartItems
+              ?.map(
+                (item) => item?.cart?.quantity * item?.product?.price?.cost?.with_vat
+              )
+              .reduce((acc, curr) => acc + curr, 0);
+
+            window?.dataLayer?.push({
+              event: "begin_checkout",
+              ecommerce: {
+                currency: "RSD",
+                value: totalValue,
+                items: cartItems?.map((item) => ({
+                  item_name: item?.product?.basic_data?.name,
+                  item_id: item?.product?.id,
+                  price: item?.product?.price?.cost?.with_vat,
+                  quantity: item?.cart?.quantity,
+                })),
+              },
+            });
+            if (creditCardForm) {
+              const dom = document.createElement("div");
+              dom.innerHTML = creditCardForm;
+              document.body.appendChild(dom);
+
+              const formData = document.getElementById("bank_send_form");
+              formData.submit();
+            } else {
+              mutateCart();
+              router.push(`/kupovina/${response?.payload?.order?.order_token}`);
+            }
+          } else {
+            setLoading(false);
+            setLoadingCreditCard(false);
+            toast.error(
+              response?.payload?.message ??
+                response?.message ??
+                "Došlo je do greške",
+              {
+                position: "top-center",
+                autoClose: 2000,
+              }
+            );
+          }
+        })
+        .catch((error) => {});
+    }
   };
 
   const [checkoutSummary, setCheckoutSummary] = useState([]);
@@ -176,7 +315,6 @@ const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
     };
     getSummary();
   }, [cartItems]);
-
 
   useEffect(() => {
     setFormData({
