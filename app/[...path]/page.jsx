@@ -43,9 +43,21 @@ const defaultMetadata = {
   },
 };
 
-export async function generateMetadata({ params: { path } }) {
+export async function generateMetadata({ params: { path }, searchParams }) {
   const str = path?.join("/");
   const data = await handleData(str);
+
+  const hasQueryOrFilter = searchParams.query || searchParams.filteri;
+
+  if (hasQueryOrFilter) {
+    return {
+      ...defaultMetadata,
+      robots: {
+        index: false,
+        follow: false
+      }
+    };
+  }
 
   switch (true) {
     case data?.status === false &&
@@ -53,24 +65,11 @@ export async function generateMetadata({ params: { path } }) {
       data?.id === null &&
       data?.redirect_url === false:
       return {
-        title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
-        description:
-          "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-        keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
-        openGraph: {
-          title:
-            "Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje",
-          description:
-            "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-          keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
-          images: [
-            {
-              url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
-              width: 800,
-              height: 800,
-            },
-          ],
-        },
+        ...defaultMetadata,
+        robots: {
+          index: true,
+          follow: true
+        }
       };
 
     case data?.type === "category" &&
@@ -103,6 +102,10 @@ export async function generateMetadata({ params: { path } }) {
               },
             ],
           },
+          robots: {
+            index: true,
+            follow: true
+          }
         };
       } else {
         return defaultMetadata;
@@ -133,6 +136,10 @@ export async function generateMetadata({ params: { path } }) {
               },
             ],
           },
+          robots: {
+            index: true,
+            follow: true
+          }
         };
       } else {
         return defaultMetadata;

@@ -108,6 +108,7 @@ const Footer = () => {
             <div className="flex items-center gap-10">
               <Link
                 href={`https://www.facebook.com/STEFAN.DOO.ARILJE`}
+                rel={`noopener noreferrer nofollow`}
                 target={`_blank`}
               >
                 {" "}
@@ -115,15 +116,16 @@ const Footer = () => {
               </Link>
               <Link
                 href={`https://www.instagram.com/stefantekstil.rs/`}
+                rel={`noopener noreferrer nofollow`}
                 target={`_blank`}
               >
                 {" "}
-                <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
+                <i className="fa-brands fa-instagram-f text-3xl text-croonus-1 cursor-pointer"></i>
               </Link>
             </div>
           </div>
           <div className="flex  max-lg:py-0  col-span-2 max-lg:row-start-1 lg:col-span-1 flex-col gap-5 self-start max-lg:items-center max-lg:mt-10">
-            <h1 className="text-2xl font-medium text-croonus-1">Newsletter</h1>
+            <h3 className="text-2xl font-medium text-croonus-1">Newsletter</h3>
             <p className="max-lg:text-center text-croonus-1 max-md:text-sm">
               Pratite dešavanja iz našeg svakodnevnog poslovanja.
             </p>
@@ -281,7 +283,7 @@ const Footer = () => {
 
         <Link
           href="https://www.bancaintesa.rs"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           target="_blank"
         >
           <div className="w-[160px] h-[40px] relative">
@@ -296,7 +298,7 @@ const Footer = () => {
         </Link>
         <Link
           href="http://www.mastercard.com/rs/consumer/credit-cards.html"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           target="_blank"
         >
           <div className="w-[80px] h-[50px] relative">
@@ -311,7 +313,7 @@ const Footer = () => {
         </Link>
         <Link
           href="https://rs.visa.com/pay-with-visa/security-and-assistance/protected-everywhere.html"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           target="_blank"
         >
           <div className="w-[50px] h-[50px] relative">
