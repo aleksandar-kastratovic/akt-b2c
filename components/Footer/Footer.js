@@ -120,7 +120,7 @@ const Footer = () => {
                 target={`_blank`}
               >
                 {" "}
-                <i className="fa-brands fa-instagram-f text-3xl text-croonus-1 cursor-pointer"></i>
+                <i className="fa-brands fa-instagram text-3xl text-croonus-1 cursor-pointer"></i>
               </Link>
             </div>
           </div>
