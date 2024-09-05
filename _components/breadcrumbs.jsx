@@ -9,7 +9,7 @@ export const Breadcrumbs = ({ slug,categoryId }) => {
 
   return (
       <div className="bg-[#f5f5f6] mt-3.5">
-          <div className="py-1 w-[95%] lg:w-[85%] mx-auto max-md:hidden">
+          <div className="py-1 w-[95%] lg:w-[85%] mx-auto">
               <div className="flex items-center gap-[0.3rem] flex-wrap">
                   <Link
                       href={`/`}

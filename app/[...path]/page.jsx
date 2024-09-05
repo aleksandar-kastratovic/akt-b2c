@@ -43,21 +43,35 @@ const defaultMetadata = {
   },
 };
 
-export async function generateMetadata({ params: { path }, searchParams }) {
+export async function generateMetadata({ params: { path }, searchParams:{ viewed: viewed_products,filteri, sort, velicina, boja } }) {
   const str = path?.join("/");
   const data = await handleData(str);
+  const viewed = Number(viewed_products) > 0 ? Number(viewed_products) : 0;
 
-  const hasQueryOrFilter = searchParams.query || searchParams.filteri;
-
-  if (hasQueryOrFilter) {
-    return {
-      ...defaultMetadata,
-      robots: {
-        index: false,
-        follow: false
+  const handleCategoryRobots = (viewed, filteri, sort) => {
+    //if any exits, return false
+    if (filteri) return { index: false, follow: false };
+    //if sort exists, return false
+    if (sort) return { index: false, follow: false };
+    //if viewed is less than 10, return true
+    if (viewed <= 20) {
+      return { index: true, follow: true };
+    } else {
+      if (viewed > 20) {
+        return { index: false, follow: true };
       }
-    };
-  }
+    }
+
+    return { index: true, follow: true };
+  };
+
+  const handleProductRobots = (velicina, boja) => {
+    if (velicina || boja) {
+      return { index: false, follow: false };
+    } else {
+      return { index: true, follow: true };
+    }
+  };
 
   switch (true) {
     case data?.status === false &&
@@ -66,10 +80,6 @@ export async function generateMetadata({ params: { path }, searchParams }) {
       data?.redirect_url === false:
       return {
         ...defaultMetadata,
-        robots: {
-          index: true,
-          follow: true
-        }
       };
 
     case data?.type === "category" &&
@@ -102,10 +112,7 @@ export async function generateMetadata({ params: { path }, searchParams }) {
               },
             ],
           },
-          robots: {
-            index: true,
-            follow: true
-          }
+          robots: handleCategoryRobots(viewed, filteri, sort),
         };
       } else {
         return defaultMetadata;
@@ -136,10 +143,7 @@ export async function generateMetadata({ params: { path }, searchParams }) {
               },
             ],
           },
-          robots: {
-            index: true,
-            follow: true
-          }
+          robots: handleProductRobots(productSEO?.size, productSEO?.color),
         };
       } else {
         return defaultMetadata;
