@@ -299,9 +299,9 @@ const NavigationMobile = () => {
                     }}
                   >
                     <div className="w-[90%] py-2 mx-auto flex items-center justify-between">
-                      <h1 className="text-base font-medium uppercase">
+                      <p className="text-base font-medium uppercase">
                         {item?.name}
-                      </h1>
+                      </p>
                       <i className="fa-solid fa-chevron-right text-sm"></i>
                     </div>
                   </div>
@@ -332,9 +332,9 @@ const NavigationMobile = () => {
                                 })
                               }
                             >
-                              <h1 className="text-sm font-medium">
+                              <p className="text-sm font-medium">
                                 {item?.name}
-                              </h1>
+                              </p>
                               <i className="fa-solid fa-chevron-right text-sm"></i>
                             </div>
                             {isActiveSubCategory &&

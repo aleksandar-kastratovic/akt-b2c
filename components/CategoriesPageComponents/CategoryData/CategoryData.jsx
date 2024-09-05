@@ -82,9 +82,9 @@ export const CategoryData = ({ slug }) => {
                   );
                 })}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <h1 className="text-[0.85rem] font-normal text-black">
+                <p className="text-[0.85rem] font-normal text-black">
                   {name}
-                </h1>
+                </p>
               </div>
             ) : (
               <div className="flex items-center gap-1">
