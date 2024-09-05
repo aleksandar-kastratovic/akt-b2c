@@ -6,9 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { list } from "@/app/api/api";
 import { Slider } from "@/_components/slider";
 
-const ProductsSlider = ({ text, data }) => {
+const ProductsSlider = ({ text,data }) => {
   const [swiper, setSwiper] = useState();
-
   return (
     <>
       <ToastContainer />
