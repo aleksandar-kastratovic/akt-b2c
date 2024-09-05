@@ -65,7 +65,7 @@ const Kolacici = () => {
           <Link
             href="https://support.google.com/accounts/answer/61416?hl=en"
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow noopener noreferrer"
             className="text-red-500 font-medium"
           >
             Google Chrome
@@ -75,7 +75,7 @@ const Kolacici = () => {
           <Link
             href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences"
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow noopener noreferrer"
             className="text-red-500 font-medium"
           >
             Mozilla Firefox
@@ -85,7 +85,7 @@ const Kolacici = () => {
           <Link
             href="http://windows.microsoft.com/en-us/internet-explorer/delete-manage-cookies"
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow noopener noreferrer"
             className="text-red-500 font-medium"
           >
             Internet Explorer
@@ -95,7 +95,7 @@ const Kolacici = () => {
           <Link
             href="http://support.apple.com/kb/PH19214"
             target="_blank"
-            rel="noreferrer"
+            rel="nofollow noopener noreferrer"
             className="text-red-500 font-medium"
           >
             Safari
