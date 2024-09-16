@@ -439,7 +439,7 @@ const ThumbSuspense = ({
                 });
             }}
           >
-            {product?.basic_data?.name}
+            <h2>{product?.basic_data?.name}</h2>
           </Link>
         </div>
         {product?.price?.price?.original == 0 ||

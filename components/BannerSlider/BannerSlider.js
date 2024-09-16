@@ -15,13 +15,13 @@ const BannerSlider = ({ banners }) => {
       className={`!grid !grid-cols-2`}
     >
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
-        <h1 className="text-[1.661rem] text-black font-semibold pb-5 max-md:text-[1.1rem] absolute top-0 z-[20] lg:hidden">
-          {item?.title}
-        </h1>
+        {/*<h2 className="text-[1.661rem] text-black font-semibold pb-5 max-md:text-[1.1rem] absolute top-0 z-[20] lg:hidden">*/}
+        {/*  {item?.title}*/}
+        {/*</h2>*/}
         <div className="flex flex-col max-lg:items-start gap-5 lg:gap-10 max-lg:w-full max-md:px-2 max-lg:pr-5 w-[80%] mx-auto px-0 md:px-5">
-          <h1 className="text-[1.661rem] max-md:text-[1.1rem] max-lg:hidden text-croonus-1 font-medium text-center lg:text-left">
+          <h2 className="text-[1.661rem] max-md:text-[1.1rem] text-croonus-1 font-medium text-center lg:text-left">
             {item?.title}
-          </h1>
+          </h2>
           <p className="text-[1rem] max-md:text-[0.8rem] font-normal text-black text-left max-lg:py-4 max-md:py-0">
             {item?.text}
           </p>

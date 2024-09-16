@@ -73,6 +73,7 @@ const NavigationDesktop = () => {
       setSearchTerm("");
     }
   };
+  
   const [isActive, setIsActive] = useState(1);
   const [activeCategory, setActiveCategory] = useState();
   const [height, setHeight] = useState(0);
@@ -397,9 +398,9 @@ const NavigationDesktop = () => {
                     {searchData?.items?.length > 0 &&
                       searchTerm?.length > 0 && (
                         <div className="w-[95%] mx-auto mt-5">
-                          <h1 className="text-[1rem] font-normal">
+                          <p className="text-[1rem] font-normal">
                             Rezultati pretrage
-                          </h1>
+                          </p>
                           <div className="flex flex-col gap-5 mt-3 pb-5">
                             {searchData?.items?.slice(0, 6)?.map((item) => {
                               return (
@@ -433,15 +434,15 @@ const NavigationDesktop = () => {
                               </div>
                               )}
                                     <div className="flex flex-col gap-1">
-                                      <h1 className="text-[0.9rem] font-normal">
+                                      <p className="text-[0.9rem] font-normal">
                                         {item?.basic_data?.name}
-                                      </h1>
-                                      <h1 className="text-[0.9rem] w-fit font-bold text-center">
+                                      </p>
+                                      <p className="text-[0.9rem] w-fit font-bold text-center">
                                         {currencyFormat(
                                           item?.price?.price?.discount ??
                                             item?.price?.price?.original
                                         )}
-                                      </h1>
+                                      </p>
                                     </div>
                                   </div>
                                 </Link>
@@ -574,9 +575,9 @@ const NavigationDesktop = () => {
                             setSubcategory([]);
                           }}
                         >
-                          <h1 className="text-xl font-light hover:underline">
+                          <p className="text-xl font-light hover:underline">
                             {item?.name}
-                          </h1>
+                          </p>
                         </Link>
                         <div className="mt-5 pl-2 ">
                           {item?.children
@@ -613,9 +614,9 @@ const NavigationDesktop = () => {
                             setSubcategory([]);
                           }}
                         >
-                          <h1 className="text-xl font-light hover:underline">
+                          <p className="text-xl font-light hover:underline">
                             {item?.name}
-                          </h1>
+                          </p>
                         </Link>
                         <div className="mt-2 pl-2 ">
                           {item?.children

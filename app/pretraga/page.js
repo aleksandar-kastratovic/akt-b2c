@@ -10,3 +10,15 @@ const Search = () => {
 };
 
 export default Search;
+
+export const generateMetadata = async ({searchParams:{query}}) => {
+    return {
+        title: `Pretraga: ${query} | Stefan Tekstil`,
+        robots: {
+            index: false,
+            follow: false,
+        }
+    }
+}
+
+

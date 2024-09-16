@@ -17,7 +17,7 @@ export const CategoryChildren = ({ slug, name }) => {
   });
 
   const currentSlug = categories?.slug;
-
+  console.log(currentSlug)
   return (
     <>
       {name !== "Akcija" &&
@@ -28,17 +28,27 @@ export const CategoryChildren = ({ slug, name }) => {
           {categories?.childrens &&
             (categories?.childrens ?? [])?.map((child) => (
               <div className="max-md:mx-[2px] mx-1 max-md:my-1" key={child?.id}>
-                <Link href={`/${child?.slug_path}`}>
-                  <div
+                {currentSlug === child?.slug ? (<div
                     className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
-                      currentSlug === child?.slug
-                        ? "bg-croonus-1 text-white"
-                        : "bg-white text-black"
+                        currentSlug === child?.slug
+                            ? "bg-croonus-1 text-white"
+                            : "bg-white text-black"
                     }`}
+                >
+                  <p className="">{child?.basic_data?.name}</p>
+                </div>) : (<Link href={`/${child?.slug_path}`}>
+                  <div
+                      className={`max-md:text-xs text-sm font-light py-2 max-md:px-2 px-4 hover:bg-croonus-1 hover:text-white whitespace-nowrap w-max border border-black ${
+                          currentSlug === child?.slug
+                              ? "bg-croonus-1 text-white"
+                              : "bg-white text-black"
+                      }`}
                   >
                     <p className="">{child?.basic_data?.name}</p>
                   </div>
-                </Link>
+                </Link>)}
+
+
               </div>
             ))}
         </div>

@@ -43,9 +43,35 @@ const defaultMetadata = {
   },
 };
 
-export async function generateMetadata({ params: { path } }) {
+export async function generateMetadata({ params: { path }, searchParams:{ viewed: viewed_products,filteri, sort, velicina, boja } }) {
   const str = path?.join("/");
   const data = await handleData(str);
+  const viewed = Number(viewed_products) > 0 ? Number(viewed_products) : 0;
+
+  const handleCategoryRobots = (viewed, filteri, sort) => {
+    //if any exits, return false
+    if (filteri) return { index: false, follow: false };
+    //if sort exists, return false
+    if (sort) return { index: false, follow: false };
+    //if viewed is less than 10, return true
+    if (viewed <= 20) {
+      return { index: true, follow: true };
+    } else {
+      if (viewed > 20) {
+        return { index: false, follow: true };
+      }
+    }
+
+    return { index: true, follow: true };
+  };
+
+  const handleProductRobots = (velicina, boja) => {
+    if (velicina || boja) {
+      return { index: false, follow: false };
+    } else {
+      return { index: true, follow: true };
+    }
+  };
 
   switch (true) {
     case data?.status === false &&
@@ -53,24 +79,7 @@ export async function generateMetadata({ params: { path } }) {
       data?.id === null &&
       data?.redirect_url === false:
       return {
-        title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
-        description:
-          "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-        keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
-        openGraph: {
-          title:
-            "Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje",
-          description:
-            "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-          keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
-          images: [
-            {
-              url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
-              width: 800,
-              height: 800,
-            },
-          ],
-        },
+        ...defaultMetadata,
       };
 
     case data?.type === "category" &&
@@ -103,6 +112,7 @@ export async function generateMetadata({ params: { path } }) {
               },
             ],
           },
+          robots: handleCategoryRobots(viewed, filteri, sort),
         };
       } else {
         return defaultMetadata;
@@ -133,6 +143,7 @@ export async function generateMetadata({ params: { path } }) {
               },
             ],
           },
+          robots: handleProductRobots(productSEO?.size, productSEO?.color),
         };
       } else {
         return defaultMetadata;

@@ -1,40 +1,25 @@
-import { get } from "@/app/api/api";
+import {
+  get,
+  list
+} from "@/app/api/api";
 import ProductDetailsSlider from "@/components/ProductDetailsSlider/ProductDetailsSlider";
 import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
 import { Breadcrumbs } from "@/_components/breadcrumbs";
 import { Suspense } from "react";
 import { Description } from "@/_components/desc";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
+import ProductsSlider
+  from "@/components/ProductsSlider/ProductsSlider";
 
-export async function generateMetadata({ params: { path } }) {
-  const getProductSEO = (id) => {
-    return get(`/product-details/seo/${id}`).then(
-      (response) => response?.payload
+const getRecommendedProducts = async (slug) => {
+    return await list(`/product-details/cross-sell/${slug}`,{render:false}).then(
+        (response) => response?.payload
     );
-  };
-
-  const productSEO = await getProductSEO(path[path?.length - 1]);
-  return {
-    title: productSEO?.meta_title,
-    description: productSEO?.meta_description,
-    keywords: productSEO?.meta_keywords,
-    openGraph: {
-      title: productSEO?.meta_title,
-      description: productSEO?.meta_description,
-      type: "website",
-      images: [
-        {
-          url: productSEO?.meta_image,
-          width: 800,
-          height: 600,
-          alt: productSEO?.meta_description,
-        },
-      ],
-    },
-  };
 }
 
-const ProductPage = ({ params: { path } }) => {
+const ProductPage = async ({ params: { path } }) => {
+    const cross_sell = await getRecommendedProducts(path[path?.length - 1]);
+
   return (
     <>
       <Suspense>
@@ -76,14 +61,14 @@ const ProductPage = ({ params: { path } }) => {
           </Suspense>
         </div>
       </div>
-      {/*{recommended?.length > 0 && (*/}
-      {/*  <div className="mt-[3rem] sm:mt-[7.688rem]">*/}
-      {/*    <ProductsSlider*/}
-      {/*      products={recommended}*/}
-      {/*      text="Možda će Vas zanimati i sledeći proizvodi"*/}
-      {/*    />*/}
-      {/*  </div>*/}
-      {/*)}*/}
+      {cross_sell?.items?.length > 0 && (
+        <div className="mt-[3rem] sm:mt-[7.688rem]">
+          <ProductsSlider
+            data={cross_sell?.items}
+            text="Možda će Vas zanimati i sledeći proizvodi"
+          />
+        </div>
+      )}
     </>
   );
 };

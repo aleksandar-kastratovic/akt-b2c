@@ -54,8 +54,8 @@ export const CategoryData = ({ slug }) => {
   return (
     <>
       <div className="w-full bg-croonus-5">
-        <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 max-md:hidden">
-          <div className="text-[0.875rem] max-lg:hidden font-light">
+        <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 ">
+          <div className="text-[0.875rem]  font-light">
             {breadcrumbs?.length > 0 ? (
               <div className="flex items-center gap-1 flex-wrap">
                 <Link
@@ -82,9 +82,9 @@ export const CategoryData = ({ slug }) => {
                   );
                 })}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <h1 className="text-[0.85rem] font-normal text-black">
+                <p className="text-[0.85rem] font-normal text-black">
                   {name}
-                </h1>
+                </p>
               </div>
             ) : (
               <div className="flex items-center gap-1">
@@ -107,8 +107,8 @@ export const CategoryData = ({ slug }) => {
       <div
         className={
           image
-            ? `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`
-            : `mt-4 max-md:mt-0 w-[95%] lg:w-[80%] mx-auto`
+            ? `mt-4 max-md:mt-4 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`
+            : `mt-4 max-md:mt-4 w-[95%] lg:w-[80%] mx-auto`
         }
       >
         {" "}

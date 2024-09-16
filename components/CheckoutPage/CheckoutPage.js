@@ -22,10 +22,7 @@ const CartProductBox = dynamic(
 
 const CheckoutPage = ({ paymentoptions, deliveryoptions }) => {
   const router = useRouter();
-  const { asPath } = router;
-  function handleClick() {
-    router.back();
-  }
+
   const [refresh, setRefresh] = useState(false);
   const [cart, mutateCart] = useCartContext();
   const [cartData, setCartData] = useState([]);
