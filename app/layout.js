@@ -38,19 +38,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="sr-RS">
       <head>
+        <link
+            rel={`stylesheet`}
+            href={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css`}
+        />
         <Script
-          crossOrigin="anonymous"
-          src="https://kit.fontawesome.com/f141ac3909.js"
-        /><Script
-          crossOrigin="anonymous"
-          src="https://kit.fontawesome.com/9aea6cbcd7.js"
-      />{" "}
+            src={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/regular.js`}
+        ></Script>
       </head>
 
-      <body className="4xl:container mx-auto">
-        <UserProvider>
-          <CartContextProvider>
-            <Suspense>
+      <body
+          className="4xl:container mx-auto">
+      <UserProvider>
+        <CartContextProvider>
+          <Suspense>
               <Analytics />
             </Suspense>
             <CookieAlert />
