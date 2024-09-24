@@ -27,6 +27,7 @@
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "next": "^14.2.3",
+    "prettier": "^3.3.3",
     "query": "github:tanstack/react-query",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

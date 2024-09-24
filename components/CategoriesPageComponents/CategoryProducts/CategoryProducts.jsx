@@ -6,6 +6,9 @@ import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 import Filters from "@/components/Filters/Filters";
 import { sortKeys } from "@/helpers/const";
 import { currencyFormat } from "@/helpers/functions";
+import {
+  CategoryLongDescription
+} from "@/_components/category-long-description";
 
 export const CategoryProducts = ({
   slug,
@@ -27,7 +30,7 @@ export const CategoryProducts = ({
 
   const [page, setPage] = useState(strana ?? 1);
   const [limit, setLimit] = useState(
-    Number(params?.get("viewed")) > 10 ? Number(params?.get("viewed")) : 10
+    Number(params?.get("viewed")) > 10 ? Number(params?.get("viewed")) : 10,
   );
   const [sort, setSort] = useState({
     field: sortField ?? "",
@@ -106,7 +109,7 @@ export const CategoryProducts = ({
     const { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp } = updateURLQuery(
       sort,
       selectedFilters,
-      page
+      page,
     );
 
     let queryString = "";
@@ -115,7 +118,7 @@ export const CategoryProducts = ({
       sort_tmp,
       filters_tmp,
       viewed_tmp,
-      prod_num_tmp
+      prod_num_tmp,
     ) => {
       let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
         filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
@@ -233,14 +236,14 @@ export const CategoryProducts = ({
               item?.price?.max?.price?.original
               ? currencyFormat(item?.price?.price?.discount)
               : `${currencyFormat(
-                  item?.price?.min?.price?.discount
+                  item?.price?.min?.price?.discount,
                 )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
           case false:
             return item?.price?.min?.price?.original ===
               item?.price?.max?.price?.original
               ? currencyFormat(item?.price?.min?.price?.original)
               : `${currencyFormat(
-                  item?.price?.min?.price?.original
+                  item?.price?.min?.price?.original,
                 )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
         }
         break;
@@ -253,6 +256,10 @@ export const CategoryProducts = ({
 
   useEffect(() => {
     if (!isLoadingGTM) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
+      });
       process?.env?.GTM_ENABLED === "true" &&
         window?.dataLayer?.push({
           event: "view_item_list",
@@ -296,7 +303,7 @@ export const CategoryProducts = ({
         ref={elementRef}
         className={`max-lg:w-[95%] lg:w-[85%] mx-auto grid grid-cols-1 md:grid-cols-2  gap-x-10 gap-y-10 bg-white pt-12 lg:grid-cols-3 2xl:grid-cols-4`}
       >
-        {products?.map(({ id }) => {
+        {(products ?? [])?.map(({ id }) => {
           return (
             <Suspense
               key={id}
@@ -315,6 +322,9 @@ export const CategoryProducts = ({
           );
         })}
       </div>
+      <Suspense fallback={<div className={`mt-10 w-full h-10 bg-slate-200 animate-pulse`}/>}>
+      <CategoryLongDescription slug={slug} />
+      </Suspense>
     </>
   );
 };
