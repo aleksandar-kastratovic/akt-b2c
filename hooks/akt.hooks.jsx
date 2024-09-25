@@ -77,10 +77,10 @@ export const useCartBadge = () => {
   const [cart] = useCartContext();
 
   return useQuery({
-    queryKey: ["cartBadge",cart],
+    queryKey: ["cartBadge", cart],
     queryFn: async () => {
-      return await GET(`/cart/badge-count`).then(
-        (res) => Math.round(res?.payload?.summary?.total_quantity)
+      return await GET(`/cart/badge-count`).then((res) =>
+        Math.round(res?.payload?.summary?.total_quantity),
       );
     },
     refetchOnWindowFocus: false,
@@ -91,10 +91,10 @@ export const useWishlistBadge = () => {
   const [, , wishList] = useCartContext();
 
   return useQuery({
-    queryKey: ["wishlistBadge",wishList],
+    queryKey: ["wishlistBadge", wishList],
     queryFn: async () => {
       return await GET(`/wishlist/badge-count`).then(
-        (res) => res?.payload?.summary?.items_count
+        (res) => res?.payload?.summary?.items_count,
       );
     },
     refetchOnWindowFocus: false,
@@ -240,7 +240,6 @@ export const useAddToWishlist = () => {
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
@@ -326,7 +325,6 @@ export const useIsInWishlist = ({ id }) => {
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
@@ -382,7 +380,7 @@ export const useCategory = ({ slug }) => {
     queryKey: ["category", { slug: slug }],
     queryFn: async () => {
       return await GET(`/categories/product/single/${slug}`).then(
-        (res) => res?.payload
+        (res) => res?.payload,
       );
     },
     refetchOnWindowFocus: false,
@@ -430,13 +428,13 @@ export const useCategoryFilters = ({
         const filterLastSelectedFromResponse = response?.payload?.filter(
           (item) => {
             return item?.key !== lastSelectedFilterKey;
-          }
+          },
         );
 
         const indexOfLastSelectedFilter = availableFilters?.findIndex(
           (index) => {
             return index?.key === lastSelectedFilterKey;
-          }
+          },
         );
 
         if (
@@ -446,7 +444,7 @@ export const useCategoryFilters = ({
           setAvailableFilters([
             ...filterLastSelectedFromResponse.slice(
               0,
-              indexOfLastSelectedFilter
+              indexOfLastSelectedFilter,
             ),
             lastSelectedFilter,
             ...filterLastSelectedFromResponse.slice(indexOfLastSelectedFilter),
@@ -505,8 +503,8 @@ export const useCategoryProducts = ({
             //radimo isto za sort
             const sort_tmp = (sort ?? "_")?.split("_");
             const sortObj = {
-              field: sort_tmp[0],
-              direction: sort_tmp[1],
+              field: sort_tmp?.[0],
+              direction: sort_tmp?.[1],
             };
 
             //na kraju setujemo state za filtere i sort, da znamo koji su selektovani
@@ -517,12 +515,12 @@ export const useCategoryProducts = ({
             setPage(page);
 
             return await LIST(`/products/category/list/${slug}`, {
-              page: 1,
+              page: page,
               limit: limit,
               sort: sortObj,
               render: render,
               filters: selectedFilters_tmp?.every(
-                (column) => column?.column !== ""
+                (column) => column?.column !== "",
               )
                 ? selectedFilters_tmp
                 : [],
@@ -584,7 +582,7 @@ export const useCategoryProducts = ({
               sort: sortObj,
               render: true,
               filters: selectedFilters_tmp?.every(
-                (column) => column?.column !== ""
+                (column) => column?.column !== "",
               )
                 ? selectedFilters_tmp
                 : [],
@@ -597,7 +595,6 @@ export const useCategoryProducts = ({
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-
       });
   }
 };
@@ -620,14 +617,13 @@ export const useProductThumb = ({ slug, id, categoryId = "*" }) => {
     queryKey: ["productThumb", id ? id : null],
     queryFn: async () => {
       return await GET(
-        `/product-details/thumb/${slug}?categoryId=${categoryId}`
+        `/product-details/thumb/${slug}?categoryId=${categoryId}`,
       ).then((res) => {
         return res?.payload;
       });
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
@@ -641,7 +637,6 @@ export const useProductSticker = ({ slug, id }) => {
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-
   });
 };
 
@@ -664,7 +659,7 @@ export const useProductBreadcrumbs = ({ slug, categoryId }) => {
     queryKey: ["productBreadcrumbs", { slug: slug }],
     queryFn: async () => {
       return await GET(
-        `/product-details/breadcrumbs/${slug}?categoryId=${categoryId ?? "*"}`
+        `/product-details/breadcrumbs/${slug}?categoryId=${categoryId ?? "*"}`,
       ).then((res) => {
         return res?.payload;
       });
@@ -749,7 +744,7 @@ export const useOrder = ({ order_token }) => {
     queryKey: ["order", { order_token: order_token }],
     queryFn: async () => {
       return await GET(`/checkout/info/${order_token}`).then(
-        (res) => res?.payload
+        (res) => res?.payload,
       );
     },
     refetchOnWindowFocus: false,

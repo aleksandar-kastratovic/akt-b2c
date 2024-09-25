@@ -6,19 +6,19 @@ import { notFound, redirect } from "next/navigation";
 
 const handleData = async (slug) => {
   return await get(`/slugs/product-categories?slug=${slug}`).then(
-    (res) => res?.payload
+    (res) => res?.payload,
   );
 };
 
 const fetchCategorySEO = async (slug) => {
   return await get(`/categories/product/single/seo/${slug}`).then(
-    (response) => response?.payload
+    (response) => response?.payload,
   );
 };
 
 const getProductSEO = async (id) => {
   return await get(`/product-details/seo/${id}`).then(
-    (response) => response?.payload
+    (response) => response?.payload,
   );
 };
 
@@ -43,21 +43,23 @@ const defaultMetadata = {
   },
 };
 
-export async function generateMetadata({ params: { path }, searchParams:{ viewed: viewed_products,filteri, sort, velicina, boja } }) {
+export async function generateMetadata({
+  params: { path },
+  searchParams: { strana, filteri, sort, velicina, boja },
+}) {
   const str = path?.join("/");
   const data = await handleData(str);
-  const viewed = Number(viewed_products) > 0 ? Number(viewed_products) : 0;
 
-  const handleCategoryRobots = (viewed, filteri, sort) => {
+  const handleCategoryRobots = (page, filteri, sort) => {
     //if any exits, return false
     if (filteri) return { index: false, follow: false };
     //if sort exists, return false
     if (sort) return { index: false, follow: false };
     //if viewed is less than 10, return true
-    if (viewed <= 20) {
+    if (page <= 1) {
       return { index: true, follow: true };
     } else {
-      if (viewed > 20) {
+      if (page > 1) {
         return { index: false, follow: true };
       }
     }
@@ -112,7 +114,7 @@ export async function generateMetadata({ params: { path }, searchParams:{ viewed
               },
             ],
           },
-          robots: handleCategoryRobots(viewed, filteri, sort),
+          robots: handleCategoryRobots(strana, filteri, sort),
         };
       } else {
         return defaultMetadata;
@@ -159,11 +161,17 @@ const CategoryProduct = async ({ params: { path }, params, searchParams }) => {
     case data?.type === "category" &&
       data?.status === true &&
       data?.redirect_url === false:
-      return <CategoryPage params={params} searchParams={searchParams} />;
+      return (
+        <CategoryPage
+          params={params}
+          searchParams={searchParams}
+          category_id={data?.id}
+        />
+      );
     case data?.type === "product" &&
       data?.status === true &&
       data?.redirect_url === false:
-      return <ProductPage params={params} />;
+      return <ProductPage params={params} product_id={data?.id} />;
     case data?.status === false:
       return notFound();
     default:

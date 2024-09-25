@@ -6,9 +6,8 @@ import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 import Filters from "@/components/Filters/Filters";
 import { sortKeys } from "@/helpers/const";
 import { currencyFormat } from "@/helpers/functions";
-import {
-  CategoryLongDescription
-} from "@/_components/category-long-description";
+import { CategoryLongDescription } from "@/_components/category-long-description";
+import { Pagination } from "@/_components/pagination";
 
 export const CategoryProducts = ({
   slug,
@@ -18,6 +17,8 @@ export const CategoryProducts = ({
   filters,
   strana,
   allFilters,
+  category_id,
+  handleNumOfProducts,
 }) => {
   const router = useRouter();
   const params = useSearchParams();
@@ -28,7 +29,7 @@ export const CategoryProducts = ({
 
   const elementRef = useRef(null);
 
-  const [page, setPage] = useState(strana ?? 1);
+  const [page, setPage] = useState(pageKey ?? 1);
   const [limit, setLimit] = useState(
     Number(params?.get("viewed")) > 10 ? Number(params?.get("viewed")) : 10,
   );
@@ -36,6 +37,7 @@ export const CategoryProducts = ({
     field: sortField ?? "",
     direction: sortDirection ?? "",
   });
+
   const [selectedFilters, setSelectedFilters] = useState(filters ?? []);
 
   const [availableFilters, setAvailableFilters] = useState(allFilters ?? []);
@@ -49,7 +51,7 @@ export const CategoryProducts = ({
     isFetched,
     isFetching,
   } = useCategoryProducts({
-    slug,
+    slug: category_id,
     page: pageKey ?? 1,
     limit: limit,
     sort: sortKey ?? "_",
@@ -61,7 +63,7 @@ export const CategoryProducts = ({
   });
 
   const { data: gtm_data, isLoading: isLoadingGTM } = useCategoryProducts({
-    slug,
+    slug: category_id,
     page: pageKey ?? 1,
     limit: limit,
     sort: sortKey ?? "_",
@@ -77,8 +79,8 @@ export const CategoryProducts = ({
   const updateURLQuery = (sort, selectedFilters, page) => {
     let sort_tmp;
     let filters_tmp;
-    let viewed_tmp;
-    let prod_num_tmp;
+    let page_tmp;
+
     if (sort?.field !== "" && sort?.direction !== "") {
       sort_tmp = `${sort?.field}_${sort?.direction}`;
     }
@@ -94,48 +96,38 @@ export const CategoryProducts = ({
       filters_tmp = "";
     }
 
-    if (pagination?.total_items - pagination?.items_per_page < 10) {
-      viewed_tmp = pagination?.total_items;
+    if (page > 1) {
+      page_tmp = page;
     } else {
-      viewed_tmp = page === 1 ? limit : limit + 10;
+      page_tmp = 1;
     }
 
-    prod_num_tmp = pagination?.total_items > 0 ? pagination?.total_items : "";
-
-    return { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp };
+    return { sort_tmp, filters_tmp, page_tmp };
   };
 
   useEffect(() => {
-    const { sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp } = updateURLQuery(
+    const { sort_tmp, filters_tmp, page_tmp } = updateURLQuery(
       sort,
       selectedFilters,
       page,
     );
 
-    let queryString = "";
-
-    const generateQueryString = (
-      sort_tmp,
-      filters_tmp,
-      viewed_tmp,
-      prod_num_tmp,
-    ) => {
+    const generateQueryString = (sort_tmp, filters_tmp, page_tmp) => {
       let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
-        filters_tmp && (sort_tmp || viewed_tmp) ? "&" : ""
+        filters_tmp && (sort_tmp || page_tmp) ? "&" : ""
       }${sort_tmp ? `sort=${sort_tmp}` : ""}${
-        sort_tmp && viewed_tmp ? "&" : ""
-      }${viewed_tmp ? `viewed=${viewed_tmp}` : ""}${
-        viewed_tmp && prod_num_tmp ? "&" : ""
-      }${prod_num_tmp ? `prod_num=${prod_num_tmp}` : ""}`;
+        sort_tmp && page_tmp ? "&" : ""
+      }${page_tmp ? `strana=${page_tmp}` : ""}`;
 
       router.push(queryString, { scroll: false });
     };
 
-    generateQueryString(sort_tmp, filters_tmp, viewed_tmp, prod_num_tmp);
-  }, [sort, selectedFilters, limit, pagination?.total_items]);
+    handleNumOfProducts(pagination?.total_items);
+    generateQueryString(sort_tmp, filters_tmp, page_tmp);
+  }, [sort, selectedFilters, page, pagination?.total_items]);
 
   const mutateFilters = useCategoryFilters({
-    slug,
+    slug: category_id,
     page,
     limit: limit,
     sort,
@@ -147,7 +139,7 @@ export const CategoryProducts = ({
     if (filters?.length > 0) {
       // setSelectedFilters(filters);
       mutateFilters.mutate({
-        slug,
+        slug: category_id,
         selectedFilters,
         lastSelectedFilterKey,
         setAvailableFilters,
@@ -159,72 +151,13 @@ export const CategoryProducts = ({
   //okidamo api za filtere na promenu filtera
   useEffect(() => {
     mutateFilters.mutate({
-      slug,
+      slug: category_id,
       selectedFilters,
       lastSelectedFilterKey,
       setAvailableFilters,
       availableFilters,
     });
   }, [selectedFilters?.length]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPercentage =
-        (window.scrollY + window.innerHeight) /
-        document.documentElement.scrollHeight;
-
-      if (scrollPercentage >= 0.8) {
-        const { items_per_page, total_items } = pagination;
-        if (items_per_page < total_items) {
-          setLimit(limit + 10);
-        }
-      }
-    };
-
-    // const observer = new IntersectionObserver(onIntersection);
-    //
-    // if (observer && elementRef.current) {
-    //   observer.observe(elementRef.current);
-    // }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      // if (observer) {
-      //   observer.disconnect();
-      // }
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [data]);
-
-  //pamtimo scroll position u session storage, da mozemo da se vratimo na isto mesto
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const pos = window.scrollY;
-      setScrollPosition(pos);
-      sessionStorage.setItem("scrollPosition", pos.toString());
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const storedScrollPosition =
-      parseInt(sessionStorage.getItem("scrollPosition")) || 0;
-    setScrollPosition(storedScrollPosition);
-    if (isFetched && limit > 10) {
-      const timeout = setTimeout(() => {
-        window.scrollTo(0, storedScrollPosition);
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [isFetched]);
 
   //GTM
   const renderPrices = (item) => {
@@ -283,6 +216,12 @@ export const CategoryProducts = ({
     }
   }, [gtm_data?.pagination, isLoadingGTM]);
 
+  const getPaginationArray = (selectedPage, totalPages) => {
+    const start = Math.max(1, selectedPage - 2);
+    const end = Math.min(totalPages, start + 4);
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  };
+
   return (
     <>
       <div className="max-lg:w-[95%] w-[85%] mx-auto mt-10">
@@ -322,8 +261,17 @@ export const CategoryProducts = ({
           );
         })}
       </div>
-      <Suspense fallback={<div className={`mt-10 w-full h-10 bg-slate-200 animate-pulse`}/>}>
-      <CategoryLongDescription slug={slug} />
+      <Pagination
+        data={data}
+        setPage={setPage}
+        getPaginationArray={getPaginationArray}
+      />
+      <Suspense
+        fallback={
+          <div className={`mt-10 w-full h-10 bg-slate-200 animate-pulse`} />
+        }
+      >
+        <CategoryLongDescription category_id={category_id} />
       </Suspense>
     </>
   );

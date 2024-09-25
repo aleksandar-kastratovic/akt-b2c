@@ -1,17 +1,15 @@
-import { Suspense } from "react";
+"use client";
+import { Suspense, useState } from "react";
 import { CategoryData } from "@/components/CategoriesPageComponents/CategoryData/CategoryData";
 import { CategoryProducts } from "@/components/CategoriesPageComponents/CategoryProducts/CategoryProducts";
 
-const CategoryPage = async ({ params: { path }, searchParams }) => {
+const CategoryPage = ({ params: { path }, searchParams, category_id }) => {
   const { sort: sortURL, viewed, filteri } = searchParams;
   const slug_path = path[path?.length - 1];
   //vadimo sort iz URL
   const sort = (sortURL ?? "_")?.split("_");
   const sortField = sort[0];
   const sortDirection = sort[1];
-
-  //vadimo stranu iz URL i konvertujemo u type Number
-  const num_of_viewed_products = Number(viewed) > 0 ? Number(viewed) : 10;
 
   //vadimo filtere iz URL
   const selected_filters = filteri?.split("::")?.map((filter) => {
@@ -27,6 +25,8 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
       },
     };
   });
+
+  const [numOfProducts, setNumOfProducts] = useState();
 
   return (
     <>
@@ -48,11 +48,15 @@ const CategoryPage = async ({ params: { path }, searchParams }) => {
           </>
         }
       >
-        <CategoryData slug={path[path?.length - 1]} />
+        <CategoryData slug={category_id} num_of_products={numOfProducts} />
       </Suspense>
 
       <CategoryProducts
+        category_id={category_id}
         slug={slug_path}
+        handleNumOfProducts={(num) => {
+          setNumOfProducts(num);
+        }}
         sortField={sortField}
         sortDirection={sortDirection}
         viewed={viewed}
