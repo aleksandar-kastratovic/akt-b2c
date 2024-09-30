@@ -92,9 +92,9 @@ export const CategoryData = ({ slug, num_of_products }) => {
                   Početna
                 </Link>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <h1 className="text-[0.85rem] font-normal text-black">
+                <p className="text-[0.85rem] font-normal text-black">
                   {name}
-                </h1>
+                </p>
               </div>
             )}
           </div>
@@ -122,23 +122,17 @@ export const CategoryData = ({ slug, num_of_products }) => {
       </div>
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center max-md:hidden">
+        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
           {name}
 
           <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({prod_num} proizvoda)
           </span>
         </h1>
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center md:hidden">
-          {name}
-        </h1>
-        <span className="text-lg lowercase max-md:text-[11px] md:hidden">
-          &nbsp;({prod_num} proizvoda)
-        </span>
 
-        <h5 className="text-[1rem] prose !text-black max-w-full max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
+        <p className="text-[1rem] prose !text-black max-w-full max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
           {short_description}
-        </h5>
+        </p>
         <div
           className="text-[1rem] prose max-w-full !text-black max-md:text-[0.8rem] text-center max-md:mt-5 mt-1 font-light w-[95%] lg:w-[80%] max-lg:text-left"
           dangerouslySetInnerHTML={{

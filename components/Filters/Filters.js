@@ -56,9 +56,9 @@ const Filters = ({
                   <div
                     className={` border-t border-t-transparent hover:border-t hover:border-t-croonus-4 relative py-2`}
                   >
-                    <h1 className="uppercase text-[0.9rem] text-center line-clamp-1">
+                    <p className="uppercase text-[0.9rem] text-center line-clamp-1">
                       {filter?.attribute?.name}
-                    </h1>
+                    </p>
                     <i className="fa-solid absolute right-0 top-2 fa-chevron-down text-base ml-auto mr-2"></i>
                   </div>
                 </div>
@@ -156,9 +156,9 @@ const Filters = ({
         >
           <div className="flex flex-col h-full justify-between">
             <div className="w-[95%] relative mt-5 mx-auto ">
-              <h1 className="uppercase text-xl pb-4 font-semibold text-center">
+              <p className="uppercase text-xl pb-4 font-semibold text-center">
                 Odaberite filtere
-              </h1>
+              </p>
               {activeFilters?.map((item) => {
                 item.value.selected.map((item2) => {
                   return <p>{item2}</p>;
