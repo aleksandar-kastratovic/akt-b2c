@@ -1,5 +1,5 @@
 "use client";
-import { config } from "@/lib/akt.config";
+import { config } from "@/_lib/akt.config";
 import { currencyFormat } from "@/helpers/functions";
 
 const RenderPrice = ({

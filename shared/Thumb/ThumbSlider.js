@@ -12,7 +12,7 @@ import {
 } from "@/hooks/akt.hooks";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { config } from "@/lib/akt.config";
+import { config } from "@/_lib/akt.config";
 
 const ThumbSlider = ({
   variantOptions,
@@ -24,14 +24,11 @@ const ThumbSlider = ({
   slug_path,
   className,
 }) => {
-
   const router = useRouter();
 
   const slug = slug_path;
   //fetchujemo podatke o stickeru
-  const {
-    data:sticker,
-  } = useProductSticker({ slug });
+  const { data: sticker } = useProductSticker({ slug });
 
   const {
     isPending: isWishlistPending,
@@ -63,7 +60,7 @@ const ThumbSlider = ({
   const { mutate: addToCart, isPending } = useAddToCart();
 
   const handleAddToCart = (id) => {
-      addToCart({ id, quantity: 1 });
+    addToCart({ id, quantity: 1 });
   };
 
   return (
@@ -81,7 +78,9 @@ const ThumbSlider = ({
           />
         </Link>
         {sticker[0]?.name ? (
-           <span className="absolute top-1 right-1 font-thin z-[40] bg-black text-white w-fit px-2 py-[3px] flex text-sm">{sticker[0]?.name}</span>
+          <span className="absolute top-1 right-1 font-thin z-[40] bg-black text-white w-fit px-2 py-[3px] flex text-sm">
+            {sticker[0]?.name}
+          </span>
         ) : null}
         {wishlist_data?.exist && (
           <div className={`absolute left-2 top-2 z-[5] hidden`}>
@@ -97,49 +96,48 @@ const ThumbSlider = ({
         <div
           className={`absolute bottom-2 left-0 right-0 z-[5] mx-auto hidden w-[90%] items-center justify-center gap-5 bg-white py-2 group-hover:absolute group-hover:flex max-sm:!flex max-sm:hover:!flex`}
         >
-           {variantOptions.length > 0 ? (
-                <Link
-                href={`/${slug_path}`}
-                className={`cartButton cursor-pointer`}
-              >
-                <Image
-                  src={`/icons/cart.png`}
-                  alt={`AKT`}
-                  width={25}
-                  height={25}
-                  className={`inactive`}
-                />
-                <Image
-                  src={`/icons/cart-active.png`}
-                  alt={`AKT`}
-                  width={25}
-                  height={25}
-                  className={`active hidden`}
-                />
-              </Link>
+          {variantOptions.length > 0 ? (
+            <Link
+              href={`/${slug_path}`}
+              className={`cartButton cursor-pointer`}
+            >
+              <Image
+                src={`/icons/cart.png`}
+                alt={`AKT`}
+                width={25}
+                height={25}
+                className={`inactive`}
+              />
+              <Image
+                src={`/icons/cart-active.png`}
+                alt={`AKT`}
+                width={25}
+                height={25}
+                className={`active hidden`}
+              />
+            </Link>
           ) : (
-         
-           <button
-           onClick={() => {
-             handleAddToCart(id);
-           }}
-           className={`cartButton cursor-pointer`}
-         >
-           <Image
-             src={`/icons/cart.png`}
-             alt={`AKT`}
-             width={25}
-             height={25}
-             className={`inactive`}
-           />
-           <Image
-             src={`/icons/cart-active.png`}
-             alt={`AKT`}
-             width={25}
-             height={25}
-             className={`active hidden`}
-           />
-         </button>
+            <button
+              onClick={() => {
+                handleAddToCart(id);
+              }}
+              className={`cartButton cursor-pointer`}
+            >
+              <Image
+                src={`/icons/cart.png`}
+                alt={`AKT`}
+                width={25}
+                height={25}
+                className={`inactive`}
+              />
+              <Image
+                src={`/icons/cart-active.png`}
+                alt={`AKT`}
+                width={25}
+                height={25}
+                className={`active hidden`}
+              />
+            </button>
           )}
 
           <button
@@ -190,8 +188,7 @@ const ThumbSlider = ({
         >
           {name}
         </Link>
-      
-       
+
         <RenderPrice
           price={price}
           inventory={inventory}

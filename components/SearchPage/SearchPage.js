@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Filters from "../Filters/Filters";
@@ -47,6 +47,10 @@ const SearchPagee = ({
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (process?.env?.GTM_ENABLED === "true") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
+      });
       window?.dataLayer?.push({
         currencyCode: "RSD",
         impressions: [

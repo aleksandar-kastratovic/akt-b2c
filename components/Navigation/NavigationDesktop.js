@@ -20,9 +20,8 @@ import {
   useWishlistBadge,
 } from "@/hooks/akt.hooks";
 import { useContext } from "react";
-import { userContext } from "@/context/userContext";
-import defaultimage from "@/public/placeholder.jpg"
-
+import { userContext } from "@/_context/userContext";
+import defaultimage from "@/public/placeholder.jpg";
 
 const NavigationDesktop = () => {
   const pathname = usePathname();
@@ -73,7 +72,7 @@ const NavigationDesktop = () => {
       setSearchTerm("");
     }
   };
-  
+
   const [isActive, setIsActive] = useState(1);
   const [activeCategory, setActiveCategory] = useState();
   const [height, setHeight] = useState(0);
@@ -172,7 +171,7 @@ const NavigationDesktop = () => {
     return () => {
       window.removeEventListener(
         "mousemove",
-        handleMouseOutsideOfBrowserViewport
+        handleMouseOutsideOfBrowserViewport,
       );
     };
   }, []);
@@ -261,14 +260,14 @@ const NavigationDesktop = () => {
           setIsLoggedIn(false);
           const deviceToken = Cookies.get("device_token");
           Cookies.set("customer_token", deviceToken, { expires: 365 });
-          router.push("/nalog");
+          router.push("/login");
           sessionStorage.removeItem("loggedIn");
         } else {
           setErrors("Greška.");
         }
         if (response?.code === 500 || response?.code === 400) {
           setErrors(
-            "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+            "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
           );
         }
       })
@@ -311,7 +310,7 @@ const NavigationDesktop = () => {
                   </>
                 ) : (
                   <Link
-                    href="/nalog"
+                    href="/login"
                     className="text-white text-sm hover:underline"
                   >
                     Moj profil
@@ -405,34 +404,34 @@ const NavigationDesktop = () => {
                             {searchData?.items?.slice(0, 6)?.map((item) => {
                               return (
                                 <Link
-                                  href={`/${item?.slug_path}`}
+                                  href={`/${item?.link?.link_path}`}
                                   onClick={(e) => {
                                     setSearchData([]);
                                     setSearchTerm("");
                                   }}
                                 >
                                   <div className="flex flex-row items-center gap-5">
-                                  {item?.image[0] ? (
-                                 <div className=" relative">
-                                 <Image
-                                   src={item?.image[0]}
-                                   alt="AKT"
-                                   width={60}
-                                   height={60}
-                                   className={`object-cover rounded-full h-[60px]`}
-                                 />
-                               </div>
-                              ) : (
-                                <div className=" relative">
-                                <Image
-                                  src={defaultimage}
-                                  alt="AKT"
-                                  width={60}
-                                  height={60}
-                                  className={`object-cover rounded-full h-[60px]`}
-                                />
-                              </div>
-                              )}
+                                    {item?.image[0] ? (
+                                      <div className=" relative">
+                                        <Image
+                                          src={item?.image[0]}
+                                          alt="AKT"
+                                          width={60}
+                                          height={60}
+                                          className={`object-cover rounded-full h-[60px]`}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className=" relative">
+                                        <Image
+                                          src={defaultimage}
+                                          alt="AKT"
+                                          width={60}
+                                          height={60}
+                                          className={`object-cover rounded-full h-[60px]`}
+                                        />
+                                      </div>
+                                    )}
                                     <div className="flex flex-col gap-1">
                                       <p className="text-[0.9rem] font-normal">
                                         {item?.basic_data?.name}
@@ -440,7 +439,7 @@ const NavigationDesktop = () => {
                                       <p className="text-[0.9rem] w-fit font-bold text-center">
                                         {currencyFormat(
                                           item?.price?.price?.discount ??
-                                            item?.price?.price?.original
+                                            item?.price?.price?.original,
                                         )}
                                       </p>
                                     </div>
@@ -534,20 +533,24 @@ const NavigationDesktop = () => {
                     return item?.children ? (
                       <Link
                         key={item.id}
-                        href={`/${item?.slug_path}`}
+                        href={`/${item?.link?.link_path}`}
                         className="font-medium cursor-pointer uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white "
                         onClick={() => setOpen(false)}
                         onMouseEnter={() => {
-                          item?.children ? setSubcategory(item?.children) : setSubcategory([])
+                          item?.children
+                            ? setSubcategory(item?.children)
+                            : setSubcategory([]);
                         }}
                       >
                         {item?.name}
                       </Link>
                     ) : (
                       <Link
-                        href={`/${item?.slug_path}`}
+                        href={`/${item?.link?.link_path}`}
                         onMouseEnter={() => {
-                          item?.children ? setSubcategory(item?.children) : setSubcategory([])
+                          item?.children
+                            ? setSubcategory(item?.children)
+                            : setSubcategory([]);
                         }}
                         key={item?.id}
                         className="font-medium uppercase px-3 text-2xl py-1 text-croonus-1 hover:bg-croonus-1 hover:text-white"
@@ -563,13 +566,13 @@ const NavigationDesktop = () => {
             {subCategory?.length > 0 ? (
               <>
                 {subCategory?.some(
-                  (item) => item?.children && item?.children.length > 0
+                  (item) => item?.children && item?.children.length > 0,
                 ) ? (
                   <div className="grid grid-cols-2 xl:grid-cols-3 3xl:grid-cols-3 gap-x-10 gap-y-[18px] 2xl:gap-x-20 2xl:max-h-[500px] 3xl:max-h-[680px] self-start xl:pl-[22px] 3xl:pl-[30px] hidescroll overflow-y-scroll h-[100%] my-auto transition ease-in-out delay-150 bg-white md:w-[700px] md:max-w-[700px] xl:w-[870px] xl:max-w-[870px]">
                     {subCategory?.map((item) => (
                       <div className="col-span-1 flex flex-col" key={item.id}>
                         <Link
-                          href={`/${item?.slug_path}`}
+                          href={`/${item?.link?.link_path}`}
                           onClick={() => {
                             setOpen(false);
                             setSubcategory([]);
@@ -583,7 +586,7 @@ const NavigationDesktop = () => {
                           {item?.children
                             ? item?.children?.map((child) => (
                                 <Link
-                                  href={`/${child?.slug_path}`}
+                                  href={`/${child?.link?.link_path}`}
                                   key={child?.id}
                                   onClick={() => {
                                     setOpen(false);
@@ -608,7 +611,7 @@ const NavigationDesktop = () => {
                         key={item.id}
                       >
                         <Link
-                          href={`/${item?.slug_path}`}
+                          href={`/${item?.link?.link_path}`}
                           onClick={() => {
                             setOpen(false);
                             setSubcategory([]);
@@ -622,7 +625,7 @@ const NavigationDesktop = () => {
                           {item?.children
                             ? item?.children?.map((child) => (
                                 <Link
-                                  href={`/${child?.slug_path}`}
+                                  href={`/${child?.link?.link_path}`}
                                   key={child?.id}
                                   onClick={() => {
                                     setOpen(false);

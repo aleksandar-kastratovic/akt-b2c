@@ -104,7 +104,7 @@ const CategoriesPageDisplay = ({
   const [limit, setLimit] = useState(16);
 
   const newSort = Object?.keys(sortKeys).find(
-    (key) => sortKeys[key]?.query === query[queryKeys?.sort]
+    (key) => sortKeys[key]?.query === query[queryKeys?.sort],
   );
 
   const [sort, setSort] = useState({
@@ -142,13 +142,13 @@ const CategoriesPageDisplay = ({
         const filterLastSelectedFromResponse = response?.payload?.filter(
           (item) => {
             return item?.key !== lastSelectedFilterKey;
-          }
+          },
         );
 
         const indexOfLastSelectedFilter = availableFilters?.findIndex(
           (index) => {
             return index?.key === lastSelectedFilterKey;
-          }
+          },
         );
 
         if (
@@ -158,7 +158,7 @@ const CategoriesPageDisplay = ({
           setAvailableFilters([
             ...filterLastSelectedFromResponse.slice(
               0,
-              indexOfLastSelectedFilter
+              indexOfLastSelectedFilter,
             ),
             lastSelectedFilter,
             ...filterLastSelectedFromResponse.slice(indexOfLastSelectedFilter),
@@ -197,7 +197,6 @@ const CategoriesPageDisplay = ({
     // replaceQuery(newQuery);
   }, [selectedFilters, categoryData.id]);
 
-
   const getProductList = useCallback(
     (limit, sort, page, selectedFilters) => {
       if (
@@ -224,7 +223,7 @@ const CategoriesPageDisplay = ({
                         ...prevData?.items,
                         ...response?.payload?.items.filter(
                           (item) =>
-                            !prevData?.items?.some((i) => i.id === item.id)
+                            !prevData?.items?.some((i) => i.id === item.id),
                         ),
                       ],
                 pagination: response?.payload?.pagination,
@@ -239,7 +238,7 @@ const CategoriesPageDisplay = ({
           .finally(() => setLoading(false));
       }
     },
-    [page, limit, sort, selectedFilters]
+    [page, limit, sort, selectedFilters],
   );
   useEffect(() => {
     if (
@@ -258,7 +257,7 @@ const CategoriesPageDisplay = ({
 
   useEffect(() => {
     setPage(
-      query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1
+      query[queryKeys?.page] != null ? Number(query[queryKeys?.page]) : 1,
     );
   }, [query]);
 
@@ -350,7 +349,7 @@ const CategoriesPageDisplay = ({
                   <span className="text-[#191919] text-[0.85rem]">/</span>
                   {uniqueBreadcrumbs.map((slug, index) => {
                     const breadcrumb = breadcrumbs.find(
-                      (bc) => bc.slug === slug
+                      (bc) => bc.slug === slug,
                     );
                     return (
                       <div key={index} className="flex items-center gap-1">
@@ -448,7 +447,7 @@ const CategoriesPageDisplay = ({
                   key={child?.id}
                 >
                   <Link
-                    href={`/${child?.slug_path}`}
+                    href={`/${child?.link?.link_path}`}
                     key={child?.id}
                     onClick={() => setOpen(false)}
                   >

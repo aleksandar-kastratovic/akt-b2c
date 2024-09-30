@@ -6,11 +6,10 @@ import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 
 const getBlogPost = async (bid) => {
   const getBlogPost = await get(`news/details/${bid}`).then(
-    (response) => response?.payload
+    (response) => response?.payload,
   );
   return getBlogPost;
 };
-
 
 const BlogPost = async ({ params: { bid } }) => {
   const blogpost = await getBlogPost(bid);
@@ -20,16 +19,14 @@ const BlogPost = async ({ params: { bid } }) => {
       <div className="mx-auto 4xl:container">
         <div className="blogPostHolder mb-16">
           <div className=" imgHolder">
-      
             <div className="relative max-lg:h-[300px] max-h-[340px] h-[340px] w-auto">
-                        <Image
-                 
-                        src={convertHttpToHttps(blogpost.images?.thumb_image)}
-                        fill
-                        className="object-cover rounded-xl"
-                        alt={blogpost.basic_data.title ?? "AKT"}
-                        />
-                      </div>
+              <Image
+                src={convertHttpToHttps(blogpost.images?.thumb_image)}
+                fill
+                className="object-cover rounded-xl"
+                alt={blogpost.basic_data.title ?? "AKT"}
+              />
+            </div>
           </div>
           <div className=" titleHolder">
             <h1 className="text-4xl mt-16 text-center font-bold uppercase">
@@ -44,9 +41,7 @@ const BlogPost = async ({ params: { bid } }) => {
               {parse(blogpost?.basic_data?.description)}
             </div>
           </div>
-          <div className="sliderHolder">
-
-          </div>
+          <div className="sliderHolder"></div>
         </div>
       </div>
     </>

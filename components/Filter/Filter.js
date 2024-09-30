@@ -38,7 +38,7 @@ const Filter = ({
   };
 
   let selected = selectedFilters.filter(
-    (item) => item.column === filter.key
+    (item) => item.column === filter.key,
   )[0];
   selected = selected ? selected.value.selected : [];
 
@@ -118,7 +118,7 @@ const FilterIn = ({
               checked={selected.includes(
                 filter?.params?.use_field
                   ? item[filter?.params?.use_field]
-                  : item.key
+                  : item.key,
               )}
               onChange={checkedChanged}
               value={
@@ -153,7 +153,7 @@ const FilterRange = ({ filter, onChange, selected }) => {
   const [selectedValue, setSelectedValue] = useState(
     selected.length === 2
       ? selected
-      : [Number(filter.params.min), Number(filter.params.max)]
+      : [Number(filter.params.min), Number(filter.params.max)],
   );
   const onRangeChange = (data, value) => {
     onChange({
@@ -225,7 +225,7 @@ const FilterWithinTree = ({ filter }) => {
             <Link
               className="text-[0.875rem] leading-[1.625rem] hover:underline"
               htmlFor={"chbx-" + item.id}
-              href={`/${item?.slug_path}`}
+              href={`/${item?.link?.link_path}`}
             >
               {item.label}
             </Link>

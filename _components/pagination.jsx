@@ -50,9 +50,7 @@ export const Pagination = ({
             num !== data.pagination.total_pages && (
               <>
                 {data.pagination.total_pages - num !== 1 && (
-                  <span className={`select-none py-1 px-3 `}>
-                    ...
-                  </span>
+                  <span className={`select-none py-1 px-3 `}>...</span>
                 )}
                 <span
                   className={`cursor-pointer select-none py-1 px-3 border border-white hover:border-croonus-1 hover:text-croonus-1`}

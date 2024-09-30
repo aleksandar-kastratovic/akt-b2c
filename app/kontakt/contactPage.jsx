@@ -65,7 +65,7 @@ const ContactPage = () => {
     if (slug) {
       const getProduct = async (slug) => {
         const getProduct = await get(
-          `/product-details/basic-data/${slug}`
+          `/product-details/basic-data/${slug}`,
         ).then((res) => {
           setProduct(res?.payload);
           setFormData({
@@ -96,7 +96,10 @@ const ContactPage = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await post("/contact/contact_page?page_section=contact_page", formData);
+    const res = await post(
+      "/contact/contact_page?page_section=contact_page",
+      formData,
+    );
     if (res?.code === 200) {
       toast.success("Uspešno ste poslali poruku!", {
         autoClose: 3000,

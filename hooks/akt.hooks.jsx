@@ -1,15 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useContext, useEffect, useState } from "react";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import {
   post as POST,
   deleteMethod as DELETE,
   list as LIST,
   get as GET,
+  put as PUT,
 } from "@/app/api/api";
 import { toast } from "react-toastify";
 import { useCartContext } from "@/app/api/cartContext";
+import { useInvalidateBadges } from "@/_context/functions";
+import { useRouter } from "next/router";
+import { userContext } from "@/_context/userContext";
+
+//hook za formu, proslediti inicijalne vrednosti - ovo sluzi za izbegavanje duplikacije koda
+export const useForm = (initialValues) => {
+  const [data, setData] = useState(initialValues);
+  const [errors, setErrors] = useState([]);
+
+  return {
+    data,
+    setData,
+    errors,
+    setErrors,
+  };
+};
 
 //hook za prepoznavanje mobilnih uredjaja, vraca true ili false
 export const useIsMobile = () => {
@@ -788,6 +810,445 @@ export const useContact = () => {
             });
             break;
         }
+      });
+    },
+  });
+};
+
+export const useLogin = () => {
+  const { login } = useContext(userContext);
+
+  return useMutation({
+    mutationKey: ["login"],
+    mutationFn: async ({ email, password }) => {
+      return await POST(`/customers/sign-in/login`, {
+        email: email,
+        password: password,
+      }).then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success("Uspešno ste se prijavili.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            login(res?.payload?.customer_token);
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+        return res;
+      });
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationKey: ["resetPassword"],
+    mutationFn: async ({ email }) => {
+      return await POST(`/customers/sign-in/forgot-password`, {
+        email: email,
+      }).then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success("Uspešno! Proverite svoj email.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+        return res;
+      });
+    },
+  });
+};
+
+export const useCreateAccount = () => {
+  return useMutation({
+    mutationKey: ["createAccount"],
+    mutationFn: async (data) => {
+      return await POST(`/customers/sign-in/registration`, { ...data }).then(
+        (res) => {
+          switch (res?.code) {
+            case 200:
+              toast.success("Uspešno ste se registrovali.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+              break;
+            default:
+              toast.error(res?.message, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+              break;
+          }
+          return res;
+        },
+      );
+    },
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => {
+      return await POST(`/customers/profile/logout`).then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success("Uspešno ste se odjavili.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+        return res;
+      });
+    },
+  });
+};
+
+export const useGetAccountData = (api, method = "get") => {
+  return useSuspenseQuery({
+    queryKey: ["accountData", api, method],
+    queryFn: async () => {
+      switch (method) {
+        case "get":
+          return await GET(`${api}`)?.then((res) => {
+            if (res) {
+              return res?.payload;
+            } else {
+              return null;
+            }
+          });
+        case "list":
+          return await LIST(`${api}`)?.then((res) => {
+            if (res) {
+              return res?.payload?.items;
+            } else {
+              return null;
+            }
+          });
+      }
+    },
+  });
+};
+
+export const useUpdateAccountData = (api, message) => {
+  const query_client = useQueryClient();
+  return useMutation({
+    mutationKey: ["accountData", api],
+    mutationFn: async (data) => {
+      return await POST(`${api}`, {
+        ...data,
+      })?.then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success(message ?? "Uspešno ste ažurirali podatke.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            query_client?.invalidateQueries({ queryKey: ["accountData"] });
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+      });
+    },
+  });
+};
+
+export const useDeleteAccountData = (api, keys, message) => {
+  const { invalidateBadges } = useInvalidateBadges();
+  return useMutation({
+    mutationKey: ["accountData", api],
+    mutationFn: async (data) => {
+      return await DELETE(`${api}/${data?.id}`, { ...data })?.then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success(message ?? "Uspešno ste obrisali podatke.", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            invalidateBadges([...keys]);
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+      });
+    },
+  });
+};
+
+export const useBillingAddresses = (enabled) => {
+  return useSuspenseQuery({
+    queryKey: ["billing_addresses"],
+    queryFn: async () => {
+      return await GET(`/checkout/ddl/billing_addresses`)
+        ?.then((res) => {
+          if (res) {
+            return res?.payload;
+          } else {
+            return [];
+          }
+        })
+        ?.catch((err) => {
+          return err;
+        });
+    },
+    enabled: enabled,
+  });
+};
+
+export const useShippingAddresses = () => {
+  return useSuspenseQuery({
+    queryKey: ["shipping_addresses"],
+    queryFn: async () => {
+      return await GET(`/checkout/ddl/shipping_addresses`)
+        ?.then((res) => {
+          if (res) {
+            return res?.payload;
+          } else {
+            return [];
+          }
+        })
+        ?.catch((err) => {
+          return err;
+        });
+    },
+  });
+};
+
+export const useGetAddress = (id, type, enabled) => {
+  return useQuery({
+    queryKey: ["address", id, type],
+    queryFn: async () => {
+      return await GET(`/checkout/${type}/${id}`)?.then((res) => {
+        if (res && res?.code === 200) {
+          return (res?.payload ?? [])?.map((item) => {
+            return Object.keys(item).reduce((acc, key) => {
+              acc[`${key}_${type}`] = item[key];
+              return acc;
+            }, {});
+          });
+        } else {
+          return [];
+        }
+      });
+    },
+    enabled: enabled,
+  });
+};
+
+//hook za azuriranje kolicine artikla u korpi
+export const useUpdateCartQuantity = () => {
+  const [, mutateCart] = useCartContext();
+
+  return useMutation({
+    mutationKey: ["updateCartQuantity"],
+    mutationFn: async ({ id, quantity }) => {
+      return await PUT(`/checkout`, {
+        countable: true,
+        cart_items_id: id,
+        quantity: quantity,
+      }).then((res) => {
+        switch (res?.code) {
+          case 200:
+            mutateCart();
+            toast.success("Količina ažurirana", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+            break;
+          default:
+            toast.error("Došlo je do greške!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+            });
+            break;
+        }
+      });
+    },
+  });
+};
+
+export const useIsLoggedIn = () => {
+  return useSuspenseQuery({
+    queryKey: ["isLoggedIn"],
+    queryFn: async () => {
+      return await GET(`/customers/sign-in/login-status`)?.then((res) => {
+        if (res?.payload) {
+          return res?.payload?.status;
+        } else {
+          return false;
+        }
+      });
+    },
+  });
+};
+
+export const useAddPromoCode = () => {
+  return useMutation({
+    mutationKey: ["addPromoCode"],
+    mutationFn: async ({ promo_codes }) => {
+      return await POST(`/checkout/promo-code`, {
+        promo_codes: promo_codes,
+      }).then((res) => {
+        switch (res?.code) {
+          case 200:
+            toast.success("Uspešno ste dodali promo kod", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+          default:
+            toast.error(res?.message, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            break;
+        }
+        return res;
+      });
+    },
+  });
+};
+
+export const usePromoCodesList = () => {
+  return useQuery({
+    queryKey: ["promoCodeList"],
+    queryFn: async () => {
+      return await LIST(`/checkout/promo-code`).then((res) => {
+        return res?.payload;
+      });
+    },
+  });
+};
+
+export const useRemovePromoCode = () => {
+  return useMutation({
+    mutationKey: ["promoCodeDelete"],
+    mutationFn: async ({ id_promo_code }) => {
+      return await DELETE(`/checkout/promo-code/${id_promo_code}`).then(
+        (res) => {
+          switch (res?.code) {
+            case 200:
+              toast.success(res?.payload?.message, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+              break;
+            default:
+              toast.error(res?.message, {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+              });
+              break;
+          }
+        },
+      );
+    },
+  });
+};
+
+export const usePromoCode = () => {
+  return useQuery({
+    queryKey: ["promoCodeDelete"],
+    queryFn: async ({ id_promo_code }) => {
+      return await LIST(`/checkout/promo-code/${id_promo_code}`).then((res) => {
+        return res?.payload;
+      });
+    },
+  });
+};
+
+export const usePromoCodeOptions = () => {
+  return useQuery({
+    queryKey: ["promoCodeOptions"],
+    queryFn: async () => {
+      return await GET(`/checkout/promo-code-options`).then((res) => {
+        return res?.payload;
       });
     },
   });

@@ -4,7 +4,7 @@ import { post } from "@/app/api/api";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import { userContext } from "@/context/userContext";
+import { userContext } from "@/_context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -41,7 +41,7 @@ const ProfilNav = ({ selectedButton, handleButtonClick }) => {
         }
         if (response?.code === 500 || response?.code === 400) {
           setErrors(
-            "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+            "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
           );
         }
       })

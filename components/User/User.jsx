@@ -13,7 +13,7 @@ import show from "@/assets/Icons/show-password.png";
 
 import Registration from "../Registration/Registration";
 import { useCartContext } from "@/app/api/cartContext";
-import { userContext } from "@/context/userContext";
+import { userContext } from "@/_context/userContext";
 
 const UserPage = () => {
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -76,12 +76,12 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
             toast.error(
               "Greška pri logovanju. Proverite da li ste uneli ispravne podatke.",
@@ -91,7 +91,7 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
         })
@@ -121,7 +121,7 @@ const UserPage = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-              }
+              },
             );
           } else {
             setErrors("Greška pri logovanju.");
@@ -133,12 +133,12 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
             toast.error(
               "Greška pri logovanju. Proverite da li ste uneli ispravne podatke.",
@@ -148,7 +148,7 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
         })

@@ -28,10 +28,8 @@ const ThumbDefault = ({
     useAddToWishlist();
   const { data, refetch } = useIsInWishlist({ id });
   const slug = slug_path;
-   //fetchujemo podatke o stickeru
-   const {
-    data:sticker,
-  } = useProductSticker({ slug });
+  //fetchujemo podatke o stickeru
+  const { data: sticker } = useProductSticker({ slug });
 
   const isInWishlist = data?.exist;
   const [isPriceAvailable, setIsPriceAvailable] = useState(true);
@@ -55,7 +53,9 @@ const ThumbDefault = ({
           />
         </Link>
         {sticker[0]?.name ? (
-           <span className="absolute top-1 right-1 font-thin z-[40] bg-black text-white w-fit px-2 py-[3px] flex text-sm">{sticker[0]?.name}</span>
+          <span className="absolute top-1 right-1 font-thin z-[40] bg-black text-white w-fit px-2 py-[3px] flex text-sm">
+            {sticker[0]?.name}
+          </span>
         ) : null}
         {isInWishlist && (
           <div className={`absolute left-2 top-2 z-[5] hidden`}>
@@ -71,10 +71,7 @@ const ThumbDefault = ({
         <div
           className={`bottom-2 left-0 right-0 z-[5] mx-auto md:hidden w-[90%] items-center justify-center gap-5 bg-white py-2 group-hover:absolute group-hover:flex max-sm:flex max-sm:hover:!flex`}
         >
-          <Link
-            href={`/${slug_path}`}
-            className={`cartButton cursor-pointer`}
-          >
+          <Link href={`/${slug_path}`} className={`cartButton cursor-pointer`}>
             <Image
               src={`/icons/cart.png`}
               alt={`AKT`}
@@ -153,7 +150,7 @@ const ThumbDefault = ({
         >
           {name}
         </Link>
-    
+
         <RenderPrice
           price={price}
           inventory={inventory}

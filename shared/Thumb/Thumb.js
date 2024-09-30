@@ -19,7 +19,6 @@ const Thumb = ({
   render = true,
   thumbKey,
 }) => {
-  
   switch (slider) {
     case true:
       return (

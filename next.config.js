@@ -18,6 +18,7 @@ const nextConfig = {
     GTM_ENABLED: process.env.GTM_ENABLED,
     GTM_ID: process.env.GTM_ID,
     INSTAGRAM_KEY: process.env.INSTAGRAM_KEY,
+    SHOW_CHECKOUT_SHIPPING_FORM: process.env.SHOW_CHECKOUT_SHIPPING_FORM,
   },
   images: {
     minimumCacheTTL: 60 * 60 * 12 * 90,

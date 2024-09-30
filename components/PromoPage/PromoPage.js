@@ -26,7 +26,7 @@ const LandingPage = ({ slug }) => {
   useEffect(() => {
     const fetchData = async () => {
       const basicDataResponse = await get(
-        `/landing-pages/basic-data/${slug}`
+        `/landing-pages/basic-data/${slug}`,
       ).then((res) => {
         setData((prevData) => ({
           ...prevData,
@@ -42,11 +42,11 @@ const LandingPage = ({ slug }) => {
             thumb: res?.payload?.items,
           }));
           setLoadingThumb(false);
-        }
+        },
       );
 
       const conditionsResponse = await list(
-        `/landing-pages/conditions/${slug}`
+        `/landing-pages/conditions/${slug}`,
       ).then((res) => {
         setData((prevData) => ({
           ...prevData,
@@ -127,11 +127,11 @@ const LandingPage = ({ slug }) => {
                 `}
                     >
                       <Swiper
-                          style={{
-                            width: "60%",
-                            maxHeight: "500px",
-                            minHeight: "350px",
-                          }}
+                        style={{
+                          width: "60%",
+                          maxHeight: "500px",
+                          minHeight: "350px",
+                        }}
                         modules={[Pagination]}
                         pagination={{ clickable: true }}
                       >
@@ -139,19 +139,19 @@ const LandingPage = ({ slug }) => {
                           return (
                             <SwiperSlide>
                               <div className={``}>
-                              <div
-                                className={`max-sm:h-[350px] relative h-[500px] w-[500px]`}
-                              >
-                              <Image
-                                src={convertHttpToHttps(image?.image)}
-                                alt={``}
-                                fill
-                                priority
-                                quality={100}
-                                style={{ objectFit: "cover" }}
-                                className={`w-full h-auto`}
-                              />
-                              </div>
+                                <div
+                                  className={`max-sm:h-[350px] relative h-[500px] w-[500px]`}
+                                >
+                                  <Image
+                                    src={convertHttpToHttps(image?.image)}
+                                    alt={``}
+                                    fill
+                                    priority
+                                    quality={100}
+                                    style={{ objectFit: "cover" }}
+                                    className={`w-full h-auto`}
+                                  />
+                                </div>
                               </div>
                             </SwiperSlide>
                           );

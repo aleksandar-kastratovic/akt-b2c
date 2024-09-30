@@ -1,5 +1,5 @@
 @media (min-width: 1024px) {
-    .item:hover  .more {
-      display: flex;
-    }
+  .item:hover .more {
+    display: flex;
   }
+}

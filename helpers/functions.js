@@ -58,7 +58,7 @@ export function useWindowDimensions() {
 export const currencyFormat = (
   amount,
   currency = "rsd",
-  showFractions = true
+  showFractions = true,
 ) => {
   // Guard: no amount
   if (amount == null || isNaN(amount)) {

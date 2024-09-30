@@ -12,7 +12,7 @@ const PreviousOrders = () => {
   useEffect(() => {
     const fetchPreviousOrders = async () => {
       const fetchPreviousOrders = await list(
-        "/customers/previous-orders/"
+        "/customers/previous-orders/",
       ).then((response) => {
         setPreviousOrders(response?.payload);
       });

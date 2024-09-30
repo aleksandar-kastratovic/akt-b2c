@@ -11,7 +11,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       const fetchBlog = await list("news/category/list/all").then((res) =>
-        setBlog(res?.payload?.items)
+        setBlog(res?.payload?.items),
       );
     };
     fetchBlog();
@@ -26,7 +26,6 @@ const Blog = () => {
 
   return (
     <>
-
       <div className="mx-auto 4xl:container text-croonus-1">
         <div className=" blogHolder mx-4">
           <div className=" titleHolder">
@@ -36,18 +35,16 @@ const Blog = () => {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-3 p-6">
             {blog?.slice(0, postNum).map((row) => {
-        
               return (
                 <div className="col-span-1 mb-6 p-4" key={row?.id}>
                   <Link href={`/blog/${row?.id}`}>
                     <div className=" postHolder" id={row.id}>
                       <div className="relative  max-lg:h-[300px] max-h-[240px]  h-[240px] w-full">
                         <Image
-                 
                           src={convertHttpToHttps(row?.images?.thumb_image)}
-                        fill
-                        alt={row?.basic_data?.title ?? "AKT"}
-                        className="object-cover rounded-xl"
+                          fill
+                          alt={row?.basic_data?.title ?? "AKT"}
+                          className="object-cover rounded-xl"
                         />
                       </div>
                       <div className=" textHolder">
@@ -67,9 +64,14 @@ const Blog = () => {
           </div>
         </div>
         {allPostsLoaded ? (
-          <button className="flex mx-auto px-4 py-2 text-[#c3c3c3]">Nema više</button>
+          <button className="flex mx-auto px-4 py-2 text-[#c3c3c3]">
+            Nema više
+          </button>
         ) : (
-          <button onClick={handleClick} className="flex mx-auto px-4 py-2 border border-croonus-1">
+          <button
+            onClick={handleClick}
+            className="flex mx-auto px-4 py-2 border border-croonus-1"
+          >
             Učitaj još
           </button>
         )}

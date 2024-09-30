@@ -16,7 +16,9 @@ const Kolacici = () => {
         mogućnosti pregledanja sadržaja, ali Vam određene mogućnosti neće biti
         dostupne.
       </p>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Šta su kolačići?</h5>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
+        Šta su kolačići?
+      </h5>
       <p className="mt-2">
         Kolačići su informacije koje web stranica koju posećujete šalje vašem
         računaru u svrhu poboljšavanja Vašeg korisničkog iskustva i potreba.
@@ -50,7 +52,9 @@ const Kolacici = () => {
           kupovine
         </li>
       </ul>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Kako se brišu kolačići?</h5>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
+        Kako se brišu kolačići?
+      </h5>
       <p className="mt-2">
         Sve postavke kolačića i informacije o istim možete pronaći u
         podešavanjima Vašeg internet pretraživača ili klikom na “Pomoć”.

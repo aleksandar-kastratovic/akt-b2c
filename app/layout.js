@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Analytics from "@/components/GoogleTagManager/GoogleTagManager";
 import Script from "next/script";
 import { Suspense } from "react";
-import { UserProvider } from "@/context/userContext";
+import { UserProvider } from "@/_context/userContext";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ToastContainer } from "react-toastify";
 
@@ -39,31 +39,30 @@ export default function RootLayout({ children }) {
     <html lang="sr-RS">
       <head>
         <link
-            rel={`stylesheet`}
-            href={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css`}
+          rel={`stylesheet`}
+          href={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css`}
         />
         <Script
-            src={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/regular.js`}
+          src={`https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/regular.js`}
         ></Script>
       </head>
 
-      <body
-          className="4xl:container mx-auto">
-      <UserProvider>
-        <CartContextProvider>
-          <Suspense>
-              <Analytics />
-            </Suspense>
-            <CookieAlert />
-            <QueryProvider>
+      <body className="4xl:container mx-auto">
+        <QueryProvider>
+          <UserProvider>
+            <CartContextProvider>
+              <Suspense>
+                <Analytics />
+              </Suspense>
+              <CookieAlert />
               <NavigationDesktop />
               <NavigationMobile />
-              <div className="min-h-[600px] md:min-h-[700px]">{children}</div>
-            </QueryProvider>
-            <Footer />
-          </CartContextProvider>
-        </UserProvider>
-        <ToastContainer />
+              {children}
+              <Footer />
+            </CartContextProvider>
+          </UserProvider>
+          <ToastContainer />
+        </QueryProvider>
       </body>
     </html>
   );

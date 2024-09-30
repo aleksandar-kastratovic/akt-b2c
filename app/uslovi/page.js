@@ -151,14 +151,31 @@ const Uslovi = () => {
       </p>
       <p>
         Ukoliko korisnik želi da odustane od ugovora o kupovini proizvoda koji
-        je zaključen putem vebsajta, to može učiniti slanjem <a href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf" download className="underline cursor-pointer">Obrasca za
-        odustanak od ugovora</a> elektronski na mail adresu{" "}
+        je zaključen putem vebsajta, to može učiniti slanjem{" "}
+        <a
+          href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf"
+          download
+          className="underline cursor-pointer"
+        >
+          Obrasca za odustanak od ugovora
+        </a>{" "}
+        elektronski na mail adresu{" "}
         <Link href="mailto:webshop@stefantekstil.rs" className="underline">
           webshop@stefantekstil.rs
         </Link>{" "}
         ili na drugi nedvosmislen način.
       </p>
-      <p>Obrazac za odustanak od ugovora možete preuzeti na <a href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf" download className="underline cursor-pointer text-red-600">ovom linku</a>.</p>
+      <p>
+        Obrazac za odustanak od ugovora možete preuzeti na{" "}
+        <a
+          href="/doc/izjava_o_odustajanju_od_ugovora_stefan_arilje.pdf"
+          download
+          className="underline cursor-pointer text-red-600"
+        >
+          ovom linku
+        </a>
+        .
+      </p>
       <p>
         Ukoliko obrazac za odustanak od ugovora Korisnik dostavi elektronski,
         AKT će ga, bez odlaganja pismenim putem obavestiti o prijemu obrasca.
@@ -234,10 +251,10 @@ const Uslovi = () => {
       <p>
         U slučaju vraćanja robe i povraćaja sredstava kupcu koji je prethodno
         platio nekom od platnih kartica, delimično ili u celosti, a bez obzira
-        na razlog vraćanja, {process.env.COMPANY} je u obavezi da
-        povraćaj vrši isključivo preko VISA, EC/MC, Maestro, Amex i Dina metoda
-        plaćanja, što znači da će banka na zahtev prodavca obaviti povraćaj
-        sredstava na račun korisnika kartice.
+        na razlog vraćanja, {process.env.COMPANY} je u obavezi da povraćaj vrši
+        isključivo preko VISA, EC/MC, Maestro, Amex i Dina metoda plaćanja, što
+        znači da će banka na zahtev prodavca obaviti povraćaj sredstava na račun
+        korisnika kartice.
       </p>
       <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
         Izjava o PDV-u
@@ -267,7 +284,9 @@ const Uslovi = () => {
         koristiti, osim u skladu sa ovim odredbama. Ukoliko ne želite da budete
         obavezani ovim uslovima korišćenja, molimo da ne koristite vebsajt.
       </p>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Odricanje od odgovornosti</h5>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
+        Odricanje od odgovornosti
+      </h5>
       <p className="mt-2">
         Bez obzira na tehničke nepreciznosti ili štamparske greške koje se mogu
         javiti u sadržajima vebsajta, AKT ulaže napore da podaci na vebsajtu
@@ -315,7 +334,9 @@ const Uslovi = () => {
         monitoru. AKT ne snosi odgovornost ako boja kupljenog proizvoda nije
         identična onoj koja je reprodukovana na monitoru.
       </p>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Zaštita ličnih podataka</h5>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
+        Zaštita ličnih podataka
+      </h5>
       <p className="mt-2">
         AKT postupa sa ličnim podacima u skladu sa važećim zakonskim propisima i
         preduzeće sve raspoložive mere u cilju zaštite podataka o Korisniku, kao
@@ -324,7 +345,9 @@ const Uslovi = () => {
         obaveštenja svojih i/ili trećih lica, osim u slučaju da je Korisnik dao
         svoju izričitu suglasnost za prethodno navedeno.
       </p>
-      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">Zaštićeni znakovi</p>
+      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">
+        Zaštićeni znakovi
+      </p>
       <p className="mt-2">
         Sve slike, ilustracije, žigovi, fotografije, grafizmi koje se nalaze na
         vebsajtu su u vlasništvu AKT ili trećih lica koji su Aktu dali licencu
@@ -333,7 +356,9 @@ const Uslovi = () => {
         Vebsajta i svako postupanje suprotno navedenom predstavlja kršenje
         zakona.
       </p>
-      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">Kupovina proizvoda</p>
+      <p className="font-semibold text-md mb-[1rem] mt-[1.6rem]">
+        Kupovina proizvoda
+      </p>
       <p className="mt-2">
         Prezentacija proizvoda na sajtu stefantekstil.rs predstavlja ponudu za
         kupovinu proizvoda. Proizvodi koji se prodaju putem vebsajta poseduju
@@ -374,7 +399,9 @@ const Uslovi = () => {
         6/2016 – dr. zakon) koja uključuju i pravo na vansudsko rešavanje
         eventualnog spora povodom ugovora o kupovini robe.
       </p>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">Cene i troškovi dostave</h5>
+      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]">
+        Cene i troškovi dostave
+      </h5>
       <p className="mt-2">
         Cene proizvoda i usluga izražene su u dinarima i iskazane su u bruto
         iznosu (sa PDV-om) uz svaki artikal. Cene svih proizvoda i usluga su
@@ -397,7 +424,10 @@ const Uslovi = () => {
         javi našoj službi prodaje na telefon 031/3894-222 i usmeno dostavi svoje
         podatke, kao i kod-broj narudžbine.
       </p>
-      <h5 className="font-semibold text-lg mb-[1rem] mt-[1.6rem]" id={`nacin-placanja`}>
+      <h5
+        className="font-semibold text-lg mb-[1rem] mt-[1.6rem]"
+        id={`nacin-placanja`}
+      >
         Način plaćanja
       </h5>
       <p className="mt-2">Korisnik naručenu robu i usluge može platiti:</p>
@@ -408,7 +438,6 @@ const Uslovi = () => {
           <li>platnim karticama.</li>
         </ul>
       </div>
-  
     </div>
   );
 };

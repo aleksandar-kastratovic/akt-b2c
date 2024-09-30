@@ -58,7 +58,7 @@ const ChangePassword = () => {
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
           }
         })
@@ -67,7 +67,7 @@ const ChangePassword = () => {
   };
   const togglePasswordVisibility = () => {
     setShowChangedPassword(
-      (prevShowChangedPassword) => !prevShowChangedPassword
+      (prevShowChangedPassword) => !prevShowChangedPassword,
     );
   };
 

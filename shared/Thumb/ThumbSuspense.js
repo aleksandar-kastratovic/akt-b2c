@@ -13,7 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import RenderPriceDiscount from "@/shared/RenderPrice/RenderPriceDiscount";
 import RenderPrice from "@/shared/RenderPrice/RenderPrice";
-import { config } from "@/lib/akt.config";
+import { config } from "@/_lib/akt.config";
 import Cart from "@/assets/Icons/shopping-bag.png";
 import { currencyFormat } from "@/helpers/functions";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
@@ -72,6 +72,7 @@ const ThumbSuspense = ({
   const handleAddToCart = (id) => {
     addToCart({ id: id_product, quantity: 1 });
   };
+
   const renderPrices = (item) => {
     switch (item?.product_type) {
       case "variant":
@@ -276,24 +277,26 @@ const ThumbSuspense = ({
   return (
     <div className="col-span-1 relative w-full" key={id_product}>
       {renderDiscountPercentage(product)}
-      <Link href={`/${product?.slug_path}`}>
+      <Link href={`/${product?.link?.link_path}`}>
         <div className="relative w-full">
           {product?.image[0] ? (
             <>
               {product?.image[1] ? (
-                <div className="relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage">
+                <div
+                  className={`relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage`}
+                >
                   <Image
-                    src={convertHttpToHttps(product?.image[0])}
+                    src={convertHttpToHttps(product?.image[0] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
                     sizes={`60vw`}
-                    className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full object-cover firstImage bg-slate-300`}
+                    className={`transition-all aspect-2/3 duration-200 opacity-100 w-full h-full object-cover firstImage`}
                     loading="lazy"
                   />
 
                   <Image
-                    src={convertHttpToHttps(product?.image[1])}
+                    src={convertHttpToHttps(product?.image[1] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
@@ -303,9 +306,11 @@ const ThumbSuspense = ({
                   />
                 </div>
               ) : (
-                <div className="relative w-full min-h-full max-md:w-[94%] mx-auto">
+                <div
+                  className={`relative w-full min-h-full max-md:w-[94%] mx-auto`}
+                >
                   <Image
-                    src={convertHttpToHttps(product?.image[0])}
+                    src={convertHttpToHttps(product?.image[0] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
@@ -330,10 +335,12 @@ const ThumbSuspense = ({
             <div
               className={`absolute top-1 left-1 w-fit z-[10] flex flex-col gap-2`}
             >
-              {product?.stickers?.map(({ name }) => {
+              {(product?.stickers ?? [])?.map(({ name }) => {
                 if (name) {
                   return (
-                    <div className="px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg">
+                    <div
+                      className={`px-3 py-2 bg-croonus-3 w-fit text-croonus-1 text-[0.8rem] rounded-lg`}
+                    >
                       <p>{name}</p>
                     </div>
                   );
@@ -379,30 +386,7 @@ const ThumbSuspense = ({
           <div className="w-[2px] h-[26px] bg-[#000]"></div>
           <div className="flex items-center justify-start w-full">
             <Link
-              href={`/${product?.slug_path}`}
-              onClick={() => {
-                process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({
-                    event: "view_item",
-                    ecommerce: {
-                      currency: "RSD",
-                      value: product?.price?.discount?.active
-                        ? product?.price?.price?.discount
-                        : product?.price?.price?.original,
-                      items: [
-                        {
-                          item_name: product?.basic_data?.name,
-                          item_id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          item_brand: product?.basic_data?.brand,
-                          item_category1: product?.basic_data?.category,
-                          item_variant: product?.basic_data?.variant,
-                          position: index + 1,
-                        },
-                      ],
-                    },
-                  });
-              }}
+              href={`/${product?.link?.link_path}`}
               className="ml-[20%] block"
             >
               <Image
@@ -418,32 +402,13 @@ const ThumbSuspense = ({
         <div className="text-black self-start font-sm text-lg mt-2 uppercase">
           <Link
             className="font-normal text-sm clamp"
-            href={`/${product?.slug_path}`}
-            onClick={() => {
-              process?.env?.GTM_ENABLED === "true" &&
-                window?.dataLayer?.push({
-                  event: "productClick",
-                  ecommerce: {
-                    items: [
-                      {
-                        name: product?.basic_data?.name,
-                        id: product?.basic_data?.id_product,
-                        price: product?.price?.price?.original,
-                        brand: product?.basic_data?.brand,
-                        category: product?.basic_data?.category,
-                        variant: product?.basic_data?.variant,
-                        position: index + 1,
-                      },
-                    ],
-                  },
-                });
-            }}
+            href={`/${product?.link?.link_path}`}
           >
             <h2>{product?.basic_data?.name}</h2>
           </Link>
         </div>
-        {product?.price?.price?.original == 0 ||
-        product?.price?.price?.original == null ? (
+        {product?.price?.price?.original === 0 ||
+        product?.price?.price?.original === null ? (
           <button
             className="relative hover:bg-opacity-80 h-fit flex py-1 px-3 bg-croonus-1 text-white font-medium mr-auto"
             onClick={() => {

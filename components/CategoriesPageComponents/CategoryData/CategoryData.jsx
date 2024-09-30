@@ -30,7 +30,7 @@ export const CategoryData = ({ slug, num_of_products }) => {
             ...prevBreadcrumbs,
             {
               name: parent?.name,
-              slug: parent?.slug_path,
+              slug: parent?.link?.link_path,
             },
           ]);
         }
@@ -92,9 +92,7 @@ export const CategoryData = ({ slug, num_of_products }) => {
                   Početna
                 </Link>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <p className="text-[0.85rem] font-normal text-black">
-                  {name}
-                </p>
+                <p className="text-[0.85rem] font-normal text-black">{name}</p>
               </div>
             )}
           </div>

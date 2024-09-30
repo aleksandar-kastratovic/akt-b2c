@@ -2,6 +2,12 @@ import { get, list } from "./api/api";
 import HomepageBanners from "@/components/HomepageBanners/HomepageBanners";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 import BannerSlider from "@/components/BannerSlider/BannerSlider";
+import {
+  headers
+} from "next/headers";
+import {
+  generateOrganizationSchema
+} from "@/_functions";
 
 const fetchBanners = () => {
   return get("/banners/index_slider").then((response) => response?.payload);
@@ -9,7 +15,7 @@ const fetchBanners = () => {
 
 const fetchMobileBanners = () => {
   return get("/banners/index_slider_mobile").then(
-    (response) => response?.payload
+    (response) => response?.payload,
   );
 };
 
@@ -31,13 +37,27 @@ const Index = async () => {
     getTopSellers(),
   ]);
 
+  let all_headers = headers();
+  let base_url = all_headers.get("x-base_url");
+
+  let schema = generateOrganizationSchema(base_url);
+
   return (
-    <>
-      <HomepageBanners banners={banners} mobileBanners={mobileBanners} />
-      <ProductsSlider text="Najpopularnije" data={top_sellers}/>
-      <BannerSlider banners={homeBanners} />
-      {/* <Instagram /> */}
-    </>
+      <>
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
+        />
+        <HomepageBanners
+            banners={banners}
+            mobileBanners={mobileBanners}/>
+        <ProductsSlider
+            text="Najpopularnije"
+            data={top_sellers}/>
+        <BannerSlider
+            banners={homeBanners}/>
+        {/* <Instagram /> */}
+      </>
   );
 };
 

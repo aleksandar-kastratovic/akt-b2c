@@ -28,7 +28,7 @@ const MyProfile = () => {
       const fetchCustomerData = await get("/customers/profile").then(
         (response) => {
           setCustomerData(response?.payload);
-        }
+        },
       );
       return fetchCustomerData;
     };
@@ -100,7 +100,7 @@ const MyProfile = () => {
                   pauseOnHover: true,
                   draggable: true,
                   progress: undefined,
-                }
+                },
               );
         })
         .catch((error) => console.warn(error));

@@ -13,7 +13,11 @@ import { useRouter } from "next/navigation";
 import Burger from "../../assets/Icons/burger.png";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import { toast } from "react-toastify";
-import {useCartBadge, useCategoryTree, useWishlistBadge} from "@/hooks/akt.hooks";
+import {
+  useCartBadge,
+  useCategoryTree,
+  useWishlistBadge,
+} from "@/hooks/akt.hooks";
 
 const NavigationMobile = () => {
   const [open, setOpen] = useState(false);
@@ -33,14 +37,13 @@ const NavigationMobile = () => {
   const { data: cartCount } = useCartBadge();
   const { data: wishListCount } = useWishlistBadge();
 
-
   const [searchData, setSearchData] = useState([]);
   useEffect(() => {
     const fetchSearchData = async () => {
       const data = await list("/products/search/list", { search }).then(
         (response) => {
           setSearchData(response?.payload?.items);
-        }
+        },
       );
     };
     searchTerm?.length >= 3 && fetchSearchData();
@@ -85,7 +88,7 @@ const NavigationMobile = () => {
           </div>
           <div className="pl-10 pb-2">
             <Link href="/">
-              <Image src={Logo} width={150} height={150} priority/>
+              <Image src={Logo} width={150} height={150} priority />
             </Link>
           </div>
           <div className="flex items-center gap-5 relative">
@@ -155,7 +158,7 @@ const NavigationMobile = () => {
                     ? searchData.slice(0, 6).map((item) => (
                         <Link
                           key={item?.id}
-                          href={`/${item?.slug_path}`}
+                          href={`/${item?.link?.link_path}`}
                           className="h-[83px]"
                           onClick={() => {
                             setSearchTerm("");
@@ -218,15 +221,24 @@ const NavigationMobile = () => {
             ></i>
 
             <div className="flex items-center relative gap-5 mr-5">
-            <Link href="/nalog" onClick={() => {setOpen(false);}}>
-              <Image src={User} width={35} height={35} />
+              <Link
+                href="/login"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <Image src={User} width={35} height={35} />
               </Link>
-              <Link href="/lista-zelja" onClick={() => {setOpen(false);}}>
+              <Link
+                href="/lista-zelja"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
                 {" "}
                 <Image src={Wishlist} width={30} height={30} alt="favorite" />
               </Link>
-             
-              
+
               {wishListCount > 0 && (
                 <span className="absolute -top-1 -right-2 bg-croonus-3 rounded-full px-1.5 text-sm">
                   {wishListCount}
@@ -345,7 +357,7 @@ const NavigationMobile = () => {
                                     <div className="w-[90%] mx-auto pl-4">
                                       <Link
                                         className="text-xs font-medium"
-                                        href={`/${item2?.slug_path}`}
+                                        href={`/${item2?.link?.link_path}`}
                                         onClick={() => {
                                           setOpen(false);
                                           setCategory({ id: null, data: [] });
@@ -363,7 +375,7 @@ const NavigationMobile = () => {
                             <div className="w-[90%] mx-auto pl-2">
                               <Link
                                 className="text-sm font-medium"
-                                href={`/${item?.slug_path}`}
+                                href={`/${item?.link?.link_path}`}
                                 onClick={() => {
                                   setOpen(false);
                                   setCategory({ id: null, data: [] });
@@ -380,7 +392,7 @@ const NavigationMobile = () => {
               ) : (
                 <Link
                   className="text-base  font-medium uppercase"
-                  href={`/${item?.slug_path}`}
+                  href={`/${item?.link?.link_path}`}
                   onClick={() => {
                     setOpen(false);
                     setCategory({ id: null, data: [] });
@@ -396,14 +408,17 @@ const NavigationMobile = () => {
           </div>
           <div className="w-full mt-auto bg-croonus-4 py-2 grid grid-cols-2 divide-x">
             <Link href={`tel:+381313894222`}>
-            <div className="flex items-center justify-center gap-3 py-2 w-full">
-              <i className="fa-solid text-white fa-phone text-lg"></i>
-              <p className="uppercase font-normal text-xs text-white">
-                Pozovite nas
-              </p>
-            </div>
+              <div className="flex items-center justify-center gap-3 py-2 w-full">
+                <i className="fa-solid text-white fa-phone text-lg"></i>
+                <p className="uppercase font-normal text-xs text-white">
+                  Pozovite nas
+                </p>
+              </div>
             </Link>
-            <Link href={`mailto:prodaja@stefantekstil.rs`} className="text-black">
+            <Link
+              href={`mailto:prodaja@stefantekstil.rs`}
+              className="text-black"
+            >
               <div className="flex items-center justify-center gap-3 py-2 w-full">
                 <i className="fa-solid text-white fa-envelope text-lg"></i>
                 <p className="uppercase font-normal text-xs text-white text-center">
@@ -411,7 +426,7 @@ const NavigationMobile = () => {
                 </p>
               </div>
             </Link>
-            </div>
+          </div>
         </div>
       </div>
 

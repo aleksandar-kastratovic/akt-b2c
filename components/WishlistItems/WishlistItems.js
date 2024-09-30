@@ -237,6 +237,10 @@ const Wishlistproducts = ({ items, product, refetch_wishlist = () => {} }) => {
                       position: "top-center",
                     });
                     if (process?.env?.GTM_ENABLED === "true") {
+                      window.dataLayer = window.dataLayer || [];
+                      window.dataLayer.push({
+                        ecommerce: null,
+                      });
                       window?.dataLayer?.push({
                         event: "add_to_cart",
                         ecommerce: {
@@ -259,7 +263,7 @@ const Wishlistproducts = ({ items, product, refetch_wishlist = () => {} }) => {
                       });
                     }
                   } else {
-                    router.push(`/${product?.slug_path}`);
+                    router.push(`/${product?.link?.link_path}`);
                   }
                 }}
               />
@@ -268,31 +272,7 @@ const Wishlistproducts = ({ items, product, refetch_wishlist = () => {} }) => {
           <p className="text-black self-start font-sm text-lg mt-2 uppercase">
             <Link
               className="font-normal text-sm clamp"
-              href={`/${product?.slug_path}`}
-              onClick={() => {
-                process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({
-                    event: "view_item",
-                    ecommerce: {
-                      currency: "RSD",
-                      value: product?.price?.discount?.active
-                          ? product?.price?.price?.discount
-                          : product?.price?.price?.original,
-                      items: [
-                        {
-                          item_name: product?.basic_data?.name,
-                          item_id: product?.basic_data?.id_product,
-                          price: product?.price?.price?.original,
-                          item_brand: product?.basic_data?.brand,
-                          item_category1: product?.basic_data?.category,
-                          item_variant: product?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
-                    },
-                  });
-              }}
+              href={`/${product?.link?.link_path}`}
             >
               {product?.basic_data?.name}
             </Link>

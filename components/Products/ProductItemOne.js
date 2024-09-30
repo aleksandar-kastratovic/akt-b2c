@@ -14,15 +14,16 @@ const ProductItemOne = ({ recommendedCategories1, indexBanner1 }) => {
             {recommendedCategories1.basic_data.name}{" "}
           </h1>
           <Link
-              href={`categories/${recommendedCategories1.id}`}
-              className="hover:text-croonus-4"
-            > <span
-            className={`text-base text-croonus-3 max-lg:bg-croonus-1 max-lg:py-1 max-lg:text-base`}
+            href={`categories/${recommendedCategories1.id}`}
+            className="hover:text-croonus-4"
           >
-            
+            {" "}
+            <span
+              className={`text-base text-croonus-3 max-lg:bg-croonus-1 max-lg:py-1 max-lg:text-base`}
+            >
               Pogledaj celu kolekciju
-            
-          </span></Link>
+            </span>
+          </Link>
         </div>
         <div className="col-span-2 max-lg:col-span-3 max-lg:mt-3">
           <Image

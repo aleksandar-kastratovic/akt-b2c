@@ -9,7 +9,7 @@ export const Badges = ({ slug }) => {
     queryKey: ["badges", slug],
     queryFn: () => {
       return get(`/product-details/gallery/${slug}`).then(
-        (res) => res?.payload?.stickers
+        (res) => res?.payload?.stickers,
       );
     },
   });
