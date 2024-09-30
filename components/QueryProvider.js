@@ -7,15 +7,13 @@ import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experime
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      gcTime: 1000 * 60 * 60 * 24 * 24,
-    },
+    queries: {},
   },
 });
 
 const persister = createSyncStoragePersister({
   storage: typeof window !== "undefined" ? window.localStorage : null,
-  key: "queryCache",
+  key: "aktCache",
 });
 
 export const QueryProvider = ({ children }) => {

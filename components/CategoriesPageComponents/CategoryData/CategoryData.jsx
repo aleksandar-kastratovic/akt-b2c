@@ -8,7 +8,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CategoryChildren } from "@/_components/category-children";
 
-export const CategoryData = ({ slug }) => {
+export const CategoryData = ({ slug, num_of_products }) => {
   const {
     data: {
       basic_data: { name, short_description, description },
@@ -17,7 +17,6 @@ export const CategoryData = ({ slug }) => {
     },
     data,
   } = useCategory({ slug });
-
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
@@ -31,7 +30,7 @@ export const CategoryData = ({ slug }) => {
             ...prevBreadcrumbs,
             {
               name: parent?.name,
-              slug: parent?.slug_path,
+              slug: parent?.link?.link_path,
             },
           ]);
         }
@@ -49,7 +48,7 @@ export const CategoryData = ({ slug }) => {
 
   const params = useSearchParams();
 
-  const prod_num = params?.get("prod_num") ?? "0";
+  const prod_num = num_of_products ?? "0";
 
   return (
     <>
@@ -82,9 +81,7 @@ export const CategoryData = ({ slug }) => {
                   );
                 })}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <p className="text-[0.85rem] font-normal text-black">
-                  {name}
-                </p>
+                <p className="text-[0.85rem] font-normal text-black">{name}</p>
               </div>
             ) : (
               <div className="flex items-center gap-1">
@@ -95,9 +92,7 @@ export const CategoryData = ({ slug }) => {
                   Početna
                 </Link>{" "}
                 <span className="text-[#191919] text-[0.85rem]">/</span>
-                <h1 className="text-[0.85rem] font-normal text-black">
-                  {name}
-                </h1>
+                <p className="text-[0.85rem] font-normal text-black">{name}</p>
               </div>
             )}
           </div>
@@ -125,28 +120,19 @@ export const CategoryData = ({ slug }) => {
       </div>
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center max-md:hidden">
+        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
           {name}
-          <Suspense fallback={`loading`}>
-            <span className="text-lg lowercase max-md:text-[11px]">
-              &nbsp;({prod_num} proizvoda)
-            </span>
-          </Suspense>
-        </h1>
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center md:hidden">
-          {name}
-        </h1>
-        <Suspense fallback={`loading`}>
-          <span className="text-lg lowercase max-md:text-[11px] md:hidden">
+
+          <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({prod_num} proizvoda)
           </span>
-        </Suspense>
+        </h1>
 
-        <h5 className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
+        <p className="text-[1rem] prose !text-black max-w-full max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
           {short_description}
-        </h5>
+        </p>
         <div
-          className="text-[1rem] max-md:text-[0.8rem] text-center max-md:mt-5 mt-1 font-light w-[95%] lg:w-[80%] max-lg:text-left"
+          className="text-[1rem] prose max-w-full !text-black max-md:text-[0.8rem] text-center max-md:mt-5 mt-1 font-light w-[95%] lg:w-[80%] max-lg:text-left"
           dangerouslySetInnerHTML={{
             __html: description,
           }}

@@ -13,7 +13,7 @@ import show from "@/assets/Icons/show-password.png";
 
 import Registration from "../Registration/Registration";
 import { useCartContext } from "@/app/api/cartContext";
-import { userContext } from "@/context/userContext";
+import { userContext } from "@/_context/userContext";
 
 const UserPage = () => {
   const [showLoginPassword, setShowLoginPassword] = useState(false);
@@ -76,12 +76,12 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
             toast.error(
               "Greška pri logovanju. Proverite da li ste uneli ispravne podatke.",
@@ -91,7 +91,7 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
         })
@@ -121,7 +121,7 @@ const UserPage = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-              }
+              },
             );
           } else {
             setErrors("Greška pri logovanju.");
@@ -133,12 +133,12 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
             toast.error(
               "Greška pri logovanju. Proverite da li ste uneli ispravne podatke.",
@@ -148,7 +148,7 @@ const UserPage = () => {
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
-              }
+              },
             );
           }
         })
@@ -157,7 +157,6 @@ const UserPage = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="mx-auto mt-[0rem] lg:mt-[9rem]">
         <div className="mx-auto grid grid-cols-6 gap-y-3 gap-x-3 sm:mt-8 ">
           <div className="col-span-6 p-1  sm:col-span-3 px-8 bg-[#f7f7f7]  max-md:py-[2rem] py-[9rem] md:ml-[2rem] max-md:mx-[1rem] max-md:mt-[1rem] mb-[2rem]">

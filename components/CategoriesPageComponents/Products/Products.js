@@ -228,7 +228,7 @@ const Products = ({
   if (products.length) {
     items = products?.map((item, index) => {
       const isProductInWishlist = wishlist?.find(
-        (product) => product?.product?.id === item?.basic_data?.id_product
+        (product) => product?.product?.id === item?.basic_data?.id_product,
       );
       return (
         <div
@@ -237,32 +237,7 @@ const Products = ({
           className={`col-span-1 group`}
         >
           <div className="w-full relative flex justify-center">
-            <Link
-              className={`w-full`}
-              href={`/${item?.slug_path}`}
-              onClick={() => {
-                process?.env?.GTM_ENABLED === "true" &&
-                window?.dataLayer?.push({
-                  event: "view_item",
-                  ecommerce: {
-                    currency: "RSD",
-                    value:item?.price?.price?.original,
-                    items: [
-                      {
-                        item_name: item?.basic_data?.name,
-                        item_id: item?.basic_data?.id_product,
-                        price: item?.price?.price?.original,
-                        item_brand: item?.basic_data?.brand,
-                        item_category1: item?.basic_data?.category,
-                        item_variant: item?.basic_data?.variant,
-                        list: "Search Results",
-                        position: index + 1,
-                      },
-                    ],
-                  },
-                });
-              }}
-            >
+            <Link className={`w-full`} href={`/${item?.link?.link_path}`}>
               <div className="relative w-full">
                 <div className="relative w-full">
                   {item?.image[0] ? (
@@ -380,7 +355,7 @@ const Products = ({
                                 position: "top-center",
                               });
                             }
-                          }
+                          },
                         );
                       }, 500);
                     }
@@ -430,16 +405,24 @@ const Products = ({
                         position: "top-center",
                       });
                       if (process?.env?.GTM_ENABLED === "true") {
+                        window.dataLayer = window.dataLayer || [];
+                        window.dataLayer.push({
+                          ecommerce: null,
+                        });
                         window?.dataLayer?.push({
                           event: "add_to_cart",
                           ecommerce: {
                             currency: "RSD",
-                            value: item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
+                            value: item?.price?.discount?.active
+                              ? item?.price?.price?.discount
+                              : item?.price?.price?.original,
                             items: [
                               {
                                 item_name: item?.basic_data?.name,
                                 item_id: item?.basic_data?.id_product,
-                                price: item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
+                                price: item?.price?.discount?.active
+                                  ? item?.price?.price?.discount
+                                  : item?.price?.price?.original,
                                 item_brand: item?.basic_data?.brand,
                                 item_category1: item?.categories[0]?.name,
                                 item_variant: null,
@@ -450,7 +433,7 @@ const Products = ({
                         });
                       }
                     } else {
-                      router.push(`/${item?.slug_path}`);
+                      router.push(`/${item?.link?.link_path}`);
                     }
                   }}
                 />
@@ -459,29 +442,7 @@ const Products = ({
             <p className="text-black self-start font-sm text-lg mt-2 uppercase">
               <Link
                 className="font-normal text-sm clamp"
-                href={`/${item?.slug_path}`}
-                onClick={() => {
-                  process?.env?.GTM_ENABLED === "true" &&
-                  window?.dataLayer?.push({
-                    event: "view_item",
-                    ecommerce: {
-                      currency:"RSD",
-                      value:item?.price?.discount?.active ? item?.price?.price?.discount : item?.price?.price?.original,
-                      items: [
-                        {
-                          item_name: item?.basic_data?.name,
-                          item_id: item?.basic_data?.id_product,
-                          price: item?.price?.price?.original,
-                          item_brand: item?.basic_data?.brand,
-                          item_category1: item?.basic_data?.category,
-                          item_variant: item?.basic_data?.variant,
-                          list: "Search Results",
-                          position: index + 1,
-                        },
-                      ],
-                    },
-                  });
-                }}
+                href={`/${item?.link?.link_path}`}
               >
                 {item?.basic_data?.name}
               </Link>

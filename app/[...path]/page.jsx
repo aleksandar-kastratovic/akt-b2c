@@ -1,118 +1,101 @@
 import { get } from "@/app/api/api";
-import CategoryPage from "../../_components/category";
-import ProductPage from "../../_components/product";
+import CategoryPage from "@/_components/category";
+import ProductPage from "@/_components/product";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { headers } from "next/headers";
+import { getRobots, handleCategoryRobots } from "@/_functions";
 
 const handleData = async (slug) => {
-  return await get(`/slugs/product-categories?slug=${slug}`).then(
-    (res) => res?.payload
-  );
+  return await get(`/slugs/product-categories?slug=${slug}`).then((res) => {
+    return res?.payload;
+  });
 };
 
 const fetchCategorySEO = async (slug) => {
   return await get(`/categories/product/single/seo/${slug}`).then(
-    (response) => response?.payload
+    (response) => {
+      return response?.payload;
+    },
   );
 };
 
 const getProductSEO = async (id) => {
-  return await get(`/product-details/seo/${id}`).then(
-    (response) => response?.payload
-  );
+  return await get(`/product-details/seo/${id}`).then((response) => {
+    return response?.payload;
+  });
 };
 
 const defaultMetadata = {
-  title: `Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje`,
-  description:
-    "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-  keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
+  title: "Početna | Stefan Tekstil",
+  description: "Dobrodošli na Stefan Tekstil Online Shop",
+  robots: "index, follow",
   openGraph: {
-    title:
-      "Kućni tekstil - posteljine, jastuci i jorgani - Stefan kućni tekstil Arilje",
-    description:
-      "AKT doo Arilje proizvodi i prodaje kvalitetan kućni tekstil. Posetite naš online shop i kupite brzo, jednostavno i povoljno.",
-    keywords: ["stefan, arilje, tekstil, posteljina, jastuci, disney"],
-    images: [
-      {
-        url: "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
-        width: 800,
-        height: 800,
-      },
-    ],
+    title: "Početna | Stefan Tekstil",
+    description: "Dobrodošli na Stefan Tekstil Online Shop",
+    type: "website",
+    url: "https://stefantekstil.rs",
+    image:
+      "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg",
+    site_name: "stefantekstil.rs",
+    locale: "sr_RS",
   },
 };
 
-export async function generateMetadata({ params: { path }, searchParams:{ viewed: viewed_products,filteri, sort, velicina, boja } }) {
+export async function generateMetadata({
+  params: { path },
+  searchParams: { filteri, sort, viewed, strana },
+}) {
   const str = path?.join("/");
   const data = await handleData(str);
-  const viewed = Number(viewed_products) > 0 ? Number(viewed_products) : 0;
-
-  const handleCategoryRobots = (viewed, filteri, sort) => {
-    //if any exits, return false
-    if (filteri) return { index: false, follow: false };
-    //if sort exists, return false
-    if (sort) return { index: false, follow: false };
-    //if viewed is less than 10, return true
-    if (viewed <= 20) {
-      return { index: true, follow: true };
-    } else {
-      if (viewed > 20) {
-        return { index: false, follow: true };
-      }
-    }
-
-    return { index: true, follow: true };
-  };
-
-  const handleProductRobots = (velicina, boja) => {
-    if (velicina || boja) {
-      return { index: false, follow: false };
-    } else {
-      return { index: true, follow: true };
-    }
-  };
-
+  const headersList = headers();
+  let canonical = headersList?.get("x-pathname");
   switch (true) {
     case data?.status === false &&
       data?.type === null &&
       data?.id === null &&
       data?.redirect_url === false:
-      return {
-        ...defaultMetadata,
-      };
+      return defaultMetadata;
 
     case data?.type === "category" &&
       data?.status &&
       data?.redirect_url === false:
-      const category = await fetchCategorySEO(path[path?.length - 1]);
-      const image_category =
-        convertHttpToHttps(category?.image) ??
-        "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
-
+      const category = await fetchCategorySEO(data?.id);
       if (category) {
+        let {
+          meta_title: title,
+          meta_keywords: keywords,
+          meta_description: description,
+          meta_image: image,
+          meta_canonical_link: canonical_link,
+          meta_robots: robots,
+          social: { share_title, share_description, share_image },
+        } = category;
+
         return {
-          title: `${category?.title}` ?? "",
-          description: category?.description ?? "",
-          keywords: category?.keywords ?? "",
-          type: category?.type ?? "",
-          image: image_category ?? "",
+          title: title ?? "",
+          description: description ?? "",
+          keywords: keywords ?? "",
+          image: image ?? "",
+          alternates: {
+            canonical: `${canonical_link ?? canonical}`,
+          },
           openGraph: {
-            title: `${category?.title}` ?? "",
-            description: category?.description ?? "",
-            type: category?.type ?? "",
+            title: `${share_title}` ?? "",
+
+            description: share_description ?? "",
             images: [
               {
-                url: image_category ?? "",
+                url: share_image ?? "",
                 width: 800,
                 height: 600,
-                alt: category?.description ?? "",
-                title: category?.title ?? "",
-                description: category?.description ?? "",
+                alt: share_description ?? "",
+                title: share_title ?? "",
+                description: share_description ?? "",
               },
             ],
           },
-          robots: handleCategoryRobots(viewed, filteri, sort),
+          robots: handleCategoryRobots(strana, filteri, sort, viewed, robots),
         };
       } else {
         return defaultMetadata;
@@ -121,17 +104,23 @@ export async function generateMetadata({ params: { path }, searchParams:{ viewed
     case data?.type === "product" &&
       data?.status &&
       data?.redirect_url === false:
-      const productSEO = await getProductSEO(path[path?.length - 1]);
+      const productSEO = await getProductSEO(data?.id);
+
+      let robots = getRobots(productSEO?.meta_robots);
+
       const image =
         convertHttpToHttps(productSEO?.meta_image) ??
         "https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg";
       if (productSEO) {
         return {
-          title: productSEO?.meta_title ?? "",
-          description: productSEO?.meta_description ?? "",
+          alternates: {
+            canonical: `${productSEO?.meta_canonical_link ?? canonical}`,
+          },
+          description:
+            `${productSEO?.meta_title} - ${productSEO?.meta_description}` ?? "",
           keywords: productSEO?.meta_keywords ?? "",
           openGraph: {
-            title: productSEO?.meta_title ?? "",
+            title: `${productSEO?.meta_title}` ?? "",
             description: productSEO?.meta_description ?? "",
             type: "website",
             images: [
@@ -143,7 +132,8 @@ export async function generateMetadata({ params: { path }, searchParams:{ viewed
               },
             ],
           },
-          robots: handleProductRobots(productSEO?.size, productSEO?.color),
+          robots: robots,
+          title: `${productSEO?.meta_title}` ?? "",
         };
       } else {
         return defaultMetadata;
@@ -154,20 +144,30 @@ export async function generateMetadata({ params: { path }, searchParams:{ viewed
 const CategoryProduct = async ({ params: { path }, params, searchParams }) => {
   const str = path?.join("/");
   const data = await handleData(str);
-
   switch (true) {
     case data?.type === "category" &&
       data?.status === true &&
       data?.redirect_url === false:
-      return <CategoryPage params={params} searchParams={searchParams} />;
+      return (
+        <CategoryPage
+          params={params}
+          searchParams={searchParams}
+          category_id={data?.id}
+        />
+      );
     case data?.type === "product" &&
       data?.status === true &&
       data?.redirect_url === false:
-      return <ProductPage params={params} />;
+      return (
+        <ProductPage
+          path={data?.id}
+          category_id={path?.[path?.length - 2] ?? "*"}
+        />
+      );
     case data?.status === false:
       return notFound();
     default:
-      redirect(`/${data?.redirect_url}`);
+      permanentRedirect(`/${data?.redirect_url}`);
   }
 };
 

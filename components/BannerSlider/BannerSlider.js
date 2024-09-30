@@ -10,10 +10,7 @@ const BannerSlider = ({ banners }) => {
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const items = banners?.map((item, index) => (
-    <SwiperSlide
-      key={index}
-      className={`!grid !grid-cols-2`}
-    >
+    <SwiperSlide key={index} className={`!grid !grid-cols-2`}>
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
         {/*<h2 className="text-[1.661rem] text-black font-semibold pb-5 max-md:text-[1.1rem] absolute top-0 z-[20] lg:hidden">*/}
         {/*  {item?.title}*/}
@@ -55,7 +52,7 @@ const BannerSlider = ({ banners }) => {
         </Swiper>
       </div>
       <div className="dots2 mt-3">
-        {banners?.map((idx,i) => {
+        {banners?.map((idx, i) => {
           return (
             <button
               key={i}

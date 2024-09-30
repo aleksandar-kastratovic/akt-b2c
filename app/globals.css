@@ -27,9 +27,7 @@ input::-webkit-inner-spin-button {
   opacity: 0;
 }
 .hoverThumbImage:hover .secondImage {
-
-    opacity: 1;
-  
+  opacity: 1;
 }
 
 .autoWidth {
@@ -150,7 +148,9 @@ input[type="number"] {
   height: 12px;
   margin-left: -6px;
   position: absolute;
-  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out,
+  transition:
+    box-shadow 0.3s ease-in-out,
+    background-color 0.3s ease-in-out,
     transform 0.3s ease-in-out;
   width: 12px;
 }
@@ -641,12 +641,14 @@ input[type="number"] {
   max-height: 700px !important;
 }
 
-.roboto span, .roboto p {
-    font-family: "Roboto", sans-serif !important;
-}.constructionHolder {
-   min-height: 80vh;
-   justify-content: center;
- }
+.roboto span,
+.roboto p {
+  font-family: "Roboto", sans-serif !important;
+}
+.constructionHolder {
+  min-height: 80vh;
+  justify-content: center;
+}
 .positionImage {
   position: relative;
   z-index: 2;
@@ -693,7 +695,8 @@ input[type="number"] {
     top: -1rem;
   }
 }
-.nobg p , .nobg span {
+.nobg p,
+.nobg span {
   background: transparent !important;
   font-weight: normal !important;
 }

@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const CartProductItem = ({ item, refresh, setRefresh }) => {
   const [productAmount, setProductAmount] = useState(
-    Number(item.cart.quantity)
+    Number(item.cart.quantity),
   );
   const [sureCheck, setSureCheck] = useState(false);
 
@@ -83,6 +83,10 @@ const CartProductItem = ({ item, refresh, setRefresh }) => {
           onClick={() => {
             setSureCheck(true);
             if (process?.env?.GTM_ENABLED === "true") {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                ecommerce: null,
+              });
               window?.dataLayer?.push({
                 event: "remove_from_cart",
                 ecommerce: {

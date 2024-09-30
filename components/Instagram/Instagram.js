@@ -21,7 +21,11 @@ const Instagram = () => {
       <div
         className={`mt-10 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 w-[95%] mx-auto`}
       >
-        <h3 className={`col-span-2 md:col-span-3 xl:col-span-4 text-[1.1rem] font-semibold`}>Poslednje sa Instagrama</h3>
+        <h3
+          className={`col-span-2 md:col-span-3 xl:col-span-4 text-[1.1rem] font-semibold`}
+        >
+          Poslednje sa Instagrama
+        </h3>
         {data?.slice(0, 5)?.map((item) => {
           return (
             <div
@@ -31,7 +35,9 @@ const Instagram = () => {
               }`}
             >
               <Link href={item.permalink} target="_blank" rel="noreferrer">
-                <div className={`h-[200px] md:h-[400px] relative rounded-t-2xl`}>
+                <div
+                  className={`h-[200px] md:h-[400px] relative rounded-t-2xl`}
+                >
                   {item?.media_type === "VIDEO" ? null : (
                     <Image
                       fill

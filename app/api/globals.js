@@ -1,7 +1,7 @@
 import { useCartContext } from "./cartContext";
 import { post, deleteMethod } from "./api";
 /**
- * Hook wrapper for global add to cart so context can be used
+ * Hook wrapper for global add to cart so _context can be used
  */
 export const useGlobalAddToCart = (type = false) => {
   const [, mutateCart] = useCartContext();
@@ -16,7 +16,6 @@ export const useGlobalAddToCart = (type = false) => {
     })
       .then((response) => {
         mutateCart();
-        
       })
       .catch((error) => console.log(error));
   };
@@ -25,7 +24,7 @@ export const useGlobalAddToCart = (type = false) => {
 };
 
 /**
- * Hook wrapper for global add to cart so context can be used
+ * Hook wrapper for global add to cart so _context can be used
  */
 export const useGlobalRemoveFromCart = () => {
   const [, mutateCart] = useCartContext();
@@ -39,7 +38,6 @@ export const useGlobalRemoveFromCart = () => {
       status: null,
     })
       .then((response) => {
-     
         mutateCart();
       })
       .catch((error) => console.warn(error));
@@ -49,7 +47,7 @@ export const useGlobalRemoveFromCart = () => {
 };
 
 /**
- * Hook wrapper for global add to wishlist so context can be used
+ * Hook wrapper for global add to wishlist so _context can be used
  */
 export const useGlobalAddToWishList = () => {
   const [, , , mutateWishList] = useCartContext();
@@ -64,7 +62,6 @@ export const useGlobalAddToWishList = () => {
       status: null,
     }).then((response) => {
       mutateWishList();
-
     });
   };
 
@@ -72,7 +69,7 @@ export const useGlobalAddToWishList = () => {
 };
 
 /**
- * Hook wrapper for global remove from wishlist so context can be used
+ * Hook wrapper for global remove from wishlist so _context can be used
  */
 export const useGlobalRemoveFromWishlist = () => {
   const [, , , mutateWishList] = useCartContext();
@@ -80,7 +77,6 @@ export const useGlobalRemoveFromWishlist = () => {
   const removeFromWishList = (id) => {
     deleteMethod(`/wishlist/${id}`)
       .then((response) => {
-        
         mutateWishList();
       })
       .catch((error) => console.warn(error));

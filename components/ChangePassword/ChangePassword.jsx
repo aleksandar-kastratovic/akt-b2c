@@ -58,7 +58,7 @@ const ChangePassword = () => {
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
           }
         })
@@ -67,13 +67,12 @@ const ChangePassword = () => {
   };
   const togglePasswordVisibility = () => {
     setShowChangedPassword(
-      (prevShowChangedPassword) => !prevShowChangedPassword
+      (prevShowChangedPassword) => !prevShowChangedPassword,
     );
   };
 
   return (
     <div>
-      <ToastContainer />
       <div className="flex justify-between items-center sm:w-[90%] bg-[#f8f8f8]  p-[1.4rem] mb-[2rem] min-h-[7rem] md:min-w-[30rem]">
         <h1 className="text-3xl max-sm:ml-[4rem]">Izmena lozinke</h1>
       </div>

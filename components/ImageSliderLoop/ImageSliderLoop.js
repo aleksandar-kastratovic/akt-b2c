@@ -12,7 +12,7 @@ import "swiper/css/autoplay";
 const ImageSliderLoop = ({ bannerimages, updateImage }) => {
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
-console.log(bannerimages, "bnr:")
+
   const renderSlideContent = (item, index) => {
     switch (item?.file_data?.type) {
       case "video":
@@ -34,7 +34,6 @@ console.log(bannerimages, "bnr:")
                   src={convertHttpToHttps(item?.file_data?.url)}
                   type="video/mp4"
                 />
-                
               </video>
             </Link>
             <div className="absolute flex flex-col gap-3 items-center top-[60%]">
@@ -64,9 +63,9 @@ console.log(bannerimages, "bnr:")
           >
             <Link href={item?.url ?? "/"}>
               <Image
-                width={1300}
-                height={600}
-                className="relative object-cover h-full w-full"
+                width={0}
+                height={0}
+                className="relative h-auto w-full"
                 src={convertHttpToHttps(item?.file_data?.url)}
                 alt={item?.file_data?.descriptions?.alt ?? "AKT"}
                 priority={true}
@@ -95,7 +94,7 @@ console.log(bannerimages, "bnr:")
   };
 
   const slides = bannerimages?.map((item, index) =>
-    renderSlideContent(item, index)
+    renderSlideContent(item, index),
   );
 
   return (
@@ -108,13 +107,12 @@ console.log(bannerimages, "bnr:")
           pauseOnMouseEnter: true,
         }}
         onSwiper={(swiper) => setSwiper(swiper)}
-        className="h-[550px] 2xl:h-[550px] 3xl:h-[620px] w-full"
       >
         {slides}
       </Swiper>
       {bannerimages?.length > 0 && (
         <div className="dots3 relative flex max-md:justify-center items-center max-md:gap-[3rem] gap-[4.688rem] ml-auto justify-end mt-[1.875rem] text-[1.25rem]">
-          {bannerimages?.map((idx, index) => (
+          {(bannerimages ?? [])?.map((idx, index) => (
             <button
               key={index}
               onClick={() => {
@@ -122,7 +120,9 @@ console.log(bannerimages, "bnr:")
                 setActiveIndex(index);
               }}
               className={
-                activeIndex === index ? "underline max-md:text-base" : "max-md:text-base"
+                activeIndex === index
+                  ? "underline max-md:text-base"
+                  : "max-md:text-base"
               }
             >
               {idx?.name}

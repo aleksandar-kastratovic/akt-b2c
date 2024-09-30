@@ -7,7 +7,7 @@ import { sortProductsByPriceAsc } from "./SortByPrice";
 import { sortProductsByPriceDesc } from "./SortByPrice";
 
 const ProductsItem = ({ products = [] }) => {
-    const [sortedProducts, setSortedProducts] = useState(products);
+  const [sortedProducts, setSortedProducts] = useState(products);
   const handlePriceSortAsc = () => {
     const sorted = sortProductsByPriceAsc([...sortedProducts]);
     setSortedProducts(sorted);
@@ -19,7 +19,6 @@ const ProductsItem = ({ products = [] }) => {
   const items = sortedProducts.map((item) => (
     <div key={item.id} className={`${classes.item} col-span-1`}>
       <div className={`${classes.item} relative flex justify-center`}>
-        
         <Link href={`/${item.id}`}>
           {item.image[0].toString() && (
             <Image

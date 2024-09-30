@@ -1,12 +1,25 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
+const PlusMinusInputOne = ({
+  className,
+  cart_item_id,
+  amount,
+  setCount,
+  max,
+  updateCart = () => {},
+  ...props
+}) => {
   // If minus is clicked
   const onMinusHandler = (e) => {
     e.preventDefault();
     if (amount !== 1) setCount((prev) => prev - 1);
     if (amount === "") setCount(1);
+    updateCart({
+      id: cart_item_id,
+      quantity: amount - 1,
+      message: `Uspešno izmenjena količina.`,
+    });
   };
 
   // If plus is clicked
@@ -14,13 +27,25 @@ const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
     e.preventDefault();
     if (amount === "") setCount(1);
     else setCount((prev) => prev + 1);
+    updateCart({
+      id: cart_item_id,
+      quantity: amount + 1,
+      message: `Uspešno izmenjena količina.`,
+    });
   };
 
   // If value is typed in
   const onInputChange = (e) => {
     if (!isNaN(e.target.value)) {
       if (+e.target.value < 1) setCount("");
-      else setCount(+e.target.value);
+      else {
+        setCount(+e.target.value);
+        updateCart({
+          id: cart_item_id,
+          quantity: +e.target.value,
+          message: `Uspešno izmenjena količina.`,
+        });
+      }
     }
   };
 
@@ -40,7 +65,9 @@ const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
           className="cursor-pointer text-lg select-none"
           onClick={(e) => {
             onMinusHandler(e);
-            props.onClick();
+            if (props?.onClick) {
+              props.onClick();
+            }
           }}
         >
           -
@@ -52,7 +79,9 @@ const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
           value={amount}
           onChange={(e) => {
             onInputChange(e);
-            props.onClick();
+            if (props?.onClick) {
+              props.onClick();
+            }
           }}
           className="w-12 text-center bg-[#fbfbfb] focus:border-none focus:outline-none focus:ring-0 select-none font-bold border-none"
         ></input>
@@ -60,7 +89,9 @@ const PlusMinusInputOne = ({ className, amount, setCount, max, ...props }) => {
           className="cursor-pointer text-lg select-none"
           onClick={(e) => {
             onPlusHandler(e);
-            props.onClick();
+            if (props?.onClick) {
+              props.onClick();
+            }
           }}
         >
           +{" "}

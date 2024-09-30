@@ -13,7 +13,7 @@ const StaticPage = ({ slug }) => {
       const getData = await list(`/static-pages/content/${slug}`).then(
         (res) => {
           setData(res?.payload);
-        }
+        },
       );
     };
 

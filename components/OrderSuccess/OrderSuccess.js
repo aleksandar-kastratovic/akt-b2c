@@ -7,6 +7,10 @@ import { useEffect } from "react";
 
 const OrderSuccess = ({ order, token }) => {
   useEffect(() => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      ecommerce: null,
+    });
     window?.dataLayer?.push({
       event: "purchase",
       ecommerce: {

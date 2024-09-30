@@ -146,7 +146,7 @@ const Registration = ({ setIsReg }) => {
           }
           if (response?.code === 500 || response?.code === 400) {
             setErrors(
-              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva."
+              "Došlo je do nepoznate greške pri obrađivanju Vašeg zahteva.",
             );
             toast.error("Greška. Proverite da li ste uneli ispravne podatke.", {
               position: "top-center",
@@ -166,7 +166,6 @@ const Registration = ({ setIsReg }) => {
   return (
     <>
       <div className="h-[100%] flex flex-col items-center">
-        <ToastContainer className="z-[6000]" />
         <div className="loginHolder lg:w-[74%] max-lg:w-[90%] max-sm:w-[94%]">
           <h3 className="font-semibold text-xl underline text-black">
             REGISTRACIJA NALOGA
@@ -422,8 +421,8 @@ const Registration = ({ setIsReg }) => {
                         htmlFor="accept_terms"
                         className="max-md:text-xs text-[#4b4b4b] w-full "
                       >
-                        Slažem se sa AKT politikom privatnosti i
-                        čuvanjem podataka.
+                        Slažem se sa AKT politikom privatnosti i čuvanjem
+                        podataka.
                       </label>
                     </div>
                     <div className="nlAgree flex items-center max-sm:mt-[1rem]">

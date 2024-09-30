@@ -7,7 +7,6 @@ import { toast, ToastContainer } from "react-toastify";
 import wishlistactive from "@/assets/Icons/favorite-active.png";
 import wishlist from "@/assets/Icons/favorite.png";
 import React, { useEffect, useState } from "react";
-import { useProduct } from "@/hooks/akt.hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { deleteMethod, get, post } from "@/app/api/api";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,7 +20,7 @@ export const BasicData = ({ slug, categoryId }) => {
     queryKey: ["slug", slug],
     queryFn: async () => {
       return await get(
-        `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`
+        `/product-details/basic-data/${slug}?categoryId=${categoryId ?? "*"}`,
       ).then((res) => res?.payload);
     },
     refetchOnWindowFocus: false,
@@ -64,6 +63,11 @@ export const BasicData = ({ slug, categoryId }) => {
           setLoadingWishlist(false);
           setIsInWishlist(false);
         }
+      });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
       });
       window?.dataLayer?.push({
         event: "remove_from_wishlist",
@@ -109,6 +113,11 @@ export const BasicData = ({ slug, categoryId }) => {
           setLoadingWishlist(false);
         }
       });
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
+      });
       window?.dataLayer?.push({
         event: "add_to_wishlist",
         ecommerce: {
@@ -134,7 +143,7 @@ export const BasicData = ({ slug, categoryId }) => {
   useEffect(() => {
     const checkWishlist = async () => {
       return await get(
-        `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`
+        `/wishlist/product-in-wishlist/${products?.data?.item?.basic_data?.id_product}`,
       ).then((res) => {
         if (res?.payload?.exist) {
           setIsInWishlist(true);
@@ -163,6 +172,10 @@ export const BasicData = ({ slug, categoryId }) => {
       globalAddToCart(products.data.item.basic_data.id_product, productAmount);
       toast.success("Proizvod dodat u korpu!", {
         position: toast.POSITION.TOP_CENTER,
+      });
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
       });
       window?.dataLayer?.push({
         event: "add_to_cart",
@@ -196,7 +209,10 @@ export const BasicData = ({ slug, categoryId }) => {
         toast.success("Proizvod dodat u korpu!", {
           position: toast.POSITION.TOP_CENTER,
         });
-
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          ecommerce: null,
+        });
         window?.dataLayer?.push({
           event: "add_to_cart",
           ecommerce: {
@@ -356,7 +372,7 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(item?.price?.price?.discount);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                  item?.price?.min?.price?.discount
+                  item?.price?.min?.price?.discount,
                 )} - ${currencyFormat(item?.price?.max?.price?.discount)}`;
             }
         }
@@ -371,7 +387,7 @@ export const BasicData = ({ slug, categoryId }) => {
                 return currencyFormat(productVariant?.price?.price?.original);
               case Boolean(productVariant?.id) === false:
                 return `${currencyFormat(
-                  item?.price?.min?.price?.original
+                  item?.price?.min?.price?.original,
                 )} - ${currencyFormat(item?.price?.max?.price?.original)}`;
             }
         }
@@ -404,6 +420,10 @@ export const BasicData = ({ slug, categoryId }) => {
     };
 
     if (process.env.GTM_ENABLED === "true") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        ecommerce: null,
+      });
       window?.dataLayer?.push({
         event: "view_item",
         ecommerce: {
@@ -422,7 +442,7 @@ export const BasicData = ({ slug, categoryId }) => {
         },
       });
     }
-  }, [products, productVariant]);
+  }, []);
 
   return (
     <>
@@ -488,7 +508,7 @@ export const BasicData = ({ slug, categoryId }) => {
       {products?.data?.item?.price?.price_defined ? (
         <h1 className="text-[1.5rem] font-bold max-lg:text-left">
           {renderFinalPrice(
-            productVariant?.id ? productVariant : products?.data?.item
+            productVariant?.id ? productVariant : products?.data?.item,
           )}
         </h1>
       ) : (
@@ -535,7 +555,7 @@ export const BasicData = ({ slug, categoryId }) => {
                   productVariant
                     ? router?.push(`/kontakt?slug=${productVariant?.slug}`)
                     : router?.push(
-                        `/kontakt?slug=${products?.data?.item?.slug}`
+                        `/kontakt?slug=${products?.data?.item?.slug}`,
                       );
                 }}
               >
@@ -570,7 +590,6 @@ export const BasicData = ({ slug, categoryId }) => {
             </button>
           )}
 
-          <ToastContainer />
           <div
             className={`self-stretch`}
             onClick={() => {

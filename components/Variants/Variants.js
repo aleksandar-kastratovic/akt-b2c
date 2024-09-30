@@ -48,7 +48,7 @@ export default function Variants({
 
       onChangeHandler(
         product?.variant_key_array[0]?.attribute_key,
-        product?.variant_key_array[0]?.value_key
+        product?.variant_key_array[0]?.value_key,
       );
     }
   }, [productSlug]);
@@ -63,7 +63,7 @@ export default function Variants({
 
   //menja URL na osnovu selektovanih variant_options
   useEffect(() => {
-    handleURLChange(productVariant?.slug_path);
+    handleURLChange(productVariant?.link?.link_path);
   }, [product_slug, productVariant]);
 
   // ako nema slug-a u URL-u, uzima prvi item iz variant_items i setuje ga kao selected
@@ -184,7 +184,7 @@ export default function Variants({
   // funkcija koja vraca niz vrednosti za prikaz na osnovu selektovanih variant_options
   const setValuesFromVariantOptions = (
     selected_variants,
-    temp_not_selected
+    temp_not_selected,
   ) => {
     let options = [];
     selected_variants.map((item) => {
@@ -202,7 +202,7 @@ export default function Variants({
   const setValuesForShowToVariantOptions = (
     variant_options,
     temp_not_selected,
-    values_to_show
+    values_to_show,
   ) => {
     variant_options.map((item) => {
       if (item.attribute.key == temp_not_selected) {
@@ -229,13 +229,13 @@ export default function Variants({
         variant_options = selectVariantOptions(
           variant_options,
           temp_select.attribute_key,
-          temp_select.value_key
+          temp_select.value_key,
         );
 
         check_selected.push(temp_select);
         let selected_variants = getSelectedVariants(
           check_selected,
-          variant_items
+          variant_items,
         );
 
         let not_selected = getNotSelectedVariantOptions(variant_options);
@@ -244,12 +244,12 @@ export default function Variants({
           not_selected.map((temp_not_selected) => {
             let values_to_show = setValuesFromVariantOptions(
               selected_variants,
-              temp_not_selected
+              temp_not_selected,
             );
             variant_options = setValuesForShowToVariantOptions(
               variant_options,
               temp_not_selected,
-              values_to_show
+              values_to_show,
             );
           });
         }
@@ -269,7 +269,7 @@ export default function Variants({
     };
 
     let temp_index = temp_selected.findIndex(
-      (x) => x.attribute_key == temp_selected_item.attribute_key
+      (x) => x.attribute_key == temp_selected_item.attribute_key,
     );
 
     if (temp_index > -1) {
@@ -320,7 +320,7 @@ export default function Variants({
                           if (variantProduct) {
                             updateProductVariant(variantProduct);
                             updateProductPrice(
-                              variantProduct?.price?.price?.original
+                              variantProduct?.price?.price?.original,
                             );
 
                             product_slug = variantProduct?.slug;
@@ -341,7 +341,7 @@ export default function Variants({
                               selected.find(
                                 (x) =>
                                   x.attribute_key === item.attribute.key &&
-                                  x.value_key === value.key
+                                  x.value_key === value.key,
                               )
                                 ? "border border-[#797979] p-[3px]"
                                 : "p-[3px]"
@@ -375,7 +375,7 @@ export default function Variants({
                       if (variantProduct) {
                         updateProductVariant(variantProduct);
                         updateProductPrice(
-                          variantProduct?.price?.price?.original
+                          variantProduct?.price?.price?.original,
                         );
                         product_slug = variantProduct?.slug;
                       } else {
