@@ -157,7 +157,6 @@ const UserPage = () => {
   };
   return (
     <>
-      <ToastContainer />
       <div className="mx-auto mt-[0rem] lg:mt-[9rem]">
         <div className="mx-auto grid grid-cols-6 gap-y-3 gap-x-3 sm:mt-8 ">
           <div className="col-span-6 p-1  sm:col-span-3 px-8 bg-[#f7f7f7]  max-md:py-[2rem] py-[9rem] md:ml-[2rem] max-md:mx-[1rem] max-md:mt-[1rem] mb-[2rem]">

@@ -513,7 +513,6 @@ const CategoriesPageDisplay = ({
             })}
           </div>
         )}
-        <ToastContainer />
       </div>
     </>
   );

@@ -132,7 +132,6 @@ const ContactPage = () => {
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey={process.env.CAPTCHAKEY}>
-      <ToastContainer />
       <GoogleReCaptcha
         onVerify={verifyCaptcha}
         refreshReCaptcha={refreshReCaptcha}

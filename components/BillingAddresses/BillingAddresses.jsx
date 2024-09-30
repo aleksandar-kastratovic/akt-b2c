@@ -57,7 +57,6 @@ const BillingAddresses = () => {
 
   return (
     <div>
-      <ToastContainer />
       <div className="flex max-md:flex-col max-md:gap-4 justify-between items-center sm:w-[90%] bg-[#f8f8f8]  p-[1.4rem] mb-[2rem] min-h-[7rem]">
         <h1 className="text-3xl pb-0 ">Adrese plaćanja</h1>
         <Link

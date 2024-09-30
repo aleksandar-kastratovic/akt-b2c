@@ -718,7 +718,7 @@ export const useProductSpecification = ({ slug }) => {
 
 //hook za dobijanje svih artikala u korpi
 export const useCart = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
       return await LIST(`/cart`).then((res) => res?.payload ?? []);

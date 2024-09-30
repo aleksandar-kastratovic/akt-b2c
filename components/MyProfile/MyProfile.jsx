@@ -108,7 +108,6 @@ const MyProfile = () => {
   };
   return (
     <div className="max-sm:w-full">
-      <ToastContainer />
       <div className="bg-[#f7f7f7]  p-[1.4rem]">
         <h1 className="text-3xl mb-[0.4rem] max-sm:ml-[4rem]">Moj profil</h1>
         <h3 className="text-base text-[#919191] font-normal max-sm:ml-[4rem]">

@@ -73,7 +73,6 @@ const ChangePassword = () => {
 
   return (
     <div>
-      <ToastContainer />
       <div className="flex justify-between items-center sm:w-[90%] bg-[#f8f8f8]  p-[1.4rem] mb-[2rem] min-h-[7rem] md:min-w-[30rem]">
         <h1 className="text-3xl max-sm:ml-[4rem]">Izmena lozinke</h1>
       </div>

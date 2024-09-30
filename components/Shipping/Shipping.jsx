@@ -149,7 +149,6 @@ const Shipping = () => {
   }, [towns]);
   return (
     <>
-      <ToastContainer />
       <div className="relative">
         <button
           className="bg-croonus-3 p-[0.4rem] sm:mr-[4rem] max-sm:mr-[0.6rem] ml-[1re] rounded-[50%] mt-[0.4rem] hover:translate-y-0.5 transition-all ease cursor-pointer text-white min-w-[2.2rem] absolute md:top-4 md:left-4"

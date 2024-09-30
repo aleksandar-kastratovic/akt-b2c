@@ -10,7 +10,6 @@ const ProductsSlider = ({ text, data }) => {
   const [swiper, setSwiper] = useState();
   return (
     <>
-      <ToastContainer />
       <div className="mt-[3.688rem] max-md:mt-[1rem] navigation-wrapper w-[95%] lg:w-[85%] mx-auto">
         <div className="flex justify-between items-center">
           <h2 className="text-[1.1rem] font-semibold">{text}</h2>

@@ -166,7 +166,6 @@ const Registration = ({ setIsReg }) => {
   return (
     <>
       <div className="h-[100%] flex flex-col items-center">
-        <ToastContainer className="z-[6000]" />
         <div className="loginHolder lg:w-[74%] max-lg:w-[90%] max-sm:w-[94%]">
           <h3 className="font-semibold text-xl underline text-black">
             REGISTRACIJA NALOGA

@@ -590,7 +590,6 @@ export const BasicData = ({ slug, categoryId }) => {
             </button>
           )}
 
-          <ToastContainer />
           <div
             className={`self-stretch`}
             onClick={() => {
