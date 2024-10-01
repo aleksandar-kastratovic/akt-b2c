@@ -164,9 +164,10 @@ export const CheckoutData = ({
     if (isCheckoutSuccess && data) {
       const { payment_provider_data: { form } } = data;
       switch (true) {
-        case !form:
+        case Boolean(form) === false:
           return router.push(`/kupovina/${data?.order?.order_token}`);
-        case form:
+        case Boolean(form) === true:
+
           return handleCreditCard(data);
         default:
           break;
