@@ -162,11 +162,11 @@ export const CheckoutData = ({
 
   useEffect(() => {
     if (isCheckoutSuccess && data) {
-      const { credit_card } = data;
+      const { payment_provider_data: { form } } = data;
       switch (true) {
-        case credit_card === null:
+        case !form:
           return router.push(`/kupovina/${data?.order?.order_token}`);
-        case credit_card !== null:
+        case form:
           return handleCreditCard(data);
         default:
           break;
