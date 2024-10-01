@@ -6,16 +6,13 @@ import {
 import billing from "./billing.json";
 
 const CheckoutUserInfo = ({
-  className,
   selected,
   formData,
   setFormData,
-  items,
-  refreshCart,
   errors,
   setErrors,
-  refreshSummary,
 }) => {
+
   const onChange = (e, use_same_data, setFormData, setErrors) => {
     switch (true) {
       case use_same_data:
@@ -46,6 +43,7 @@ const CheckoutUserInfo = ({
         data={formData}
         handleInputChange={(e) => {
           onChange(e, selected?.use_same_data, setFormData, setErrors);
+
         }}
         buttonClassName={`!hidden`}
         handleSubmit={(e) => {

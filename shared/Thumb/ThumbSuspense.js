@@ -22,9 +22,7 @@ import Wishlist from "@/assets/Icons/favorite.png";
 import wishlistactive from "@/assets/Icons/favorite-active.png";
 
 const ThumbSuspense = ({
-  className,
   id,
-  thumbKey,
   refreshWishlist = () => {},
   categoryId,
 }) => {
@@ -37,12 +35,11 @@ const ThumbSuspense = ({
   const { data, refetch } = useIsInWishlist({ id });
   const { mutate: removeFromWishlist, isSuccess: isRemoved } =
     useRemoveFromWishlist();
-  const { base64_placeholder } = config;
   const router = useRouter();
+
   const isInWishlist = data?.exist;
   const wishlist_id = data?.wishlist_item_id;
 
-  const [isPriceAvailable, setIsPriceAvailable] = useState(true);
   const {
     data: product,
     data: {
@@ -55,7 +52,6 @@ const ThumbSuspense = ({
     isFetched,
   } = useProductThumb({ id: id, slug: id, categoryId: categoryId ?? "*" });
 
-  const slug = slug_path;
 
   //fetchujemo podatke o stickeru
   const { data: sticker } = useProductSticker({ slug: id });
