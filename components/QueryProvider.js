@@ -5,15 +5,11 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {},
-  },
-});
+const queryClient = new QueryClient({});
 
 const persister = createSyncStoragePersister({
   storage: typeof window !== "undefined" ? window.localStorage : null,
-  key: "aktCache",
+  key: "stefanTekstilCache",
 });
 
 export const QueryProvider = ({ children }) => {

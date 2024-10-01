@@ -175,17 +175,16 @@ export const CheckoutData = ({
   }, [isCheckoutSuccess, data, router]);
 
   useEffect(() => {
-    if (!isLoading) {
       handleSetData("default_data", form, dataTmp, setDataTmp);
-    }
-  }, [selected?.id, form?.[0], isLoading]);
+  }, [selected?.id, form?.[0], isLoading])
+
   useEffect(() => {
     if (selected?.use_same_data) {
       return handleSetData("same_data", form, dataTmp, setDataTmp);
     } else {
       return handleSetData("different_data", form, dataTmp, setDataTmp);
     }
-  }, [selected?.id, selected?.use_same_data]);
+  }, [selected?.id, selected?.use_same_data, isLoading]);
 
   useEffect(() => {
     setRequired((prevRequired) =>
@@ -199,13 +198,6 @@ export const CheckoutData = ({
   }, [selected?.use_same_data]);
 
   const show_options = process.env.SHOW_CHECKOUT_SHIPPING_FORM;
-
-  useEffect(() => {
-    setDataTmp({
-      ...dataTmp,
-      gcaptcha: token,
-    });
-  }, [token]);
 
   return (
     <div className={`mt-5 grid grid-cols-5 gap-[3.75rem]`}>
@@ -389,7 +381,35 @@ export const CheckoutData = ({
             });
             setErrorsTmp(err);
             if (err?.length === 0) {
-              checkOut();
+              setDataTmp({
+                ...dataTmp,
+                gcaptcha: token,
+              })
+
+              const timeout = setTimeout(() => {
+                const totalValue = items?.items
+                    ?.map(
+                        (item) => item?.cart?.quantity * item?.product?.price?.cost?.with_vat
+                    )
+                    .reduce((acc, curr) => acc + curr, 0);
+
+                window?.dataLayer?.push({
+                  event: "begin_checkout",
+                  ecommerce: {
+                    currency: "RSD",
+                    value: totalValue,
+                    items: items?.items?.map((item) => ({
+                      item_name: item?.product?.basic_data?.name,
+                      item_id: item?.product?.id,
+                      price: item?.product?.price?.cost?.with_vat,
+                      quantity: item?.cart?.quantity,
+                    }))}});
+
+                checkOut();
+              }, 100);
+
+              return () => clearTimeout(timeout);
+
             } else {
               window.scrollTo(0, 0);
             }
