@@ -1253,3 +1253,14 @@ export const usePromoCodeOptions = () => {
     },
   });
 };
+
+export const useStaticPage = (slug) => {
+  return useSuspenseQuery({
+    queryKey: ["staticPage", slug],
+    queryFn: async () => {
+      return await GET(`/static-pages/content/${slug}`).then((res) => {
+        return res?.payload;
+      });
+    },
+  });
+};
