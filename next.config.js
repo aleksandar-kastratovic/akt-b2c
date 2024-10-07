@@ -58,6 +58,12 @@ const nextConfig = {
         statusCode: 301,
       },
       {
+        source: "/kuhinja-i-basta-2/stolnjaci-2",
+        destination: "/kuhinja-i-basta/stolnjaci",
+        permanent: true,
+        statusCode: 301,
+      },
+      {
         source: "/uslovi-koriscenja",
         destination: "/uslovi",
         permanent: true,

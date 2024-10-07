@@ -14,7 +14,7 @@ const Filter = ({
   setChangeFilters,
   changeFilterOptions,
   setActiveFilters,
-  setLastSelectedFilterKey,
+  setLastSelectedFilterKey,setPage
 }) => {
   const changeHandler = (data) => {
     let tmp = [...selectedFilters];
@@ -33,6 +33,7 @@ const Filter = ({
     }
     setSelectedFilters([...tmp]);
     setLastSelectedFilterKey(data?.column);
+    setPage(1);
     setChangeFilters(true);
     // setActiveFilters([...tmp]);
   };

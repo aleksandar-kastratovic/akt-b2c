@@ -8,6 +8,7 @@ import { sortKeys } from "@/helpers/const";
 import { currencyFormat } from "@/helpers/functions";
 import { CategoryLongDescription } from "@/_components/category-long-description";
 import { Pagination } from "@/_components/pagination";
+import Link from "next/link";
 
 export const CategoryProducts = ({
   slug,
@@ -22,7 +23,6 @@ export const CategoryProducts = ({
 }) => {
   const router = useRouter();
   const params = useSearchParams();
-
   const filterKey = params?.get("filteri");
   const pageKey = Number(params?.get("strana"));
   const sortKey = params?.get("sort");
@@ -30,9 +30,7 @@ export const CategoryProducts = ({
   const elementRef = useRef(null);
 
   const [page, setPage] = useState(pageKey ?? 1);
-  const [limit, setLimit] = useState(
-    Number(params?.get("viewed")) > 10 ? Number(params?.get("viewed")) : 10,
-  );
+  const [limit, setLimit] = useState(8);
   const [sort, setSort] = useState({
     field: sortField ?? "",
     direction: sortDirection ?? "",
@@ -105,22 +103,23 @@ export const CategoryProducts = ({
     return { sort_tmp, filters_tmp, page_tmp };
   };
 
+  const generateQueryString = (sort_tmp, filters_tmp, page_tmp) => {
+    let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
+      filters_tmp && (sort_tmp || page_tmp) ? "&" : ""
+    }${sort_tmp ? `sort=${sort_tmp}` : ""}${
+      sort_tmp && page_tmp ? "&" : ""
+    }${page_tmp > 1 ? `strana=${page_tmp}` : ""}`;
+
+    router.push(queryString, { scroll: false });
+    return queryString;
+  };
+
   useEffect(() => {
     const { sort_tmp, filters_tmp, page_tmp } = updateURLQuery(
       sort,
       selectedFilters,
       page,
     );
-
-    const generateQueryString = (sort_tmp, filters_tmp, page_tmp) => {
-      let queryString = `?${filters_tmp ? `filteri=${filters_tmp}` : ""}${
-        filters_tmp && (sort_tmp || page_tmp) ? "&" : ""
-      }${sort_tmp ? `sort=${sort_tmp}` : ""}${
-        sort_tmp && page_tmp ? "&" : ""
-      }${page_tmp ? `strana=${page_tmp}` : ""}`;
-
-      router.push(queryString, { scroll: false });
-    };
 
     handleNumOfProducts(pagination?.total_items);
     generateQueryString(sort_tmp, filters_tmp, page_tmp);
@@ -230,6 +229,7 @@ export const CategoryProducts = ({
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
           changeFilters={changeFilters}
+          setPage={setPage}
           setChangeFilters={setChangeFilters}
           sort={sort}
           setSort={setSort}
@@ -262,7 +262,17 @@ export const CategoryProducts = ({
         })}
       </div>
       <Pagination
+        generateQueryString={() => {
+          const { sort_tmp, filters_tmp, page_tmp } = updateURLQuery(
+            sort,
+            selectedFilters,
+            page,
+          );
+          return generateQueryString(sort_tmp, filters_tmp, page_tmp);
+        }}
         data={data}
+        page={page}
+        slug={slug}
         setPage={setPage}
         getPaginationArray={getPaginationArray}
       />
