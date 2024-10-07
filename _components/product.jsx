@@ -7,15 +7,15 @@ import { Description } from "@/_components/desc";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 
-const getRecommendedProducts = async (slug) => {
+const getCrossSell = async (slug) => {
   return await list(`/product-details/cross-sell/${slug}`, {
     render: false,
   }).then((response) => response?.payload);
 };
 
 const ProductPage = async ({ path, category_id }) => {
-  const cross_sell = await getRecommendedProducts(path[path?.length - 1]);
-
+  const cross_sell = await getCrossSell(path);
+  
   return (
     <>
       <Suspense>
