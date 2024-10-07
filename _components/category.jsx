@@ -3,7 +3,12 @@ import { Suspense, useState } from "react";
 import { CategoryData } from "@/components/CategoriesPageComponents/CategoryData/CategoryData";
 import { CategoryProducts } from "@/components/CategoriesPageComponents/CategoryProducts/CategoryProducts";
 
-const CategoryPage = ({ params: { path }, searchParams, category_id }) => {
+const CategoryPage = ({
+  params: { path },
+  base_url,
+  searchParams,
+  category_id,
+}) => {
   const { sort: sortURL, viewed, filteri } = searchParams;
   const slug_path = path[path?.length - 1];
   //vadimo sort iz URL
@@ -48,7 +53,12 @@ const CategoryPage = ({ params: { path }, searchParams, category_id }) => {
           </>
         }
       >
-        <CategoryData slug={category_id} num_of_products={numOfProducts} />
+        <CategoryData
+          slug={category_id}
+          num_of_products={numOfProducts}
+          base_url={base_url}
+          path={path}
+        />
       </Suspense>
 
       <CategoryProducts

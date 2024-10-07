@@ -14,8 +14,9 @@ import { useCartContext } from "@/app/api/cartContext";
 import { useGlobalAddToCart, useGlobalAddToWishList } from "@/app/api/globals";
 import { currencyFormat } from "@/helpers/functions";
 import * as process from "process";
+import { generateProductSchema } from "@/_functions";
 
-export const BasicData = ({ slug, categoryId }) => {
+export const BasicData = ({ slug, categoryId, canonical }) => {
   const { data: products } = useSuspenseQuery({
     queryKey: ["slug", slug],
     queryFn: async () => {
@@ -25,6 +26,22 @@ export const BasicData = ({ slug, categoryId }) => {
     },
     refetchOnWindowFocus: false,
   });
+
+  const { data: productsGallery } = useSuspenseQuery({
+    queryKey: ["gallery_schema", slug],
+    queryFn: async () => {
+      return await get(`/product-details/gallery/${slug}`).then(
+        (res) => res?.payload,
+      );
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const product_schema = generateProductSchema(
+    products,
+    productsGallery,
+    canonical,
+  );
 
   const router = useRouter();
   const pathname = usePathname();
@@ -446,6 +463,10 @@ export const BasicData = ({ slug, categoryId }) => {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(product_schema) }}
+      />
       <h1 className="uppercase max-md:text-[0.9rem] text-[1.35rem] text-croonus-1 font-bold max-md:max-w-full self-start hyphens">
         {products?.data?.item?.basic_data?.name}
       </h1>

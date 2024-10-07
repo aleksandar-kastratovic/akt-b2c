@@ -13,9 +13,9 @@ const getCrossSell = async (slug) => {
   }).then((response) => response?.payload);
 };
 
-const ProductPage = async ({ path, category_id }) => {
+const ProductPage = async ({ path, category_id, canonical }) => {
   const cross_sell = await getCrossSell(path);
-  
+
   return (
     <>
       <Suspense>
@@ -45,7 +45,11 @@ const ProductPage = async ({ path, category_id }) => {
               <MobileImageSlider slug={path} />
             </Suspense>
           </div>
-          <ProductInfo slug={path} categoryId={category_id} />
+          <ProductInfo
+            slug={path}
+            categoryId={category_id}
+            canonical={canonical}
+          />
           <Suspense>
             <Description slug={path} />
           </Suspense>

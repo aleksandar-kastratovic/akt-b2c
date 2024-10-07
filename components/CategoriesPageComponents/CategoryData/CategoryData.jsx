@@ -7,8 +7,9 @@ import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CategoryChildren } from "@/_components/category-children";
+import { generateBreadcrumbSchema } from "@/_functions";
 
-export const CategoryData = ({ slug, num_of_products }) => {
+export const CategoryData = ({ slug, base_url, num_of_products, path }) => {
   const {
     data: {
       basic_data: { name, short_description, description },
@@ -50,8 +51,20 @@ export const CategoryData = ({ slug, num_of_products }) => {
 
   const prod_num = num_of_products ?? "0";
 
+  const breadcrumbs_schema = generateBreadcrumbSchema(
+    parents,
+    name,
+    path,
+    base_url,
+  );
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs_schema) }}
+      />
+
       <div className="w-full bg-croonus-5">
         <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 ">
           <div className="text-[0.875rem]  font-light">

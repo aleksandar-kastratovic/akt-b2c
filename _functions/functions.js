@@ -35,6 +35,14 @@ export const generateProductSchema = (product, product_gallery, canonical) => {
           basic_data: { name, sku },
           price: {
             price: { original, discount },
+            min: {
+              price_defined: min_defined,
+              price: { original: min_original, discount: min_discount },
+            },
+            max: {
+              price_defined: max_defined,
+              price: { original: max_original, discount: max_discount },
+            },
             discount: { active },
             currency,
           },
@@ -43,6 +51,34 @@ export const generateProductSchema = (product, product_gallery, canonical) => {
       },
     } = product;
     const { gallery } = product_gallery;
+
+    const isRange = () => {
+      return min_original !== max_original;
+    };
+
+    const isDiscount = () => {
+      return active;
+    };
+
+    const handlePrice = () => {
+      let is_range = isRange();
+      let is_discount = isDiscount();
+
+      if (min_defined && max_defined) {
+        switch (true) {
+          case is_range && is_discount:
+            return `${min_discount} - ${max_discount}`;
+          case is_range && !is_discount:
+            return `${min_original} - ${max_original}`;
+          case !is_range && is_discount:
+            return `${min_discount}`;
+          case !is_range && !is_discount:
+            return `${min_original}`;
+        }
+      } else {
+        return `${original}`;
+      }
+    };
 
     return {
       "@context": "https://schema.org/",
@@ -54,7 +90,7 @@ export const generateProductSchema = (product, product_gallery, canonical) => {
         "@type": "Offer",
         url: canonical,
         priceCurrency: currency?.toUpperCase(),
-        price: original,
+        price: handlePrice(),
         availability: inventory_defined
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
@@ -136,7 +172,7 @@ export const generateOrganizationSchema = (base_url) => {
     "@type": ["Organization", "Store"],
     name: default_data?.name,
     url: `${base_url}`,
-    logo: `${base_url}/logo.png`,
+    logo: `https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg`,
     telephone: default_data?.telephone,
     email: default_data?.email,
     address: {
@@ -146,7 +182,7 @@ export const generateOrganizationSchema = (base_url) => {
       postalCode: default_data?.postal_code,
       addressCountry: default_data?.address_country,
     },
-    image: `${base_url}/logo.png`,
+    image: `https://api.akt.croonus.com/croonus-uploads/config/b2c/logo-bcca26522da09b0cfc1a9bd381ec4e99.jpg`,
     branchOf: (stores ?? [])?.map((item) => {
       return {
         "@type": "Store",
