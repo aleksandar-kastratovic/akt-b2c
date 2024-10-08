@@ -182,7 +182,6 @@ const Footer = () => {
                     Prijavite se!
                   </button>
                 </form>
-
                 <div className="md:hidden w-[80%] mx-auto border border-l-0 border-t-0 border-r-0 border-b-croonus-1 pt-6"></div>
               </>
             )}
@@ -190,27 +189,96 @@ const Footer = () => {
         </div>
       </div>
       <div className="max-lg:hidden lg:w-[90%] mt-8 text-white text-base py-3 mx-auto bg-croonus-4 flex max-lg:flex-col justify-center items-center gap-10">
-        <Link className={`hover:underline`} href="/kako-kupiti">
+        <Link className={`hover:underline`} href="/strana/pomoc-pri-kupovini">
           Pomoć pri kupovini
         </Link>
-        <Link className={`hover:underline`} href="/uslovi">
+        <Link className={`hover:underline`} href="/strana/uslovi-koriscenja">
           Uslovi korišćenja
         </Link>
-        <Link className={`hover:underline`} href="/kolacici">
+        <Link
+          className={`hover:underline`}
+          href="/strana/politika-o-kolacicima"
+        >
           Politika o kolačićima
         </Link>
-        <Link className={`hover:underline`} href="/politika-privatnosti">
+        <Link className={`hover:underline`} href="/strana/politika-privatnosti">
           Politika privatnosti
         </Link>
-        <Link className={`hover:underline`} href="/uslovi#nacin-placanja">
+        <Link
+          className={`hover:underline`}
+          href="/strana/uslovi-koriscenja#nacin-placanja"
+        >
           Načini plaćanja
         </Link>
-        <Link className={`hover:underline`} href="/o-nama">
+        <Link className={`hover:underline`} href="/strana/o-nama">
           O nama
         </Link>
-        {/* <Link href="/blog">Blog</Link> */}
         <Link className={`hover:underline`} href="/kontakt">
           Kontakt
+        </Link>
+      </div>
+      <div
+        className={`flex flex-wrap items-center gap-2 w-[95%] mx-auto lg:w-[90%] justify-center mt-5`}
+      >
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/jastucnice-4`}
+        >
+          Jastučnice
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/posteljine-5/satenska-posteljina`}
+        >
+          Satenska posteljina
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/posteljine-5/pamucne-posteljine`}
+        >
+          Pamučne posteljine
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/prekrivaci-za-krevet/step-deka-4`}
+        >
+          Štep deka
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/prekrivaci-za-krevet/frotirski-prekrivaci`}
+        >
+          Frotirski prekrivači
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/deca/decije-posteljine`}
+        >
+          Dečije posteljine
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba`}
+        >
+          Spavaća soba
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/kupatilski-tekstil`}
+        >
+          Kupatilski tekstil
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/carsavi`}
+        >
+          Čaršavi
+        </Link>
+        <Link
+          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
+          href={`/spavaca-soba/carsavi/navlake-za-dusek-2`}
+        >
+          Navlake za dušek
         </Link>
       </div>
       <div
@@ -222,13 +290,16 @@ const Footer = () => {
       </div>
       {open && (
         <div className="bg-[#2e2524] translate-y-0 transition-all max-md:text-xs justify-center text-white pb-5 text-center font-normal flex flex-col items-center gap-5 lg:hidden pt-3">
-          <Link href="/kako-kupiti">Pomoć pri kupovini</Link>
-          <Link href="/uslovi">Uslovi korišćenja</Link>
-          <Link href="/kolacici">Politika o kolačićima</Link>
-          <Link href="/politika-privatnosti">Politika privatnosti</Link>
-          <Link href="/uslovi#nacin-placanja">Načini plaćanja</Link>
-          <Link href="/o-nama">O nama</Link>
-          {/* <Link href="/blog">Blog</Link> */}
+          <Link href="/strana/pomoc-pri-kupovini">Pomoć pri kupovini</Link>
+          <Link href="/strana/uslovi-koriscenja">Uslovi korišćenja</Link>
+          <Link href="/strana/politika-o-kolacicima">
+            Politika o kolačićima
+          </Link>
+          <Link href="/strana/politika-privatnosti">Politika privatnosti</Link>
+          <Link href="/strana/uslovi-koriscenja#nacin-placanja">
+            Načini plaćanja
+          </Link>
+          <Link href="/strana/o-nama">O nama</Link>
           <Link href="/kontakt">Kontakt</Link>
         </div>
       )}

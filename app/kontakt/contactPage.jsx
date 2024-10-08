@@ -13,6 +13,7 @@ import pin from "../../assets/location-pin.png";
 import { useSearchParams } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import { footerMapStyle } from "@/app/kontakt/footerMapStyle";
+import { useStaticPage } from "@/hooks/akt.hooks";
 
 const Marker = () => {
   return (
@@ -49,6 +50,8 @@ const ContactPage = () => {
   const verifyCaptcha = useCallback((token) => {
     setToken(token);
   }, []);
+
+  const { data } = useStaticPage("kontakt");
 
   const [formData, setFormData] = useState({
     page_section: "contact_page",
@@ -144,10 +147,15 @@ const ContactPage = () => {
           <div className="col-span-1 max-lg:col-span-2 w-full lg:pl-5">
             <div className="flex flex-col">
               <div className="flex flex-col">
-                <h1 className="text-xl font-normal">Pošaljite poruku.</h1>
-                <p className="text-sm font-light">
-                  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.
-                </p>
+                {/*<h1 className="text-xl font-normal">Pošaljite poruku.</h1>*/}
+                {/*<p className="text-sm font-light">*/}
+                {/*  Popunite formu ispod i kontaktiraćemo Vas u najkraćem roku.*/}
+                {/*</p>*/}
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data?.content?.[0]?.content,
+                  }}
+                />
               </div>
               {error ? (
                 <>

@@ -313,16 +313,16 @@ const NavigationMobile = () => {
                         {item?.name}
                       </Link>
                       <div
-                          onClick={() => {
-                            setCategory({
-                              id: category?.id === item?.id ? null : item?.id,
-                              data: item?.children,
-                            });
-                            setSubcategory({
-                              id: null,
-                              data: category?.data?.children,
-                            });
-                          }}
+                        onClick={() => {
+                          setCategory({
+                            id: category?.id === item?.id ? null : item?.id,
+                            data: item?.children,
+                          });
+                          setSubcategory({
+                            id: null,
+                            data: category?.data?.children,
+                          });
+                        }}
                         className={`px-2 py-1 aspect-square border flex flex-col items-center justify-center`}
                       >
                         <i
@@ -363,10 +363,7 @@ const NavigationMobile = () => {
                                 : `w-full`
                             }
                           >
-                            <div
-                              className="w-[90%] py-2 mx-auto flex items-center justify-between pl-2"
-
-                            >
+                            <div className="w-[90%] py-2 mx-auto flex items-center justify-between pl-2">
                               <Link
                                 onClick={() => {
                                   setOpen(false);
@@ -378,15 +375,15 @@ const NavigationMobile = () => {
                                 {item?.name}
                               </Link>
                               <div
-                                  onClick={() =>
-                                      setActiveSubcategory({
-                                        id:
-                                            activeSubcategory?.id === item?.id
-                                                ? null
-                                                : item?.id,
-                                        data: item?.children,
-                                      })
-                                  }
+                                onClick={() =>
+                                  setActiveSubcategory({
+                                    id:
+                                      activeSubcategory?.id === item?.id
+                                        ? null
+                                        : item?.id,
+                                    data: item?.children,
+                                  })
+                                }
                                 className={`px-2 py-1 aspect-square border flex flex-col items-center justify-center`}
                               >
                                 <i
