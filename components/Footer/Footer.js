@@ -217,70 +217,72 @@ const Footer = () => {
           Kontakt
         </Link>
       </div>
-      <div
-        className={`flex flex-wrap items-center gap-2 w-[95%] mx-auto lg:w-[90%] justify-center mt-5`}
-      >
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/jastucnice-4`}
-        >
-          Jastučnice
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/posteljine-5/satenska-posteljina`}
-        >
-          Satenska posteljina
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/posteljine-5/pamucne-posteljine`}
-        >
-          Pamučne posteljine
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/prekrivaci-za-krevet/step-deka-4`}
-        >
-          Štep deka
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/prekrivaci-za-krevet/frotirski-prekrivaci`}
-        >
-          Frotirski prekrivači
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/deca/decije-posteljine`}
-        >
-          Dečije posteljine
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba`}
-        >
-          Spavaća soba
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/kupatilski-tekstil`}
-        >
-          Kupatilski tekstil
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/carsavi`}
-        >
-          Čaršavi
-        </Link>
-        <Link
-          className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}
-          href={`/spavaca-soba/carsavi/navlake-za-dusek-2`}
-        >
-          Navlake za dušek
-        </Link>
-      </div>
+
+      {/*<div*/}
+      {/*  className={`flex flex-wrap items-center gap-2 w-[95%] mx-auto lg:w-[90%] justify-center mt-5`}*/}
+      {/*>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/jastucnice-4`}*/}
+      {/*  >*/}
+      {/*    Jastučnice*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/posteljine-5/satenska-posteljina`}*/}
+      {/*  >*/}
+      {/*    Satenska posteljina*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/posteljine-5/pamucne-posteljine`}*/}
+      {/*  >*/}
+      {/*    Pamučne posteljine*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/prekrivaci-za-krevet/step-deka-4`}*/}
+      {/*  >*/}
+      {/*    Štep deka*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/prekrivaci-za-krevet/frotirski-prekrivaci`}*/}
+      {/*  >*/}
+      {/*    Frotirski prekrivači*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/deca/decije-posteljine`}*/}
+      {/*  >*/}
+      {/*    Dečije posteljine*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba`}*/}
+      {/*  >*/}
+      {/*    Spavaća soba*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/kupatilski-tekstil`}*/}
+      {/*  >*/}
+      {/*    Kupatilski tekstil*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/carsavi`}*/}
+      {/*  >*/}
+      {/*    Čaršavi*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    className={`block px-2 py-1 bg-croonus-4 text-white hover:bg-opacity-80 font-light text-sm`}*/}
+      {/*    href={`/spavaca-soba/carsavi/navlake-za-dusek-2`}*/}
+      {/*  >*/}
+      {/*    Navlake za dušek*/}
+      {/*  </Link>*/}
+      {/*</div>*/}
+
       <div
         className="bg-croonus-1 py-5 justify-center text-white text-center font-normal flex items-center gap-5 lg:hidden mt-10"
         onClick={() => setOpen(!open)}
