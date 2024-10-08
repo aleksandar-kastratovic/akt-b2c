@@ -14,7 +14,6 @@ export const CategoryChildren = ({ slug, name }) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
-  console.log(categories);
   const currentSlug = categories?.slug;
   return (
     <>

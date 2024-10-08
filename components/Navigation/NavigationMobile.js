@@ -18,6 +18,7 @@ import {
   useCategoryTree,
   useWishlistBadge,
 } from "@/hooks/akt.hooks";
+import { icons } from "@/_lib/icons";
 
 const NavigationMobile = () => {
   const [open, setOpen] = useState(false);
@@ -294,29 +295,59 @@ const NavigationMobile = () => {
             {(categories ?? [])?.map((item) => {
               const isActive = category?.id === item?.id;
               return item?.children ? (
-                <>
+                <div key={item?.id}>
                   <div
                     className={
                       isActive ? `w-full bg-croonus-1 text-white` : `w-full`
                     }
-                    onClick={() => {
-                      setCategory({
-                        id: category?.id === item?.id ? null : item?.id,
-                        data: item?.children,
-                      });
-                      setSubcategory({
-                        id: null,
-                        data: category?.data?.children,
-                      });
-                    }}
                   >
                     <div className="w-[90%] py-2 mx-auto flex items-center justify-between">
-                      <p className="text-base font-medium uppercase">
+                      <Link
+                        onClick={() => {
+                          setOpen(false);
+                          setCategory({ id: null, data: [] });
+                        }}
+                        href={`/${item?.link?.link_path}`}
+                        className="text-base font-medium uppercase"
+                      >
                         {item?.name}
-                      </p>
-                      <i className="fa-solid fa-chevron-right text-sm"></i>
+                      </Link>
+                      <div
+                        onClick={() => {
+                          setCategory({
+                            id: category?.id === item?.id ? null : item?.id,
+                            data: item?.children,
+                          });
+                          setSubcategory({
+                            id: null,
+                            data: category?.data?.children,
+                          });
+                        }}
+                        className={`px-2 py-1 aspect-square border flex flex-col items-center justify-center`}
+                      >
+                        <i
+                          className={`fa-solid fa-chevron-right text-sm ${
+                            isActive
+                              ? `transform rotate-90 transition-all duration-300`
+                              : `transform rotate-0 transition-all duration-300`
+                          }`}
+                        ></i>
+                      </div>
                     </div>
                   </div>
+                  {isActive && (
+                    <Link
+                      rel={`nofollow`}
+                      onClick={() => {
+                        setOpen(false);
+                        setCategory({ id: null, data: [] });
+                      }}
+                      href={`/${item?.link?.link_path}`}
+                      className={`w-[90%] border-b bg-white py-2 mx-auto flex items-center justify-between`}
+                    >
+                      <span className={`text-sm`}>Pogledaj sve</span>
+                    </Link>
+                  )}
                   <div className="flex flex-col mt-1 gap-2">
                     {isActive &&
                       category?.data?.length > 0 &&
@@ -332,28 +363,46 @@ const NavigationMobile = () => {
                                 : `w-full`
                             }
                           >
-                            <div
-                              className="w-[90%] py-2 mx-auto flex items-center justify-between pl-2"
-                              onClick={() =>
-                                setActiveSubcategory({
-                                  id:
-                                    activeSubcategory?.id === item?.id
-                                      ? null
-                                      : item?.id,
-                                  data: item?.children,
-                                })
-                              }
-                            >
-                              <p className="text-sm font-medium">
+                            <div className="w-[90%] py-2 mx-auto flex items-center justify-between pl-2">
+                              <Link
+                                onClick={() => {
+                                  setOpen(false);
+                                  setCategory({ id: null, data: [] });
+                                }}
+                                href={`/${item?.link?.link_path}`}
+                                className="text-sm font-medium"
+                              >
                                 {item?.name}
-                              </p>
-                              <i className="fa-solid fa-chevron-right text-sm"></i>
+                              </Link>
+                              <div
+                                onClick={() =>
+                                  setActiveSubcategory({
+                                    id:
+                                      activeSubcategory?.id === item?.id
+                                        ? null
+                                        : item?.id,
+                                    data: item?.children,
+                                  })
+                                }
+                                className={`px-2 py-1 aspect-square border flex flex-col items-center justify-center`}
+                              >
+                                <i
+                                  className={`fa-solid fa-chevron-right text-sm ${
+                                    isActiveSubCategory
+                                      ? `transform rotate-90 transition-all duration-300`
+                                      : `transform rotate-0 transition-all duration-300`
+                                  }`}
+                                ></i>
+                              </div>
                             </div>
                             {isActiveSubCategory &&
                               activeSubcategory.data?.length > 0 &&
                               activeSubcategory.data.map((item2) => {
                                 return (
-                                  <div className="w-full py-2 bg-white">
+                                  <div
+                                    className={`w-full py-2 bg-white`}
+                                    key={item2?.id}
+                                  >
                                     <div className="w-[90%] mx-auto pl-4">
                                       <Link
                                         className="text-xs font-medium"
@@ -371,7 +420,7 @@ const NavigationMobile = () => {
                               })}
                           </div>
                         ) : (
-                          <div className="w-full py-2">
+                          <div className="w-full py-2" key={item?.id}>
                             <div className="w-[90%] mx-auto pl-2">
                               <Link
                                 className="text-sm font-medium"
@@ -388,9 +437,10 @@ const NavigationMobile = () => {
                         );
                       })}
                   </div>
-                </>
+                </div>
               ) : (
                 <Link
+                  key={item?.id}
                   className="text-base  font-medium uppercase"
                   href={`/${item?.link?.link_path}`}
                   onClick={() => {

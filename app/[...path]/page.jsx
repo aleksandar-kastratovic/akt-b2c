@@ -148,20 +148,26 @@ const CategoryProduct = async ({ params: { path }, params, searchParams }) => {
     case data?.type === "category" &&
       data?.status === true &&
       data?.redirect_url === false:
+      const base_url = headers()?.get("x-base_url");
+
       return (
         <CategoryPage
           params={params}
           searchParams={searchParams}
           category_id={data?.id}
+          base_url={base_url}
         />
       );
     case data?.type === "product" &&
       data?.status === true &&
       data?.redirect_url === false:
+      const canonical = headers()?.get("x-pathname");
+
       return (
         <ProductPage
           path={data?.id}
           category_id={path?.[path?.length - 2] ?? "*"}
+          canonical={canonical}
         />
       );
     case data?.status === false:

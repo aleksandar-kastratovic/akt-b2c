@@ -11,6 +11,7 @@ const Filters = ({
   filters,
   sortKeys,
   setLastSelectedFilterKey,
+  setPage = () => {}
 }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -70,6 +71,7 @@ const Filters = ({
                   >
                     <div className="w-[90%] uppercase mx-auto pb-3.5">
                       <Filter
+                        setPage={setPage}
                         filter={filter}
                         setChangeFilters={setChangeFilters}
                         setLastSelectedFilterKey={setLastSelectedFilterKey}
@@ -86,6 +88,7 @@ const Filters = ({
             className="max-lg:hidden row-start-1 hover:border-black cursor-pointer border py-2 relative flex justify-center items-center gap-3 col-span-1 w-fit px-5"
             onClick={() => {
               setSelectedFilters([]);
+
               setActiveFilters([]);
               setFiltersOpen(false);
             }}

@@ -162,12 +162,13 @@ export const CheckoutData = ({
 
   useEffect(() => {
     if (isCheckoutSuccess && data) {
-      const { payment_provider_data: { form } } = data;
+      const {
+        payment_provider_data: { form },
+      } = data;
       switch (true) {
         case Boolean(form) === false:
           return router.push(`/kupovina/${data?.order?.order_token}`);
         case Boolean(form) === true:
-
           return handleCreditCard(data);
         default:
           break;
@@ -176,8 +177,8 @@ export const CheckoutData = ({
   }, [isCheckoutSuccess, data, router]);
 
   useEffect(() => {
-      handleSetData("default_data", form, dataTmp, setDataTmp);
-  }, [selected?.id, form?.[0], isLoading])
+    handleSetData("default_data", form, dataTmp, setDataTmp);
+  }, [selected?.id, form?.[0], isLoading]);
 
   useEffect(() => {
     if (selected?.use_same_data) {
@@ -334,40 +335,48 @@ export const CheckoutData = ({
             formData={dataTmp}
           />
         </div>
-        <div className="mt-2 flex gap-3 py-3 relative">
-          <input
-            type="checkbox"
-            id="accept_rules"
-            name="accept_rules"
-            onChange={(e) => {
-              setDataTmp({
-                ...dataTmp,
-                accept_rules: e?.target?.checked,
-              });
-              setErrorsTmp(
-                errorsTmp?.filter((error) => error !== "accept_rules"),
-              );
-            }}
-            checked={dataTmp?.accept_rules}
-            className="focus:ring-0 focus:border-none rounded-full focus:outline-none text-[#191919] bg-white"
-          />
-          <label
-            htmlFor="agreed"
-            className={`pb-4 text-[0.965rem] font-light ${className}  underline ${
-              errorsTmp?.includes("accept_rules") ? `text-red-500` : ``
-            }`}
-          >
-            Saglasan sam sa
-            <a
-              className={`underline max-md:text-[1.15rem]`}
-              href={`/uslovi`}
-              target={`_blank`}
+        <div className={`flex flex-col gap-1`}>
+          <div className="flex gap-3 py-2 relative">
+            <input
+              type="checkbox"
+              id="accept_rules"
+              name="accept_rules"
+              onChange={(e) => {
+                setDataTmp({
+                  ...dataTmp,
+                  accept_rules: e?.target?.checked,
+                });
+                setErrorsTmp(
+                  errorsTmp?.filter((error) => error !== "accept_rules"),
+                );
+              }}
+              checked={dataTmp?.accept_rules}
+              className="focus:ring-0 focus:border-none rounded-full focus:outline-none text-[#191919] bg-white"
+            />
+            <label
+              htmlFor="agreed"
+              className={`text-[0.965rem] font-light ${className}  underline ${
+                errorsTmp?.includes("accept_rules") ? `text-red-500` : ``
+              }`}
             >
-              <span> Opštim uslovima korišćenja</span>
-            </a>{" "}
-            AKT ONLINE SHOP-a.
-          </label>
+              Saglasan sam sa
+              <a
+                className={`underline max-md:text-[1.15rem]`}
+                href={`/strana/uslovi-koriscenja`}
+                target={`_blank`}
+              >
+                <span> Opštim uslovima korišćenja</span>
+              </a>{" "}
+              AKT ONLINE SHOP-a.
+            </label>
+          </div>
+          {errorsTmp?.includes("accept_rules") && (
+            <p className={`text-red-500 text-[0.75rem]`}>
+              Molimo Vas da prihvatite uslove korišćenja.
+            </p>
+          )}
         </div>
+
         <button
           disabled={isPending}
           className={`mt-2 w-full ${
@@ -385,14 +394,16 @@ export const CheckoutData = ({
               setDataTmp({
                 ...dataTmp,
                 gcaptcha: token,
-              })
+              });
 
               const timeout = setTimeout(() => {
                 const totalValue = items?.items
-                    ?.map(
-                        (item) => item?.cart?.quantity * item?.product?.price?.cost?.with_vat
-                    )
-                    .reduce((acc, curr) => acc + curr, 0);
+                  ?.map(
+                    (item) =>
+                      item?.cart?.quantity *
+                      item?.product?.price?.cost?.with_vat,
+                  )
+                  .reduce((acc, curr) => acc + curr, 0);
 
                 window?.dataLayer?.push({
                   event: "begin_checkout",
@@ -404,13 +415,14 @@ export const CheckoutData = ({
                       item_id: item?.product?.id,
                       price: item?.product?.price?.cost?.with_vat,
                       quantity: item?.cart?.quantity,
-                    }))}});
+                    })),
+                  },
+                });
 
                 checkOut();
               }, 100);
 
               return () => clearTimeout(timeout);
-
             } else {
               window.scrollTo(0, 0);
             }

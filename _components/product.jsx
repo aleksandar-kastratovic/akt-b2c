@@ -7,14 +7,14 @@ import { Description } from "@/_components/desc";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
 
-const getRecommendedProducts = async (slug) => {
+const getCrossSell = async (slug) => {
   return await list(`/product-details/cross-sell/${slug}`, {
     render: false,
   }).then((response) => response?.payload);
 };
 
-const ProductPage = async ({ path, category_id }) => {
-  const cross_sell = await getRecommendedProducts(path[path?.length - 1]);
+const ProductPage = async ({ path, category_id, canonical }) => {
+  const cross_sell = await getCrossSell(path);
 
   return (
     <>
@@ -45,7 +45,11 @@ const ProductPage = async ({ path, category_id }) => {
               <MobileImageSlider slug={path} />
             </Suspense>
           </div>
-          <ProductInfo slug={path} categoryId={category_id} />
+          <ProductInfo
+            slug={path}
+            categoryId={category_id}
+            canonical={canonical}
+          />
           <Suspense>
             <Description slug={path} />
           </Suspense>

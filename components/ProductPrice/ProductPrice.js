@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Badges } from "@/_components/badges";
 import { BasicData } from "@/_components/basic-data";
 
-const ProductInfo = ({ slug, categoryId }) => {
+const ProductInfo = ({ slug, categoryId, canonical }) => {
   return (
     <div className="col-span-2 max-md:mt-10 max-lg:mt-6 lg:col-span-3 text-croonus-1">
       <div className="flex flex-col gap-4">
@@ -29,7 +29,7 @@ const ProductInfo = ({ slug, categoryId }) => {
           </>
         }
       >
-        <BasicData slug={slug} categoryId={categoryId} />
+        <BasicData slug={slug} categoryId={categoryId} canonical={canonical} />
       </Suspense>
     </div>
   );

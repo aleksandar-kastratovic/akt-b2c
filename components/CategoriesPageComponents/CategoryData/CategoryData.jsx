@@ -7,8 +7,9 @@ import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import React, { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CategoryChildren } from "@/_components/category-children";
+import { generateBreadcrumbSchema } from "@/_functions";
 
-export const CategoryData = ({ slug, num_of_products }) => {
+export const CategoryData = ({ slug, base_url, num_of_products, path }) => {
   const {
     data: {
       basic_data: { name, short_description, description },
@@ -50,8 +51,20 @@ export const CategoryData = ({ slug, num_of_products }) => {
 
   const prod_num = num_of_products ?? "0";
 
+  const breadcrumbs_schema = generateBreadcrumbSchema(
+    parents,
+    name,
+    path,
+    base_url,
+  );
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs_schema) }}
+      />
+
       <div className="w-full bg-croonus-5">
         <div className="w-[85%] mx-auto mt-4 pb-1 pt-1 ">
           <div className="text-[0.875rem]  font-light">
@@ -120,13 +133,15 @@ export const CategoryData = ({ slug, num_of_products }) => {
       </div>
 
       <div className="w-full flex-col flex items-center justify-center mt-10">
-        <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
-          {name}
+        <div className={`flex items-center gap-2 flex-wrap`}>
+          <h1 className="font-medium uppercase text-2xl max-lg:text-xl max-lg:text-center">
+            {name}
+          </h1>
 
           <span className="text-lg lowercase max-md:text-[11px]">
             &nbsp;({prod_num} proizvoda)
           </span>
-        </h1>
+        </div>
 
         <p className="text-[1rem] prose !text-black max-w-full max-md:text-[0.8rem] text-center max-md:mt-5 mt-[1rem] font-light w-[95%] lg:w-[80%] max-lg:text-left">
           {short_description}

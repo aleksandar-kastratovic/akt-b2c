@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { get, list } from "@/app/api/api";
 import Image from "next/image";
 import Thumb from "@/components/CategoriesPageComponents/Products/Products";
@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 import "swiper/css";
 import "swiper/css/pagination";
+import ThumbSuspense from "@/shared/Thumb/ThumbSuspense";
 
 const LandingPage = ({ slug }) => {
   const [loadingBasicData, setLoadingBasicData] = useState(true);
@@ -47,10 +48,13 @@ const LandingPage = ({ slug }) => {
 
       const conditionsResponse = await list(
         `/landing-pages/conditions/${slug}`,
+        {
+          render: false,
+        },
       ).then((res) => {
         setData((prevData) => ({
           ...prevData,
-          conditions: res?.payload,
+          conditions: res?.payload?.items,
         }));
         setLoadingConditions(false);
       });
@@ -176,7 +180,21 @@ const LandingPage = ({ slug }) => {
                     ))}
                   </>
                 ) : (
-                  <Thumb products={data?.conditions} />
+                  (data?.conditions ?? [])?.map((condition) => {
+                    return (
+                      <Suspense
+                        fallback={<div>Loading...</div>}
+                        key={`suspense-${condition?.id}`}
+                      >
+                        <ThumbSuspense
+                          key={condition?.id}
+                          id={condition?.id}
+                          refreshWishlist={() => {}}
+                          categoryId={"*"}
+                        />
+                      </Suspense>
+                    );
+                  })
                 )}
               </div>
               <div
