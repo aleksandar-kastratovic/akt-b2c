@@ -33,16 +33,9 @@ export const generateProductSchema = (product, product_gallery, canonical) => {
       data: {
         item: {
           basic_data: { name, sku },
+          price,
           price: {
             price: { original, discount },
-            min: {
-              price_defined: min_defined,
-              price: { original: min_original, discount: min_discount },
-            },
-            max: {
-              price_defined: max_defined,
-              price: { original: max_original, discount: max_discount },
-            },
             discount: { active },
             currency,
           },
@@ -51,6 +44,13 @@ export const generateProductSchema = (product, product_gallery, canonical) => {
       },
     } = product;
     const { gallery } = product_gallery;
+
+    const min_defined = price?.min?.price_defined;
+    const max_defined = price?.max?.price_defined;
+    const min_original = price?.min?.price?.original;
+    const max_original = price?.max?.price?.original;
+    const min_discount = price?.min?.price?.discount;
+    const max_discount = price?.max?.price?.discount;
 
     const isRange = () => {
       return min_original !== max_original;
