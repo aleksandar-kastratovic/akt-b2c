@@ -13,7 +13,8 @@ export const CategoryData = ({ slug, base_url, num_of_products, path }) => {
   const {
     data: {
       basic_data: { name, short_description, description },
-      seo: { image },
+      images: { image },
+      seo: { meta_description, meta_image },
       parents,
     },
     data,
@@ -112,22 +113,16 @@ export const CategoryData = ({ slug, base_url, num_of_products, path }) => {
         </div>
       </div>
 
-      <div
-        className={
-          image
-            ? `mt-4 max-md:mt-4 w-[95%] lg:w-[80%] mx-auto h-[23.125rem] 3xl:h-[28.125rem]`
-            : `mt-4 max-md:mt-4 w-[95%] lg:w-[80%] mx-auto`
-        }
-      >
-        {" "}
-        {image ? (
+      <div className={`mt-4 max-md:mt-4 w-[95%] lg:w-[80%] mx-auto`}>
+        {meta_image || image ? (
           <Image
-            width={22200}
-            height={22200}
-            src={convertHttpToHttps(image)}
-            className="w-full h-full object-cover"
+            width={0}
+            height={0}
+            src={convertHttpToHttps(meta_image ?? image) ?? ""}
+            className={`w-full !h-auto`}
+            sizes={`100vw`}
             priority={true}
-            alt="AKT"
+            alt={meta_description ?? name ?? "Stefan Tekstil"}
           />
         ) : null}
       </div>

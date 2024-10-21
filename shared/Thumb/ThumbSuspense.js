@@ -21,11 +21,7 @@ import { useRouter } from "next/navigation";
 import Wishlist from "@/assets/Icons/favorite.png";
 import wishlistactive from "@/assets/Icons/favorite-active.png";
 
-const ThumbSuspense = ({
-  id,
-  refreshWishlist = () => {},
-  categoryId,
-}) => {
+const ThumbSuspense = ({ id, refreshWishlist = () => {}, categoryId }) => {
   const {
     isPending: isWishlistPending,
     mutate: addToWishlist,
@@ -40,18 +36,11 @@ const ThumbSuspense = ({
   const isInWishlist = data?.exist;
   const wishlist_id = data?.wishlist_item_id;
 
-  const {
-    data: product,
-    data: {
-      slug_path,
-      inventory,
-      price,
-      image,
-      basic_data: { name, id_product },
-    },
-    isFetched,
-  } = useProductThumb({ id: id, slug: id, categoryId: categoryId ?? "*" });
-
+  const { data: product, isFetched } = useProductThumb({
+    id: id,
+    slug: id,
+    categoryId: categoryId ?? "*",
+  });
 
   //fetchujemo podatke o stickeru
   const { data: sticker } = useProductSticker({ slug: id });
@@ -66,7 +55,7 @@ const ThumbSuspense = ({
   const { mutate: addToCart, isPending } = useAddToCart();
 
   const handleAddToCart = (id) => {
-    addToCart({ id: id_product, quantity: 1 });
+    addToCart({ id: product?.basic_data?.id_product, quantity: 1 });
   };
 
   const renderPrices = (item) => {
@@ -271,18 +260,21 @@ const ThumbSuspense = ({
   };
 
   return (
-    <div className="col-span-1 relative w-full" key={id_product}>
+    <div
+      className="col-span-1 relative w-full"
+      key={product?.basic_data?.id_product}
+    >
       {renderDiscountPercentage(product)}
       <Link href={`/${product?.link?.link_path}`}>
         <div className="relative w-full">
-          {product?.image[0] ? (
+          {product?.image?.[0] ? (
             <>
-              {product?.image[1] ? (
+              {product?.image?.[1] ? (
                 <div
                   className={`relative w-full min-h-full max-md:w-[94%] mx-auto hoverThumbImage`}
                 >
                   <Image
-                    src={convertHttpToHttps(product?.image[0] ?? "")}
+                    src={convertHttpToHttps(product?.image?.[0] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
@@ -292,7 +284,7 @@ const ThumbSuspense = ({
                   />
 
                   <Image
-                    src={convertHttpToHttps(product?.image[1] ?? "")}
+                    src={convertHttpToHttps(product?.image?.[1] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
@@ -306,7 +298,7 @@ const ThumbSuspense = ({
                   className={`relative w-full min-h-full max-md:w-[94%] mx-auto`}
                 >
                   <Image
-                    src={convertHttpToHttps(product?.image[0] ?? "")}
+                    src={convertHttpToHttps(product?.image?.[0] ?? "")}
                     alt={product?.basic_data?.name}
                     width={0}
                     height={0}
