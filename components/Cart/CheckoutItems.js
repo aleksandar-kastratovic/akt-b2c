@@ -52,7 +52,7 @@ const CheckoutItems = ({
     <>
       <div key={key} className={`relative grid grid-cols-4 gap-5`}>
         <i
-          className={`fas fa-times absolute right-2 top-2 z-10 cursor-pointer ${
+          className={`fas fa-times absolute right-2 top-2 cursor-pointer ${
             isClosed && !inventory?.inventory_defined && "text-white"
           } text-lg hover:text-red-500`}
           onClick={() => {
@@ -70,10 +70,10 @@ const CheckoutItems = ({
           />
         </Link>
         <div
-          className={`col-span-3 mb-auto ml-[2rem] flex flex-col items-start gap-2`}
+          className={`col-span-3 mb-auto ml-[0rem] flex flex-col items-start gap-2`}
         >
           <h4
-            className={`${className} mt-2 text-center text-[1.1rem] font-normal`}
+            className={`${className} mt-2 break-words: wrap; text-left text-[1.1rem] font-normal max-w-[200px] sm:max-w-none`}
           >
             {name}
           </h4>
