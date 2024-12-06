@@ -73,10 +73,12 @@ const CheckoutItems = ({
           className={`col-span-3 mb-auto ml-[0rem] flex flex-col items-start gap-2`}
         >
           <h4
-            className={`${className} mt-2 break-words: wrap; text-left text-[1.1rem] font-normal max-w-[200px] sm:max-w-none`}
-          >
-            {name}
-          </h4>
+          className={`${className} mt-2 break-words text-left text-[1.1rem] font-normal max-w-[200px] md:max-w-[250px] lg:max-w-[270px] 2xl:max-w-[350px]`}
+        >
+          {name}
+        </h4>
+
+
           <div className={`flex items-center`}>
             <span className={`${className} text-[0.9rem]`}>Količina:</span>{" "}
             &nbsp;
