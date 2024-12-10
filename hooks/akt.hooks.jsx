@@ -123,7 +123,7 @@ export const useWishlistBadge = () => {
   });
 };
 export const useLandingPages = () => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["LandingPages"],
     queryFn: async () => {
       return await LIST(`/landing-pages/list`).then((res) => res?.payload);
