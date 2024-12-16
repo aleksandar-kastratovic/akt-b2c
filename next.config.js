@@ -251,73 +251,55 @@ const nextConfig = {
         statusCode: 301,
       },
       {
-        source: "/spavaca-soba/jastuci",
-        destination: "/spavaca-soba/jastuci-za-lagan-san",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/spavaca-soba/jastuci/comodo-classic",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/comodo-classic",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
         source: "/spavaca-soba/jastuci/comodo-a",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/antialergijski-jastuci",
+          "/spavaca-soba/jastuci/antialergijski-jastuci",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-s",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/jastuci-podesive-visine-comodo-s",
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: "/spavaca-soba/jastuci/jastuci-paperije",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/jastuci-paperje",
+          "/spavaca-soba/jastuci/jastuci-podesive-visine-comodo-s",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-s-putni-jastuci",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/jastuk-za-putovanje-comodo-s",
+          "/spavaca-soba/jastuci/jastuk-za-putovanje-comodo-s",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-h",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/heljda-jastuci-za-spavanje",
+          "/spavaca-soba/jastuci/heljda-jastuci-za-spavanje",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/microsoft",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/mikrofiber-jastuci-za-spavanje-na-oblaku",
+          "/spavaca-soba/jastuci/mikrofiber-jastuci-za-spavanje-na-oblaku",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/bebi",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/jastuci-za-bebe",
+        destination: "/spavaca-soba/jastuci/jastuci-za-bebe",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuci",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/oks-jastuci-za-pod",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/oks-jastuci-za-pod",
+        destination: "/spavaca-soba/jastuci/oks-jastuci-za-pod",
         permanent: true,
         statusCode: 301,
       },
@@ -3015,14 +2997,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1292",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1292",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
@@ -3035,14 +3017,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1292",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1292",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1292",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1292",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
@@ -3055,7 +3037,7 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1290",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1290",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
         permanent: true,
         statusCode: 301,
       },
@@ -3068,7 +3050,7 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1290",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
         permanent: true,
         statusCode: 301,
       },
@@ -3187,14 +3169,14 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/punilo-za-jastuk-40x40",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/punilo-za-jastuk",
+        destination: "/spavaca-soba/jastuci/punilo-za-jastuk",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/punilo-za-jastuk-40x40",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/punilo-za-jastuk",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/punilo-za-jastuk",
         permanent: true,
         statusCode: 301,
       },
@@ -3206,14 +3188,14 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/punilo-za-jastuk-40x40",
-        destination: "/spavaca-soba/jastuci-za-lagan-san/punilo-za-jastuk",
+        destination: "/spavaca-soba/jastuci/punilo-za-jastuk",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/punilo-za-jastuk-40x40",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/punilo-za-jastuk",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/punilo-za-jastuk",
         permanent: true,
         statusCode: 301,
       },
@@ -4923,14 +4905,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1315",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1315",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
@@ -4943,14 +4925,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1315",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1315",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1315",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1315",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
@@ -4963,14 +4945,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1313",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1313",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
@@ -4983,14 +4965,14 @@ const nextConfig = {
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1313",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuk-1313",
+          "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1313",
         destination:
-          "/spavaca-soba/jastuci-za-lagan-san/dekorativni-jastuci/dekorativni-jastuk-1313",
+          "/spavaca-soba/jastuci/dekorativni-jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
