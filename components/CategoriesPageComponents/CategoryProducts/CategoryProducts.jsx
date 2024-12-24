@@ -43,8 +43,10 @@ export const CategoryProducts = ({
   const [lastSelectedFilterKey, setLastSelectedFilterKey] = useState("");
 
   //dobijamo proizvode za kategoriju sa api-ja
+  const [products,setProducts] = useState([]);
+  const [pagination,setPagination] = useState({});
+
   const {
-    data: { items: products, pagination },
     data,
     isFetched,
     isFetching,
@@ -132,6 +134,11 @@ export const CategoryProducts = ({
     sort,
     selectedFilters,
   });
+
+  useEffect(() => {
+    setProducts(data?.items);
+    setPagination(data?.pagination)
+  },[data])
 
   //ako je korisnik dosao na stranicu preko linka sa prisutnim filterima u URL,onda se ti filteri selektuju i okida se api da azurira dostupne filtere
   useEffect(() => {

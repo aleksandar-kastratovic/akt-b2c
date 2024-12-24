@@ -495,7 +495,7 @@ export const useCategoryProducts = ({
 }) => {
   switch (isGTM) {
     case false:
-      return useSuspenseQuery({
+      return useQuery({
         queryKey: [
           "categoryProducts",
           {

@@ -33,8 +33,8 @@ export const Pagination = ({
       className={`flex mt-10 py-2 px-2 sm:px-[3rem] bg-[#f2f2f2] items-center justify-center sm:justify-end gap-1 lg:w-[85%] mx-auto`}
     >
       {getPaginationArray(
-        data.pagination.selected_page,
-        data.pagination.total_pages,
+        data?.pagination?.selected_page,
+        data?.pagination?.total_pages,
       )?.map((num, index, array) => (
         <>
           {index === 0 && num !== 1 && (
