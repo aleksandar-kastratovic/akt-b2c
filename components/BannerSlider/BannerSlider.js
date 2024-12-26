@@ -6,11 +6,73 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+function extractYoutubeId(url) {
+  const regex =
+    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
+
 const BannerSlider = ({ banners }) => {
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const items = banners?.map((item, index) => (
-    <SwiperSlide key={index} className={`!grid !grid-cols-2`}>
+
+  const renderSlideContent = (item, index) => {
+    switch (item?.type) {
+      case "video":
+        return (
+          <SwiperSlide key={index} className={`!grid !grid-cols-2`}>
+
+      <div className="col-span-4 w-full flex  relative max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
+      <Link href={item?.url ?? "/"}>
+              <video
+                width={item?.file_data?.banner_position?.width}
+                height={item?.file_data?.banner_position?.height}
+                className="relative object-cover h-full w-full"
+                autoPlay
+                muted
+                loop
+              >
+                <source
+                  src={convertHttpToHttps(item?.file_data?.url)}
+                  type="video/mp4"
+                />
+              </video>
+            </Link>
+      </div>
+    </SwiperSlide>
+        );
+
+      case "video_link":
+          const videoProvider = item?.video_provider;
+          const videoUrl = item?.video_url;
+    
+          const src =
+      videoProvider === "youtube"
+        ? `https://www.youtube.com/embed/${extractYoutubeId(videoUrl)}?autoplay=1&mute=1&loop=1&playsinline=1&controls=0&playlist=${extractYoutubeId(videoUrl)}`
+        : `${videoUrl}?autoplay=1&muted=1&loop=1&background=1&playsinline=1}`;
+    
+          return (
+            <SwiperSlide key={index} className={`!grid !grid-cols-2`}>
+
+            <div className="col-span-4 w-full  relative max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
+            <Link href={item?.url ?? "/"}>
+                  <iframe
+                    className="w-full h-full object-cover aspect-[960/1550] md:aspect-[1920/800] pointer-events-none"
+                    width={item.width}
+                    height={item.height}
+                    src={src}
+                    frameborder="0"
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                  </Link>
+            </div>
+          </SwiperSlide>
+          );
+      default:
+        return (
+          <SwiperSlide key={index} className={`!grid !grid-cols-2`}>
       <div className="col-span-2 max-lg:py-8 lg:col-span-1 w-full h-full flex max-lg:items-start items-center justify-start bg-[#eeefe1] ">
         {/*<h2 className="text-[1.661rem] text-black font-semibold pb-5 max-md:text-[1.1rem] absolute top-0 z-[20] lg:hidden">*/}
         {/*  {item?.title}*/}
@@ -31,15 +93,22 @@ const BannerSlider = ({ banners }) => {
         </div>
       </div>
       <div className="col-span-2  relative max-lg:row-start-1 lg:col-span-1 max-lg:h-[300px] max-h-[600px]  h-[600px]">
-        <Image
-          src={convertHttpToHttps(item?.image)}
-          fill
-          alt="AKT"
-          className="object-cover max-md:pt-[3rem]"
-        />
+      <Link href={item?.url ?? "/"}>
+              <Image
+                width={0}
+                height={0}
+                className="relative h-auto w-full"
+                src={convertHttpToHttps(item?.file_data?.url)}
+                alt={item?.file_data?.descriptions?.alt ?? "AKT"}
+                priority={true}
+              />
+            </Link>
       </div>
     </SwiperSlide>
-  ));
+        );
+    }
+  };
+  const items = banners?.map((item, index) => renderSlideContent(item,index));
 
   return (
     <>
