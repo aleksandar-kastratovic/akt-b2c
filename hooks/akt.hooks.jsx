@@ -17,7 +17,6 @@ import {
 import { toast } from "react-toastify";
 import { useCartContext } from "@/app/api/cartContext";
 import { useInvalidateBadges } from "@/_context/functions";
-import { useRouter } from "next/router";
 import { userContext } from "@/_context/userContext";
 
 //hook za formu, proslediti inicijalne vrednosti - ovo sluzi za izbegavanje duplikacije koda

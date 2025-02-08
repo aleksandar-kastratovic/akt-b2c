@@ -1,4 +1,4 @@
-import { get, list } from "@/app/api/api";
+import { list } from "@/app/api/api";
 import ProductDetailsSlider from "@/components/ProductDetailsSlider/ProductDetailsSlider";
 import MobileImageSlider from "@/components/MobileImageSlider/MobileImageSlider";
 import { Breadcrumbs } from "@/_components/breadcrumbs";
@@ -6,6 +6,9 @@ import { Suspense } from "react";
 import { Description } from "@/_components/desc";
 import ProductInfo from "@/components/ProductPrice/ProductPrice";
 import ProductsSlider from "@/components/ProductsSlider/ProductsSlider";
+import ProductReviewsMarks from "@/components/ProductReviews/Marks/ProductReviewsMarks";
+import ProductComments from "@/components/ProductReviews/Comments/ProductComments";
+import ProductQuestions from "@/components/ProductReviews/Questions/ProductQuestions";
 
 const getCrossSell = async (slug) => {
   return await list(`/product-details/cross-sell/${slug}`, {
@@ -55,6 +58,15 @@ const ProductPage = async ({ path, category_id, canonical }) => {
           </Suspense>
         </div>
       </div>
+
+      {/* These are 3 review components (Marks, Comments, Q&A)
+        Each one works separately. 
+        Based on the Product ID, it displays all the necessary data and forms. 
+        It can be displayed here or moved as needed. */}
+      <ProductReviewsMarks id_product={path} />
+      <ProductComments id_product={path} />
+      <ProductQuestions id_product={path} />
+
       {cross_sell?.items?.length > 0 && (
         <div className="mt-[3rem] sm:mt-[7.688rem]">
           <ProductsSlider

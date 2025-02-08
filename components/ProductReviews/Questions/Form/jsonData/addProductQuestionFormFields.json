@@ -1,0 +1,50 @@
+[
+  {
+    "id": "nameID",
+    "name": "name",
+    "type": "text",
+    "placeholder": "Your Name",
+    "required": true,
+    "className": "md:col-span-1"
+  },
+  {
+    "id": "emailID",
+    "name": "email",
+    "type": "email",
+    "placeholder": "Your Email",
+    "required": true,
+    "className": "md:col-span-1"
+  },
+  {
+    "id": "is_anonymousID",
+    "name": "is_anonymous",
+    "type": "checkbox",
+    "placeholder": "I want to be anonymous",
+    "required": false
+  },
+
+  {
+    "id": "messageID",
+    "name": "message",
+    "type": "textarea",
+    "placeholder": "Your question",
+    "required": true
+  },
+
+  {
+    "id": "imageID",
+    "name": "question_images",
+    "type": "file",
+    "placeholder": "Upload an image",
+    "required": false,
+    "className": "md:col-span-1"
+  },
+  {
+    "id": "videoID",
+    "name": "question_videos",
+    "type": "file",
+    "placeholder": "Upload a video",
+    "required": false,
+    "className": "md:col-span-1"
+  }
+]
