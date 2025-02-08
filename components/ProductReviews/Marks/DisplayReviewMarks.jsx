@@ -151,7 +151,7 @@ const DisplayReviewMarks = ({ id_product, marksOptions }) => {
   return (
     <div className="max-md:w-[95%] max-md:mx-auto mx-[3rem] mt-12">
       <h2 className="text-[1.5rem] font-bold max-md:text-[1.1rem] mb-4">
-        Marks
+        Ocene
       </h2>
       <div className="w-full grid grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] gap-6">
         <MarksSummary id_product={id_product} marksOptions={marksOptions} />

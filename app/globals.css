@@ -700,3 +700,35 @@ input[type="number"] {
   background: transparent !important;
   font-weight: normal !important;
 }
+
+.swiper-button-prev {
+  background-color: white !important;
+  top: 40% !important;
+  color: rgba(0, 0, 0, 0.716) !important;
+  width: 26px !important;
+  height: 64px !important;
+  box-shadow: 0px 4px 10px 0.5px rgba(0, 0, 0, 0.1) !important;
+  z-index: 500 !important;
+  fill: black !important;
+  position: absolute !important;
+  opacity: 0.8;
+}
+
+.swiper-button-next {
+  background-color: white !important;
+  opacity: 0.8;
+  width: 26px !important;
+  height: 64px !important;
+  color: rgba(0, 0, 0, 0.716) !important;
+  top: 40% !important;
+  box-shadow: 0px 4px 10px 0.5px rgba(0, 0, 0, 0.1) !important;
+  fill: black !important;
+  z-index: 500 !important;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: black !important;
+  font-weight: 900;
+  font-size: 20px !important;
+}

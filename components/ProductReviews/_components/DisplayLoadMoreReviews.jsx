@@ -27,7 +27,7 @@ const DisplayLoadMoreReviews = ({ reviews, setReviews, api, sort }) => {
                 field: `${sort.field ? sort.field : ""}`,
                 direction: `${sort.direction ? sort.direction : ""}`,
               },
-            }
+            },
           );
 
           if (newReviewsList?.payload) {
@@ -46,7 +46,7 @@ const DisplayLoadMoreReviews = ({ reviews, setReviews, api, sort }) => {
           }
         }}
       >
-        Load more
+        Učitaj više
       </button>
     </div>
   );

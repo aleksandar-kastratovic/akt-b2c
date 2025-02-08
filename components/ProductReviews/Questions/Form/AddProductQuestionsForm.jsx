@@ -92,7 +92,7 @@ const AddProductQuestionsForm = ({ id_product }) => {
   return (
     <div className="max-md:mt-[1.01rem] mt-[3rem] max-md:w-[95%] max-md:mx-auto mx-[3rem]">
       <h2 className="text-[1.5rem] font-bold max-md:text-[1.1rem] mb-4">
-        Leave a question
+        Ostavite pitanje
       </h2>
 
       <Form
@@ -102,9 +102,9 @@ const AddProductQuestionsForm = ({ id_product }) => {
         errors={errors}
         isPending={isPending}
         handleInputChange={handleInputChange}
-        button_text="Submit question"
-        className="py-4"
-        buttonClassName="mt-0 !w-[180px] uppercase"
+        button_text="Pošalji pitanje"
+        className={`grid grid-cols-2 gap-x-5`}
+        buttonClassName="mt-0 !w-[186px] uppercase"
       />
     </div>
   );

@@ -25,7 +25,16 @@ export const Form = ({
         }}
       >
         {(fields ?? [])?.map(
-          ({ id, name, type, required, options, fill, placeholder }) => {
+          ({
+            id,
+            name,
+            type,
+            required,
+            options,
+            fill,
+            placeholder,
+            className,
+          }) => {
             return (
               <Input
                 onChange={(e) => handleInputChange(e)}
@@ -37,9 +46,10 @@ export const Form = ({
                 name={name}
                 fill={fill}
                 options={options}
-                id={name}
+                id={id ? id : name}
                 errors={errors}
                 required={required}
+                className={className}
               />
             );
           },

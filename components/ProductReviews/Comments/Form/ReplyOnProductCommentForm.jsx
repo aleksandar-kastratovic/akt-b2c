@@ -61,7 +61,7 @@ const ReplyOnProductCommentForm = ({ id, setActiveReply, activeReply }) => {
       {
         onSuccess: () => resetForm(),
         onError: () => resetForm(),
-      }
+      },
     );
   };
 
@@ -81,7 +81,7 @@ const ReplyOnProductCommentForm = ({ id, setActiveReply, activeReply }) => {
         errors={errors}
         isPending={isPending}
         handleInputChange={handleInputChange}
-        button_text="Submit Reply"
+        button_text="Pošalji odgovor"
         className=""
         buttonClassName="mt-3 !w-[180px] uppercase"
       />

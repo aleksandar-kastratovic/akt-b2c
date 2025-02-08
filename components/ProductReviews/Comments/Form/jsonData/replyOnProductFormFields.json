@@ -3,7 +3,7 @@
       "id": "nameID",
       "name": "name",
       "type": "text",
-      "placeholder": "Your Name",
+      "placeholder": "Ime",
       "required": true,
       "className": "md:col-span-1"
     },
@@ -11,7 +11,7 @@
       "id": "emailID",
       "name": "email",
       "type": "email",
-      "placeholder": "Your Email",
+      "placeholder": "Email",
       "required": true,
       "className": "md:col-span-1"
     },
@@ -19,7 +19,7 @@
       "id": "commentID",
       "name": "comment",
       "type": "textarea",
-      "placeholder": "Write your reply...",
+      "placeholder": "Napišite odgovor...",
       "required": true
     }
   ]

@@ -3,7 +3,7 @@
     "id": "nameID",
     "name": "name",
     "type": "text",
-    "placeholder": "Your Name",
+    "placeholder": "Ime",
     "required": true,
     "className": "md:col-span-1"
   },
@@ -11,16 +11,9 @@
     "id": "emailID",
     "name": "email",
     "type": "email",
-    "placeholder": "Your Email",
+    "placeholder": "Email",
     "required": true,
     "className": "md:col-span-1"
-  },
-  {
-    "id": "is_anonymousID",
-    "name": "is_anonymous",
-    "type": "checkbox",
-    "placeholder": "I want to be anonymous",
-    "required": false
   },
   {
     "id": "ratingID",
@@ -34,23 +27,30 @@
     "id": "messageID",
     "name": "message",
     "type": "textarea",
-    "placeholder": "Your message",
+    "placeholder": "Poruka",
     "required": true
   },
-
   {
-    "id": "imageID",
+    "id": "mark_is_anonymousID",
+    "name": "is_anonymous",
+    "type": "checkbox",
+    "placeholder": "Želim da budem anoniman",
+    "required": false,
+    "className": "col-span-full"
+  },
+  {
+    "id": "mark_imageID",
     "name": "mark_images",
     "type": "file",
-    "placeholder": "Upload an image",
+    "placeholder": "Postavi sliku",
     "required": false,
     "className": "md:col-span-1"
   },
   {
-    "id": "videoID",
+    "id": "mark_videoID",
     "name": "mark_videos",
     "type": "file",
-    "placeholder": "Upload a video",
+    "placeholder": "Postavi video",
     "required": false,
     "className": "md:col-span-1"
   }

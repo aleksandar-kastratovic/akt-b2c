@@ -41,7 +41,7 @@ const DisplayProductComments = ({ id_product }) => {
             field: `${sort.field ? sort.field : ""}`,
             direction: `${sort.direction ? sort.direction : ""}`,
           },
-        }
+        },
       );
 
       return response?.payload;
@@ -65,7 +65,7 @@ const DisplayProductComments = ({ id_product }) => {
   // Fetch replies for a specific review
   const fetchReplies = async (productID, commentID, page) => {
     const response = await LIST(
-      `product-details/reviews/comments/${productID}/${commentID}/replies?page=${page}`
+      `product-details/reviews/comments/${productID}/${commentID}/replies?page=${page}`,
     );
     return response?.payload || [];
   };
@@ -79,7 +79,7 @@ const DisplayProductComments = ({ id_product }) => {
           reviews.items.length > 0 &&
           reviews.items.map((review) => {
             const currentReply = activeReplies.find(
-              (reply) => reply.id === review.id
+              (reply) => reply.id === review.id,
             );
             const medias = getMediaList(review);
 
@@ -144,7 +144,7 @@ const DisplayProductComments = ({ id_product }) => {
   return (
     <div className="max-md:w-[95%] max-md:mx-auto mx-[3rem] mt-12">
       <h2 className="text-[1.5rem] font-bold max-md:text-[1.1rem] mb-4">
-        Comments
+        Komentari
       </h2>
       <div className="w-full grid grid-cols-1 gap-6">
         <div>

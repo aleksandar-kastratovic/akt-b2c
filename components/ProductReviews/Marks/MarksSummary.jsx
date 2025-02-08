@@ -92,7 +92,7 @@ const MarksSummary = ({ id_product, marksOptions }) => {
             mark={reviewsData.averageMark}
             marksOptions={marksOptions}
           />
-          <p className="text-sm text-gray-500">{`(${reviewsData.totalReviews} Ratings)`}</p>
+          <p className="text-sm text-gray-500">{`(${reviewsData.totalReviews} Ocene)`}</p>
         </div>
       </div>
       <div className="mt-2">

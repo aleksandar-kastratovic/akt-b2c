@@ -22,7 +22,7 @@ const ReviewsImageGallery = ({ api }) => {
 
   return (
     <div className="relative mb-8">
-      <h2 className="text-lg font-bold mb-4">All Image ({items.length})</h2>
+      <h2 className="text-lg font-bold mb-4">Sve slike ({items.length})</h2>
       <Swiper
         modules={[Navigation]}
         navigation

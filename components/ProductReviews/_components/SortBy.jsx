@@ -14,14 +14,14 @@ const SortBy = ({
   handleSortChange,
   sort,
   sortOptions = [
-    { label: "Latest", value: "new", direction: "desc" },
-    { label: "Oldest", value: "old", direction: "asc" },
+    { label: "Novo", value: "new", direction: "desc" },
+    { label: "Staro", value: "old", direction: "asc" },
   ],
 }) => {
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-[auto_1fr] md:items-center">
       <span className="text-sm font-semibold text-gray-700 hidden md:block mr-4">
-        Sort By
+        Sortiraj po
       </span>
 
       {/* Select element for mobile */}

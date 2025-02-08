@@ -94,7 +94,7 @@ const DisplayReplies = ({
                     setActiveReplies(updatedActiveReplies);
                   }}
                 >
-                  Load more replies
+                  Učitaj više odgovora
                 </button>
               </div>
             )}

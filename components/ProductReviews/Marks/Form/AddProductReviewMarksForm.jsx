@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Form } from "@/_components/shared/form/form";
 import { useAddReviewMark } from "@/hooks/productReviews.hooks";
 import { convertFileToBase64 } from "@/helpers/convertFileToBase64";
-import formFields from "./jsonData/addProductReviewFormFields";
+import formFields from "./jsonData/addProductReviewFormFields.json";
 
 /**
  * Component for submitting a product review with a rating, comment, and optional media files.
@@ -40,6 +40,7 @@ const AddProductReviewMarksForm = ({ id_product, marksOptions }) => {
   // Validate form inputs
   const validateForm = () => {
     const newErrors = [];
+
     if (!formData.name) newErrors.push("name");
     if (!formData.email) newErrors.push("email");
     if (!formData.message) {
@@ -96,7 +97,7 @@ const AddProductReviewMarksForm = ({ id_product, marksOptions }) => {
   return (
     <div className="max-md:mt-[1.01rem] mt-[3rem] max-md:w-[95%] max-md:mx-auto mx-[3rem]">
       <h2 className="text-[1.5rem] font-bold max-md:text-[1.1rem] mb-4">
-        Leave a mark
+        Ostavite ocenu
       </h2>
 
       <Form
@@ -108,9 +109,9 @@ const AddProductReviewMarksForm = ({ id_product, marksOptions }) => {
         errors={errors}
         isPending={isPending}
         handleInputChange={handleInputChange}
-        button_text="Submit mark"
-        className="py-4"
-        buttonClassName="mt-0 !w-[180px] uppercase"
+        button_text="Pošalji ocenu"
+        className={`grid grid-cols-2 gap-x-5`}
+        buttonClassName="mt-0 !w-[186px] uppercase"
       />
     </div>
   );
