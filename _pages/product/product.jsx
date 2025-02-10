@@ -1,4 +1,4 @@
-import { get } from "@/api/api";
+import { get } from "@/app/api/api";
 import { Suspense } from "react";
 import Loader from "@/components/Loader";
 import { headers } from "next/headers";

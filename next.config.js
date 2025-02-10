@@ -252,29 +252,25 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/comodo-a",
-        destination:
-          "/spavaca-soba/jastuci/antialergijski-jastuci",
+        destination: "/spavaca-soba/jastuci/antialergijski-jastuci",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-s",
-        destination:
-          "/spavaca-soba/jastuci/jastuci-podesive-visine-comodo-s",
+        destination: "/spavaca-soba/jastuci/jastuci-podesive-visine-comodo-s",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-s-putni-jastuci",
-        destination:
-          "/spavaca-soba/jastuci/jastuk-za-putovanje-comodo-s",
+        destination: "/spavaca-soba/jastuci/jastuk-za-putovanje-comodo-s",
         permanent: true,
         statusCode: 301,
       },
       {
         source: "/spavaca-soba/jastuci/comodo-h",
-        destination:
-          "/spavaca-soba/jastuci/heljda-jastuci-za-spavanje",
+        destination: "/spavaca-soba/jastuci/heljda-jastuci-za-spavanje",
         permanent: true,
         statusCode: 301,
       },
@@ -2996,8 +2992,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
@@ -3016,8 +3011,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1292",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1292",
         permanent: true,
         statusCode: 301,
       },
@@ -3036,8 +3030,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1290",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
         permanent: true,
         statusCode: 301,
       },
@@ -3049,8 +3042,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1290",
         permanent: true,
         statusCode: 301,
       },
@@ -4904,8 +4896,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
@@ -4924,8 +4915,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1315",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1315",
         permanent: true,
         statusCode: 301,
       },
@@ -4944,8 +4934,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
@@ -4964,8 +4953,7 @@ const nextConfig = {
       },
       {
         source: "/spavaca-soba/jastuci/dekorativni/dekorativni-jastuk-1313",
-        destination:
-          "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
+        destination: "/spavaca-soba/jastuci/dekorativni-jastuk-1313",
         permanent: true,
         statusCode: 301,
       },
@@ -6606,6 +6594,14 @@ const nextConfig = {
           "/spavaca-soba/posteljni-delovi-za-tvoju-omiljenu-kombinaciju/jastucnice/jastucnica-damast-mint-50x70",
         permanent: true,
         statusCode: 301,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/robots.txt",
+        destination: "/api/robots",
       },
     ];
   },

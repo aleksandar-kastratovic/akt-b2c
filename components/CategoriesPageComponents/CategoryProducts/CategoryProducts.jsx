@@ -30,7 +30,7 @@ export const CategoryProducts = ({
   const elementRef = useRef(null);
 
   const [page, setPage] = useState(pageKey ?? 1);
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(12);
   const [sort, setSort] = useState({
     field: sortField ?? "",
     direction: sortDirection ?? "",
