@@ -64,22 +64,19 @@ export async function GET(req) {
     // Formiranje putanje do traženog fajla u `/tmp` direktorijumu
     const filePath = path.join("/tmp", slug);
 
-    console.log("***filePath",filePath)
-
-    console.log("***fs.existsSync(filePath)",fs.existsSync(filePath))
-
     // Ako fajl postoji u `/tmp`
     if (fs.existsSync(filePath)) {
       return readSitemapAndCreateResponse(filePath);
     } else {
-
-      console.log("***fs.readdirSync(`/tmp`)",fs.readdirSync("/tmp"))
+      const tmpFiles = fs.readdirSync("/tmp");
+      const sitemapFiles = tmpFiles.filter((file) => file.endsWith(".xml"));
 
       /**
-       * filePath u `/tmp` direktorijumu ne postoji ali postoji sitemap direktorijum.
-       * To znaci da je sitemap generisan ali je trazeni slug pogresan. Zato treba izbaciti gresku i prekinuti dalje izvrsavanje koda
+       * `filePath` u `/tmp` direktorijumu ne postoji, ali postoji bar jedan sitemap fajl (.xml).
+       * To znači da su sitemap fajlovi generisani, ali traženi `slug` ne odgovara nijednom od njih.
+       * Zbog toga se vraća greška 404 i prekida dalje izvršavanje koda.
        */
-      if (fs.readdirSync("/tmp").length > 0) {
+      if (sitemapFiles.length > 0) {
         console.warn(`Requested sitemap not found: ${slug}`);
         return createResponse("Sitemap not found.", 404);
       }
