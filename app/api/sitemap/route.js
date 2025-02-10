@@ -15,7 +15,7 @@ import { list } from "@/app/api/api";
 function createResponse(
   message,
   status,
-  headers = { "Content-Type": "application/json" }
+  headers = { "Content-Type": "application/json" },
 ) {
   const body =
     headers["Content-Type"] === "application/json"
