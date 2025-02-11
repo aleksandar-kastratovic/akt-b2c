@@ -32,6 +32,7 @@ function createResponse(
  * @returns {Response} - HTTP odgovor sa sitemap sadržajem u XML formatu.
  */
 const readSitemapAndCreateResponse = (filePath) => {
+  console.log("USAO u readSitemapAndCreateResponse", filePath);
   const sitemap = fs.readFileSync(filePath, "utf-8");
   return createResponse(sitemap, 200, {
     "Content-Type": "application/xml",
@@ -63,14 +64,17 @@ export async function GET(req) {
   try {
     // Formiranje putanje do traženog fajla u `/tmp` direktorijumu
     const filePath = path.join("/tmp", slug);
-console.log("_ filePath _",filePath)
+    console.log("_ filePath:", filePath);
+    console.log("fs.existsSync(filePath):", fs.existsSync(filePath));
+
     // Ako fajl postoji u `/tmp`
     if (fs.existsSync(filePath)) {
       return readSitemapAndCreateResponse(filePath);
     } else {
       const tmpFiles = fs.readdirSync("/tmp");
+      console.log("_ tmpFiles:", tmpFiles);
       const sitemapFiles = tmpFiles.filter((file) => file.includes("sitemap"));
-
+      console.log("_ sitemapFiles:", sitemapFiles);
       /**
        * `filePath` u `/tmp` direktorijumu ne postoji, ali postoji bar jedan sitemap fajl (.xml).
        * To znači da su sitemap fajlovi generisani, ali traženi `slug` ne odgovara nijednom od njih.
