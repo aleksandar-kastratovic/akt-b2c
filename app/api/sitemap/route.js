@@ -63,13 +63,13 @@ export async function GET(req) {
   try {
     // Formiranje putanje do traženog fajla u `/tmp` direktorijumu
     const filePath = path.join("/tmp", slug);
-
+console.log("_ filePath _",filePath)
     // Ako fajl postoji u `/tmp`
     if (fs.existsSync(filePath)) {
       return readSitemapAndCreateResponse(filePath);
     } else {
       const tmpFiles = fs.readdirSync("/tmp");
-      const sitemapFiles = tmpFiles.filter((file) => file.endsWith(".xml"));
+      const sitemapFiles = tmpFiles.filter((file) => file.includes("sitemap"));
 
       /**
        * `filePath` u `/tmp` direktorijumu ne postoji, ali postoji bar jedan sitemap fajl (.xml).
