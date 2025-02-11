@@ -1,12 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  useAddToCart,
-  useDebounce,
-  useRemoveFromCart,
-  useUpdateCartQuantity,
-} from "@/hooks/akt.hooks";
+import { useRemoveFromCart, useUpdateCartQuantity } from "@/hooks/akt.hooks";
 import { useEffect, useState } from "react";
 import { currencyFormat } from "@/helpers/functions";
 import PlusMinusInput from "@/components/PlusMinusInputOne";
@@ -21,7 +16,6 @@ const CheckoutItems = ({
   slug_path,
   inventory,
   className,
-  key,
   refreshCart,
   quantity,
   refreshSummary,
@@ -37,8 +31,6 @@ const CheckoutItems = ({
     setProductQuantity(Number(quantity));
   }, [quantity]);
 
-  const debounceQuantity = useDebounce(productQuantity, 500);
-
   useEffect(() => {
     if (isUpdated || isRemoved) {
       refreshCart();
@@ -50,7 +42,7 @@ const CheckoutItems = ({
 
   return (
     <>
-      <div key={key} className={`relative grid grid-cols-4 gap-5`}>
+      <div className={`relative grid grid-cols-4 gap-5`}>
         <i
           className={`fas fa-times absolute right-2 top-2 cursor-pointer ${
             isClosed && !inventory?.inventory_defined && "text-white"
@@ -73,11 +65,10 @@ const CheckoutItems = ({
           className={`col-span-3 mb-auto ml-[0rem] flex flex-col items-start gap-2`}
         >
           <h4
-          className={`${className} mt-2 break-words text-left text-[1.1rem] font-normal max-w-[200px] md:max-w-[250px] lg:max-w-[270px] 2xl:max-w-[350px]`}
-        >
-          {name}
-        </h4>
-
+            className={`${className} mt-2 break-words text-left text-[1.1rem] font-normal max-w-[200px] md:max-w-[250px] lg:max-w-[270px] 2xl:max-w-[350px]`}
+          >
+            {name}
+          </h4>
 
           <div className={`flex items-center`}>
             <span className={`${className} text-[0.9rem]`}>Količina:</span>{" "}

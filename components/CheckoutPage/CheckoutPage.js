@@ -1,7 +1,7 @@
 "use client";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { CheckoutData } from "../Cart/CheckoutData";
-import { useCart, useForm, useSummary } from "@/hooks/akt.hooks";
+import { useCart, useSummary } from "@/hooks/akt.hooks";
 import { CartWrapper } from "@/components/Cart/cart-wrapper";
 import { CartLoader } from "@/components/Cart/cart-loader";
 import { CartNoItems } from "@/components/Cart/cart-no-items";
@@ -11,11 +11,9 @@ export const CheckoutPage = ({
   payment_options,
   delivery_options,
   recommendedProducts,
-  countries,
   className,
 }) => {
   const [token, setToken] = useState();
-  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
   const verifyCaptcha = useCallback((token) => {
     setToken(token);
@@ -88,9 +86,7 @@ export const CheckoutPage = ({
 
   const renderCart = () => {
     switch (true) {
-      case isFetching:
-        return <CartLoader />;
-      case items?.items?.length > 0 && !isFetching:
+      case items?.items?.length > 0:
         return (
           <CartWrapper
             data={data}
